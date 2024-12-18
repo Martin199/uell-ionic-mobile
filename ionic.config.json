@@ -1,0 +1,7 @@
+{
+  "name": "uell-ionic-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
