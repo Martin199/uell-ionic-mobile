@@ -1,0 +1,25 @@
+.content {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos estén en una columna */
+  justify-content: center; /* Centra todo verticalmente */
+  align-items: center; /* Centra todo horizontalmente */
+  height: 100%; /* Ocupa toda la altura del ion-content */
+}
+
+.content-logo {
+  display: flex; /* Flexbox para centrar */
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: center; /* Centra la imagen verticalmente */
+  width: 40%; /* Ajusta el tamaño del contenedor de la imagen */
+}
+
+.content-logo ion-img {
+  max-width: 100%; /* Asegura que la imagen no exceda el tamaño del contenedor */
+  max-height: 100%; /* Mantiene las proporciones dentro del contenedor */
+  object-fit: contain; /* Ajusta la imagen dentro del espacio disponible */
+}
+
+form{
+  width: 100%;
+  padding: 0px 20px;
+}

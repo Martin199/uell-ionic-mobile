@@ -1,0 +1,26 @@
+<app-header></app-header>
+<ion-content>
+  <form [formGroup]="formAuth" class="form-container">
+    <!-- Usuario -->
+    <div #userContainer>
+      <app-custom-input
+        icon="person-outline"
+        [control]="formAuth.controls.cuil"
+        label="Usuario">
+      </app-custom-input>
+    </div>
+
+    <!-- Contraseña -->
+    <div #passwordContainer>
+      <app-custom-input
+        icon="lock-closed-outline"
+        [control]="formAuth.controls.password"
+        type="password"
+        label="Contraseña">
+      </app-custom-input>
+      <ion-text color="primary" class="forgot-password">¿Olvidaste tu contraseña?</ion-text>
+    </div>
+
+
+  </form>
+</ion-content>
