@@ -1,7 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { AnimationController } from '@ionic/angular';
+import { CognitoService } from 'src/app/core/services/cognito.service';
+import { UserService } from 'src/app/services/user.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -25,17 +29,59 @@ export class AuthPage implements OnInit {
   @ViewChild('buttonContainer', { static: true }) buttonContainer!: ElementRef;
 
   formAuth = new FormGroup({
-    cuil: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    cuil: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
   })
 
-  constructor(private animationCtrl: AnimationController) { }
+  animationCtrl = inject(AnimationController)
+  cognitoService = inject(CognitoService)
+  userService = inject(UserService)
+  utilsService = inject(UtilsService);
+  storageService = inject(StorageService);
 
-  ngOnInit() {
-  }
+  constructor() { }
+
+  ngOnInit() {}
 
   ngAfterViewInit() {
     this.animateElements();
+  }
+
+
+  async submit(){
+    console.log(this.formAuth.value)
+    if (this.formAuth.invalid) {
+      console.log('Formulario inválido');
+      return;
+    }
+  
+    const { cuil, password } = this.formAuth.value;
+    const loading = await this.utilsService.loading();
+    await loading.present();
+    try {
+      const result = await this.cognitoService.signIn(cuil as string, password as string);
+      console.log('Inicio de sesión exitoso:', result);
+      if (result) {
+        this.userService.getMe().subscribe((user) => {
+          console.log('Usuario:', user);
+          this.storageService.setSessionStorage('user', user);
+          loading.dismiss();
+          this.utilsService.router.navigate(['/auth/select-tenants']);
+        });
+
+        this.userService.getUserTenants().subscribe((user) => {
+          console.log('getUserTenants:', user);
+        });
+
+        this.userService.getAllSegmentation().subscribe((user) => {
+          console.log('getAllSegmentation:', user);
+        });
+      }
+      // Redirige al usuario a la página principal o realiza otras acciones
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      // Muestra un mensaje de error al usuario
+    }
   }
 
   animateElements() {

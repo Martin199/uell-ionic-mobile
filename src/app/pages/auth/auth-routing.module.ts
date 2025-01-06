@@ -7,14 +7,24 @@ const routes: Routes = [
   {
     path: '',
     component: AuthPage
-  },  {
+  },
+  {
     path: 'sign-up',
     loadChildren: () => import('./sign-up/sign-up.module').then( m => m.SignUpPageModule)
   },
   {
     path: 'recovery-password',
     loadChildren: () => import('./recovery-password/recovery-password.module').then( m => m.RecoveryPasswordPageModule)
-  }
+  },
+  {
+    path: 'select-tenants',
+    loadChildren: () => import('./select-tenants/select-tenants.module').then( m => m.SelectTenantsPageModule)
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./../tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+
 
 ];
 

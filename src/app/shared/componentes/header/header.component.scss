@@ -2,3 +2,47 @@
     --background: var(--Gradient-Uell-Blue, linear-gradient(90deg, #1DA4B1 0%, #0077B3 125%));
     --background-size: cover;
 }
+
+ion-img{
+    width: 61px;
+    height: 32px;
+}
+.container {
+    display: flex;
+    align-items: center; /* Centra los elementos verticalmente */
+    justify-content: space-between; /* Espaciado entre columnas y la imagen */
+}
+
+.d-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 16px;
+}
+
+.d-flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.name-user{
+    color: #FFF;
+    text-align: right;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.016px;
+}
+
+.role{
+    color: #FFF;
+    text-align: right;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.04px;
+}

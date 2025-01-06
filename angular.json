@@ -19,6 +19,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "isomorphic-unfetch",
+              "@aws-crypto/sha256-js",
+              "buffer",
+              "js-cookie"
+            ],
             "assets": [
               {
                 "glob": "**/*",

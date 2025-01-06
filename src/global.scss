@@ -32,6 +32,13 @@ ion-button {
     text-transform: none;
 }
 
+.example-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
 // safe padding for ios
 .safe-p-bottom {
     padding-bottom: constant(safe-area-inset-bottom); // for ios 13+
@@ -63,26 +70,54 @@ ion-button {
     --border-radius: 15px;
     --border-style: solid;
     --border-width: 1px;
-    margin: 20px 0;
+    margin-bottom: 20px;
+    margin-top: 4px;
     transition: all 0.3s ease-in-out;
-
-    ion-label {
-        position: relative;
-        bottom: 2px;
+  
+    ion-select {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--Neutral-GreyDark, #383E52);
+      padding: 0;
+      margin: 0;
+      --padding-start: 0;
+      --padding-end: 0;
     }
-
-    .eye-icon {
-        position: relative;
-        top: 13px;
+  
+    ion-select::part(text) {
+      color: var(--Neutral-GreyDark, #383E52);
+      padding-left: 0;
+      font-size: 14px;
     }
-}
-
+  
+    ion-select-placeholder {
+      color: #b0b0b0;
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
+  
 
 ion-item.custom-input:hover,
 ion-item.custom-input:focus-within {
     --border-color: #1DA4B1;
 }
 
+
+.submit-btn {
+    --padding-start: 20px; /* Aumenta el padding izquierdo */
+    --padding-end: 20px;   /* Aumenta el padding derecho */
+    --padding-top: 15px;   /* Aumenta el padding superior */
+    --padding-bottom: 15px; /* Aumenta el padding inferior */
+    --background: #1da4b1; /* Color de fondo (azul predeterminado de Ionic) */
+    --background-hover: #4c8dff; /* Color de fondo al pasar el mouse */
+    --background-activated: #3366cc; /* Color de fondo al hacer clic */
+    --color: #ffffff; /* Color del texto */
+    border-radius: 100px; /* Bordes redondeados */
+    font-weight: bold; /* Negrita para el texto */
+    text-transform: uppercase; /* Texto en mayúsculas */
+  }
 
 
 .validators {

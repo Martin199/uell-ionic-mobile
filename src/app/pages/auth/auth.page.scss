@@ -23,3 +23,50 @@ form{
   width: 100%;
   padding: 0px 20px;
 }
+
+.d-flex-center-login
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}	
+
+
+.t{
+  color: var(--Neutral-GreyDark, #383E52);
+
+font-family: 'Inter', sans-serif;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; /* 133.333% */
+letter-spacing: 0.048px;
+}
+
+
+.forgot-password{
+  color: #1da4b1 !important;
+  text-decoration: none;
+  font-weight: 600 !important;
+  line-height: 1.5rem !important;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  margin-top: 6rem;
+}
+
+.title{
+  color: var(--Neutral-GreyVeryDark, #212532);
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 133.333% */
+  margin-bottom: 2rem;
+}
+
+.logo{
+  margin-top: 6rem;
+}
