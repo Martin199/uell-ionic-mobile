@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
-import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {
@@ -10,21 +9,32 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'home',
-        component: HomeComponent
+        path: 'nutrition',
+        loadChildren: () => import('./components/nutrition/nutrition.module').then( m => m.NutritionPageModule)
+      },
+      {
+        path: 'psychosocial-health',
+        loadChildren: () => import('./components/psychosocial-health/psychosocial-health.module').then( m => m.PsychosocialHealthPageModule)
       },
       {
         path: 'profile',
-        loadComponent: () => import('./components/profile/profile.component').then((m) => m.ProfileComponent),
+        loadChildren: () => import('./components/profile/profile.module').then( m => m.ProfilePageModule)
       },
- 
+      {
+        path: 'home',
+        loadChildren: () => import('./components/home/home.module').then( m => m.HomePageModule)
+      },
       {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
       }
      ]
-  }
+  },
+
+
+
+
 ];
 
 @NgModule({

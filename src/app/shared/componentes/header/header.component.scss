@@ -23,6 +23,8 @@ ion-img{
 .d-flex-column{
     display: flex;
     flex-direction: column;
+    margin-right: 16px;
+
 }
 
 .name-user{
@@ -34,6 +36,7 @@ ion-img{
     font-weight: 600;
     line-height: 16px;
     letter-spacing: 0.016px;
+
 }
 
 .role{

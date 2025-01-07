@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TabsPageRoutingModule } from './tabs-routing.module';
+import { PsychosocialHealthPageRoutingModule } from './psychosocial-health-routing.module';
 
-import { TabsPage } from './tabs.page';
+import { PsychosocialHealthPage } from './psychosocial-health.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    TabsPageRoutingModule,
+    PsychosocialHealthPageRoutingModule,
     SharedModule
   ],
-  declarations: [TabsPage],
+  declarations: [PsychosocialHealthPage]
 })
-export class TabsPageModule {}
+export class PsychosocialHealthPageModule {}

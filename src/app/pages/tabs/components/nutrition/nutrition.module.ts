@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TabsPageRoutingModule } from './tabs-routing.module';
+import { NutritionPageRoutingModule } from './nutrition-routing.module';
 
-import { TabsPage } from './tabs.page';
+import { NutritionPage } from './nutrition.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    TabsPageRoutingModule,
+    NutritionPageRoutingModule,
     SharedModule
   ],
-  declarations: [TabsPage],
+  declarations: [NutritionPage]
 })
-export class TabsPageModule {}
+export class NutritionPageModule {}
