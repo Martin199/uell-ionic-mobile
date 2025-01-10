@@ -1,0 +1,57 @@
+<ion-header mode="md" class="ion-no-border ion-padding">
+  <ion-toolbar>
+    <ion-title class="header-label ion-no-padding"> ¡Hola, {{userName}}! </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" src="assets/imgs/icon-close.svg"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label class="header-label header-label--title">¿Qué sentís hoy?</ion-label>
+  </ion-toolbar>
+</ion-header>
+<div class="slide-container">
+  <div >
+    <swiper-container #swiper
+        class="swiper"
+        initial-slide = "2"
+        slides-per-view ="5"
+        centered-slides ="true"
+        (swiper.slideChange)="onSlideChange($event)"
+        [config]="swiper"
+        *ngIf="emojiList.length > 0"
+    >
+      <swiper-slide swiperSlide *ngFor="let emoji of emojiList; let i = index">
+        <div
+          (click)="onClick(i)"
+          [ngClass]="{
+            'disabled-slide': isSlideDisabled(emoji),
+            'slide-card': emoji.id === indexSwiper
+          }"
+        >
+          <img
+            [ngClass]="{ 'slide-card__gif': emoji.id === indexSwiper }"
+            [src]="emoji.id === indexSwiper ? emoji.urlGif : emoji.urlSvg"
+            alt=""
+          />
+          <p class="slide-card__label" [ngClass]="{ 'slide-card__label--active': emoji.id === indexSwiper }">
+            {{ emoji.label | titlecase }}
+          </p>
+        </div>
+      </swiper-slide>
+  </swiper-container>
+  
+  <div class="pagination">
+    <ion-icon
+      class="pagination__icon ion-no-margin ion-no-padding"
+      [ngClass]="{ 'pagination__icon--selected': paginationBulletValue[indexPagination] === value }"
+      *ngFor="let value of paginationBulletValue"
+      src="assets/Ellipse-alegre.svg"
+      (click)="onClick(value)"
+    ></ion-icon>
+  </div>
+  
+  </div>
+</div>
+<div class="modal-button">
+  <ion-button [disabled]="loadEmoji" class="save-button" fill="solid" shape="round" (click)="saveEmotion()" > Guardar </ion-button>
+</div>
