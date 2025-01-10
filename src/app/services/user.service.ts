@@ -38,4 +38,9 @@ export class UserService {
   getAllSegmentation(){
     return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/getallsegmentation`);
   }
+
+  postEmotional(userid: any, emotionId: number) {
+    const url =`${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/${userid}`
+    return this.http.post(url, {emotionId: emotionId});
+  }
 }
