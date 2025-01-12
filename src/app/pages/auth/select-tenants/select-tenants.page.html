@@ -1,4 +1,12 @@
 <ion-content>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>      
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
   <div class="d-flex-center-login">
     <form [formGroup]="formSelectTenant" (ngSubmit)="submit()" (keypress.enter)="submit">
       <div class="logo">
@@ -29,7 +37,7 @@
       </ion-item>
 
       <ion-button expand="block" shape="round" type="submit" class="submit-btn submit" [disabled]="formSelectTenant.invalid">
-        siguiente 
+        Siguiente 
       </ion-button>
 
     </form>

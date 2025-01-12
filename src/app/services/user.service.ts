@@ -38,4 +38,16 @@ export class UserService {
   getAllSegmentation(){
     return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/getallsegmentation`);
   }
+
+  getTenantParameters() {
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`);
+  }
+
+  termsAndConditions(userId: number) {
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/roles/USER/terms-and-conditions`);
+  }
+
+  postTermsAndConditions(userId: number) {
+    return this.http.post(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/roles/USER/terms-and-conditions`,{});
+  }
 }

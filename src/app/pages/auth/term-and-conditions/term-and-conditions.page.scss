@@ -1,0 +1,45 @@
+.logo {
+    margin-top: 5rem;
+}
+
+.content {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.flex-checked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.full-width-checkbox {
+    max-width: 400px;
+    margin: 0.5rem 0;
+}
+
+.checkbox-text{
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: 0.035px;
+}
+
+.link{
+    color: var(--Primary-Uell, #1DA4B1);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.014px;
+}
+
+
+
