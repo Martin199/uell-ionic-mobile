@@ -121,7 +121,7 @@
     display: flex;
     align-items: center;
   }
- :host ::ng-deep .swiper-wrapper .custom-swiper-wrapper{
-    display: flex !important;
-    align-items: center !important;
-  }
+//  :host ::ng-deep .swiper-wrapper .custom-swiper-wrapper{
+//     place-items: center;
+//   }
+

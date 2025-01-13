@@ -1,11 +1,13 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import Swiper from 'swiper';
 import { map } from 'rxjs/operators';
 import { ModalController } from '@ionic/angular';
 import { SwiperOptions } from 'swiper/types/swiper-options';
 import { register } from 'swiper/element/bundle';
 import { UserService } from 'src/app/services/user.service';
-
+import { emojiList } from './constants/emojiList';
+import { ContentEmotional, Emoji, EmotionalResponse } from '../../interface/emotional-interfaces';
+ 
 register();
 
 @Component({
@@ -20,26 +22,17 @@ export class EmotionalModalComponent implements OnDestroy, AfterViewInit {
   @Input() userName!: string;
   @Input() userId!: number;
 
-  public emojiList = [
-    { id: 0, urlSvg: 'assets/emotional-icons/optimismo.svg', urlGif: 'assets/emotional-icons/optimismo.gif', label: 'optimismo' },
-    { id: 1, urlSvg: 'assets/emotional-icons/confianza.svg', urlGif: 'assets/emotional-icons/confianza.gif', label: 'confianza' },
-    { id: 2, urlSvg: 'assets/emotional-icons/felicidad.svg', urlGif: 'assets/emotional-icons/felicidad.gif', label: 'felicidad' },
-    { id: 3, urlSvg: 'assets/emotional-icons/enojo.svg', urlGif: 'assets/emotional-icons/enojo.gif', label: 'enojo' },
-    { id: 4, urlSvg: 'assets/emotional-icons/tristeza.svg', urlGif: 'assets/emotional-icons/tristeza.gif', label: 'tristeza' },
-    { id: 5, urlSvg: 'assets/emotional-icons/disgusto.svg', urlGif: 'assets/emotional-icons/disgusto.gif', label: 'disgusto' },
-  ];
-  paginationBulletValue = [0,1,2,3,4,5]
-  indexPagination = 2;
-  indexPaginationValue = 5;
-  public indexSwiper = 2;
-  public animationSwiperNext = false;
-  public animationSwiperPrev = false;
-  public loadEmoji = false;
-  firstSlide = false;
-  private observer!: MutationObserver;
-  private isManualChange = false;
+  emojiList= emojiList;
+  paginationBulletValue : number[] = [0,1,2,3,4,5]
+  indexPagination : number = 2;
+  indexPaginationValue : number = 5;
+  indexSwiper : number = 2;
+  loadEmoji : boolean = false;
+  observer!: MutationObserver;
+  isManualChange : boolean = false;
 
   slideOptions: SwiperOptions = {
+
     initialSlide: this.indexSwiper,
     slidesPerView: 5,
     centeredSlides: true,
@@ -51,18 +44,22 @@ export class EmotionalModalComponent implements OnDestroy, AfterViewInit {
     },
     navigation: true,
     on: {
+      init: (swiper) => {
+        swiper.wrapperEl.style.alignItems = 'center';
+      },
       slideChange: () => {
         this.indexSwiper = this.swiper.realIndex;
         this.indexPagination = this.swiper.realIndex;
       },
     },
   };
+  
+  modalCtrl = inject(ModalController)
+  userService = inject (UserService)
 
-  constructor( private modalCtrl: ModalController,
-                private userService: UserService
-  ) {}
+  constructor() {}
 
-  isSlideDisabled(emoji: any): boolean {
+  isSlideDisabled(emoji: Emoji): boolean {
     return emoji.id !== this.indexSwiper;
   }
 
@@ -70,10 +67,10 @@ export class EmotionalModalComponent implements OnDestroy, AfterViewInit {
     return this.indexPagination = this.paginationBulletValue.indexOf(value);
   }
 
-  onSlideChange(event: any) {
-      const swiperInstance = event.target.swiper; // Obtén la instancia del Swiper
-      this.indexSwiper = swiperInstance.realIndex; // Actualiza el índice del slide activo
-      this.indexPagination = swiperInstance.realIndex; // Sincroniza con la paginación, si es necesario
+  onSlideChange(event: Event) {
+      const swiperInstance = (event.target as any).swiper as Swiper;
+      this.indexSwiper = swiperInstance.realIndex; 
+      this.indexPagination = swiperInstance.realIndex;
   }
 
   ngAfterViewInit(): void {
@@ -113,7 +110,6 @@ export class EmotionalModalComponent implements OnDestroy, AfterViewInit {
   }
 
   async onClick(index: number) {
-
     this.isManualChange = true;
     this.indexSwiper = index;
     this.indexPagination = index;
@@ -121,17 +117,16 @@ export class EmotionalModalComponent implements OnDestroy, AfterViewInit {
     const swiperInstance = swiperContainer?.swiper; 
     if (swiperInstance) {
       swiperInstance.slideTo(this.indexSwiper);
-    }
-    
+    }    
   }
 
   saveEmotion() {
     this.loadEmoji = true;
     this.userService
       .postEmotional(this.userId, this.indexSwiper + 1)
-      .pipe(map((res: any) => res.content))
+      .pipe(map((res: EmotionalResponse) => res.content))
       .subscribe(
-        (res: any) => {
+        (res: ContentEmotional) => {
           localStorage.setItem('emojiData', JSON.stringify(res));
           this.loadEmoji = false;
           this.modalCtrl.dismiss({ emojiData: res });
@@ -146,29 +141,5 @@ export class EmotionalModalComponent implements OnDestroy, AfterViewInit {
     this.modalCtrl.dismiss();
   }
 
-  
-  ionSlideNextStart(event: any){
-    if (this.firstSlide)
-      event.target.swiper.slideNext();
-    this.animationSwiperNext = true;
-    this.indexSwiper = event.target.swiper.realIndex;
-    this.indexPagination = event.target.swiper.realIndex;
-  }
-
-  ionSlideNextEnd(event: any){
-    this.animationSwiperNext = false;
-    this.firstSlide = true;
-  }
-
-  ionSlidePrevStart(event: any){
-    event.target.swiper.slidePrev();
-    this.animationSwiperPrev = true;
-    this.indexSwiper = event.target.swiper.realIndex;
-    this.indexPagination = event.target.swiper.realIndex;
-  }
-
-  ionSlidePrevEnd(event: any){
-    this.animationSwiperPrev = false;
-  }
 }
 

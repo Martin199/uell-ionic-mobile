@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 import { EmotionalModalComponent } from 'src/app/shared/componentes/emotional-modal/emotional-modal.component';
+import { User } from '../../interfaces/user-interfaces';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { EmotionalModalComponent } from 'src/app/shared/componentes/emotional-mo
 })
 export class HomePage implements OnInit {
 
-  user: any;
+  user!: User;
 
   storageService = inject(StorageService);
   modalCtrl = inject(ModalController)
@@ -22,7 +23,10 @@ export class HomePage implements OnInit {
   }
 
   async presentEmotionalModal() {
-    this.user = this.storageService.getSessionStorage('user');
+    const user = this.storageService.getSessionStorage<User>('user');
+    if (!user) return;
+    this.user = user;
+
     const modal = await this.modalCtrl.create({
       component: EmotionalModalComponent,
       componentProps: {
