@@ -1,0 +1,127 @@
+.header-label {
+    color: #505a78;
+    font-size: 12px;
+    margin-bottom: 8px;
+    &--title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+
+  .slides {
+    padding: 5px 0 10px;
+    height: 160px;
+  }
+  .slide-card {
+    width: 68px;
+    height: 124px;
+    padding: 16px 0px;
+    border: 1px solid #1da4b1;
+    border-radius: 8px;
+    box-shadow: 0px 0px 0px 3px rgba(187, 228, 232, 0.75);
+    -webkit-box-shadow: 0px 0px 0px 3px rgba(187, 228, 232, 0.75);
+    -moz-box-shadow: 0px 0px 0px 3px rgba(187, 228, 232, 0.75);
+    place-items: center;
+    &__gif {
+      display: block;
+      width: 64px;
+    }
+  
+    &__label {
+      color: #383e52;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.4%;
+
+      &--active {
+        color: #1da4b1;
+        font-weight: 600;
+        letter-spacing: 0.5%;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+  .save-button {
+    background-color: #1da4b1;
+    border-radius: 35px;
+    --padding-end: 15px;
+    --padding-start: 15px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
+  
+  :host ::ng-deep .swiper-pagination {
+    bottom: 10%;
+    .swiper-pagination-bullet {
+      --bullet-background: #b6bac1;
+      width: 12px;
+      height: 12px;
+    }
+    .swiper-pagination-bullet-active {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  
+  .disabled-slide {
+    opacity: 0.6; /* Cambia la opacidad para indicar que está deshabilitado */
+    display: grid;
+    place-items: center;
+  }
+  
+  .fade-and-shrink {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  
+  .fade-and-shrink.shrink {
+    transform: scale(0.9); /* Reducción de tamaño del 90% */
+    opacity: 0.7; /* Opacidad del 70% */
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px;
+    margin-top: 20px;
+    &__icon {
+      width: 8px;
+      height: 8px;
+      cursor: pointer;
+      filter: brightness(0) saturate(100%) invert(100%) sepia(54%) saturate(1017%) hue-rotate(176deg) brightness(97%) contrast(87%);
+      &--selected {
+        width: 12px;
+        height: 12px;
+        filter: brightness(0) saturate(100%) invert(49%) sepia(94%) saturate(403%) hue-rotate(137deg) brightness(92%) contrast(85%);
+      }
+    }
+  }
+  
+  
+  .modal-button {
+    display: flex;
+    justify-content: flex-end;
+    padding: 25px;
+  }
+  
+  @media screen and (max-width: 800px) {
+    .slide-container {
+      padding-top: 190px;
+      height: 80vh;
+    }
+    .modal-button {
+      display: flex;
+      justify-content: flex-end ;
+      padding: 25px 25px 50px;
+    }
+  }
+
+  swiper-container{
+    display: flex;
+    align-items: center;
+  }
+//  :host ::ng-deep .swiper-wrapper .custom-swiper-wrapper{
+//     place-items: center;
+//   }
+

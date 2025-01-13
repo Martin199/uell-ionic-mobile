@@ -200,3 +200,7 @@ ion-item.custom-input:focus-within {
         --height: 680px;
     }
 }
+:host ::ng-deep .swiper-wrapper #swiper-wrapper-* {
+    display: flex !important;
+    align-items: center !important;
+  }
