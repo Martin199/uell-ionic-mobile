@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,76 @@ export class UtilsService {
   toastCtrl = inject(ToastController);
   router = inject(Router)
   modalCtrl = inject(ModalController)
+  alertCtrl = inject(AlertController)
+  navCtrl = inject(NavController)
 
   constructor() { }
 
-  
-  loading(){
-    return this.loadingCtrl.create({spinner: 'circles'});
+  loading() {
+    return this.loadingCtrl.create({ spinner: 'circles' });
+  }
+
+  goBack() {
+    return this.navCtrl.back();
+  }
+
+  async showAlert(header: string, message: string, buttons: any[] = ['OK']) {
+    const alert = await this.alertCtrl.create({
+      header,
+      message,
+      buttons,
+    });
+    await alert.present();
+  }
+
+
+  async showConfirmation(
+    header: string,
+    message: string,
+    confirmHandler: () => void,
+    cancelHandler?: () => void
+  ) {
+    const alert = await this.alertCtrl.create({
+      header,
+      message,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: cancelHandler,
+        },
+        {
+          text: 'Confirmar',
+          handler: confirmHandler,
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  async showPrompt(
+    header: string,
+    message: string,
+    inputs: any[],
+    confirmHandler: (data: any) => void,
+    cancelHandler?: () => void
+  ) {
+    const alert = await this.alertCtrl.create({
+      header,
+      message,
+      inputs,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: cancelHandler,
+        },
+        {
+          text: 'OK',
+          handler: confirmHandler,
+        },
+      ],
+    });
+    await alert.present();
   }
 }

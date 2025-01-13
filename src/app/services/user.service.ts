@@ -43,4 +43,16 @@ export class UserService {
     const url =`${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/${userid}`
     return this.http.post(url, {emotionId: emotionId});
   }
+
+  getTenantParameters() {
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`);
+  }
+
+  termsAndConditions(userId: number) {
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/roles/USER/terms-and-conditions`);
+  }
+
+  postTermsAndConditions(userId: number) {
+    return this.http.post(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/roles/USER/terms-and-conditions`,{});
+  }
 }
