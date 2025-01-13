@@ -65,6 +65,16 @@ ion-button {
     align-items: center;
 }
 
+ion-checkbox {
+   --size: 25px;
+    --checkbox-background-checked: #1DA4B1;
+  }
+  
+  ion-checkbox::part(container) {
+    border-radius: 6px;
+    border: 2px solid #1DA4B1;
+  }
+
 .custom-input {
     --border-color: #e0e0e0;
     --border-radius: 15px;
@@ -116,8 +126,24 @@ ion-item.custom-input:focus-within {
     --color: #ffffff; /* Color del texto */
     border-radius: 100px; /* Bordes redondeados */
     font-weight: bold; /* Negrita para el texto */
-    text-transform: uppercase; /* Texto en mayúsculas */
+    text-transform: none; /* Texto en mayúsculas */
+    font-family: 'Inter', sans-serif;
+
   }
+
+  .alert-button {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .alert-button-role-cancel {
+    color: var(--ion-color-medium); /* Color del botón "Cancelar" */
+  }
+  
+  .alert-button-role-confirm {
+    color: var(--ion-color-primary); /* Color del botón "Confirmar" */
+  }
+  
 
 
 .validators {

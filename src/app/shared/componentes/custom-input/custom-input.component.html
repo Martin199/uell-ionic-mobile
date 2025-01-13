@@ -1,10 +1,17 @@
-<ion-label class="label-input" *ngIf="label"> {{label}}</ion-label>
+@if (label) {
+  <ion-label class="label-input"> {{ label }}</ion-label>
+}
 
 <ion-item class="custom-input" lines="none">
-   <ion-icon color="primary" *ngIf="icon" slot="start" [name]="icon"></ion-icon>
-  <ion-input [type]="type"  [formControl]="control" placeholder="Awesome Input"></ion-input>
+  @if (icon) {
+    <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
+  }
+  
+  <ion-input [type]="type" [formControl]="control" placeholder="Awesome Input"></ion-input>
 
-  <ion-button *ngIf="isPassword" (click)="showOrhidePassword()" slot="end" fill="clear" shape="round">
-    <ion-icon slot="start" [name]="hide ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
-  </ion-button>
-</ion-item> 
+  @if (isPassword) {
+    <ion-button (click)="showOrhidePassword()" slot="end" fill="clear" shape="round">
+      <ion-icon slot="start" [name]="hide ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+    </ion-button>
+  }
+</ion-item>

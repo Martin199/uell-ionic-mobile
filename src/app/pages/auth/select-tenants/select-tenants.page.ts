@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/services/storage.service';
+import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class SelectTenantsPage implements OnInit {
 
   storageService = inject(StorageService);
   utilsService = inject(UtilsService);
+  userService = inject(UserService);
 
   formSelectTenant = new FormGroup({
     tenant: new FormControl('', [Validators.required]),
@@ -28,21 +30,44 @@ export class SelectTenantsPage implements OnInit {
   }
 
 
+  goBack() {
+    this.utilsService.goBack();
+  }
+
 
   onTenantSelected(event: any) {
     this.selectedTenant = event.detail.value; // El valor seleccionado
-    console.log('Tenant seleccionado:', this.selectedTenant);
+    const tenant: any = this.formSelectTenant.value.tenant
+    console.log(tenant.name);
+    this.storageService.setSessionStorage('tenant', JSON.stringify(tenant));
+
   }
 
-  submit() {
+  async submit() {
     console.log(this.formSelectTenant.value)
     if (this.formSelectTenant.invalid) {
       console.log('Formulario inválido');
       return;
     }
 
-    const { tenant } = this.formSelectTenant.value;
-    this.storageService.setLocalStorage('tenant', tenant);
-    this.utilsService.router.navigate(['tabs/home']);
-  }	
+    const loading = await this.utilsService.loading();
+    await loading.present();
+    this.userService.getTenantParameters().subscribe((res: any) => {
+      console.log(res);
+      this.storageService.setSessionStorage('tenantParameters', res);
+      const user: any = this.storageService.getSessionStorage('user');
+      this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
+        console.log(res)
+        if (res.length > 0) {
+          this.storageService.setSessionStorage('termsAndConditions', res);
+          this.utilsService.router.navigateByUrl('/auth/term-and-conditions');
+
+        } else {
+          this.utilsService.router.navigateByUrl('tabs/home');
+        }
+      });
+      loading.dismiss();
+    });
+
+  }
 }
