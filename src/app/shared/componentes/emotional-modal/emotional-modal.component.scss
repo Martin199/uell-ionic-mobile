@@ -13,7 +13,7 @@
     height: 160px;
   }
   .slide-card {
-    width: 68px;
+    width: 100%;
     height: 124px;
     padding: 16px 0px;
     border: 1px solid #1da4b1;
@@ -68,6 +68,7 @@
     opacity: 0.6; /* Cambia la opacidad para indicar que está deshabilitado */
     display: grid;
     place-items: center;
+    padding: 26px 0px;
   }
   
   .fade-and-shrink {
@@ -121,7 +122,16 @@
     display: flex;
     align-items: center;
   }
-//  :host ::ng-deep .swiper-wrapper .custom-swiper-wrapper{
-//     place-items: center;
-//   }
+
+
+  :host ::ng-deep .swiper-wrapper .custom-swiper-wrapper{
+    place-items: center;
+  }
+
+  .swiper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 
