@@ -25,12 +25,18 @@ const routes: Routes = [
         loadChildren: () => import('./components/home/home.module').then( m => m.HomePageModule)
       },
       {
+        path: 'wellness-portal',
+        loadChildren: () => import('./components/wellness-portal/wellness-portal.module').then( m => m.WellnessPortalPageModule)
+      },
+    
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
       }
      ]
   },
+
 
 
 
