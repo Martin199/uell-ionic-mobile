@@ -56,4 +56,8 @@ export class UserService {
   postTermsAndConditions(userId: number) {
     return this.http.post(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/roles/USER/terms-and-conditions`,{});
   }
+
+  downloadFile(fileName: string) {
+    return this.http.get<string>(`${environment.apiVersion}/file-management/${fileName}?category=licence`);
+  }
 }

@@ -6,22 +6,27 @@ import { LogoComponent } from './componentes/logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmotionalModalComponent } from './componentes/emotional-modal/emotional-modal.component';
+import { IspsCircleComponent } from './componentes/isps-circle/isps-circle.component';
+import { CountUpModule } from 'ngx-countup';
+import { ModalDescriptionComponent } from './componentes/modal-description/modal-description.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent],
+  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent, IspsCircleComponent, ModalDescriptionComponent],
   imports: [
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CountUpModule
   ],
   exports:[
     HeaderComponent,
     CustomInputComponent,
     ReactiveFormsModule,
-    LogoComponent
+    LogoComponent,
+    IspsCircleComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

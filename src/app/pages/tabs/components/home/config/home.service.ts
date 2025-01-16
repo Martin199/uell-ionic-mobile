@@ -24,10 +24,10 @@ export class HomeService {
     const modulesActive = generalParameters.tenantParameters.activeModules.find((module: any) => module === moduleName);
 
     switch (modulesActive) {
-      case 'isps':
-        return this.ispsService.getISPSScore(71);
-      case 'wellness':
-        return this.ispsService.getISPSScore(71);
+      // case 'isps':
+      //   return this.ispsService.getISPSScore(71);
+      // case 'wellness':
+      //   return this.ispsService.getISPSScore(71);
       // case 'hc_onboarding':
       //   return this.http.put(endpoint, payload);
       // case 'hc_user':

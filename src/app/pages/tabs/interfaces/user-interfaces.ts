@@ -1,4 +1,4 @@
-export interface User {
+export interface Users {
     id:                    number;
     tenant:                TenantElement[];
     name:                  string;

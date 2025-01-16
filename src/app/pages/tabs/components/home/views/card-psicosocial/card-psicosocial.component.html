@@ -1,0 +1,122 @@
+<ion-card style="padding: 0px 25px;">
+  <div >
+    <ion-card-content class="ion-no-padding">
+      <div class="card-rrhh__title-container">
+        <div class="content-title-psychosocial">
+          <ion-icon class="card-rrhh__icon ion-no-margin" src="assets/wellness-icons/wellness-isps-icon.svg"></ion-icon>
+          <ion-label class="card-rrhh__title ion-margin user-info">
+            {{tenantParameters?.tenantParameters.localization['home-cards']['psychosocial-card']['main-title']}}
+          </ion-label>
+        </div>
+      </div>
+
+      <div class="card-rrhh__content-flex-row">
+        <div class="isps-description">
+
+          <app-isps-circle [score]="_ISPSScore.score || 0"></app-isps-circle>
+
+          <div class="content-notscore" *ngIf="!score && !(_ISPSScore && _ISPSScore.score >= 0)" >
+            <ion-label class="label-notscore"
+              >Muy pronto podrás completar el cuestionario de salud psicosocial y recibir recomendaciones personalizada para
+              mejorar tu bienestar.</ion-label
+            >
+          </div>
+          <div class="card-rrhh__content-flex-row content-score ion-margin-top">
+            <div class="card-rrhh__content-flex-col fs-14" *ngIf="scoreDescription && _ISPSScore && _ISPSScore.score >= 0">
+              <ion-label color="description" class="fw-600">
+                {{ scoreDescription.title }}
+              </ion-label>
+              <ion-label color="description" class="fw-400">
+                
+                {{ scoreDescription.description1 }}
+              </ion-label>
+
+              <ion-label *ngIf="scoreDescription.description2" color="description" class="fw-400">
+                {{ scoreDescription.description2 }}
+              </ion-label>
+              <ion-label color="description" class="fw-400">
+                {{ scoreDescription.descriptionOptions }}
+              </ion-label>
+              <ng-container *ngIf="scoreDescription.options.length > 0">
+                <ion-label *ngFor="let item of scoreDescription.options" color="description" class="fw-400">
+                  • {{ item }}
+                </ion-label>
+              </ng-container>
+              <ion-label *ngIf="scoreDescription.description3" color="description" class="fw-400">
+                {{ scoreDescription.description3 }}
+              </ion-label>
+              <ion-label color="description" class="fw-400">
+                {{ scoreDescription.description4 }}
+              </ion-label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="progress-content">
+        <div class="card-rrhh__content-flex-col">
+          <ion-label class="title-progress">
+            {{tenantParameters?.tenantParameters.localization['home-cards']['psychosocial-card'].progress}}
+          </ion-label>
+          <ion-label color="dark" class="fw-700 fs-20">{{ porcentajeProgressBar | number : '1.0-0' }}%</ion-label>
+        </div>
+        <div class="card-rrhh__content-flex-row isps-results ion-margin-top ion-align-items-center">
+          <ion-progress-bar [value]="totalProgressBar"></ion-progress-bar>
+          <div class="session">
+            <ion-label color="dark" class="fw-700 fs-20">{{ _ISPSScore.remainingSessions || 0 }}</ion-label>
+            <ion-label class="lower-fw">/{{ _ISPSScore.totalSessions || 0 }} </ion-label>
+            <ion-label class="lower-fw fp">
+              {{tenantParameters?.tenantParameters.localization['home-cards']['psychosocial-card'].sessions}}
+            </ion-label>
+          </div>
+        </div>
+      </div>
+
+      <div class="img-content">
+        <div class="tooltip" >
+          <div *ngIf="managerData">
+            <ion-img class="img-person" [src]="urlImg" (click)="showModal()" ></ion-img>
+          </div>
+        </div>
+
+        <div class="user-info">
+          <ion-label
+            class="fw-600 fs-14 user-name"
+            *ngIf="managerData && managerData.managerName && managerData.managerSurname"
+            >{{ managerData.managerName | titlecase }} {{ managerData.managerSurname | titlecase }}</ion-label
+          >
+          <ion-label class="user-workstation">
+            {{tenantParameters?.tenantParameters.localization['home-cards']['psychosocial-card'].gestor}}
+          </ion-label>
+          <div>
+            <div *ngIf="!managerData" class="card-rrhh__new-icon ion-no-margin"> <p>Muy pronto se le asignará un Gestor de Bienestar</p> </div>
+            <!--!! AGREGAR ESTO en el ngif cuando se habilite tenantparams && tenantParams==='soandes' -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card-rrhh__cont-button ion-margin-top">
+        <ion-button [disabled]="hasEditISPS"  class="card-rrhh__button" expand="block" fill="clear">
+          <!--! TODO AGREGAR ESTO (click)="goFormIsps()" -->
+          <ion-label
+            color="tertiary"
+            class="card-rrhh__button-label ion-text-wrap"
+            color="tertiary"
+            *ngIf="_ISPSScore && _ISPSScore.score === null"
+          >
+            Quiero evaluar mi Bienestar
+          </ion-label>
+          <ion-label
+            color="tertiary"
+            class="card-rrhh__button-label ion-text-wrap"
+            color="tertiary"
+            *ngIf="scoreDescription && _ISPSScore && _ISPSScore.score >= 0 && _ISPSScore.score !== null"
+          >
+            {{ tenantParameters.tenantParameters.localization['home-cards']['psychosocial-card']['recalulate-wellness'] }}
+          </ion-label>
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </div>
+</ion-card>

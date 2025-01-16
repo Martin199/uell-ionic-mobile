@@ -12,4 +12,8 @@ export class ISPSService {
   getISPSScore(userId?: number) {
     return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/psico-health/getIsIspDone/${userId}`);
   }
+
+  getWellnessManager(managerId: number) {
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/psico-health/wellness-manager/${managerId}`);
+  }
 }
