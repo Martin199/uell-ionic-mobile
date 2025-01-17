@@ -9,6 +9,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CardPsicosocialComponent } from './views/card-psicosocial/card-psicosocial.component';
+import { CardWellnessComponent } from './views/card-wellness/card-wellness.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { CardPsicosocialComponent } from './views/card-psicosocial/card-psicosoc
     HomePageRoutingModule,
     SharedModule,
   ],
-  declarations: [HomePage, CardPsicosocialComponent ]
+  declarations: [HomePage, CardPsicosocialComponent, CardWellnessComponent ]
 })
 export class HomePageModule {}

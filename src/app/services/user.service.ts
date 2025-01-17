@@ -58,6 +58,6 @@ export class UserService {
   }
 
   downloadFile(fileName: string) {
-    return this.http.get<string>(`${environment.apiVersion}/file-management/${fileName}?category=licence`);
+    return this.http.get<string>(`${environment.apiBaseUrl}${environment.apiVersion}/file-management/${fileName}?category=licence`);
   }
 }

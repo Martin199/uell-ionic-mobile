@@ -1,5 +1,5 @@
-<ion-card style="padding: 0px 25px;">
-  <div >
+<ion-card>
+  <div>
     <ion-card-content class="ion-no-padding">
       <div class="card-rrhh__title-container">
         <div class="content-title-psychosocial">
@@ -12,9 +12,7 @@
 
       <div class="card-rrhh__content-flex-row">
         <div class="isps-description">
-
           <app-isps-circle [score]="_ISPSScore.score || 0"></app-isps-circle>
-
           <div class="content-notscore" *ngIf="!score && !(_ISPSScore && _ISPSScore.score >= 0)" >
             <ion-label class="label-notscore"
               >Muy pronto podrás completar el cuestionario de salud psicosocial y recibir recomendaciones personalizada para
@@ -27,10 +25,8 @@
                 {{ scoreDescription.title }}
               </ion-label>
               <ion-label color="description" class="fw-400">
-                
                 {{ scoreDescription.description1 }}
               </ion-label>
-
               <ion-label *ngIf="scoreDescription.description2" color="description" class="fw-400">
                 {{ scoreDescription.description2 }}
               </ion-label>
@@ -52,7 +48,6 @@
           </div>
         </div>
       </div>
-      
 
       <div class="progress-content">
         <div class="card-rrhh__content-flex-col">
@@ -62,7 +57,7 @@
           <ion-label color="dark" class="fw-700 fs-20">{{ porcentajeProgressBar | number : '1.0-0' }}%</ion-label>
         </div>
         <div class="card-rrhh__content-flex-row isps-results ion-margin-top ion-align-items-center">
-          <ion-progress-bar [value]="totalProgressBar"></ion-progress-bar>
+          <ion-progress-bar [value]="totalProgressBar" style="--progress-background: #1da4b1;"></ion-progress-bar>
           <div class="session">
             <ion-label color="dark" class="fw-700 fs-20">{{ _ISPSScore.remainingSessions || 0 }}</ion-label>
             <ion-label class="lower-fw">/{{ _ISPSScore.totalSessions || 0 }} </ion-label>
@@ -79,7 +74,6 @@
             <ion-img class="img-person" [src]="urlImg" (click)="showModal()" ></ion-img>
           </div>
         </div>
-
         <div class="user-info">
           <ion-label
             class="fw-600 fs-14 user-name"

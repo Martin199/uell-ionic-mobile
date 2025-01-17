@@ -9,11 +9,12 @@ import { EmotionalModalComponent } from './componentes/emotional-modal/emotional
 import { IspsCircleComponent } from './componentes/isps-circle/isps-circle.component';
 import { CountUpModule } from 'ngx-countup';
 import { ModalDescriptionComponent } from './componentes/modal-description/modal-description.component';
+import { UellMultimediaComponent } from './componentes/uell-multimedia/uell-multimedia.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent, IspsCircleComponent, ModalDescriptionComponent],
+  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent, IspsCircleComponent, ModalDescriptionComponent, UellMultimediaComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -26,7 +27,8 @@ import { ModalDescriptionComponent } from './componentes/modal-description/modal
     CustomInputComponent,
     ReactiveFormsModule,
     LogoComponent,
-    IspsCircleComponent
+    IspsCircleComponent,
+    UellMultimediaComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

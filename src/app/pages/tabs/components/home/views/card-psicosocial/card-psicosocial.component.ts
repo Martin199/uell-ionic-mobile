@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { shareReplay } from 'rxjs/operators';
 import { ISPSScore, ManagerResponse } from 'src/app/core/interfaces/isps';
-import { Users } from 'src/app/pages/tabs/interfaces/user-interfaces';
+import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { ISPSService } from 'src/app/services/isps.service';
 import { StorageService } from 'src/app/services/storage.service';
 import * as moment from 'moment';
@@ -17,7 +17,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class CardPsicosocialComponent  implements OnInit {
 
-  user: Users= {} as Users;
+  user: User= {} as User;
   _ISPSScore: ISPSScore = {} as ISPSScore;
   score: boolean = false;
   hasEditISPS: boolean = false;
@@ -41,7 +41,7 @@ export class CardPsicosocialComponent  implements OnInit {
    }
 
   async ngOnInit() {
-    this.user = await this.storageService.getSessionStorage<Users>('user') !;
+    this.user = await this.storageService.getSessionStorage<User>('user') !;
     this.getISPSScore();
   }
 

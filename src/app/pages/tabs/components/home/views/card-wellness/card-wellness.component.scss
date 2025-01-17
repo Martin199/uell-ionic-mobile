@@ -1,0 +1,67 @@
+$color-title: #383E52;
+.card-rrhh {
+    display: flex;
+    flex-direction: column;
+    &__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 0 25px;
+    }
+    &__title-container {
+      display: flex;
+      align-items: center;
+    }
+    &__icon {
+        font-size: 32px;
+    }
+    &__title {
+        color: $color-title;
+        font-size: 18px;
+        margin-left: 0px;
+        font-weight: 700;
+    }
+    &__content-flex-col {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        .logros-btn{
+          padding-top: 20px;
+          padding-bottom: 20px;
+            border-top: 1px solid #FFF;
+            ion-button{
+              width: 100%;
+            }
+        }
+    }
+    &__text-content {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+    }
+    &__sub-title {
+        font-size: 14px;
+        font-weight: 600;
+    }
+    &__text {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+    &__cont-button {
+        border-top: 1px solid #DADFE9;
+        padding: 20px 0;
+    }
+    &__button-label {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0;
+    }
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    padding-left: 14px;
+}
