@@ -1,20 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, forkJoin, map, Observable, of } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
 import { ISPSService } from 'src/app/services/isps.service';
+import { User } from '../../../interfaces/user-interfaces';
+import { PortalService } from 'src/app/services/portal.service';
+import { ISPSScore } from 'src/app/core/interfaces/isps';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
 
+  user: User;
+  ispsScore! : ISPSScore;
   storageService = inject(StorageService);
   ispsService = inject(ISPSService);
+  portalService = inject (PortalService)
   http = inject(HttpClient);
 
   constructor() {
-
+    this.user = this.storageService.getSessionStorage<User>('user') !;
   }
 
 
@@ -24,10 +30,10 @@ export class HomeService {
     const modulesActive = generalParameters.tenantParameters.activeModules.find((module: any) => module === moduleName);
 
     switch (modulesActive) {
-      // case 'isps':
-      //   return this.ispsService.getISPSScore(71);
-      // case 'wellness':
-      //   return this.ispsService.getISPSScore(71);
+      case 'isps':
+         return this.ispsService.getISPSScore(this.user.id);
+      case 'wellness':
+        return  this.portalService.getLastPostPortal();
       // case 'hc_onboarding':
       //   return this.http.put(endpoint, payload);
       // case 'hc_user':

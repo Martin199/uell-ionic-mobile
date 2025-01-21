@@ -1,6 +1,10 @@
 <app-header></app-header>
 <ion-content>
-      <app-card-psicosocial></app-card-psicosocial>
-      <app-card-wellness [tenantParameters]="tenantParameters"></app-card-wellness>
+      @if(ispsData){
+            <app-card-psicosocial [ispsScore]="ispsData"></app-card-psicosocial>
+      }
+      @if(wellnessData){
+            <app-card-wellness-portal [wellnessData]="wellnessData"></app-card-wellness-portal>
+      }      
 </ion-content>
 

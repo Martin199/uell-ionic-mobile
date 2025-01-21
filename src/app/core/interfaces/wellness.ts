@@ -1,4 +1,4 @@
-export interface PostDetails {
+export interface PostPortalDetails {
   id: number;
   postType: PostType;
   title: string;
