@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { UtilsService } from 'src/app/services/utils.service';
+import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
 
 @Component({
   selector: 'app-psychosocial-health',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PsychosocialHealthPage implements OnInit {
 
-  constructor() { }
+  utilService = inject(UtilsService);
 
   ngOnInit() {
   }
+
+  async onClick() {
+    console.log('Button clicked');
+      const modal = await this.utilService.modalCtrl.create({
+        component: FormsIspsComponent,
+        //componentProps: { termsText: }
+      });
+      await modal.present();
+  }	
 
 }

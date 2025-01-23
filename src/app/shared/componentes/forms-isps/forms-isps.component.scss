@@ -1,0 +1,38 @@
+.stepper {
+    ion-title:first-child {
+      font-size: 12px;
+      color: #505A78;
+      padding-top: 16px;
+      margin-top: 16px;
+      margin-inline-start: 10px;
+    }
+  
+    ion-title:last-child {
+      font-size: 20px;
+      color: #505A78;
+      font-weight: 700;
+      text-align: left;
+      padding-top: 16px;
+      margin-inline-start: 10px;
+    }
+
+    .title {
+        font-size: 20px;
+        color: #505A78;
+        font-weight: 700;
+        text-align: left;
+        padding-top: 16px;
+        margin-inline-start: 10px;
+        padding-left: 20px;
+    }	
+  }
+  
+  .btnClose {
+    color: #505A78;
+    margin-inline-end: 16px;
+  
+  }
+  
+  .pb-16 {
+    padding-bottom: 32px;
+  }

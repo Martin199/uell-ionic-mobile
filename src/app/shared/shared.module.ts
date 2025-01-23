@@ -6,11 +6,14 @@ import { LogoComponent } from './componentes/logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmotionalModalComponent } from './componentes/emotional-modal/emotional-modal.component';
+import { FormsIspsComponent } from './componentes/forms-isps/forms-isps.component';
+import { FormIspsStepOneComponent } from './componentes/forms-isps/form-isps-step-one/form-isps-step-one.component';
+import { FormIspsStepTwoComponent } from './componentes/forms-isps/form-isps-step-two/form-isps-step-two.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent],
+  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent,FormsIspsComponent, FormIspsStepOneComponent, FormIspsStepTwoComponent],
   imports: [
     CommonModule,
     IonicModule,

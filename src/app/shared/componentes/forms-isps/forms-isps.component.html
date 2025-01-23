@@ -1,0 +1,23 @@
+<ion-content>
+
+  <ion-toolbar class="stepper">
+    <ion-title >Paso step de totalSteps</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  class="btnClose">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label class="title">
+      Índice de salud Psicosocial(I-SPS)
+    </ion-label>
+  </ion-toolbar>
+
+  <swiper-container>
+    <swiper-slide>
+      <app-form-isps-step-one></app-form-isps-step-one>
+    </swiper-slide>
+    <swiper-slide>
+      <app-form-isps-step-two></app-form-isps-step-two>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
