@@ -14,19 +14,32 @@ export class HomePage implements OnInit {
 
   user!: User;
   moduleResults: any[] = [];
+  tenantParameters: any;
+  ispsData: any = null;
+  wellnessData: any = null;
 
   storageService = inject(StorageService);
   modalCtrl = inject(ModalController)
   homeService = inject(HomeService);
 
-  constructor() { }
+  constructor() {
+    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters')
+   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.presentEmotionalModal();
+    
     this.homeService.callAllMethodsForModule().subscribe({
       next: results => {
         this.moduleResults = results; 
         console.log('Resultados de los módulos:', this.moduleResults);
+
+        // Filtrar por modulo
+        const ispsModule = this.moduleResults.find(module => module.moduleName === 'isps');
+        this.ispsData = ispsModule?.body || null;
+
+        const wellnessModule = results.find((module) => module.moduleName === 'wellness');
+        this.wellnessData = wellnessModule?.body || null;
       },
       error: error => console.error('Error al obtener los módulos:', error),
     });
