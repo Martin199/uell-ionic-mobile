@@ -1,0 +1,28 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-title class="modal-header ">Mi gestor</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>                
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="padding-text">
+        <ion-item class="ion-no-margin ion-no-padding" lines="none">
+            <ion-label class="text-content">
+                <span class="name-gestor">{{manager.managerName}} {{manager.managerSurname}}</span>
+                <span class="title-gestor">Gestor de Bienestar y Calidad de vida</span>
+            </ion-label>
+            <ion-avatar class="" slot="start">
+                <img [src]="photo">
+            </ion-avatar>
+        </ion-item>
+
+        <div class="description">
+            <p>{{manager.managerBiography}}</p>
+        </div>
+    </div>
+</ion-content>

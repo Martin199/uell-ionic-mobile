@@ -1,0 +1,213 @@
+$color-title: #383E52;
+.content-title-psychosocial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ion-card{
+  padding: 0px 25px;
+}
+.card-rrhh {
+    display: flex;
+    height: 100%;
+    &__img {
+      flex: 1;
+    }
+    &--col{
+      flex-direction: row;
+    }
+  
+    &__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 0 25px;
+      flex: 1;
+    }
+  
+    &__icon {
+      font-size: 32px;
+    }
+  
+    &__new-icon {
+      p{
+        font-size: 12px;
+        color: #505A78;
+      }
+    }
+  
+    &__title-container {
+  
+      display: flex;
+      align-items: center;
+    }
+  
+    &__title-nutri-container {
+      display: flex;
+      align-items: center;
+    }
+  
+    &__title {
+      color: $color-title;
+      font-size: 18px;
+      margin-left: 0px;
+      font-weight: 700;
+    }
+  
+    &__content-flex-col {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      row-gap: 8px;
+      .logros-btn{
+        padding-top: 20px;
+        padding-bottom: 20px;
+          border-top: 1px solid #FFF;
+          ion-button{
+            width: 100%;
+          }
+      }
+    }
+  
+    &__content-flex-row {
+      display: flex;
+      flex-direction: row;
+      column-gap: 12px;
+    }
+
+    &__cont-button {
+      border-top: 1px solid #DADFE9;
+      padding: 20px 0;
+    }
+  
+    &__button-label {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+  }
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 14px;
+}
+
+.description{
+    color: #505A78;
+}
+
+.progress-content {
+    padding-top: 32px !important;
+}
+
+.title-progress {
+    color: var(--neutral-grey-dark, #383E52);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.session {
+    display: flex;
+    flex-direction: row;
+}
+
+.lower-fw {
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fp {
+    padding-left: 5px
+}
+
+.isps-results {
+    ion-icon {
+      font-size: 20px;
+      filter: invert(40%) sepia(3%) saturate(5162%) hue-rotate(188deg) brightness(84%) contrast(90%);
+    }
+  
+    ion-progress-bar {
+      height: 24px;
+      border-radius: 100px;
+  
+      &::part(progress) {
+        border-radius: 100px;
+      }
+    }
+}
+
+.img-content {
+    padding-top: 32px;
+    padding-bottom: 32px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.img-person::part(image) {
+    width: 100%;
+    height: 60px; 
+    border-radius: 50%;
+}
+
+.user-name{
+    color: var(--neutral-grey-dark, #383E52);
+    font-family: Inter;
+    font-style: normal;
+    line-height: 20px; 
+    letter-spacing: 0.014px;
+}
+
+.user-workstation{
+    color: var(--neutral-grey-medium, #505A78);
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; 
+    letter-spacing: 0.048px;
+}
+
+.fw-400 {
+    font-weight: 400;
+}
+  
+.fw-600 {
+  font-weight: 600;
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.f-16 {
+  font-size: 16px !important;
+}
+
+.fs-20 {
+  font-size: 20px;
+}

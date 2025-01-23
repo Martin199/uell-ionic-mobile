@@ -33,6 +33,8 @@
     "@ionic/angular": "^8.0.0",
     "amazon-cognito-identity-js": "^6.3.12",
     "ionicons": "^7.0.0",
+    "moment": "^2.30.1",
+    "ngx-countup": "^13.2.0",
     "rxjs": "~7.8.0",
     "swiper": "^11.2.1",
     "tslib": "^2.3.0",
