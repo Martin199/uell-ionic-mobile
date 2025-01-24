@@ -23,7 +23,8 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./../tabs/tabs.module').then( m => m.TabsPageModule)
-  },  {
+  },
+  {
     path: 'term-and-conditions',
     loadChildren: () => import('./term-and-conditions/term-and-conditions.module').then( m => m.TermAndConditionsPageModule)
   },

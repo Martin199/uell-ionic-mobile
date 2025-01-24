@@ -110,4 +110,7 @@ export class AuthPage implements OnInit {
     passwordAnimation.play();
   }
 
+  forgotPassword(){
+    this.utilsService.router.navigate(['/recovery-password']);
+  }
 }
