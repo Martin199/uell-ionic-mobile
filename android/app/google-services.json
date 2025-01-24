@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "2267757255",
+    "project_id": "push-noti-jose",
+    "storage_bucket": "push-noti-jose.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2267757255:android:6b06c35969ad26e40e5ce2",
+        "android_client_info": {
+          "package_name": "com.uell.ionic.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5faMM-jzmGUUroomVlK0yDmo6HeZntyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
