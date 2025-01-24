@@ -6,11 +6,18 @@ import { LogoComponent } from './componentes/logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmotionalModalComponent } from './componentes/emotional-modal/emotional-modal.component';
+import { SearchbarAnimationComponent } from './componentes/searchbar-animation/searchbar-animation.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent],
+  declarations: [
+    HeaderComponent,
+    CustomInputComponent,
+    LogoComponent,
+    EmotionalModalComponent,
+    SearchbarAnimationComponent,
+  ],
   imports: [
     CommonModule,
     IonicModule,
@@ -21,7 +28,8 @@ import { EmotionalModalComponent } from './componentes/emotional-modal/emotional
     HeaderComponent,
     CustomInputComponent,
     ReactiveFormsModule,
-    LogoComponent
+    LogoComponent,
+    SearchbarAnimationComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

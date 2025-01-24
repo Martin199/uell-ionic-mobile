@@ -1,4 +1,34 @@
 <app-header></app-header>
 <ion-content>
-  <p>portal</p>
+  <div class="wellness-portal-conteiner">
+    <p class="title">Portal de bienestar</p>
+    <div class="searchbar-animation-container">
+      <app-searchbar-animation
+      *ngIf="dataFindPost && dataFindPost.length > 0"
+      [dataFindPost]="dataFindPost"
+      (clickEvent)="redirectToPost($event)"
+      [placeholder]="'¿Qué estás buscando?'">
+      </app-searchbar-animation>
+    </div>
+    <div class="recommended-container">
+      <div class="title">Contenido recomendado</div>
+      <app-recommended-wellness-portal></app-recommended-wellness-portal>
+      <app-recommended-wellness-portal></app-recommended-wellness-portal>
+      <app-recommended-wellness-portal></app-recommended-wellness-portal>
+    </div>
+    <div class="carousel-container">
+      <app-carousel-wellness-portal [title]="'Tendencias'" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal [title]="'Populares en tu empresa'" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal [title]="'Favoritos de la comunidad'" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal [title]="'Bienestar físico'" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal [title]="'Gestión emocional'" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal [title]="'Salud mental'" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <!-- <app-carousel-wellness-portal *ngIf="dataMostViewed && dataMostViewed.length > 0" [title]="'Tendencias'" [data]="dataMostViewed" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal *ngIf="dataMostViewedByTenant && dataMostViewedByTenant.length > 0" [title]="'Populares en tu empresa'" [data]="dataMostViewedByTenant" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal *ngIf="dataMostLiked && dataMostLiked.length > 0" [title]="'Favoritos de la comunidad'"  [data]="dataMostLiked" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal *ngIf="dataBienestarFisico && dataBienestarFisico.length > 0" [title]="'Bienestar físico'"  [data]="dataBienestarFisico" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal *ngIf="dataGestionEmocional && dataGestionEmocional.length > 0" [title]="'Gestión emocional'"  [data]="dataGestionEmocional" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal>
+      <app-carousel-wellness-portal *ngIf="dataSaludMental && dataSaludMental.length > 0" [title]="'Salud mental'"  [data]="dataSaludMental" (clickEvent)="redirectToPost($event)"></app-carousel-wellness-portal> -->
+    </div>
+  </div>
 </ion-content>

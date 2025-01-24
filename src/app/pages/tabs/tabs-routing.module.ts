@@ -20,12 +20,12 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () => import('./components/profile/profile.module').then( m => m.ProfilePageModule)
       },
+      // {
+      //   path: 'home',
+      //   loadChildren: () => import('./components/home/home.module').then( m => m.HomePageModule)
+      // },
       {
         path: 'home',
-        loadChildren: () => import('./components/home/home.module').then( m => m.HomePageModule)
-      },
-      {
-        path: 'wellness-portal',
         loadChildren: () => import('./components/wellness-portal/wellness-portal.module').then( m => m.WellnessPortalPageModule)
       },
     

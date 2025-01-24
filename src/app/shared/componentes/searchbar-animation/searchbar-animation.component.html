@@ -1,0 +1,16 @@
+<div class="container">
+  <input *ngIf="viewInput" [(ngModel)]="searchValue" [ngClass]="viewSearchResults ? 'input-results' : viewInput ? 'input-on' : viewSearchResults ? 'input-results' : 'input-off'"
+  type="text" [placeholder]="placeholder" [@inputAnimation]="viewInput" (ngModelChange)="openSearchResults($event)" autofocus>
+  <button [ngClass]=" viewSearchResults ? 'btn-results' : viewInput ? 'btn-on' : 'btn-off'" (click)="toogleView()" [@inputAnimation]="viewInput"><img src="assets/icons/search.svg" alt=""></button>
+  <div class="search-results" *ngIf="viewSearchResults">
+    <ion-spinner *ngIf="spinner" name="crescent" color="primary"></ion-spinner>
+    <ng-container *ngIf="!spinner && filteredResults && filteredResults.length > 0">
+      <div class="item" *ngFor="let item of filteredResults" (click)="selectItem(item.id)">
+        <a>{{ item.title }}</a>
+      </div>
+    </ng-container>
+    <div class="no-item" *ngIf="!spinner && filteredResults.length === 0 && !spinner">
+      <a>No se encontraron resultados</a>
+    </div>
+  </div>
+</div>
