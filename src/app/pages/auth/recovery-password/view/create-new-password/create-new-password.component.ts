@@ -1,11 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { interval, take } from 'rxjs';
-import { IAuthentication, ICodeDeliveryDetails, IUserCredentials } from 'src/app/core/interfaces/auth.interfaces';
-import { AuthenticationProvider } from 'src/app/core/services/authentication.service';
+import { ICodeDeliveryDetails, IUserCredentials } from 'src/app/core/interfaces/auth.interfaces';
 import { LoginService } from 'src/app/services/login.service';
 import { CustomValidators } from '../../../utils/customValidation';
+import { CognitoService } from 'src/app/core/services/cognito.service';
 
 @Component({
   selector: 'app-create-new-password',
@@ -24,12 +24,12 @@ export class CreateNewPasswordComponent  implements OnInit {
   otpForm: FormGroup;
   otpDigits = [0, 1, 2, 3, 4, 5];
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private login: LoginService,
-    @Inject(AuthenticationProvider) private auth: IAuthentication,
-    ) {
+  fb = inject ( FormBuilder );
+  router = inject ( Router )
+  login = inject ( LoginService )
+  auth = inject ( CognitoService )
+
+  constructor( ) {
     this.otpForm = this.fb.group({
       otp: this.fb.array([
         new FormControl('', [Validators.required, CustomValidators.noSpaces]),

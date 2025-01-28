@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { PostPortalDetails } from '../core/interfaces/wellness';
+import { PostPortalDetails } from '../pages/tabs/interfaces/wellness';
 import { environment } from 'src/environments/environment';
 import { HttpClientService } from '../core/services/http-client.service';
 

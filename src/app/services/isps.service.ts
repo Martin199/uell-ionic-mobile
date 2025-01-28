@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClientService } from '../core/services/http-client.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { ISPSScore, ManagerResponse } from '../core/interfaces/isps';
+import { ISPSScore, ManagerResponse } from '../pages/tabs/interfaces/isps';
 
 @Injectable({
   providedIn: 'root'

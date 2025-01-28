@@ -9,7 +9,7 @@ import { IUser, IUserCredentials } from '../interfaces/auth.interfaces';
 export class CognitoService {
   readonly userPool!: CognitoUserPool;
   private cognitoUser!: CognitoUser | null;
-  public currentUser: IUser | null = null; // for share in the app.
+  currentUser: IUser | null = null;
 
   constructor() {
     this.userPool = new CognitoUserPool({
@@ -83,7 +83,6 @@ export class CognitoService {
   }
 
   private getUserPool(): CognitoUserPool {
-		// TODO review, pass it to a instance variable
 		const clientId: string =  this.userPool.getClientId();
 		const userPoolId: string = this.userPool.getUserPoolId();
 
