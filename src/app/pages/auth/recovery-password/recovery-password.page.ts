@@ -4,6 +4,7 @@ import { ICodeDeliveryDetails, IUserCredentials } from 'src/app/core/interfaces/
 import { CognitoService } from 'src/app/core/services/cognito.service';
 import { LoginService } from 'src/app/services/login.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { ErrorMessagesUtil } from '../utils/getErrorMessage';
 
 @Component({
   selector: 'app-recovery-password',
@@ -35,27 +36,7 @@ export class RecoveryPasswordPage  {
       this.navToSecurityCode(res);
       console.log('envio de recovery exito')
     }).catch((err: any) => {
-      console.log(err.code);
-      console.error(err.message);
-      switch (err.code) {
-        case 'UserNotFoundException':
-          this.error = 'El usuario no existe. Revisá y volvé a intentar.';
-          break;
-        case 'InvalidParameterException':
-          this.error = 'Usuario y/o contraseña incorrectos. Intente nuevamente.';
-          break;
-        case 'NotAuthorizedException':
-          this.error = 'No es posible recuperar la contraseña, tu email aún no fue validado.' +
-            'Primero tenés que ingresar con tu usuario y clave temporaria, enviada en el email de bienvenida.';
-          break;
-        case 'InvalidPasswordException':
-          this.error = 'Debes primero iniciar sesión con la clave temporaria enviada por el Administrador de Uell, para validar tu correo electrónico.' +
-            'Si no dispones de ella por favor solicitar nuevamente invitación a soporte@uell.com.ar';
-          break;
-        default:
-          this.error = 'Ocurrió un error inesperado, intente nuevamente.';
-          break;
-      }
+      this.error = ErrorMessagesUtil.getErrorMessage(err.code); 
     });
   }
 
