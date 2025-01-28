@@ -10,11 +10,20 @@ import { IspsCircleComponent } from './componentes/isps-circle/isps-circle.compo
 import { CountUpModule } from 'ngx-countup';
 import { ModalDescriptionComponent } from './componentes/modal-description/modal-description.component';
 import { UellMultimediaComponent } from './componentes/uell-multimedia/uell-multimedia.component';
+import { SearchbarAnimationComponent } from './componentes/searchbar-animation/searchbar-animation.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent, IspsCircleComponent, ModalDescriptionComponent, UellMultimediaComponent],
+  declarations: [
+    HeaderComponent,
+    CustomInputComponent,
+    LogoComponent,
+    EmotionalModalComponent,
+    IspsCircleComponent,
+    ModalDescriptionComponent,
+    UellMultimediaComponent,
+    SearchbarAnimationComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -28,7 +37,8 @@ import { UellMultimediaComponent } from './componentes/uell-multimedia/uell-mult
     ReactiveFormsModule,
     LogoComponent,
     IspsCircleComponent,
-    UellMultimediaComponent
+    UellMultimediaComponent,
+    SearchbarAnimationComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

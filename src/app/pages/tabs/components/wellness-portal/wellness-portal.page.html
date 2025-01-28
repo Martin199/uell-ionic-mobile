@@ -1,4 +1,42 @@
 <app-header></app-header>
 <ion-content>
-  <p>portal</p>
+  <div class="wellness-portal-conteiner">
+    <p class="title">Portal de bienestar</p>
+    <div class="searchbar-animation-container">
+      @if (dataFindPost && dataFindPost.length > 0) {
+        <app-searchbar-animation
+          [alwaysActive]="true"
+          [dataFindPost]="dataFindPost"
+          [placeholder]="'¿Qué estás buscando?'"
+          (clickEvent)="redirectToPost($event)">
+        </app-searchbar-animation>
+      }
+    </div>
+    <div class="recommended-container">
+      <div class="title">Contenido recomendado</div>
+      @for (item of dataRecommendedForYou; track $index) {
+        <app-recommended-wellness-portal [data]="item" (clickEvent)="redirectToPost($event)"></app-recommended-wellness-portal>
+      }
+    </div>
+    <div class="carousel-container">
+      @if (dataMostViewed && dataMostViewed.length > 0) {
+        <app-carousel-wellness-portal [title]="'Tendencias'" (clickEvent)="redirectToPost($event)" [data]="dataMostViewed"></app-carousel-wellness-portal>
+      }
+      @if (dataMostViewedByTenant && dataMostViewedByTenant.length > 0) {
+        <app-carousel-wellness-portal [title]="'Populares en tu empresa'" (clickEvent)="redirectToPost($event)" [data]="dataMostViewedByTenant"></app-carousel-wellness-portal>
+      }
+      @if (dataMostLiked && dataMostLiked.length > 0) {
+        <app-carousel-wellness-portal [title]="'Favoritos de la comunidad'" (clickEvent)="redirectToPost($event)" [data]="dataMostLiked"></app-carousel-wellness-portal>
+      }
+      @if (dataBienestarFisico && dataBienestarFisico.length > 0) {
+        <app-carousel-wellness-portal [title]="'Bienestar físico'" (clickEvent)="redirectToPost($event)" [data]="dataBienestarFisico"></app-carousel-wellness-portal>
+      }
+      @if (dataGestionEmocional && dataGestionEmocional.length > 0) {
+        <app-carousel-wellness-portal [title]="'Gestión emocional'" (clickEvent)="redirectToPost($event)" [data]="dataGestionEmocional"></app-carousel-wellness-portal>
+      }
+      @if (dataSaludMental && dataSaludMental.length > 0) {
+        <app-carousel-wellness-portal [title]="'Salud mental'" (clickEvent)="redirectToPost($event)" [data]="dataSaludMental"></app-carousel-wellness-portal>
+      }
+    </div>
+  </div>
 </ion-content>

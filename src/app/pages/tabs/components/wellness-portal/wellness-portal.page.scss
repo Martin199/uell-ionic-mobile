@@ -1,0 +1,43 @@
+.wellness-portal-conteiner {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  .title {
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+    padding: 0px 0.5rem;
+    margin-bottom: 0px;
+  }
+  .searchbar-animation-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0px 0.5rem;
+    app-searchbar-animation {
+      width: 400px;
+    }
+  }
+  .recommended-container {
+    padding: 0px 1rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    .title {
+      color: var(--Neutral-GreyVeryDark, #212532);
+      font-family: 'Inter';
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 24px;
+      letter-spacing: 0.016px; 
+      margin-bottom: 0;
+    }
+  }
+  .carousel-container {
+    padding: 0px 1rem;
+  }
+}
