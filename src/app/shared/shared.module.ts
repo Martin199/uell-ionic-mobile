@@ -6,6 +6,10 @@ import { LogoComponent } from './componentes/logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmotionalModalComponent } from './componentes/emotional-modal/emotional-modal.component';
+import { IspsCircleComponent } from './componentes/isps-circle/isps-circle.component';
+import { CountUpModule } from 'ngx-countup';
+import { ModalDescriptionComponent } from './componentes/modal-description/modal-description.component';
+import { UellMultimediaComponent } from './componentes/uell-multimedia/uell-multimedia.component';
 import { SearchbarAnimationComponent } from './componentes/searchbar-animation/searchbar-animation.component';
 
 
@@ -16,19 +20,24 @@ import { SearchbarAnimationComponent } from './componentes/searchbar-animation/s
     CustomInputComponent,
     LogoComponent,
     EmotionalModalComponent,
-    SearchbarAnimationComponent,
-  ],
+    IspsCircleComponent,
+    ModalDescriptionComponent,
+    UellMultimediaComponent,
+    SearchbarAnimationComponent],
   imports: [
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CountUpModule
   ],
   exports:[
     HeaderComponent,
     CustomInputComponent,
     ReactiveFormsModule,
     LogoComponent,
+    IspsCircleComponent,
+    UellMultimediaComponent,
     SearchbarAnimationComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

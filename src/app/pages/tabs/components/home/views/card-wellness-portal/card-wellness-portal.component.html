@@ -1,0 +1,48 @@
+  <ion-card  [disabled]="!findTenant('wellness')" class="card-rrhh">
+    <div class="card-rrhh__img card-rrhh__img--bienestar">
+      <ng-container *ngIf="wellnessData && ((wellnessData?.title_image?.url && imgUrl) || wellnessData.multiMediaUrl)">
+        @if(wellnessData.title_image.url && imgUrl && !wellnessData.multiMediaUrl){
+          <img [src]="imgUrl" alt="advert-img.svg" />
+        }
+        @if(wellnessData.multiMediaUrl){
+         <app-uell-multimedia [url]="wellnessData.multiMediaUrl"></app-uell-multimedia>
+        }
+      </ng-container>
+    </div>
+    @if(tenantParameters.tenantParameters.localization['home-cards']['wellness-card']){
+      <div class="card-rrhh__content">
+        <ion-card-content class="ion-no-padding">
+          <div class="card-rrhh__title-container">
+            <ion-icon class="card-rrhh__icon ion-no-margin" src="assets/wellness-icons/wellness-blog-icon.svg"></ion-icon>
+            <ion-label class="card-rrhh__title ion-margin user-info">
+              Portal de Bienestar
+            </ion-label>
+          </div>
+          @if(wellnessData){
+            <div class="card-rrhh__content-flex-col">
+              <div class="card-rrhh__text-content">
+                <ion-label color="tertiary" class="card-rrhh__sub-title">{{ wellnessData.title }}</ion-label>
+                <ion-label color="tertiary" class="card-rrhh__text">
+                  {{ wellnessData.subtitle }}
+                </ion-label>
+              </div>
+            </div>
+          }
+        </ion-card-content>
+        @if(wellnessData){
+          <ng-container>
+            <ion-label color="medium" class="fs-12 fw-400">
+              {{ tenantParameters.tenantParameters.localization['home-cards']['wellness-card'].published }}
+              {{ wellnessData.title_image.created | date : 'dd/MM/yyyy' }}</ion-label>
+          </ng-container>
+        }
+        <div class="card-rrhh__cont-button">
+          <ion-button class="card-rrhh__button" expand="block" fill="clear" (click)="goTo(wellnessData)">
+            <ion-label color="tertiary" class="card-rrhh__button-label">
+              {{ tenantParameters.tenantParameters.localization['home-cards']['wellness-card']['read-now'] }}
+            </ion-label>
+          </ion-button>
+        </div>
+      </div>
+    }
+  </ion-card>
