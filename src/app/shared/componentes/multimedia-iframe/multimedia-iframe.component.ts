@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -12,10 +12,13 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class MultimediaIframeComponent {
 
   @Input() url: string = ''
+  @Input() height150px: boolean = false;
   isPlaying: boolean = false;
-  sanitizedUrl: SafeResourceUrl;
+  sanitizedUrl!: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor() { }
+
+  sanitizer = inject(DomSanitizer);
 
   playVideo() {
     const videoUrl = `${this.url}?autoplay=1`;

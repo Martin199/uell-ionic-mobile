@@ -1,5 +1,3 @@
-<img *ngIf="imgData"
-[src]="imgData || ''"
-[ngClass]="{'border-radius-on' : borderRadius}"
-alt=""
-fill/>
+@if (imgSrc) {
+  <img [src]="imgSrc || ''" [ngClass]="{'border-radius-on' : borderRadius, 'height150px': height150px}" alt=""/>
+}

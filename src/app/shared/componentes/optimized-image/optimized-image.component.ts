@@ -12,23 +12,32 @@ import { FilesService } from 'src/app/services/files.service';
 export class OptimizedImageComponent  implements OnInit {
 
   @Input() borderRadius: boolean = false;
+  @Input() height150px: boolean = false;
+  @Input() url: string = '';
 
   constructor() { }
 
   filesService = inject(FilesService);
 
-  imgData: string | null = null;
+  imgSrc: string | null = null;
 
   ngOnInit() {
-    this.filesService.downloadFile('f7880ff6-0a91-4aad-b16c-a063a1d56ad5-null').subscribe({
-      next: (res: any) => {
-        this.imgData = res;
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {},
-    });
+    if (this.url) {
+      this.filesService.downloadFile(this.url).subscribe({
+        next: (res: string) => {
+          if (res) { 
+            this.imgSrc = res;
+          } else {
+            this.imgSrc ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY8cq53evFoKvhcEMFYQonH2OYhJ__N0dL9w&s'
+          }
+        },
+        error: (err) => {
+          console.error(err);
+          this.imgSrc ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY8cq53evFoKvhcEMFYQonH2OYhJ__N0dL9w&s'
+        },
+        complete: () => {},
+      });
+    }
   }
 
 }

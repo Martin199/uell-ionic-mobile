@@ -12,7 +12,7 @@ export class FilesService {
 
   http = inject(HttpClientService);
 
-  downloadFile(fileName: string): Observable<any> {
+  downloadFile(fileName: string): Observable<string> {
     return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/file-management/${fileName}?category=licence`);
   }
 

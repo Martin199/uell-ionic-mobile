@@ -15,18 +15,19 @@
       swiper-slide {
         margin-right: 24px;
         width: 200px;
+        height: 200px;
         display: flex;
         flex-direction: column;
         justify-content: space-between !important;
         .card-top {
           width: 100%;
-          // height: 200px;
+          height: 175px;
           border-radius: 10px;
           img {
             border-radius: 10px;
           }
         }
-        p {
+        .post-title {
           margin-top: 6px;
           overflow: hidden;
           color: var(--Neutral-GreyDark, #383E52);

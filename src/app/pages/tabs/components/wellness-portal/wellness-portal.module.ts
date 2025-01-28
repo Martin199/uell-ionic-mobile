@@ -11,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { OptimizedImageComponent } from 'src/app/shared/componentes/optimized-image/optimized-image.component';
 import { RecommendedWellnessPortalComponent } from './components/recommended-wellness-portal/recommended-wellness-portal.component';
 import { CarouselWellnessPortalComponent } from './components/carousel-wellness-portal/carousel-wellness-portal.component';
+import { MultimediaIframeComponent } from "../../../../shared/componentes/multimedia-iframe/multimedia-iframe.component";
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { CarouselWellnessPortalComponent } from './components/carousel-wellness-
     WellnessPortalPageRoutingModule,
     SharedModule,
     OptimizedImageComponent,
-  ],
+    MultimediaIframeComponent
+],
   declarations: [
     WellnessPortalPage,
     RecommendedWellnessPortalComponent,

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { ISearchbarAnimation } from '../../interface/searchbar-animation-interfaces';
 
 @Component({
   selector: 'app-searchbar-animation',
@@ -18,11 +19,12 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]),
   ],
 })
-export class SearchbarAnimationComponent  implements OnInit {
+export class SearchbarAnimationComponent {
 
   @Input() placeholder: string = '';
-  @Input() dataFindPost: any[] = [];
-  @Output() clickEvent = new EventEmitter<any>();
+  @Input() dataFindPost: ISearchbarAnimation[] = [];
+  @Input() alwaysActive: boolean = false;
+  @Output() clickEvent = new EventEmitter<number>();
 
   searchValue: string = '';
   viewInput: boolean = false;
@@ -31,10 +33,8 @@ export class SearchbarAnimationComponent  implements OnInit {
   timeoutId: any;
   filteredResults: { title: string; id: number }[] = [];
 
-  constructor() { }
-
-  ngOnInit(): void {
-    console.log(this.dataFindPost);
+  constructor() {
+    this.viewInput = this.alwaysActive;
   }
 
   toogleView() {
@@ -61,7 +61,7 @@ export class SearchbarAnimationComponent  implements OnInit {
     }
   }
 
-  selectItem(value: any) {
+  selectItem(value: number) {
     this.clickEvent.emit(value)
   }
   

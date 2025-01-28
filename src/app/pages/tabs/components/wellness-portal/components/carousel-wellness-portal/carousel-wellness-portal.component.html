@@ -1,72 +1,23 @@
-<!-- <div class="swiper-container">
-  <div class="header">
-    <p>{{title}}</p>
-  </div>
-  <div class="carrusel">
-  <div class="swiper-container">
-      <swiper-container slides-per-view="auto" navigation="true">
-        <swiper-slide (click)="!item.multimedia ? redirectToPost(item.id) : null" *ngFor="let item of data" class="pointer" [ngClass]="item.multimedia ? 'multimedia-width' : ''">
-          <div class="card-top">
-            <app-uell-img *ngIf="item.img && !item.multimedia" [url]="item.img" style="max-height: 200px;"></app-uell-img>
-            <app-uell-multimedia *ngIf="item.multimedia" [url]="item.multimedia"></app-uell-multimedia>
-            <img *ngIf="!item.img && !item.multimedia" [src]="defaultImgUrl" alt="">
-          </div>
-            <p (click)="redirectToPost(item.id)" class="post-title">{{item.title}}</p>
-        </swiper-slide>
-      </swiper-container>
-  </div>
-</div> -->
-<h1>super titulo</h1>
-
 <div class="carousel-container">
   <p class="title">{{title}}</p>
   <div class="swiper-container">
     <swiper-container slides-per-view="auto">
-      <!-- <swiper-slide (click)="!item.multimedia ? redirectToPost(item.id) : null" *ngFor="let item of data" class="pointer" [ngClass]="item.multimedia ? 'multimedia-width' : ''"> -->
-      <swiper-slide class="pointer">
-        <div class="card-top">
-          <app-optimized-image [borderRadius]="true"></app-optimized-image>
-
-          <!-- <app-uell-img *ngIf="item.img && !item.multimedia" [url]="item.img" style="max-height: 200px;"></app-uell-img> -->
-          <!-- <app-uell-multimedia *ngIf="item.multimedia" [url]="item.multimedia"></app-uell-multimedia> -->
-          <!-- <img *ngIf="!item.img && !item.multimedia" [src]="defaultImgUrl" alt=""> -->
-        </div>
-          <!-- <p (click)="redirectToPost(item.id)" class="post-title">{{item.title}}</p> -->
-          <p class="post-title">title</p>
+      @for (item of data; track $index) {
+        <swiper-slide class="pointer" [ngClass]="item.multimedia ? 'multimedia-width' : ''" (click)="!item.multimedia ? redirectToPost(item.id) : null">
+          <div class="card-top">
+            @if (!item.img && !item.multimedia) {
+              <app-optimized-image [borderRadius]="true" [url]="defaultImgUrl" [height150px]="true"></app-optimized-image>
+            }
+            @if (item.img && !item.multimedia) {
+              <app-optimized-image [borderRadius]="true" [url]="item.img" [height150px]="true"></app-optimized-image>
+            }
+            @if (item.multimedia) {
+              <app-multimedia-iframe [borderRadius]="true" [url]="item.multimedia" [height150px]="true"></app-multimedia-iframe>
+            }
+          </div>
+          <p class="post-title" (click)="redirectToPost(item.id)">{{item.title}}</p>
       </swiper-slide>
-      <swiper-slide class="pointer">
-        <div class="card-top">
-          <app-optimized-image [borderRadius]="true"></app-optimized-image>
-
-          <!-- <app-uell-img *ngIf="item.img && !item.multimedia" [url]="item.img" style="max-height: 200px;"></app-uell-img> -->
-          <!-- <app-uell-multimedia *ngIf="item.multimedia" [url]="item.multimedia"></app-uell-multimedia> -->
-          <!-- <img *ngIf="!item.img && !item.multimedia" [src]="defaultImgUrl" alt=""> -->
-        </div>
-          <!-- <p (click)="redirectToPost(item.id)" class="post-title">{{item.title}}</p> -->
-          <p class="post-title">title</p>
-      </swiper-slide>
-      <swiper-slide class="pointer">
-        <div class="card-top">
-          <app-optimized-image [borderRadius]="true"></app-optimized-image>
-
-          <!-- <app-uell-img *ngIf="item.img && !item.multimedia" [url]="item.img" style="max-height: 200px;"></app-uell-img> -->
-          <!-- <app-uell-multimedia *ngIf="item.multimedia" [url]="item.multimedia"></app-uell-multimedia> -->
-          <!-- <img *ngIf="!item.img && !item.multimedia" [src]="defaultImgUrl" alt=""> -->
-        </div>
-          <!-- <p (click)="redirectToPost(item.id)" class="post-title">{{item.title}}</p> -->
-          <p class="post-title">title</p>
-      </swiper-slide>
-      <swiper-slide class="pointer">
-        <div class="card-top">
-          <app-optimized-image [borderRadius]="true"></app-optimized-image>
-
-          <!-- <app-uell-img *ngIf="item.img && !item.multimedia" [url]="item.img" style="max-height: 200px;"></app-uell-img> -->
-          <!-- <app-uell-multimedia *ngIf="item.multimedia" [url]="item.multimedia"></app-uell-multimedia> -->
-          <!-- <img *ngIf="!item.img && !item.multimedia" [src]="defaultImgUrl" alt=""> -->
-        </div>
-          <!-- <p (click)="redirectToPost(item.id)" class="post-title">{{item.title}}</p> -->
-          <p class="post-title">title</p>
-      </swiper-slide>
+      }
     </swiper-container>
   </div>
 </div>
