@@ -7,6 +7,7 @@ import {
   Token,
 } from '@capacitor/push-notifications';
 import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { Platform } from '@ionic/angular';
 })
 export class AppComponent {
   // platform = inject(Platform);
+  private router = inject(Router);
 
   constructor(private platform: Platform) {
     this.showSplash();
@@ -22,8 +24,6 @@ export class AppComponent {
   }
 
   initPush() {
-    console.log('Initializing HomePage');
-
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
@@ -58,7 +58,9 @@ export class AppComponent {
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (notification: ActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
+        // alert('Push action performed: ' + JSON.stringify(notification));
+        const redirection = notification.notification.data.redirectTo;
+        if (redirection) this.router.navigateByUrl(redirection);
       }
     );
   }
