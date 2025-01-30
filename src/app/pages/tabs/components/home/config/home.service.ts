@@ -5,7 +5,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { ISPSService } from 'src/app/services/isps.service';
 import { User } from '../../../interfaces/user-interfaces';
 import { PortalService } from 'src/app/services/portal.service';
-import { ISPSScore } from 'src/app/core/interfaces/isps';
+import { ISPSScore } from 'src/app/pages/tabs/interfaces/isps';
 
 @Injectable({
   providedIn: 'root'

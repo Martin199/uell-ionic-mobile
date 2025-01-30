@@ -28,7 +28,7 @@
         <div class="validators" *ngIf="formAuth.controls.password.errors && formAuth.controls.password.touched">
           <div *ngIf="formAuth.controls.password.errors?.['required']">El password es requerido</div>
         </div>
-        <ion-text color="primary" class="forgot-password">¿Olvidaste tu contraseña?</ion-text>
+        <ion-text color="primary" class="forgot-password" (click)="forgotPassword()">¿Olvidaste tu contraseña?</ion-text>
       </div>
 
       <ion-button expand="block" shape="round" type="submit" class="submit-btn submit" [disabled]="formAuth.invalid">

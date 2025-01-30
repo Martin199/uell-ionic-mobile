@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CognitoUserPool, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { Observable } from 'rxjs';
+import { IUser, IUserCredentials } from '../interfaces/auth.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CognitoService {
   readonly userPool!: CognitoUserPool;
-  readonly cognitoUser!: CognitoUser | null;
+  private cognitoUser!: CognitoUser | null;
+  currentUser: IUser | null = null;
 
   constructor() {
     this.userPool = new CognitoUserPool({
@@ -79,6 +81,57 @@ export class CognitoService {
       });
     });
   }
+
+  private getUserPool(): CognitoUserPool {
+		const clientId: string =  this.userPool.getClientId();
+		const userPoolId: string = this.userPool.getUserPoolId();
+
+		return new CognitoUserPool({
+			ClientId: clientId,
+			UserPoolId: userPoolId
+		});
+	}
+
+  private getCognitoUser(credentials: IUserCredentials): CognitoUser {
+		return new CognitoUser({
+			Username: credentials.username,
+			Pool: this.getUserPool()
+		});
+	}
+
+  public recoverPassword(userCredentials: IUserCredentials): Promise<any> {
+		return new Promise((resolve, reject) => {
+			this.cognitoUser = this.getCognitoUser(userCredentials);
+			this.cognitoUser.forgotPassword({
+				onSuccess: resolve,
+				onFailure: reject,
+			});
+		});
+	}
+
+  public confirmRecoverPassword(code: string, newPassword: string): Promise<void> {
+		return new Promise((resolve, reject) => {
+			if (!this.cognitoUser) {
+				reject('User not present.');
+				return;
+			}
+
+			this.cognitoUser.confirmPassword(code, newPassword, {
+					onSuccess: () => {
+						this.resetUser();
+						resolve();
+					},
+					onFailure: (err) => {
+						reject(err.message);
+					}
+				});
+		});
+	}
+
+  private resetUser() {
+		this.cognitoUser = null;
+		this.currentUser = null;
+	}
 
   logout() {
     this.cognitoUser?.signOut();

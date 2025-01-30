@@ -24,6 +24,15 @@ export class UtilsService {
     return this.navCtrl.back();
   }
 
+  async getToastMessage(position: 'top' | 'middle' | 'bottom' , time: number, message:string){
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: time,
+      position: position,
+    });
+    await toast.present();
+  }
+
   async showAlert(header: string, message: string, buttons: any[] = ['OK']) {
     const alert = await this.alertCtrl.create({
       header,
