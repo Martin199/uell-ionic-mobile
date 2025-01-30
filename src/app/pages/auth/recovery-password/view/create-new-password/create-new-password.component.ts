@@ -6,6 +6,7 @@ import { ICodeDeliveryDetails, IUserCredentials } from 'src/app/core/interfaces/
 import { LoginService } from 'src/app/services/login.service';
 import { CustomValidators } from '../../../utils/customValidation';
 import { CognitoService } from 'src/app/core/services/cognito.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-create-new-password',
@@ -28,6 +29,7 @@ export class CreateNewPasswordComponent  implements OnInit {
   router = inject ( Router )
   login = inject ( LoginService )
   auth = inject ( CognitoService )
+  utilsService = inject (UtilsService)
 
   constructor( ) {
     this.otpForm = this.fb.group({
@@ -137,6 +139,7 @@ export class CreateNewPasswordComponent  implements OnInit {
   confirmPasswordChange() {
 		this.auth.confirmRecoverPassword(this.otpInput.value.join(''), this.newPassword.value).then(() => {
       this.router.navigate(['auth']);
+      this.utilsService.getToastMessage('bottom',3000,'Contraseña actualizada')
     }).catch((err) => {
       this.error = err;
     });
