@@ -36,3 +36,18 @@
   .pb-16 {
     padding-bottom: 32px;
   }
+
+  .footer-btn {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    --background: #1da4b1;
+    --background-hover: #4c8dff;
+    --background-activated: #3366cc;
+    --color: #ffffff;
+    border-radius: 100px;
+    font-weight: bold;
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+  }
