@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { ISearchbarAnimation } from 'src/app/shared/interface/searchbar-animation-interfaces';
 import { ICarouselWellnessPortal, IWellnessPortalPost } from '../../interfaces/wellness-portal-interfaces';
 import { WellnessPortalService } from 'src/app/services/wellness-portal.service';
+// import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-wellness-portal',
@@ -25,9 +27,10 @@ export class WellnessPortalPage {
   }
 
   wellnessPortalService = inject(WellnessPortalService);
+  // router = inject(Router);
+  utilsService = inject(UtilsService);
 
-  getWellnessData() {
-
+  async getWellnessData() {
     this.getAllPosts();
 
     this.getRecommendedForYou('RECOMENDADO_PARA_VOS', 3);
@@ -39,7 +42,9 @@ export class WellnessPortalPage {
     this.getWellnessPortalGeneralCategories('SALUD_MENTAL', 10);
   }
 
-  getAllPosts() {
+  async getAllPosts() {
+    const loading = await this.utilsService.loading();
+    await loading.present();
     this.wellnessPortalService.getAllPosts().subscribe({
       next: (res: any) => {
         if(res && res.length > 0) {
@@ -52,7 +57,9 @@ export class WellnessPortalPage {
       error: (err) => {
         console.error(err);
       },
-      complete: () => {},
+      complete: () => {
+      loading.dismiss();
+      },
     });
   }
 
@@ -191,8 +198,7 @@ export class WellnessPortalPage {
   }
 
   redirectToPost(idPost: any) {
-    console.log(idPost);
-    // this.router.navigateByUrl(`newton/wellness-portal/details/${idPost}`)
+    this.utilsService.router.navigate([`tabs/home/details/${idPost}`])
   }
 
 }

@@ -1,0 +1,81 @@
+<app-header></app-header>
+<ion-content #ionContent (ionScroll)="onScroll($event)" scrollEvents="true">
+    @if (post) {
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="goBack()">
+          <ion-icon slot="start" name="arrow-back-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    @if (loadImage) {
+      <div class="banner-container w-100" [ngStyle]="{'background-image': 'url(' + (post.title_image?.content || '') + ')'}">
+        @if (post.multiMediaUrl) {
+          <app-uell-multimedia [url]="post.multiMediaUrl"></app-uell-multimedia>
+        }
+        @else {
+          <img src="{{ post.title_image ? post.title_image.content : '../../../../assets/imgs/Uell_Img.jpg' }}" alt="Banner" class="banner-img">
+
+        }
+        <div class="banner-title">
+            <p>{{post.title}}</p>
+        </div>
+      </div>
+    }
+    <div #contentPage class="d-flex w-100 post-body f-wrap">
+      <div class="d-flex w-100 container-action-buttons">
+          <div class="action-buttons">
+              <ion-img class="folow" src="/assets/icons/Uell-bienestar-icono-views.svg" alt="views"></ion-img>
+              <!-- <ion-icon name="eye" style="width: 40px; height: 40px;"></ion-icon> -->
+              <span> {{ views || '0' }} </span>
+          </div>
+          <div class="action-buttons">
+              <ion-img class="folow interactive" src="/assets/icons/Uell-bienestar-icono-likes.svg" alt="likes" (click)="countLikes($event)"></ion-img>
+              <span> {{ likes || '0' }} </span>
+          </div>
+          <div class="action-buttons">
+              <ion-img class="folow interactive" src="/assets/icons/Uell-bienestar-icono-unlikes.svg" alt="dislikes" (click)="countDislikes($event)"></ion-img>
+              <span> {{ dislikes || '0' }} </span>
+          </div>
+      </div>
+      <div class="ig-container">
+          <div class="instagram-video">
+            @if (post.instagramUrl) {
+              <div class="instagram-embed">
+                  <script async src="https://www.instagram.com/embed.js"></script>
+                  <blockquote class="instagram-media" [attr.data-instgrm-captioned]="true" [attr.data-instgrm-permalink]="post.instagramUrl" [attr.data-instgrm-version]="12">
+                  </blockquote>
+              </div>
+            }
+          </div>
+      </div>
+      @if (post?.spotifyUrl) {
+        <div class="d-flex w-100 container-action-buttons">
+            <iframe style="border-radius:12px" [src]="post.spotifyUrl" width="100%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="margin-bottom: 1rem;"></iframe>
+        </div>
+      }
+      <div class="d-flex-col w-100 post" style="padding-bottom: 40px;">
+        <div class="w-100">
+            <p class="subtitle">
+                {{ post.subtitle }}
+            </p>
+        </div>
+        <div #postBody class="w-100" [innerHTML]="post?.body"></div>
+        @if (post.attachments.length > 0) {
+          <div class="download" style="padding-bottom: 40px;">
+            @for (attachment of post.attachments; track $index) {
+              <div class="d-flex">
+                <span class="render" title="Descargar" placement="right" (click)="openAsLink(attachment.url)">
+                    {{ getImageName(attachment.url) }}
+                </span>
+                <button class="btn" title="Descargar" placement="right" (click)="openAsLink(attachment.url)">
+                    <img src="assets/download.svg">
+                </button>
+              </div>
+            }
+          </div>
+          }
+      </div>
+    </div>
+  }
+  </ion-content>

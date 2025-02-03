@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="20px" viewBox="0 0 22 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Shape</title>
+    <g id="Bienestar-2022-Mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Información-saludable-Artículo" transform="translate(-40.000000, -847.000000)" fill="#505A78" fill-rule="nonzero">
+            <path d="M48,867 L57,867 C57.83,867 58.54,866.5 58.84,865.78 L61.86,858.73 C61.95,858.5 62,858.26 62,858 L62,856 C62,854.9 61.1,854 60,854 L53.69,854 L54.64,849.43 L54.67,849.11 C54.67,848.7 54.5,848.32 54.23,848.05 L53.17,847 L46.58,853.59 C46.22,853.95 46,854.45 46,855 L46,865 C46,866.1 46.9,867 48,867 Z M48,855 L52.34,850.66 L51,856 L60,856 L60,858 L57,865 L48,865 L48,855 Z M40,855 L44,855 L44,867 L40,867 L40,855 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>
