@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.uell.ionic.mobile;
 
 import com.getcapacitor.BridgeActivity;
 
