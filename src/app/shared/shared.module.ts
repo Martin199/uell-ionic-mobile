@@ -13,11 +13,12 @@ import { UellMultimediaComponent } from './componentes/uell-multimedia/uell-mult
 import { FormsIspsComponent } from './componentes/forms-isps/forms-isps.component';
 import { FormIspsStepOneComponent } from './componentes/forms-isps/form-isps-step-one/form-isps-step-one.component';
 import { FormIspsStepTwoComponent } from './componentes/forms-isps/form-isps-step-two/form-isps-step-two.component';
+import { SearchbarAnimationComponent } from './componentes/searchbar-animation/searchbar-animation.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent, IspsCircleComponent, ModalDescriptionComponent, UellMultimediaComponent,FormsIspsComponent, FormIspsStepOneComponent, FormIspsStepTwoComponent],
+  declarations: [HeaderComponent, CustomInputComponent, LogoComponent, EmotionalModalComponent, IspsCircleComponent, ModalDescriptionComponent, UellMultimediaComponent,FormsIspsComponent, FormIspsStepOneComponent, FormIspsStepTwoComponent, SearchbarAnimationComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -31,7 +32,8 @@ import { FormIspsStepTwoComponent } from './componentes/forms-isps/form-isps-ste
     ReactiveFormsModule,
     LogoComponent,
     IspsCircleComponent,
-    UellMultimediaComponent
+    UellMultimediaComponent,
+    SearchbarAnimationComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

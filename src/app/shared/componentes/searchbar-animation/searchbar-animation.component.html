@@ -1,0 +1,27 @@
+<div class="container">
+  @if (viewInput || alwaysActive) {
+    <input [(ngModel)]="searchValue" [ngClass]="viewSearchResults ? 'input-results' : viewInput || alwaysActive ? 'input-on' : viewSearchResults ? 'input-results' : 'input-off'" type="text" [placeholder]="placeholder" [@inputAnimation]="viewInput" (ngModelChange)="openSearchResults($event)" autofocus>
+  }
+  <button [ngClass]=" viewSearchResults ? 'btn-results' : viewInput || alwaysActive ? 'btn-on' : 'btn-off'" (click)="alwaysActive ? null : toogleView()" [@inputAnimation]="viewInput"><img src="assets/icons/search.svg" alt=""></button>
+  @if (viewSearchResults) {
+    <div class="search-results">
+      @if (spinner) {
+        <ion-spinner name="crescent" color="primary"></ion-spinner>
+      }
+      @else {
+        @if (filteredResults && filteredResults.length > 0) {
+          @for (item of filteredResults; track $index) {
+            <div class="item" (click)="selectItem(item.id)">
+              <a>{{ item.title }}</a>
+            </div>
+          }
+        }
+        @if (filteredResults.length === 0) {
+          <div class="no-item">
+            <a>No se encontraron resultados</a>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>
