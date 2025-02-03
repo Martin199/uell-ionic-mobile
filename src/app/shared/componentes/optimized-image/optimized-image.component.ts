@@ -28,12 +28,12 @@ export class OptimizedImageComponent  implements OnInit {
           if (res) { 
             this.imgSrc = res;
           } else {
-            this.imgSrc ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY8cq53evFoKvhcEMFYQonH2OYhJ__N0dL9w&s'
+            this.imgSrc ='../../../../assets/imgs/Uell_Img.jpg';
           }
         },
         error: (err) => {
           console.error(err);
-          this.imgSrc ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY8cq53evFoKvhcEMFYQonH2OYhJ__N0dL9w&s'
+          this.imgSrc ='../../../../assets/imgs/Uell_Img.jpg';
         },
         complete: () => {},
       });
