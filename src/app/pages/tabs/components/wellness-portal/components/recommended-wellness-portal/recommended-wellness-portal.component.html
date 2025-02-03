@@ -1,0 +1,17 @@
+@if (data && data.id) {
+  <div class="gradient-container" (click)="redirectToPost(data.id)">
+    @if (data.img && !data.multimedia) {
+      <app-optimized-image [borderRadius]="true"  [url]="data.img"></app-optimized-image>
+    }
+    <div class="card-footer">
+      <div class="gradient">
+        @if (data.title) {
+          <p class="img-title">{{data.title}}</p>
+        }
+        @if (data.subtitle) {
+          <p class="img-subtitle">{{data.subtitle}}</p>
+        }
+      </div>
+    </div>
+  </div>
+}

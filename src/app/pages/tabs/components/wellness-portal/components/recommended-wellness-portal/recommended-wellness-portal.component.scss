@@ -1,0 +1,52 @@
+.gradient-container {
+  position: relative;
+  cursor: pointer;
+  .card-footer {
+    .gradient {
+      position: absolute;
+      bottom: 3px;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      z-index: 0.1;
+      background: linear-gradient(180deg, rgba(29, 164, 177, 0.5) 20%, rgba(29, 164, 177, 0.9) 100%);
+      border-radius: 0 0 10px 10px;
+      .img-title {
+        position: absolute;
+        top: 0px;
+        left: 8px;
+        right: 8px;
+        z-index: 0.2;
+        margin: 0;
+        background-color: transparent;
+        color: #FFF;
+        font-family: 'Inter';
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 42px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .img-subtitle {
+        position: absolute;
+        top: 30px;
+        left: 8px;
+        right: 8px;
+        z-index: 0.2;
+        margin: 0;
+        background-color: transparent;
+        color: #FFF;
+        font-family: 'Inter';
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 42px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}

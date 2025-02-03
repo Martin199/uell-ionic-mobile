@@ -16,6 +16,7 @@ import { CardWellnessPortalComponent } from './views/card-wellness-portal/card-w
     HomePageRoutingModule,
     SharedModule,
   ],
-  declarations: [HomePage, CardPsicosocialComponent, CardWellnessPortalComponent ]
+  declarations: [HomePage, CardPsicosocialComponent, CardWellnessPortalComponent ],
+  exports: [CardPsicosocialComponent]
 })
 export class HomePageModule {}

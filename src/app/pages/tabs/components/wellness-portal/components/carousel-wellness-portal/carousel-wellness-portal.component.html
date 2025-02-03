@@ -1,0 +1,23 @@
+<div class="carousel-container">
+  <p class="title">{{title}}</p>
+  <div class="swiper-container">
+    <swiper-container slides-per-view="auto">
+      @for (item of data; track $index) {
+        <swiper-slide class="pointer" [ngClass]="item.multimedia ? 'multimedia-width' : ''" (click)="!item.multimedia ? redirectToPost(item.id) : null">
+          <div class="card-top">
+            @if (!item.img && !item.multimedia) {
+              <app-optimized-image [borderRadius]="true" [url]="defaultImgUrl" [height150px]="true"></app-optimized-image>
+            }
+            @if (item.img && !item.multimedia) {
+              <app-optimized-image [borderRadius]="true" [url]="item.img" [height150px]="true"></app-optimized-image>
+            }
+            @if (item.multimedia) {
+              <app-multimedia-iframe [borderRadius]="true" [url]="item.multimedia" [height150px]="true"></app-multimedia-iframe>
+            }
+          </div>
+          <p class="post-title" (click)="redirectToPost(item.id)">{{item.title}}</p>
+      </swiper-slide>
+      }
+    </swiper-container>
+  </div>
+</div>
