@@ -32,6 +32,7 @@ export class UtilsService {
     return tenantParameters?.tenantParameters?.localization[path as keyof Localization]
   }
   
+
   async getToastMessage(position: 'top' | 'middle' | 'bottom' , time: number, message:string){
     const toast = await this.toastCtrl.create({
       message: message,
