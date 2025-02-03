@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { shareReplay } from 'rxjs/operators';
-import { ISPSScore, ManagerResponse } from 'src/app/core/interfaces/isps';
+import { ISPSScore, ManagerResponse } from 'src/app/pages/tabs/interfaces/isps';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { ISPSService } from 'src/app/services/isps.service';
 import { StorageService } from 'src/app/services/storage.service';
