@@ -26,7 +26,7 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 /* Dark Mode */
-@import "@ionic/angular/css/palettes/dark.class.css";
+// @import "@ionic/angular/css/palettes/dark.class.css";
 
 ion-button {
   text-transform: none;
@@ -168,6 +168,19 @@ ion-item.custom-input:focus-within {
 .alert-button-role-confirm {
   color: var(--ion-color-primary);
 }
+
+  .alert-button {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .alert-button-role-cancel {
+    color: var(--ion-color-medium); /* Color del botón "Cancelar" */
+  }
+
+  .alert-button-role-confirm {
+    color: var(--ion-color-primary); /* Color del botón "Confirmar" */
+  }
 
 
 
