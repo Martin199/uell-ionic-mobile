@@ -63,6 +63,7 @@ export class AuthPage implements OnInit {
       console.log('Inicio de sesión exitoso:', result);
       if (result) {
         this.userService.getMe().subscribe((user) => {
+          this.userService.setUser(user);
           console.log('Usuario:', user);
           this.storageService.setSessionStorage('user', user);
           loading.dismiss();

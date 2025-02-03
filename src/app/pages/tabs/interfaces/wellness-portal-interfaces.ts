@@ -44,6 +44,7 @@ export interface TitleImage {
   updated: string
   url: string
   active: boolean
+  content: string;
 }
 
 export interface BodyImage {
@@ -71,4 +72,13 @@ export interface ICarouselWellnessPortal {
   img?: string,
   multimedia?: string;
   publishAt?: any;
+}
+
+export interface IResponsePostLikes {
+  firstTimeLikedOrDisliked: boolean;
+}
+
+export interface IFilePostBodyImage {
+  fileName: string;
+  fileContent: string | null;
 }
