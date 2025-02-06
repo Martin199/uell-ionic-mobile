@@ -41,6 +41,34 @@
             "scripts": []
           },
           "configurations": {
+            "qa": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -84,6 +112,12 @@
             },
             "development": {
               "buildTarget": "app:build:development"
+            },
+            "qa": {
+              "browserTarget": "app:build:qa"
+            },
+            "stage": {
+              "browserTarget": "app:build:stage"
             },
             "ci": {
               "progress": false
