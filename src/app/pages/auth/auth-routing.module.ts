@@ -27,7 +27,11 @@ const routes: Routes = [
   {
     path: 'term-and-conditions',
     loadChildren: () => import('./term-and-conditions/term-and-conditions.module').then( m => m.TermAndConditionsPageModule)
+  },  {
+    path: 'onboarding',
+    loadChildren: () => import('./onboarding/onboarding.module').then( m => m.OnboardingPageModule)
   },
+
 
 
 

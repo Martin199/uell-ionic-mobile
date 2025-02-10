@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { Localization, TenantParameters, TenantParametersResponse } from '../core/interfaces/tenantParameters';
+import { User } from '../pages/tabs/interfaces/user-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UtilsService {
   modalCtrl = inject(ModalController)
   alertCtrl = inject(AlertController)
   navCtrl = inject(NavController)
-  storageServices = inject(StorageService)
+  storageService = inject(StorageService)
 
   constructor() { }
 
@@ -28,10 +29,13 @@ export class UtilsService {
   }
 
   getLocalization(path: string) {
-    const tenantParameters: TenantParametersResponse | null = this.storageServices.getSessionStorage('tenantParameters')
+    const tenantParameters: TenantParametersResponse | null = this.storageService.getSessionStorage('tenantParameters')
     return tenantParameters?.tenantParameters?.localization[path as keyof Localization]
   }
   
+  getUserUser() {
+    return this.storageService.getSessionStorage<User>('user')!;
+  }
 
   async getToastMessage(position: 'top' | 'middle' | 'bottom' , time: number, message:string){
     const toast = await this.toastCtrl.create({

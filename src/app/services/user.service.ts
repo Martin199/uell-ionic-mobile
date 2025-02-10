@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { EmotionalResponse } from '../shared/interface/emotional-interfaces';
+import { UserResponseDTO } from '../core/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class UserService {
   }
 
   getMe() {
-    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/users/me`);
+    return this.http.get<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/me`);
   }
 
   getUserTenants(){

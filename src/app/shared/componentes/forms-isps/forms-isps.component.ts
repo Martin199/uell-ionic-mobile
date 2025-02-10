@@ -62,7 +62,7 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   constructor() { }
 
   async ngOnInit() {
-    this.user = await this.storageService.getSessionStorage<User>('user') !;
+    this.user = this.storageService.getSessionStorage<User>('user')!;
     this.translatesISPS = this.utilsService.getLocalization('isps');
     if (localStorage.getItem('gestorWillContactYou') && localStorage.getItem('gestorWillContactYou') === 'true' || localStorage.getItem('gestorWillContactYou') === 'false') {
       this.questionGestor = localStorage.getItem('gestorWillContactYou');

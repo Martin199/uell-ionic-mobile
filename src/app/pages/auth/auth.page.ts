@@ -6,6 +6,7 @@ import { CognitoService } from 'src/app/core/services/cognito.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { UserResponseDTO } from 'src/app/core/interfaces/user';
 
 @Component({
   selector: 'app-auth',
@@ -62,12 +63,17 @@ export class AuthPage implements OnInit {
       const result = await this.cognitoService.signIn(cuil as string, password as string);
       console.log('Inicio de sesión exitoso:', result);
       if (result) {
-        this.userService.getMe().subscribe((user) => {
+        this.userService.getMe().subscribe((user: UserResponseDTO) => {
           this.userService.setUser(user);
           console.log('Usuario:', user);
+          debugger
+          if (!user.onboarded) {
+            this.utilsService.router.navigate(['/auth/onboarding']);
+          } else {
+            this.utilsService.router.navigate(['/auth/select-tenants']);
+          }
           this.storageService.setSessionStorage('user', user);
           loading.dismiss();
-          this.utilsService.router.navigate(['/auth/select-tenants']);
         });
 
         this.userService.getUserTenants().subscribe((user) => {
