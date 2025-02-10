@@ -1,0 +1,86 @@
+.stepper {
+    ion-title:first-child {
+      font-size: 12px;
+      color: #505A78;
+      padding-top: 16px;
+      margin-top: 16px;
+      margin-inline-start: 10px;
+    }
+  
+    ion-title:last-child {
+      font-size: 20px;
+      color: #505A78;
+      font-weight: 700;
+      text-align: left;
+      padding-top: 16px;
+      margin-inline-start: 10px;
+    }
+
+    .title {
+        font-size: 20px;
+        color: #505A78;
+        font-weight: 700;
+        text-align: left;
+        padding-top: 16px;
+        margin-inline-start: 10px;
+        padding-left: 20px;
+    }	
+  }
+
+  ion-spinner{
+    margin-top: 20px;
+  }
+
+  swiper-slide{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .btnClose {
+    color: #505A78;
+    margin-inline-end: 16px;
+  
+  }
+  
+  .pb-16 {
+    padding-bottom: 32px;
+  }
+
+  .mb{
+    margin-bottom: 20px;
+  }
+
+  .footer-btn {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    --background: #1da4b1;
+    --background-hover: #4c8dff;
+    --background-activated: #3366cc;
+    --color: #ffffff;
+    border-radius: 100px;
+    font-weight: bold;
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .footer-btn-back {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    --background: white;
+    --background-hover: #4c8dff;
+    --background-activated: #3366cc;
+    --color: #1da4b1;
+    border-radius: 100px;
+    font-weight: bold;
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  ion-progress-bar {
+    --progress-background: #1da4b1;
+  }
+  

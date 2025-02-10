@@ -29,107 +29,145 @@
 // @import "@ionic/angular/css/palettes/dark.class.css";
 
 ion-button {
-    text-transform: none;
+  text-transform: none;
 }
 
 .example-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 
 // safe padding for ios
 .safe-p-bottom {
-    padding-bottom: constant(safe-area-inset-bottom); // for ios 13+
-    padding-bottom: env(safe-area-inset-bottom); // for previous ios versions
+  padding-bottom: constant(safe-area-inset-bottom); // for ios 13+
+  padding-bottom: env(safe-area-inset-bottom); // for previous ios versions
 }
 
 .submit {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .empty {
-    text-align: center;
-    padding: 60px;
-    opacity: 30%;
+  text-align: center;
+  padding: 60px;
+  opacity: 30%;
 
-    ion-icon {
-        font-size: 100px;
-    }
+  ion-icon {
+    font-size: 100px;
+  }
 }
 
 .d-flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-ion-checkbox {
-   --size: 25px;
-    --checkbox-background-checked: #1DA4B1;
-  }
+ion-radio {
+  --size: 20px; /* Tamaño del radio */
+  --color: #ccc; /* Color del círculo interno cuando NO está seleccionado */
+  --border-color: #ccc; /* Borde cuando NO está seleccionado */
+  --border-width: 2px;
+}
 
-  ion-checkbox::part(container) {
-    border-radius: 6px;
-    border: 2px solid #1DA4B1;
-  }
+ion-radio::part(container) {
+  border-radius: 50%;
+  border: 2px solid var(--border-color); /* Usamos la variable */
+}
+
+/* Aplica el color cuando está seleccionado */
+ion-radio[aria-checked="true"] {
+  --color: #1DA4B1; /* Color del círculo interno cuando está seleccionado */
+  --border-color: #1DA4B1; /* Borde azul cuando está seleccionado */
+}
+
+/* Asegurar que el círculo interno se muestre al seleccionar */
+ion-radio[aria-checked="true"]::part(container) {
+  background: radial-gradient(circle, #1DA4B1 50%, transparent 55%);
+}
+
+
+
+ion-checkbox {
+  --size: 25px;
+  --checkbox-background-checked: #1DA4B1;
+}
+
+ion-checkbox::part(container) {
+  border-radius: 6px;
+  border: 2px solid #1DA4B1;
+}
 
 .custom-input {
-    --border-color: #e0e0e0;
-    --border-radius: 15px;
-    --border-style: solid;
-    --border-width: 1px;
-    margin-bottom: 20px;
-    margin-top: 4px;
-    transition: all 0.3s ease-in-out;
+  --border-color: #e0e0e0;
+  --border-radius: 15px;
+  --border-style: solid;
+  --border-width: 1px;
+  margin-bottom: 20px;
+  margin-top: 4px;
+  transition: all 0.3s ease-in-out;
 
-    ion-select {
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--Neutral-GreyDark, #383E52);
-      padding: 0;
-      margin: 0;
-      --padding-start: 0;
-      --padding-end: 0;
-    }
-
-    ion-select::part(text) {
-      color: var(--Neutral-GreyDark, #383E52);
-      padding-left: 0;
-      font-size: 14px;
-    }
-
-    ion-select-placeholder {
-      color: #b0b0b0;
-      font-size: 14px;
-      font-style: italic;
-    }
+  ion-select {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--Neutral-GreyDark, #383E52);
+    padding: 0;
+    margin: 0;
+    --padding-start: 0;
+    --padding-end: 0;
   }
+
+  ion-select::part(text) {
+    color: var(--Neutral-GreyDark, #383E52);
+    padding-left: 0;
+    font-size: 14px;
+  }
+
+  ion-select-placeholder {
+    color: #b0b0b0;
+    font-size: 14px;
+    font-style: italic;
+  }
+}
 
 
 ion-item.custom-input:hover,
 ion-item.custom-input:focus-within {
-    --border-color: #1DA4B1;
+  --border-color: #1DA4B1;
 }
 
 
 .submit-btn {
-    --padding-start: 20px; /* Aumenta el padding izquierdo */
-    --padding-end: 20px;   /* Aumenta el padding derecho */
-    --padding-top: 15px;   /* Aumenta el padding superior */
-    --padding-bottom: 15px; /* Aumenta el padding inferior */
-    --background: #1da4b1; /* Color de fondo (azul predeterminado de Ionic) */
-    --background-hover: #4c8dff; /* Color de fondo al pasar el mouse */
-    --background-activated: #3366cc; /* Color de fondo al hacer clic */
-    --color: #ffffff; /* Color del texto */
-    border-radius: 100px; /* Bordes redondeados */
-    font-weight: bold; /* Negrita para el texto */
-    text-transform: none; /* Texto en mayúsculas */
-    font-family: 'Inter', sans-serif;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+  --background: #1da4b1;
+  --background-hover: #4c8dff;
+  --background-activated: #3366cc;
+  --color: #ffffff;
+  border-radius: 100px;
+  font-weight: bold;
+  text-transform: none;
+  font-family: 'Inter', sans-serif;
 
-  }
+}
+
+.alert-button {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.alert-button-role-cancel {
+  color: var(--ion-color-medium);
+}
+
+.alert-button-role-confirm {
+  color: var(--ion-color-primary);
+}
 
   .alert-button {
     font-size: 16px;
@@ -147,60 +185,61 @@ ion-item.custom-input:focus-within {
 
 
 .validators {
-    color: var(--ion-color-danger);
-    font-size: 13px;
-    text-align: center;
+  color: var(--ion-color-danger);
+  font-size: 13px;
+  text-align: center;
 }
 
 .auth-form {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
 }
 
 .product-item {
-    --padding-top: 20px;
+  --padding-top: 20px;
 
-    ion-avatar {
-        width: 70px;
-        height: 80px;
-        --border-radius: 15px;
+  ion-avatar {
+    width: 70px;
+    height: 80px;
+    --border-radius: 15px;
+  }
+
+  .name {
+    font-weight: 600;
+    padding-bottom: 5px;
+  }
+
+  .data {
+    font-size: 13px;
+
+    strong {
+      font-weight: 500;
     }
+  }
 
-    .name {
-        font-weight: 600;
-        padding-bottom: 5px;
-    }
+  .option-btn {
+    font-size: 27px;
+  }
 
-    .data {
-        font-size: 13px;
-
-        strong {
-            font-weight: 500;
-        }
-    }
-
-    .option-btn {
-        font-size: 27px;
-    }
-
-    ion-chip {
-        font-size: 14px;
-        border-radius: 10px;
-        margin-left: 0;
-    }
+  ion-chip {
+    font-size: 14px;
+    border-radius: 10px;
+    margin-left: 0;
+  }
 }
 
 @media (min-width: 769px) {
-    .auth-form {
-        width: 500px;
-    }
-
-    .add-update-modal {
-        --height: 680px;
-    }
-}
-:host ::ng-deep .swiper-wrapper #swiper-wrapper-* {
-    display: flex !important;
-    align-items: center !important;
+  .auth-form {
+    width: 500px;
   }
+
+  .add-update-modal {
+    --height: 680px;
+  }
+}
+
+:host ::ng-deep .swiper-wrapper #swiper-wrapper-* {
+  display: flex !important;
+  align-items: center !important;
+}
