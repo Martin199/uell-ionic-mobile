@@ -3,24 +3,28 @@
     <ion-list-header>
       <ion-label> {{ translatesISPS['three-months'] }} </ion-label>
     </ion-list-header>
-    <ion-item-group *ngFor="let question of questions;">
-      <ion-label class="ion-margin-start bold-txt">{{ question.question }}</ion-label>
-      <ion-radio-group [formControlName]="question.fcName">
-        <ion-item (click)="selectOption(question.fcName, question.answerA.value)">
-          <ion-radio mode="md" slot="start" [value]="question.answerA.value"></ion-radio>
-          <ion-label>{{ question.answerA.label }}</ion-label>
-        </ion-item>
-
-        <ion-item (click)="selectOption(question.fcName, question.answerB.value)">
-          <ion-radio mode="md" slot="start" [value]="question.answerB.value"></ion-radio>
-          <ion-label>{{ question.answerB.label }}</ion-label>
-        </ion-item>
-
-        <ion-item *ngIf="question.answerC" (click)="selectOption(question.fcName, question.answerC.value)">
-          <ion-radio mode="md" slot="start" [value]="question.answerC.value"></ion-radio>
-          <ion-label>{{ question.answerC.label }}</ion-label>
-        </ion-item>
-      </ion-radio-group>
-    </ion-item-group>
+    @for(question of questions; track question){
+      <ion-item-group>
+        <ion-label class="ion-margin-start bold-txt">{{ question.question }}</ion-label>
+        <ion-radio-group [formControlName]="question.fcName">
+          <ion-item (click)="selectOption(question.fcName, question.answerA.value)">
+            <ion-radio mode="md" slot="start" [value]="question.answerA.value"></ion-radio>
+            <span class="radio-label">{{ question.answerA.label }}</span>
+          </ion-item>
+  
+          <ion-item (click)="selectOption(question.fcName, question.answerB.value)">
+            <ion-radio mode="md" slot="start" [value]="question.answerB.value"></ion-radio>
+            <span class="radio-label">{{ question.answerB.label }}</span>
+          </ion-item>
+  
+          @if(question.answerC){
+            <ion-item (click)="selectOption(question.fcName, question.answerC.value)">
+              <ion-radio mode="md" slot="start" [value]="question.answerC.value"></ion-radio>
+              <span class="radio-label">{{ question.answerC.label }}</span>
+            </ion-item>
+          }          
+        </ion-radio-group>
+      </ion-item-group>
+    }
   </ion-list>
 </form>

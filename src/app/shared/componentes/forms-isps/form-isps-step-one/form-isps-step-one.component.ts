@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef, output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -11,9 +11,10 @@ export class FormIspsStepOneComponent  implements OnInit {
 
   translatesISPS!: any;
   questions: any[] = []
-  
   utilsService = inject(UtilsService);
   cdRef = inject(ChangeDetectorRef);
+  validForm = output<boolean>();
+  returnFirstStep = output<any>();
 
   firstForm = new FormGroup({
     irritable:new FormControl('', [Validators.required]),
@@ -34,10 +35,19 @@ export class FormIspsStepOneComponent  implements OnInit {
     this.translatesISPS = this.utilsService.getLocalization('isps')
     this.initQuestions();
 
+    this.firstForm.valueChanges.subscribe(() => {
+      if(this.firstForm.valid){
+        this.validForm.emit(this.firstForm.valid) 
+      }
+    })    
+
     this.firstForm.valueChanges.subscribe((res) => {
-      console.log(res);
       this.cdRef.detectChanges();
     })
+  }
+
+  emitForm() {
+    this.returnFirstStep.emit(this.firstForm.value);
   }
 
   initQuestions() {
@@ -55,7 +65,7 @@ export class FormIspsStepOneComponent  implements OnInit {
       ]},
       { key: 'enjoy', fcName: 'enjoy', values: [0, 5, 3] }
     ];
-  
+
     this.questions = baseQuestions.map(q => {
       const question = this.translatesISPS[q.key];
       const answers = q.options 
@@ -70,10 +80,7 @@ export class FormIspsStepOneComponent  implements OnInit {
   
       return { question, answerA: answers[0], answerB: answers[1], answerC: answers[2], fcName: q.fcName };
     });
-
-    console.log(this.questions)  
   }
-
 
   selectOption(controlName: string, value: string) {
     this.firstForm.get(controlName)!.setValue(value);

@@ -1,4 +1,12 @@
-ion-label {
+ion-label, .radio-label {
+    color: #383E52 !important;
+    text-align: left;
+    white-space: normal !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+
+.item-inner{
     color: #383E52 !important;
     text-align: left;
     white-space: normal !important;

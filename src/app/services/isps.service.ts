@@ -22,4 +22,12 @@ export class ISPSService {
   getIspsAnswers(userId: number){
     return this.httpClientService.get<ISPSAnswers>(`${environment.apiBaseUrl}${environment.apiVersion}/psico-health/answers/${userId}`);
   }
+
+  public postIPSContent(idUser: number, data:any): Observable<any>{
+    return this.httpClientService.post(`${environment.apiBaseUrl}${environment.apiVersion}/psico-health/${idUser}`, data);
+  }
+
+  public patchIPSContent(idUser: number, data:any): Observable<any>{
+    return this.httpClientService.patch(`${environment.apiBaseUrl}${environment.apiVersion}/psico-health/${idUser}`, data);
+  }
 }

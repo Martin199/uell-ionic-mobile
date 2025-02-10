@@ -14,6 +14,8 @@ import { FormsIspsComponent } from './componentes/forms-isps/forms-isps.componen
 import { FormIspsStepOneComponent } from './componentes/forms-isps/form-isps-step-one/form-isps-step-one.component';
 import { FormIspsStepTwoComponent } from './componentes/forms-isps/form-isps-step-two/form-isps-step-two.component';
 import { SearchbarAnimationComponent } from './componentes/searchbar-animation/searchbar-animation.component';
+import { FormIspsStepThreeComponent } from './componentes/forms-isps/form-isps-step-three/form-isps-step-three.component';
+import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-step-four/form-isps-step-four.component';
 
 
 
@@ -29,6 +31,8 @@ import { SearchbarAnimationComponent } from './componentes/searchbar-animation/s
      FormsIspsComponent, 
      FormIspsStepOneComponent, 
      FormIspsStepTwoComponent, 
+     FormIspsStepThreeComponent,
+     FormIspsStepFourComponent, 
      SearchbarAnimationComponent, 
      UellMultimediaComponent],
   imports: [

@@ -1,24 +1,41 @@
 <ion-toolbar class="stepper">
-  <ion-title >Paso step de totalSteps</ion-title>
+  <ion-title >Paso {{step}} de {{totalSteps}}</ion-title>
   <ion-buttons slot="end">
-    <ion-button  class="btnClose">
+    <ion-button  class="btnClose" (click)="closeModal()">
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
   </ion-buttons>
-  <ion-label class="title">
-    Índice de salud Psicosocial(I-SPS)
-  </ion-label>
-  <ion-progress-bar class="ion-margin-top" ></ion-progress-bar>
+  <div class="mb">
+    <ion-label class="title">
+      Índice de salud Psicosocial(I-SPS)
+    </ion-label>
+  </div>
+  <ion-progress-bar class="ion-margin-top" [value]="progress"></ion-progress-bar>
 </ion-toolbar>
 
-<ion-content>
-  <swiper-container>
+<ion-content #content>
+  <swiper-container #swiperContainer>
     <swiper-slide>
-      <app-form-isps-step-one></app-form-isps-step-one>
+      <app-form-isps-step-one (validForm)="updateValidStep($event)" (returnFirstStep)="returnFirstStep($event)"></app-form-isps-step-one>
     </swiper-slide>
     <swiper-slide>
-      <app-form-isps-step-two></app-form-isps-step-two>
+      <app-form-isps-step-two (validForm)="updateValidStep($event)" (returnSecondStep)="returnSecondStep($event)"></app-form-isps-step-two>
     </swiper-slide>
+    <swiper-slide>
+      <app-form-isps-step-three (validForm)="updateValidStep($event)" (returnThirdStep)="returnThirdStep($event)"></app-form-isps-step-three>
+    </swiper-slide>
+    <swiper-slide>
+      <!-- Resultados -->
+      <ion-spinner *ngIf="!dataIsps"></ion-spinner>
+      @if(dataIsps){
+        <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
+        [hiddenCardChoiceMessageThroughCellphone]="messageThroughCellphone === 'false' ? true : false"
+         (isChecked)="returnQuestionValue($event)" 
+         [responseISPS]="dataIsps">
+        </app-form-isps-step-four>
+      }
+    </swiper-slide>
+
   </swiper-container>
 </ion-content>
 
@@ -26,9 +43,23 @@
   <ion-toolbar>
     <!-- Usamos clases nativas de Ionic para alinear el botón a la derecha -->
     <ion-buttons slot="end" class="ion-padding-end">
-      <ion-button expand="block" shape="round" type="submit" class="submit-btn footer-btn">
-        Siguiente
-      </ion-button>
+      @if(step !== 4 && step !== 1){
+        <ion-button @slideOut fill="outline" shape="round" class="ion-margin-end footer-btn-back" (click)="goBack()"> Volver </ion-button>
+      }
+      @if(step !== 4){
+        <ion-button expand="block" shape="round" type="submit" class="submit-btn footer-btn" [disabled]="!validStep" (click)="nextSlide()">
+          {{returnDescriptionBtn()}}
+        </ion-button>
+      }
+      @if(step === 4){
+        <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>   
+      }
     </ion-buttons>
+    <ion-toast
+      [isOpen]="isToastOpen"
+      [message]="toastMessage"
+      [duration]="1500"
+      (didDismiss)="setOpen(false)"
+    ></ion-toast>
   </ion-toolbar>
 </ion-footer>

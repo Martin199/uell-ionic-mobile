@@ -1,3 +1,31 @@
-<p>
-  form-isps-step-three works!
-</p>
+<form class="firstForm" [formGroup]="thirdForm">
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label color="dark"> {{translatesISPS['three-months']}} </ion-label>
+    </ion-list-header>
+    @for(question of questions; track question){
+      <ion-item-group>
+        <ion-label class="ion-margin-start bold-txt"> {{question.question}} </ion-label>
+      <ion-radio-group [formControlName]="question.fcName">
+        <ion-item>
+          <ion-radio mode="md" slot="start" [value]="question.answerA.value"></ion-radio>
+          <span class="radio-label">{{ question.answerA.label }} </span>
+        </ion-item>
+        <ion-item>
+          <ion-radio mode="md" slot="start" [value]="question.answerB.value"></ion-radio>
+          <span class="radio-label">{{ question.answerB.label }} </span>
+        </ion-item>
+        <ion-item>
+          <ion-radio mode="md" slot="start" [value]="question.answerC?.value"></ion-radio>
+          <span class="radio-label">{{ question?.answerC?.label }} </span>
+        </ion-item>
+      </ion-radio-group>
+      </ion-item-group>
+    }
+    <div class="content-alert">
+      <ion-label class="label-alert">
+        <ion-img src="/assets/icons/info.svg"></ion-img>
+        Recuerda que, una vez que envíes tus respuestas, no podrás modificarlas.</ion-label>
+    </div>
+  </ion-list>
+</form>

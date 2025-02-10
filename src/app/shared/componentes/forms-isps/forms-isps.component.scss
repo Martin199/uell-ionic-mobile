@@ -26,6 +26,15 @@
         padding-left: 20px;
     }	
   }
+
+  ion-spinner{
+    margin-top: 20px;
+  }
+
+  swiper-slide{
+    display: flex;
+    justify-content: center;
+  }
   
   .btnClose {
     color: #505A78;
@@ -35,6 +44,10 @@
   
   .pb-16 {
     padding-bottom: 32px;
+  }
+
+  .mb{
+    margin-bottom: 20px;
   }
 
   .footer-btn {
@@ -51,3 +64,23 @@
     text-transform: none;
     font-family: 'Inter', sans-serif;
   }
+
+  .footer-btn-back {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    --background: white;
+    --background-hover: #4c8dff;
+    --background-activated: #3366cc;
+    --color: #1da4b1;
+    border-radius: 100px;
+    font-weight: bold;
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  ion-progress-bar {
+    --progress-background: #1da4b1;
+  }
+  

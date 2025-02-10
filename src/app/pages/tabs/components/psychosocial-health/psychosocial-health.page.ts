@@ -23,22 +23,10 @@ export class PsychosocialHealthPage {
     this.user = this.storageService.getSessionStorage<User>('user') !;
     this.getIspsData();
   }
-
-
+  
   getIspsData(){
     this.ispsService.getISPSScore(this.user.id).subscribe((data:any) =>{
       this.ispsData = data;
-      console.log(this.ispsData, 'datas')
     })
   }
-
-  async onClick() {
-    console.log('Button clicked');
-      const modal = await this.utilService.modalCtrl.create({
-        component: FormsIspsComponent,
-        //componentProps: { termsText: }
-      });
-      await modal.present();
-  }	
-
 }
