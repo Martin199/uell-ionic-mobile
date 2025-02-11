@@ -23,7 +23,8 @@
               "isomorphic-unfetch",
               "@aws-crypto/sha256-js",
               "buffer",
-              "js-cookie"
+              "js-cookie",
+              "moment"
             ],
             "assets": [
               {
