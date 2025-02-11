@@ -71,8 +71,7 @@ export class CognitoService {
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
-          console.log('Access token:', result.getAccessToken().getJwtToken());
-          sessionStorage.setItem('accessToken', result.getAccessToken().getJwtToken());
+          sessionStorage.setItem('accessToken', result.getIdToken().getJwtToken());
           resolve(result);
         },
         onFailure: (err) => {

@@ -7,8 +7,7 @@ import { CognitoService } from '../services/cognito.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const cognitoService = inject(CognitoService);
-  let token = sessionStorage.getItem('accessToken');
-  // token = token ? token : cognitoService.getIdToken();
+  const token = sessionStorage.getItem('accessToken');
   console.log('token: ',token);
   console.log('getIdToken: ',cognitoService.getIdToken());
  const tenantRaw = sessionStorage.getItem('tenant');
@@ -49,20 +48,3 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     })
   );
 };
-
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class SharedService {
-  private cachedToken: string | null = null;
-
-  setSharedValue(value: string) {
-    this.cachedToken = value;
-  }
-
-  getSharedValue(): string | null {
-    return this.cachedToken;
-  }
-}

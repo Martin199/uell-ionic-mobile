@@ -114,10 +114,10 @@
               "buildTarget": "app:build:development"
             },
             "qa": {
-              "browserTarget": "app:build:qa"
+              "buildTarget": "app:build:qa"
             },
             "stage": {
-              "browserTarget": "app:build:stage"
+              "buildTarget": "app:build:stage"
             },
             "ci": {
               "progress": false

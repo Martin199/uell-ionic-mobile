@@ -9,7 +9,7 @@
       </ion-buttons>
     </ion-toolbar>
     @if (loadImage) {
-      <div class="banner-container w-100" [ngStyle]="{'background-image': 'url(' + (post.title_image?.content || '') + ')'}">
+      <div class="banner-container w-100" [ngStyle]="{'background-image': 'url(' + (post.title_image.content! || '') + ')'}">
         @if (post.multiMediaUrl) {
           <app-uell-multimedia [url]="post.multiMediaUrl"></app-uell-multimedia>
         }
@@ -49,7 +49,7 @@
             }
           </div>
       </div>
-      @if (post?.spotifyUrl) {
+      @if (post.spotifyUrl!) {
         <div class="d-flex w-100 container-action-buttons">
             <iframe style="border-radius:12px" [src]="post.spotifyUrl" width="100%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="margin-bottom: 1rem;"></iframe>
         </div>
@@ -60,7 +60,7 @@
                 {{ post.subtitle }}
             </p>
         </div>
-        <div #postBody class="w-100" [innerHTML]="post?.body"></div>
+        <div #postBody class="w-100" [innerHTML]="post.body!"></div>
         @if (post.attachments.length > 0) {
           <div class="download" style="padding-bottom: 40px;">
             @for (attachment of post.attachments; track $index) {
