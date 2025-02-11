@@ -8,6 +8,7 @@ import { RecoveryPasswordPageRoutingModule } from './recovery-password-routing.m
 
 import { RecoveryPasswordPage } from './recovery-password.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CreateNewPasswordComponent } from './view/create-new-password/create-new-password.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     RecoveryPasswordPageRoutingModule,
     SharedModule
   ],
-  declarations: [RecoveryPasswordPage]
+  declarations: [RecoveryPasswordPage, CreateNewPasswordComponent]
 })
 export class RecoveryPasswordPageModule {}

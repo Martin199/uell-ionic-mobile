@@ -1,0 +1,32 @@
+export const ANSWERS_LIST= [
+    { key: 'irritable', value: 'moodSwings' },
+    { key: 'impulsive', value: 'impulsive' },
+    { key: 'argued', value: 'frequentlyArgue' },
+    { key: 'episodes', value: 'anxiousMannerisms' },
+    { key: 'unable-relax', value: 'unableToRelax' },
+    { key: 'worried', value: 'worryFutureMisfortunes' },
+    { key: 'confidence', value: 'personalProblemsHandling' },
+    { key: 'three-years', value: 'futureSelfProjecting' },
+    { key: 'enjoy', value: 'enjoyDailyActivities' },
+    { key: 'energy', value: 'energyForDailyTasks' },
+    { key: 'concentrate', value: 'properlyFocus' },
+    { key: 'confront', value: 'cantFaceAllToDo' },
+  ];
+  
+export const EXTRA_ANSWERS_LIST= [
+    { key: 'comfortable', value: 'comfortabilityOppositeSexSmalltalk' },
+    { key: 'comfortable-group', value: 'comfortabilityUnknownGroup' },
+    { key: 'scared', value: 'feelMostTimeAfraid' },
+    { key: 'contained', value: 'feelUnionCloseCircle' },
+    { key: 'excluded', value: 'feelLeftBehind' },
+    { key: 'alone', value: 'feelAloneInGroup' },
+    { key: 'healthy-food', value: 'properDiet' },
+    { key: 'junk-food', value: 'fastfoodConsuming' },
+    { key: 'sugar', value: 'sugarbasedDrinks' },
+    { key: 'sleep-enough', value: 'enoughSleep' },
+    { key: 'sleep-difficult', value: 'hardtimeSleeping' },
+    { key: 'restful-sleep', value: 'repairingSleep' },
+    { key: 'sitting', value: 'sedentaryJob' },
+    { key: 'exercise', value: 'dailyPhysicalActivity' },
+    { key: 'sport', value: 'sports' },
+  ];

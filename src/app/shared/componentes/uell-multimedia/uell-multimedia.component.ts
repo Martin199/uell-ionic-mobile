@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -6,17 +6,13 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   templateUrl: './uell-multimedia.component.html',
   styleUrls: ['./uell-multimedia.component.scss']
 })
-export class UellMultimediaComponent implements OnInit {
+export class UellMultimediaComponent {
 
   @Input() url: string = ''
   isPlaying: boolean = false;
   sanitizedUrl?: SafeResourceUrl;
 
   constructor(private sanitizer: DomSanitizer) { }
-
-  ngOnInit(): void {
-    console.log(this.url);
-  }
 
   playVideo() {
     const videoUrl = `${this.url}?autoplay=1`;

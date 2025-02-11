@@ -63,6 +63,7 @@ export class AuthPage implements OnInit {
       console.log('Inicio de sesión exitoso:', result);
       if (result) {
         this.userService.getMe().subscribe((user) => {
+          this.userService.setUser(user);
           console.log('Usuario:', user);
           this.storageService.setSessionStorage('user', user);
           loading.dismiss();
@@ -110,4 +111,7 @@ export class AuthPage implements OnInit {
     passwordAnimation.play();
   }
 
+  forgotPassword(){
+    this.utilsService.router.navigate(['/recovery-password']);
+  }
 }

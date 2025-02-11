@@ -1,7 +1,8 @@
 <app-header></app-header>
 <ion-content>
-  <p>
-    psychosocial works!
-  </p>
+  @if(ispsData){
+    <app-card-psicosocial [ispsScore]="ispsData"></app-card-psicosocial>
+  }
+  <app-card-answers></app-card-answers>
 </ion-content>
 

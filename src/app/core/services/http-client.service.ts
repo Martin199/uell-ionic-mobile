@@ -21,6 +21,10 @@ export class HttpClientService {
     return this.http.put<T>(url, body, { headers });
   }
 
+  patch<T>(url: string, body: any, headers?: HttpHeaders): Observable<T> {
+    return this.http.patch<T>(url, body, { headers });
+  }
+
   delete<T>(url: string, headers?: HttpHeaders): Observable<T> {
     return this.http.delete<T>(url, { headers });
   }

@@ -1,6 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
-import { ISPSScore, ManagerResponse } from 'src/app/core/interfaces/isps';
+import { ISPSScore, ManagerResponse } from 'src/app/pages/tabs/interfaces/isps';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { ISPSService } from 'src/app/services/isps.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -9,6 +8,8 @@ import { Utils } from 'src/app/pages/tabs/components/home/utils/utils';
 import { UserService } from 'src/app/services/user.service';
 import { ModalDescriptionComponent } from 'src/app/shared/componentes/modal-description/modal-description.component';
 import { ModalController } from '@ionic/angular';
+import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-card-psicosocial',
@@ -34,6 +35,7 @@ export class CardPsicosocialComponent  implements OnInit {
   storageService = inject(StorageService);
   userService = inject(UserService)
   modalCtrl = inject (ModalController)
+  utilService = inject(UtilsService);
 
   constructor() { 
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
@@ -85,6 +87,26 @@ export class CardPsicosocialComponent  implements OnInit {
         }
       });
     }
+  }
+
+  async goIsps() {
+    const modal = await this.utilService.modalCtrl.create({
+      component: FormsIspsComponent,
+    });
+    await modal.present();
+    
+     const { data } = await modal.onDidDismiss();
+     if (data?.updated) {
+       console.log('ejecuto getISPSScore');
+       this.refreshISPS();
+     }
+  }	
+
+  refreshISPS(){
+      this.ispsService.getISPSScore(this.user.id).subscribe((data:any) =>{
+        this.ispsScore = data;
+        this.getISPSScore();
+      })
   }
 
   async showModal() {

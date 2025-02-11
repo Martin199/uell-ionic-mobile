@@ -27,7 +27,11 @@ export class AppComponent {
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
+<<<<<<< HEAD
     PushNotifications.requestPermissions().then((result: any) => {
+=======
+    PushNotifications.requestPermissions().then((result:any) => {
+>>>>>>> 5e859d685772f6e4bd871b40cd3a50e39dadbf34
       if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
