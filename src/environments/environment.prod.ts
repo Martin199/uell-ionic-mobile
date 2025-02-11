@@ -1,17 +1,17 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://uellapidev.newton-development.com/',
-  env: 'dev',
+  apiBaseUrl: 'https://api.uell.com.ar/',
+  env: 'prod',
   httpTimeout: 60000,
   apiVersion: 'v2',
   aws: {
-    clientId: '6msv5nde08td7pv7r0q90fulh6',
-    userPoolId: 'us-east-1_pJB4tmUgT',
+    clientId: '16digork8oko8dpighavq0vngt',
+    userPoolId: 'us-east-1_sCvFtJrhY',
   },
   cognito: {
-    userPoolId: 'us-east-1_2QXHj8Dwv',
-    clientId: '3qj9j0q6vqgj6qk8b4gq7c4q5v',
-    identityPoolId: 'us-east-1:5c6c7c4f-1d5b-4c6f-9f5a-8d5e7c4b1d5b',
+    userPoolId: 'us-east-1_sCvFtJrhY',
+    clientId: '16digork8oko8dpighavq0vngt',
+    identityPoolId: 'us-east-1:17f920e7-a136-4345-b445-9c16c0c3906c',
     region: 'us-east-1',
   },
 };
