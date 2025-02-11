@@ -8,8 +8,6 @@ import { CognitoService } from '../services/cognito.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const cognitoService = inject(CognitoService);
   const token = sessionStorage.getItem('accessToken');
-  console.log('token: ',token);
-  console.log('getIdToken: ',cognitoService.getIdToken());
  const tenantRaw = sessionStorage.getItem('tenant');
  const tenant = tenantRaw ? JSON.parse(tenantRaw) : null;
  // Validar si tenant tiene un valor antes de parsear name_tenant
