@@ -8,6 +8,8 @@ import { PsychosocialHealthPageRoutingModule } from './psychosocial-health-routi
 
 import { PsychosocialHealthPage } from './psychosocial-health.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { HomePageModule } from '../home/home.module';
+import { CardAnswersComponent } from './views/card-answers/card-answers.component';
 
 @NgModule({
   imports: [
@@ -15,8 +17,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     PsychosocialHealthPageRoutingModule,
-    SharedModule
+    SharedModule,
+    HomePageModule
   ],
-  declarations: [PsychosocialHealthPage]
+  declarations: [PsychosocialHealthPage, CardAnswersComponent]
 })
 export class PsychosocialHealthPageModule {}

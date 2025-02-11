@@ -1,0 +1,41 @@
+<ion-card>
+  <ion-row class="ipsContainer">
+    <ion-col size="12" class="title-btn">
+      <ion-title class="ion-no-padding title">Mis Respuestas</ion-title>
+    </ion-col>
+    @if(ispsAnswers){
+      <ion-col size="12" class="answerContainer">
+        @for(item of answersList; track item){
+          <ng-container>
+            <ion-col>
+              <div>
+                <div class="question">{{ translatesISPS[item.key] }}</div>
+                <div class="answer">{{ ispsAnswers[item.value] }}</div>
+              </div>
+            </ion-col>
+          </ng-container>
+        }  
+        <div [@divAnimation]="desplegable ? 'visible' : 'hidden'">
+          @for(item of extraAnswersList; track item){
+            <ng-container>
+              <ion-col>
+                <div>
+                  <div class="question">{{ translatesISPS[item.key] }}</div>
+                  <div class="answer">{{ ispsAnswers[item.value] }}</div>
+                </div>
+              </ion-col>
+            </ng-container>
+          }
+        </div>
+      </ion-col>
+    }
+  </ion-row>
+  <ion-row class="button-container ion-justify-content-center">
+    <ion-button (click)="Dropdown()" expand="block" fill="clear" shape="round" class="b-padding">
+      <div>
+        <ion-icon src="assets/icons/chevron-down.svg" [ngClass]="{'rotate': desplegable}"></ion-icon>
+        <ion-label class="button-text">{{ desplegable ? 'Ver menos respuestas' : 'Ver más respuestas' }}</ion-label>
+      </div>
+    </ion-button>
+  </ion-row>
+</ion-card>

@@ -24,6 +24,17 @@ export class HomePage implements OnInit {
 
   constructor() {
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters')
+
+    if (this.tenantParameters?.tenantParameters.gestorWillContactYou) {
+      const gestorWillContactYou = this.tenantParameters.tenantParameters.gestorWillContactYou;
+      console.log(gestorWillContactYou, ' gestor')
+      gestorWillContactYou === 'true' ? localStorage.setItem('gestorWillContactYou', 'true') :
+      gestorWillContactYou === 'false' ? localStorage.setItem('gestorWillContactYou', 'false') :
+      localStorage.setItem('gestorWillContactYou', 'null');
+    } 
+    else {
+      localStorage.setItem('gestorWillContactYou', 'null');
+    }
    }
 
   async ngOnInit() {

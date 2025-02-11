@@ -28,7 +28,6 @@ export class HomeService {
     const generalParameters: any = this.storageService.getSessionStorage('tenantParameters')
 
     const modulesActive = generalParameters.tenantParameters.activeModules.find((module: any) => module === moduleName);
-
     switch (modulesActive) {
       case 'isps':
          return this.ispsService.getISPSScore(this.user.id);
