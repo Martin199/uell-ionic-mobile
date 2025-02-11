@@ -61,7 +61,6 @@ export class CognitoService {
       Username: username,
       Password: password,
     });
-
     const userData = {
       Username: username,
       Pool: this.userPool,
@@ -73,6 +72,7 @@ export class CognitoService {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           console.log('Access token:', result.getAccessToken().getJwtToken());
+          sessionStorage.setItem('accessToken', result.getAccessToken().getJwtToken());
           resolve(result);
         },
         onFailure: (err) => {

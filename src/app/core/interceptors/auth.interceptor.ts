@@ -7,11 +7,12 @@ import { CognitoService } from '../services/cognito.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const cognitoService = inject(CognitoService);
-  const token = cognitoService.getIdToken();
- // Validar si existe el valor en el sessionStorage antes de parsear
+  let token = sessionStorage.getItem('accessToken');
+  // token = token ? token : cognitoService.getIdToken();
+  console.log('token: ',token);
+  console.log('getIdToken: ',cognitoService.getIdToken());
  const tenantRaw = sessionStorage.getItem('tenant');
  const tenant = tenantRaw ? JSON.parse(tenantRaw) : null;
-
  // Validar si tenant tiene un valor antes de parsear name_tenant
  const name_tenant = tenant ? JSON.parse(tenant) : null;
   const clonedRequest = token
@@ -48,3 +49,20 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     })
   );
 };
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SharedService {
+  private cachedToken: string | null = null;
+
+  setSharedValue(value: string) {
+    this.cachedToken = value;
+  }
+
+  getSharedValue(): string | null {
+    return this.cachedToken;
+  }
+}
