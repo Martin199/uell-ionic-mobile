@@ -1,0 +1,326 @@
+$primary-Uell: #1DA4B1;
+$states-errorLight: #F52E40;
+$neutral-greyMedium: #505A78;
+$neutral-greyDark: #383E52;
+$accent-blueLight: #44D8E8;
+
+.content {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  .content-title {
+    color: $neutral-greyDark;
+    font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.016px;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    margin-top: 16px;
+  }
+  .content-subtitle {
+    color: $neutral-greyMedium;
+    font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+    margin: 0;
+    .span {
+      color: $neutral-greyMedium;
+      font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.014px;
+    }
+  }
+  .card-score {
+    margin-top: 24px;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 0px 8px 16px 0px rgba(33, 37, 50, 0.16);
+    .circle-card {
+      padding: 16px;
+        .card-title {
+          color: $neutral-greyDark;
+          font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 20px;
+          letter-spacing: 0.014px;
+          margin: 0;
+        }
+      .circle {
+        height: 150px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .score {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        align-self: stretch;
+        margin-top: 24px;
+        .title {
+          color: $neutral-greyDark;
+          font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0.016px;
+          margin: 0;
+        }
+        .text {
+          color: $neutral-greyMedium;
+          font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 20px;
+          letter-spacing: 0.035px;
+          margin: 0;
+        }
+        .suggestion {
+          margin-top: 0.75rem;
+        }
+        ul {
+          margin: 0;
+        }
+      }
+    }
+  }
+  .card-manager {
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    background: linear-gradient(0deg, #FFF 55.4%, #DAF7FA 56.51%);
+    border-radius: 8px;
+    border: 1px solid $accent-blueLight;
+    background: #FFF;
+    box-shadow: 0px 8px 16px 0px rgba(33, 37, 50, 0.16);
+    margin-top: 24px;
+    .flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin: auto;
+    }
+    .title {
+      margin: 0;
+      color: var(--Primary-Uell, #1DA4B1);
+      font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.014px;
+    }
+    .no-border {
+      --border-width: 0;
+    }
+    .radio-content{
+      .circular-checkbox {
+        appearance: none; 
+        width: 20px; 
+        height: 20px;
+        border: 2px solid $primary-Uell;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+        background-color: white;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        .text {
+          align-items: center;
+        }
+      }
+      .circular-checkbox:checked {
+        background-color: $primary-Uell;
+        box-shadow: 0 0 4px $primary-Uell;
+      }
+      
+      .circular-checkbox:hover {
+        box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+      }
+    }
+  }
+  .card-emotion {
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid $accent-blueLight;
+    background: #FFF;
+    box-shadow: 0px 8px 16px 0px rgba(33, 37, 50, 0.16);
+    margin-top: 24px;
+    .title {
+      margin: 0;
+      color: $neutral-greyDark;
+      font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: 0.016px;
+    }
+    .status {
+      margin: 0;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 12px;
+      .status-text {
+        color: $neutral-greyDark;
+        font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.016px;
+      }
+    }
+    .affected {
+      color: $states-errorLight;
+    }
+    .affected {
+      color: $states-errorLight;
+    }
+    .text {
+      margin: 0;
+      color: $neutral-greyMedium;
+      font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.035px;
+    }
+  }
+  .card-dimension {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid $accent-blueLight;
+    background: #FFF;
+    box-shadow: 0px 4px 12px 0px rgba(33, 37, 50, 0.16);
+    position: relative;
+    z-index: 0;
+    margin-top: 24px;
+    padding-bottom: 32px;
+    .header-color {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 48px;
+      z-index: 0.5;
+      background-color: #DAF7FA !important;
+    }
+    .icon {
+      background-color: #fff;
+      z-index: 1;
+      margin-top: 16px;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 5px solid #D2DADE80;
+      border-radius: 100%;
+    }
+    .title {
+      color: $neutral-greyDark;
+      text-align: center;
+      font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 24px;
+    }
+    .status {
+      color: $neutral-greyDark;
+      font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.014px;
+      background-color: #DAF7FA;
+      padding: 4px 8px;
+      margin-top: 16px;
+    }
+    .no-affected {
+      background-color: #1DA4B1;
+    }
+    .affected {
+      background-color: #F9CCCC !important;
+    }
+    .subdimension {
+      display: flex;
+      padding: 28px 16px 16px 16px;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      align-self: stretch;
+      position: relative;
+      border-radius: 4px;
+      border: 1px solid var(--Neutral-GreyLight, #DADFE9);
+      background: #FFF;
+      margin-top: 44px;
+      margin-left: 16px;
+      margin-right: 16px;
+      .staus {
+        width: 48px;
+        height: 48px;
+        position: absolute;
+        top: -24px;
+        display: flex;
+        justify-content: center;
+      }
+      .title {
+        color: $neutral-greyDark;
+        text-align: center;
+        font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.016px;
+        margin: 0;
+      }
+      .description {
+        color: $neutral-greyMedium;
+        font-family: 'Inter', sans-serif, 'Arial', 'Helvetica Neue';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.035px;
+        margin: 0;
+      }
+    }
+  }
+  .card-affected {
+    border: 1px solid $states-errorLight;
+  }
+  .card-neutral {
+    border: 1px solid #fcd885;
+  }
+}
