@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { EmotionalResponse } from '../shared/interface/emotional-interfaces';
 import { UserResponseDTO } from '../core/interfaces/user';
 
@@ -61,4 +61,15 @@ export class UserService {
   downloadFile(fileName: string) {
     return this.http.get<string>(`${environment.apiBaseUrl}${environment.apiVersion}/file-management/${fileName}?category=licence`);
   }
+
+  getAddressesState(filter?: any): Observable<any> {
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/states?sort=name,asc`,filter)
+		// return this.http.get('v2/states?sort=name,asc', filter);
+	}
+
+  public getLocalitiesByState(id: string): Observable<any> {
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/localities?state.id=${id}&size=1000&sort=name,asc`);
+    // return this.getDataContent(`v2/localities?state.id=${id}&size=1000&sort=name,asc`);
+	}
+
 }

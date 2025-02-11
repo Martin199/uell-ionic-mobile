@@ -1,0 +1,189 @@
+<div>
+<form class="form" [formGroup]="addressForm">
+  <div class="titulo">
+      <p>{{ tenantParameters.tenantParameters.localization.onboarding.adress }}</p>
+  </div>
+  <div class="form-group">
+      <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.street }}</p>
+
+      <app-custom-input  [control]="addressForm.controls['Calle']">
+      </app-custom-input>
+      <!-- <input class="form-control"
+      [placeholder]="
+        country === 'COLOMBIA' ? 'Domicilio' :
+        country === 'ECUADOR' ? 'Dirección' :
+        ('onboarding.street' | translate)
+      "
+              formControlName="Calle"
+              (keypress)="noInitSpace($event, 'Calle')"
+              (keypress)="colombiaValidations($event,true)"
+              type="text"
+              [maxlength]="isOtherCountry ? 255 : 50 "
+              [attr.qa-id]="qaID.AASA"
+              autocomplete="off"> -->
+      <span *ngIf="addressForm.controls['Calle'].errors?.['required']"
+            class="form-error-msg">
+            {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+      </span>
+  </div>
+  <div class="form-group d-flex">
+      <div class="form-group col-md-3 pl-0">
+          <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.number }}</p>
+          <app-custom-input  [control]="addressForm.controls['Numero']">
+          </app-custom-input>
+          <!-- <input  class="form-control"
+                  [placeholder]="'onboarding.number' | translate"
+                  formControlName="Numero"
+                  (keypress)="numberOnlyInputValidation($event, true)"
+                  type="text"
+                  [maxlength]="isOtherCountry ? 50 : 5"
+                  [attr.qa-id]="qaID.AATA"
+                  [attr.inputmode]="isNumeric ? 'numeric': 'text'"
+                  autocomplete="off"> -->
+          <span *ngIf="addressForm.controls['Numero'].errors?.['required']"
+                class="form-error-msg">
+                {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+          </span>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.floor }}</p>
+            <app-custom-input  [control]="addressForm.controls['Piso']">
+            </app-custom-input>
+            <!-- <input  class="form-control"
+                    type="text"
+                    [placeholder]="'onboarding.floor' | translate"
+                    formControlName="Piso"
+                    (keypress)="noInitSpace($event, 'Piso')"
+                    maxlength="3"
+                    [attr.qa-id]="qaID.AAUA"
+                    autocomplete="off"> -->
+        </div>
+        <div class="form-group col-md-3">
+            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.dept }}</p>
+            <app-custom-input  [control]="addressForm.controls['Depto']">
+            </app-custom-input>
+            <!-- <input  class="form-control"
+                    type="text"
+                    [placeholder]="'onboarding.dept' | translate"
+                    formControlName="Depto"
+                    (keypress)="noInitSpace($event, 'Depto')"
+                    pattern="[a-zA-Z0-9]*"
+                    maxlength="3"
+                    [attr.qa-id]="qaID.AAVA"
+                    autocomplete="off"> -->
+        </div>
+        <div class="form-group col-md-3 pr-0">
+            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['zip-code'] }}</p>
+            <app-custom-input  [control]="addressForm.controls['codigoPostal']">
+            </app-custom-input>
+            <!-- <input  class="form-control"
+                    type="text"
+                    [placeholder]="'onboarding.zip-code' | translate"
+                    formControlName="codigoPostal"
+                    (keypress)="noInitSpace($event, 'codigoPostal')"
+                    [maxlength]="isOtherCountry ? 6 : 5"
+                    [minlength]="isOtherCountry ?  dinamicMinLength() : 3"
+                    autocomplete="off"
+                    > -->
+                    <!-- Cambiar la parte de min Length pasarlo a funcion dinamica para Peru, se cambio para pruebas rapidas v1 -->
+              <span *ngIf="addressForm.controls['codigoPostal'].errors?.['required']"
+                      class="form-error-msg">
+                      {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+              </span>
+              <span *ngIf="addressForm.controls['codigoPostal'].errors?.['maxlength'] && !addressForm.controls['codigoPostal'].hasError('pattern') "
+                      class="form-error-msg">
+                      {{ tenantParameters.tenantParameters.localization.onboarding.max }}
+              </span>
+              <span *ngIf="addressForm.controls['codigoPostal'].errors?.['minlength'] && !addressForm.controls['codigoPostal'].hasError('pattern') "
+                      class="form-error-msg">
+                      {{ tenantParameters.tenantParameters.localization.onboarding.min }}
+              </span>
+              <span *ngIf="addressForm.controls['codigoPostal'].hasError('pattern')"
+                      class="form-error-msg">
+                      {{ tenantParameters.tenantParameters.localization.onboarding['only-numbers'] }}
+              </span>
+        </div>
+      </div>
+
+
+
+  </div>
+  <div class="form-group">
+      <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.province }}</p>
+      <!-- <select class="form-control"
+              formControlName="Provincia"
+              placeholder="'onboarding.select-province' | translate"
+              > -->
+          <!-- <option *ngIf="isSafari"
+                  aria-readonly="true"
+                  selected>
+                  {{ tenantParameters.tenantParameters.localization.onboarding.select }}
+          </option> -->
+          <!-- <option *ngFor="let prov of provincias"
+                  [ngValue]="prov">
+              {{prov.name}}
+          </option> -->
+
+          <ion-list>
+            <ion-item>
+              <ion-select aria-label="Provincia" interface="action-sheet" placeholder="Seleccione provincia">
+                <ion-select-option *ngFor="let prov of provincias" [value]="prov">{{prov.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+<!--           
+      </select> -->
+      <span *ngIf="addressForm.controls['Provincia'].errors?.['required']"
+            class="form-error-msg">
+            {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+      </span>
+  </div>
+  <div class="form-group">
+      <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.locality }}</p>
+      <!-- <select class="form-control"
+              formControlName="Localidad"
+              placeholder="'onboarding.select-locality' | translate"
+              > -->
+          <!-- <option *ngIf="isSafari"
+                  aria-readonly="true"
+                  selected>
+                  {{ tenantParameters.tenantParameters.localization.onboarding.select }}
+          </option> -->
+          <!-- <option *ngFor="let loc of localidades"
+                  [ngValue]="loc">
+              {{loc.name}}
+          </option> -->
+
+          <ion-list>
+            <ion-item>
+              <ion-select aria-label="Localidades" interface="action-sheet" placeholder="Seleccione localidad">
+                <ion-select-option *ngFor="let loc of localidades" [value]="loc">{{loc.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+      <!-- </select> -->
+      <span *ngIf="addressForm.controls['Localidad'].errors?.['required']"
+            class="form-error-msg">
+            {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+      </span>
+  </div>
+
+  <div class="form-group">
+      <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.observations }}</p>
+      <app-custom-input  [control]="addressForm.controls['observation']">
+      </app-custom-input>
+      <!-- <textarea maxlength="250"
+                [placeholder]="'onboarding.max-char' | translate"
+                type="text"
+                formControlName="observation"
+                class="form-control"
+                id="observaciones"
+                rows="5"
+                [attr.qa-id]="qaID.ABAA">
+      </textarea> -->
+  </div>
+
+  <!-- <p class="error" *ngIf="errorMessage !== null">{{errorMessage}}</p> -->
+</form>
+</div>

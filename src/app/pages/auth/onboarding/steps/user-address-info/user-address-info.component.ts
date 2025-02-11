@@ -4,26 +4,22 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-user-contact-info',
-  templateUrl: './user-contact-info.page.html',
-  styleUrls: ['./user-contact-info.page.scss'],
+  selector: 'app-user-address-info',
+  templateUrl: './user-address-info.component.html',
+  styleUrls: ['./user-address-info.component.scss'],
 })
-export class UserContactInfoPage implements OnInit {
+export class UserAddressInfoComponent  implements OnInit {
 
-  user! : User ;
-  tenantParameters : any;
-  country: string = '';
-
+    user! : User ;
+    tenantParameters : any;
+    country: string = '';
+  
   utilsService = inject (UtilsService);
   storageService = inject (StorageService);
-
-  constructor() { 
-    this.user = this.utilsService.getUser();
-    
-  }
+  
+  constructor() { }
 
   ngOnInit() {
-
     console.log(this.user, 'user');
 
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');

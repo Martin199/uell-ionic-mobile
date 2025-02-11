@@ -33,7 +33,7 @@ export class UtilsService {
     return tenantParameters?.tenantParameters?.localization[path as keyof Localization]
   }
   
-  getUserUser() {
+  getUser() {
     return this.storageService.getSessionStorage<User>('user')!;
   }
 

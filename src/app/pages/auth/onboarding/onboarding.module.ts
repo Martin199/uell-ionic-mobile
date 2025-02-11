@@ -10,6 +10,7 @@ import { OnboardingPage } from './onboarding.page';
 import { UserInfoComponent } from './steps/user-info/user-info.component';
 import { UserEmploymentInfoComponent } from './steps/user-employment-info/user-employment-info.component';
 import { UserContactInfoPageModule } from './steps/user-contact-info/user-contact-info.module';
+import { UserAddressInfoModule } from './steps/user-address-info/user-address-info.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { UserContactInfoPageModule } from './steps/user-contact-info/user-contac
     FormsModule,
     IonicModule,
     OnboardingPageRoutingModule,
-    UserContactInfoPageModule
+    UserContactInfoPageModule,
+    UserAddressInfoModule,
   ],
   declarations: [OnboardingPage, UserInfoComponent, UserEmploymentInfoComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

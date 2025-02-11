@@ -66,7 +66,6 @@ export class AuthPage implements OnInit {
         this.userService.getMe().subscribe((user: UserResponseDTO) => {
           this.userService.setUser(user);
           console.log('Usuario:', user);
-          debugger
           if (!user.onboarded) {
             this.utilsService.router.navigate(['/auth/onboarding']);
           } else {
@@ -76,6 +75,11 @@ export class AuthPage implements OnInit {
           loading.dismiss();
         });
 
+        this.userService.getTenantParameters().subscribe((res: any) => {      
+          this.storageService.setSessionStorage('tenantParameters', res);        
+          loading.dismiss();
+        });
+    
         this.userService.getUserTenants().subscribe((user) => {
           console.log('getUserTenants:', user);
         });
