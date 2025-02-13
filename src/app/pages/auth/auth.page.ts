@@ -72,13 +72,20 @@ export class AuthPage implements OnInit {
             this.utilsService.router.navigate(['/auth/select-tenants']);
           }
           this.storageService.setSessionStorage('user', user);
+
+          if(user){
+            console.log(user.tenant[0].name, '??????')
+            this.userService.getTenantParameters('tce').subscribe((res: any) => {      
+              this.storageService.setSessionStorage('tenantParameters', res);        
+              loading.dismiss();
+            });
+          }
+          
+
+
           loading.dismiss();
         });
 
-        this.userService.getTenantParameters().subscribe((res: any) => {      
-          this.storageService.setSessionStorage('tenantParameters', res);        
-          loading.dismiss();
-        });
     
         this.userService.getUserTenants().subscribe((user) => {
           console.log('getUserTenants:', user);
