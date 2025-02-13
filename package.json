@@ -6,7 +6,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:dev": "ng serve --configuration development",
+    "start:qa": "ng serve --configuration qa",
+    "start:stage": "ng serve --configuration stage",
     "build": "ng build",
+    "build:dev": "ng build --configuration development",
+    "build:qa": "ng build --configuration qa",
+    "build:stage": "ng build --configuration stage",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -24,7 +30,7 @@
     "@capacitor/android": "^7.0.1",
     "@capacitor/app": "7.0.0",
     "@capacitor/assets": "^3.0.5",
-    "@capacitor/core": "7.0.1",
+    "@capacitor/core": "^7.0.1",
     "@capacitor/haptics": "7.0.0",
     "@capacitor/ios": "^7.0.1",
     "@capacitor/keyboard": "7.0.0",

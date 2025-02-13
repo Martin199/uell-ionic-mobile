@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CognitoUserPool, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { Observable } from 'rxjs';
 import { IUser, IUserCredentials } from '../interfaces/auth.interfaces';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,8 @@ export class CognitoService {
 
   constructor() {
     this.userPool = new CognitoUserPool({
-      //stage
-      // UserPoolId: 'us-east-1_C8KOLsIvS',
-      // ClientId: '247svd02gbu18j7pgepn2v9vqk',
-
-      // -----------qa----------------
-      // UserPoolId: 'us-east-1_VgovTfmV2',
-      // ClientId: '3h53imnpjvm0ehmkkh7vd6lj8o',
-
-      //----------dev----------------
-      UserPoolId: 'us-east-1_pJB4tmUgT',
-      ClientId: '6msv5nde08td7pv7r0q90fulh6',
+      UserPoolId: environment.aws.userPoolId,
+      ClientId: environment.aws.clientId,
     });
     this.cognitoUser = this.userPool.getCurrentUser();
   }
@@ -69,7 +61,6 @@ export class CognitoService {
       Username: username,
       Password: password,
     });
-
     const userData = {
       Username: username,
       Pool: this.userPool,
@@ -80,7 +71,7 @@ export class CognitoService {
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
-          console.log('Access token:', result.getAccessToken().getJwtToken());
+          sessionStorage.setItem('accessToken', result.getIdToken().getJwtToken());
           resolve(result);
         },
         onFailure: (err) => {
