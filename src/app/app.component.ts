@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SplashScreen } from '@capacitor/splash-screen';
-import { StatusBar, Style } from '@capacitor/status-bar';
+import { StatusBar } from '@capacitor/status-bar';
 import {
   ActionPerformed,
   PushNotificationSchema,
@@ -27,7 +27,6 @@ export class AppComponent {
 
   initializeApp() {
     StatusBar.setOverlaysWebView({ overlay: false });
-    // StatusBar.setStyle({ style: Style.Dark }); // Ajusta el estilo según tu tema
   }
 
   initPush() {
