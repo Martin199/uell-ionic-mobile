@@ -48,9 +48,8 @@ export class UserService {
 
 
 
-  getTenantParameters(headerTenant?: any) {
-    const headers = new HttpHeaders({ 'Tenant': headerTenant , 'content-type': 'application/json' });
-    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`, {headers});
+  getTenantParameters() {
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`);
   }
 
   termsAndConditions(userId: number) {

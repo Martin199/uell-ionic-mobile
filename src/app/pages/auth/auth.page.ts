@@ -71,19 +71,14 @@ export class AuthPage {
           }
           this.storageService.setSessionStorage('user', user);
 
-          if(user){
-            console.log(user.tenant[0].name, '??????')
-            this.userService.getTenantParameters('tce').subscribe((res: any) => {      
-              this.storageService.setSessionStorage('tenantParameters', res);        
-              loading.dismiss();
-            });
-          }
-          
-
-
           loading.dismiss();
         });
 
+        //parcialmente
+        this.userService.getTenantParameters().subscribe((res: any) => {      
+          this.storageService.setSessionStorage('tenantParameters', res);        
+        });
+        //------------------------------
     
         this.userService.getUserTenants().subscribe((user) => {
           console.log('getUserTenants:', user);
