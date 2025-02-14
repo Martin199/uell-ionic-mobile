@@ -1,27 +1,30 @@
-ion-tab-button {
-  ion-label {
-    color: var(--ion-color-medium); /* Color de texto por defecto */
-  }
-
-  ion-img {
-    width: 26.667px;
-    height: 26.667px;
-    filter: grayscale(100%) brightness(1); /* Color por defecto */
-    transition: filter 0.3s ease-in-out; /* Transición suave para el cambio de color */
-  }
-
-  &.tab-selected {
+ion-tab-bar {
+  padding-bottom: 0.25rem;
+  ion-tab-button {
     ion-label {
-      color: #1DA4B1; /* Cambia el color del texto */
+      color: var(--ion-color-medium); /* Color de texto por defecto */
     }
-
-    ion-icon {
-      color: #1DA4B1; /* Cambia el color del texto */
-    }
-
+  
     ion-img {
-      filter: invert(64%) sepia(84%) saturate(1715%) hue-rotate(159deg) brightness(93%) contrast(89%);
-      transition: filter 0.3s ease-in-out; /* Transición suave para el cambio */
+      width: 26.667px;
+      height: 26.667px;
+      filter: grayscale(100%) brightness(1); /* Color por defecto */
+      transition: filter 0.3s ease-in-out; /* Transición suave para el cambio de color */
+    }
+  
+    &.tab-selected {
+      ion-label {
+        color: #1DA4B1; /* Cambia el color del texto */
+      }
+  
+      ion-icon {
+        color: #1DA4B1; /* Cambia el color del texto */
+      }
+  
+      ion-img {
+        filter: invert(64%) sepia(84%) saturate(1715%) hue-rotate(159deg) brightness(93%) contrast(89%);
+        transition: filter 0.3s ease-in-out; /* Transición suave para el cambio */
+      }
     }
   }
 }

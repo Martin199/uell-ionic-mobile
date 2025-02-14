@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { StatusBar } from '@capacitor/status-bar';
 import {
   ActionPerformed,
   PushNotificationSchema,
@@ -19,8 +20,13 @@ export class AppComponent {
   private router = inject(Router);
 
   constructor(private platform: Platform) {
+    this.initializeApp();
     this.showSplash();
     this.initPush();
+  }
+
+  initializeApp() {
+    StatusBar.setOverlaysWebView({ overlay: false });
   }
 
   initPush() {
@@ -67,7 +73,7 @@ export class AppComponent {
 
   async showSplash() {
     await SplashScreen.show({
-      autoHide: false,
+      autoHide: true,
       showDuration: 3000,
     });
   }
