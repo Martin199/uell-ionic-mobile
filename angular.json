@@ -23,7 +23,8 @@
               "isomorphic-unfetch",
               "@aws-crypto/sha256-js",
               "buffer",
-              "js-cookie"
+              "js-cookie",
+              "moment"
             ],
             "assets": [
               {
@@ -41,6 +42,34 @@
             "scripts": []
           },
           "configurations": {
+            "qa": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+            "stage": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -74,7 +103,7 @@
               "progress": false
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -84,6 +113,12 @@
             },
             "development": {
               "buildTarget": "app:build:development"
+            },
+            "qa": {
+              "buildTarget": "app:build:qa"
+            },
+            "stage": {
+              "buildTarget": "app:build:stage"
             },
             "ci": {
               "progress": false

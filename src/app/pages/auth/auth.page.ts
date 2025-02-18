@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { AnimationController } from '@ionic/angular';
@@ -23,7 +23,7 @@ import { UserResponseDTO } from 'src/app/core/interfaces/user';
     ]),
   ],
 })
-export class AuthPage implements OnInit {
+export class AuthPage {
 
   @ViewChild('userContainer', { static: true }) userContainer!: ElementRef;
   @ViewChild('passwordContainer', { static: true }) passwordContainer!: ElementRef;
@@ -41,8 +41,6 @@ export class AuthPage implements OnInit {
   storageService = inject(StorageService);
 
   constructor() { }
-
-  ngOnInit() {}
 
   ngAfterViewInit() {
     this.animateElements();

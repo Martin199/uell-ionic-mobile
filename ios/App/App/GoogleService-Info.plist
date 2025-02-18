@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBaEiVGZwPvq5nFbb7BCpeiGCYjGSjsWOg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>2267757255</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.uell.ionic.mobile</string>
+	<key>PROJECT_ID</key>
+	<string>push-noti-jose</string>
+	<key>STORAGE_BUCKET</key>
+	<string>push-noti-jose.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:2267757255:ios:5a162725040f33c40e5ce2</string>
+</dict>
+</plist>

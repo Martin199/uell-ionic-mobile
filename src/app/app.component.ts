@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { StatusBar } from '@capacitor/status-bar';
 import {
   ActionPerformed,
   PushNotificationSchema,
@@ -19,15 +20,20 @@ export class AppComponent {
   private router = inject(Router);
 
   constructor(private platform: Platform) {
+    this.initializeApp();
     this.showSplash();
     this.initPush();
+  }
+
+  initializeApp() {
+    StatusBar.setOverlaysWebView({ overlay: false });
   }
 
   initPush() {
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
-    PushNotifications.requestPermissions().then((result:any) => {
+    PushNotifications.requestPermissions().then((result: any) => {
       if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
@@ -38,7 +44,7 @@ export class AppComponent {
 
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration', (token: Token) => {
-      alert('Push registration success, token: ' + token.value);
+      alert('Push registration success 1234, token: ');
     });
 
     // Some issue with our setup and push will not work
@@ -67,7 +73,7 @@ export class AppComponent {
 
   async showSplash() {
     await SplashScreen.show({
-      autoHide: false,
+      autoHide: true,
       showDuration: 3000,
     });
   }
