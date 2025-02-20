@@ -20,7 +20,7 @@ export interface User {
     address:               Address[];
     maritalStatus:         string;
     onboarded:             boolean;
-    bornDate:              Date;
+    bornDate:              string;
     documents:             any[];
     photo:                 null;
     enabled:               boolean;

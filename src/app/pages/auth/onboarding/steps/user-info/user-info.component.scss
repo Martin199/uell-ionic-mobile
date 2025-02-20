@@ -1,0 +1,75 @@
+strong {
+    font-size: 16px;
+    font-weight: 600;
+    color: #383e52 !important;
+}
+
+.title-label {
+    padding-left: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1da4b1;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.custom-date-input {
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    color: black !important;
+}
+
+
+
+.custom-datetime-button {
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    /* 133.333% */
+    letter-spacing: 0.048px;
+}
+
+// Oculta el botón nativo de ion-datetime para que no se vea feo
+.hidden-datetime-button {
+    display: none;
+}
+
+ion-item {
+    cursor: pointer;
+}
+
+.custom-modal {
+    --height: auto; // Se ajusta dinámicamente al contenido
+    --max-height: 90vh; // No ocupa más del 90% de la pantalla
+}
+
+.date-picker-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+}
+
+ion-datetime {
+    width: 100%;
+    height: auto; // Se ajusta al contenido sin cortar
+}
+
+.birthdateTitle{
+    font-size: 16px;
+    font-weight: 600;
+    color: #383e52 !important;
+    padding-left: 16px;
+    padding-top: 10px;
+}
+
+.padding-left-16 {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
