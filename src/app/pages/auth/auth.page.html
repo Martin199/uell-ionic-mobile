@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
   <div class="d-flex-center-login">
-    <form [formGroup]="formAuth" class="form-container" (ngSubmit)="submit()" (keypress.enter)="submit">
+    <form [formGroup]="formAuth" class="form-container" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
       <div class="logo"> 
         <app-logo></app-logo>
@@ -11,7 +11,7 @@
       </ion-text>
       <!-- Usuario -->
       <div #userContainer>
-        <app-custom-input icon="person-outline" [control]="formAuth.controls.cuil" label="Usuario">
+        <app-custom-input icon="person-outline" [control]="formAuth.controls.cuil" label="Usuario2">
         </app-custom-input>
 
         <div class="validators" *ngIf="formAuth.controls.cuil.errors && formAuth.controls.cuil.touched">

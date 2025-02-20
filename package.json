@@ -30,7 +30,8 @@
     "build:ios:prod": "npm run build:prod && npm run sync:ios && npm run open:ios",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "copy:ios": "ionic build && npx cap copy ios"
   },
   "private": true,
   "dependencies": {

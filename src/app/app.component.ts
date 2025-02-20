@@ -34,6 +34,7 @@ export class AppComponent {
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
     PushNotifications.requestPermissions().then((result: any) => {
+      alert('req permision push: ' + result.receive);
       if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
@@ -44,7 +45,7 @@ export class AppComponent {
 
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration', (token: Token) => {
-      alert('Push registration success 1234, token: ');
+      alert('Push registration success, token: '+ token.value);
     });
 
     // Some issue with our setup and push will not work
