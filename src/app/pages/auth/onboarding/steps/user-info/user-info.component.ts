@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/services/storage.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
@@ -16,8 +16,8 @@ export class UserInfoComponent implements OnInit {
   });
 
   isOpen = false;
-  displayDate = '';  
-  storageService = new StorageService();
+  displayDate: string = '';  
+  storageService = inject(StorageService) 
   user: User = this.storageService.getSessionStorage<User>('user')!;
 
   ngOnInit() {
@@ -46,13 +46,10 @@ export class UserInfoComponent implements OnInit {
     const selectedDate = event.detail.value;
   
     if (selectedDate) {
-      // Formatear la fecha con Moment.js en formato dd/MM/yyyy
       const formattedDate = moment(selectedDate).format('DD/MM/YYYY');
   
-      // Guardar la fecha en el form en formato ISO (para validaciones o envíos de datos)
       this.userInfoForm.get('birthDate')?.setValue(selectedDate);
   
-      // Mostrar la fecha formateada en el input
       this.displayDate = formattedDate;
     }
   
@@ -75,9 +72,9 @@ export class UserInfoComponent implements OnInit {
     const screenHeight = window.innerHeight;
   
     if (screenHeight < 600) {
-      return 0.9; // En celulares pequeños, ocupa el 90%
+      return 0.9;
     } else {
-      return 0.7; // En pantallas más grandes, ocupa el 70%
+      return 0.7;
     }
   }
   
