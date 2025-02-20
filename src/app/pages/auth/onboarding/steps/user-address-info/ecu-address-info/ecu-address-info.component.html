@@ -5,7 +5,7 @@
     </div>
     <div class="form-group">
         <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.street }}</p>
-        <app-custom-input  [control]="addressForm.controls['Calle']" [maxLength]="50"></app-custom-input>
+        <app-custom-input  [control]="addressForm.controls['Calle']" [maxLength]="255"></app-custom-input>
         <span *ngIf="addressForm.controls['Calle'].errors?.['required']"
               class="form-error-msg">
               {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
@@ -14,7 +14,7 @@
     <div class="form-group d-flex">
         <div class="form-group col-md-3 pl-0">
             <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.number }}</p>
-            <app-custom-input  [control]="addressForm.controls['Numero']" [maxLength]="5"></app-custom-input>
+            <app-custom-input  [control]="addressForm.controls['Numero']" [maxLength]="50"></app-custom-input>
             <span *ngIf="addressForm.controls['Numero'].errors?.['required']"
                   class="form-error-msg">
                   {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
@@ -35,7 +35,7 @@
           </div>
           <div class="form-group col-md-3 pr-0">
               <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['zip-code'] }}</p>
-              <app-custom-input  [control]="addressForm.controls['codigoPostal']" [maxLength]="5"></app-custom-input>
+              <app-custom-input  [control]="addressForm.controls['codigoPostal']" [maxLength]="6"></app-custom-input>
                 <span *ngIf="addressForm.controls['codigoPostal'].errors?.['required']"
                         class="form-error-msg">
                         {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}

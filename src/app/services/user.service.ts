@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -45,6 +45,8 @@ export class UserService {
     const url =`${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/${userid}`
     return this.http.post<EmotionalResponse>(url, {emotionId: emotionId});
   }
+
+
 
   getTenantParameters() {
     return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`);

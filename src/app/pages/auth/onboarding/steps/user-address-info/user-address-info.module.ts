@@ -7,6 +7,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { IonicModule} from '@ionic/angular';
 import { ARGAddressInfoComponent } from './arg-address-info/arg-address-info.component';
 import { UserAddressInfoComponent } from './user-address-info.component';
+import { COLAddressInfoComponent } from './col-address-info/col-address-info.component';
+import { ECUAddressInfoComponent } from './ecu-address-info/ecu-address-info.component';
+import { PERAddressInfoComponent } from './per-address-info/per-address-info.component';
 
 
 @NgModule({
@@ -19,7 +22,7 @@ import { UserAddressInfoComponent } from './user-address-info.component';
     ReactiveFormsModule,
     
   ],
-  declarations: [UserAddressInfoComponent,ARGAddressInfoComponent],
+  declarations: [UserAddressInfoComponent,ARGAddressInfoComponent, COLAddressInfoComponent, ECUAddressInfoComponent, PERAddressInfoComponent],
   exports: [UserAddressInfoComponent]
 })
 export class UserAddressInfoModule { }

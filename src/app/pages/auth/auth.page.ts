@@ -70,13 +70,15 @@ export class AuthPage {
             this.utilsService.router.navigate(['/auth/select-tenants']);
           }
           this.storageService.setSessionStorage('user', user);
+
           loading.dismiss();
         });
 
+        //parcialmente
         this.userService.getTenantParameters().subscribe((res: any) => {      
           this.storageService.setSessionStorage('tenantParameters', res);        
-          loading.dismiss();
         });
+        //------------------------------
     
         this.userService.getUserTenants().subscribe((user) => {
           console.log('getUserTenants:', user);

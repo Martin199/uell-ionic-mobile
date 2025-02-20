@@ -21,7 +21,7 @@ export class ARGAddressInfoComponent  implements OnInit {
 
   addressForm = new FormGroup({
     Calle: new FormControl('', { validators: [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)] }),
-    Numero: new FormControl('', { validators: [Validators.required, Validators.maxLength(5)],  }),
+    Numero: new FormControl('', { validators: [Validators.required, Validators.maxLength(5), Validators.pattern(/^[0-9]\d*$/) ] }),
     Piso: new FormControl('', { validators: [Validators.pattern('[a-zA-Z0-9]*'), Validators.maxLength(3)] }),
     Depto: new FormControl('', { validators: [Validators.pattern('[a-zA-Z0-9]*'), Validators.maxLength(3)] }),
     Provincia: new FormControl('', { validators: [Validators.required] }),
@@ -29,7 +29,6 @@ export class ARGAddressInfoComponent  implements OnInit {
     Localidad: new FormControl('', { validators: [ Validators.required] }),
     observation: new FormControl('', { validators: [Validators.maxLength(250)] }),
     countryCode: new FormControl(''),
-
   });
 
   constructor() {

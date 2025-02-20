@@ -17,7 +17,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         setHeaders: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
-          Tenant: name_tenant?.name ?? 'uell',
+          // Tenant: name_tenant?.name ?? 'uell',
+          //! cambiar esto !!
+          Tenant: 'tce',
         },
       })
     : req;
