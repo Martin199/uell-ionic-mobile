@@ -1,5 +1,5 @@
 <ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar >
+  <ion-toolbar>
     <div class="d-flex-center ion-padding-top">
       <ion-thumbnail class="logo-thumbnail">
         <ion-img src="../../../../assets/auth/logo-login - copia.png"></ion-img>
@@ -7,34 +7,32 @@
     </div>
   </ion-toolbar>
   <ion-progress-bar class="ion-margin-top"></ion-progress-bar>
-
 </ion-header>
 
- <ion-content [fullscreen]="true">
-  <swiper-container>
-    <swiper-slide>
-      <app-user-info></app-user-info>
-    </swiper-slide>
-    <swiper-slide>
-      <app-user-employment-info></app-user-employment-info>
-    </swiper-slide> 
-    <swiper-slide>
-      <app-user-contact-info></app-user-contact-info>
-    </swiper-slide>
-    <swiper-slide>
-      <app-user-address-info></app-user-address-info>
-    </swiper-slide>
- 
-  </swiper-container> 
+<ion-content [fullscreen]="true">
+  <div #swiperContainer class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <app-user-info></app-user-info>
+      </div>
+      <div class="swiper-slide">
+        <app-user-employment-info></app-user-employment-info>
+      </div>
+      <div class="swiper-slide">
+        <app-user-contact-info></app-user-contact-info>
+      </div>
+      <div class="swiper-slide">
+        <app-user-address-info></app-user-address-info>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end" class="ion-padding-end">
-        <ion-button  shape="round" class="ion-margin-end footer-btn-back"> Volver </ion-button>
-        <ion-button expand="block" shape="round" type="submit" class="submit-btn" >
-          Siguiente 
-        </ion-button>
+      <ion-button shape="round" class="ion-margin-end footer-btn-back" (click)="prevSlide()">Volver</ion-button>
+      <ion-button expand="block" shape="round" type="submit" class="submit-btn" (click)="nextSlide()">Siguiente</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
