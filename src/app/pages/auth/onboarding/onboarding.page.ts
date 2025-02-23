@@ -1,7 +1,4 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import Swiper from 'swiper';
-import type { SwiperOptions } from 'swiper/types';
-
 
 @Component({
   selector: 'app-onboarding',
@@ -9,23 +6,43 @@ import type { SwiperOptions } from 'swiper/types';
   styleUrls: ['./onboarding.page.scss'],
 })
 export class OnboardingPage implements AfterViewInit {
-  @ViewChild('swiperContainer', { static: false }) swiperContainer!: ElementRef;
-  swiper?: Swiper;
+  // Usamos read: ElementRef para obtener el elemento del DOM del swiper-container
+  @ViewChild('swiperContainer', { read: ElementRef }) swiperContainer!: ElementRef;
+  swiper: any;
 
-  ngAfterViewInit() {
-    const swiperOptions: SwiperOptions = {
-      allowTouchMove: false,
-      // otras opciones...
-    };
-
-    this.swiper = new Swiper(this.swiperContainer.nativeElement, swiperOptions);
+  ngAfterViewInit(): void {
+    // Utilizamos un setTimeout breve para asegurarnos de que Swiper se haya inicializado
+      // Asigna la instancia de Swiper que se genera automáticamente en el custom element
+      this.swiper = this.swiperContainer.nativeElement.swiper;
+      if (this.swiper) {
+        // Deshabilitamos el touch si no queremos que el usuario avance manualmente
+        this.swiper.allowTouchMove = false;
+        console.log('Instancia de Swiper:', this.swiper);
+      } else {
+        console.error('La instancia de Swiper no está disponible.');
+      }
   }
 
-  nextSlide() {
-    this.swiper?.slideNext();
+  nextSlide(): void {
+      if ( this.swiperContainer.nativeElement.swiper) {
+        this.swiperContainer.nativeElement.swiper.slideNext();
+      } else {
+        console.error('Swiper no está disponible.');
+      }
+ 
   }
 
-  prevSlide() {
-    this.swiper?.slidePrev();
+  prevSlide(): void {
+    if ( this.swiperContainer.nativeElement.swiper) {
+      this.swiperContainer.nativeElement.swiper.slidePrev();
+    } else {
+      console.error('Swiper no está disponible.');
+    }
+  }
+
+  validarPasoActual(): boolean {
+    // Implementa aquí la lógica de validación para el slide actual.
+    // Retorna true si la validación es exitosa o false si no se puede avanzar.
+    return true;
   }
 }
