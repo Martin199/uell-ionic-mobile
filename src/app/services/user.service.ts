@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { EmotionalResponse } from '../shared/interface/emotional-interfaces';
+import { UserResponseDTO } from '../core/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UserService {
   
   constructor() {
     const savedUser = localStorage.getItem('user');
-    this.userSubject = new BehaviorSubject<any>(savedUser ? JSON.parse(savedUser) : null);
+    this.userSubject = new BehaviorSubject<UserResponseDTO>(savedUser ? JSON.parse(savedUser) : null);
    }
 
   setUser(user: any) {
@@ -24,12 +25,12 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUser() {
+  getUser(): UserResponseDTO {
     return this.userSubject.getValue();
   }
 
   getMe() {
-    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/users/me`);
+    return this.http.get<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/me`);
   }
 
   getUserTenants(){

@@ -30,7 +30,9 @@
     "build:ios:prod": "npm run build:prod && npm run sync:ios && npm run open:ios",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "copy:ios": "ionic build && npx cap copy ios",
+    "android:stage": "ionic build --configuration stage && npx cap sync android"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +48,7 @@
     "@capacitor/app": "7.0.0",
     "@capacitor/assets": "^3.0.5",
     "@capacitor/core": "^7.0.1",
+    "@capacitor/device": "^7.0.0",
     "@capacitor/haptics": "7.0.0",
     "@capacitor/ios": "^7.0.1",
     "@capacitor/keyboard": "7.0.0",
