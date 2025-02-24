@@ -6,6 +6,8 @@ import { CognitoService } from 'src/app/core/services/cognito.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { SessionServiceService } from 'src/app/services/session-service.service';
+import { PushNotifications } from '@capacitor/push-notifications';
 
 @Component({
   selector: 'app-auth',
@@ -38,6 +40,7 @@ export class AuthPage {
   userService = inject(UserService)
   utilsService = inject(UtilsService);
   storageService = inject(StorageService);
+  private sessionService = inject(SessionServiceService)
 
   constructor() { }
 
@@ -64,6 +67,9 @@ export class AuthPage {
           this.userService.setUser(user);
           console.log('Usuario:', user);
           this.storageService.setSessionStorage('user', user);
+          PushNotifications.checkPermissions().then(result =>{
+            if (result.receive === 'granted') this.sessionService.handleSession();
+          })
           loading.dismiss();
           this.utilsService.router.navigate(['/auth/select-tenants']);
         });
