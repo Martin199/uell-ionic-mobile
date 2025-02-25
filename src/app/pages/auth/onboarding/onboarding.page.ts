@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import Swiper from 'swiper';
 
 @Component({
   selector: 'app-onboarding',
@@ -6,43 +7,45 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./onboarding.page.scss'],
 })
 export class OnboardingPage implements AfterViewInit {
-  // Usamos read: ElementRef para obtener el elemento del DOM del swiper-container
   @ViewChild('swiperContainer', { read: ElementRef }) swiperContainer!: ElementRef;
-  swiper: any;
+  swiper!: Swiper;
+  stepIsValid: boolean = true;
+  step: number = 0;
 
   ngAfterViewInit(): void {
-    // Utilizamos un setTimeout breve para asegurarnos de que Swiper se haya inicializado
-      // Asigna la instancia de Swiper que se genera automáticamente en el custom element
-      this.swiper = this.swiperContainer.nativeElement.swiper;
-      if (this.swiper) {
-        // Deshabilitamos el touch si no queremos que el usuario avance manualmente
-        this.swiper.allowTouchMove = false;
-        console.log('Instancia de Swiper:', this.swiper);
-      } else {
-        console.error('La instancia de Swiper no está disponible.');
-      }
-  }
 
-  nextSlide(): void {
-      if ( this.swiperContainer.nativeElement.swiper) {
-        this.swiperContainer.nativeElement.swiper.slideNext();
-      } else {
-        console.error('Swiper no está disponible.');
-      }
- 
-  }
-
-  prevSlide(): void {
-    if ( this.swiperContainer.nativeElement.swiper) {
-      this.swiperContainer.nativeElement.swiper.slidePrev();
+    this.swiper = this.swiperContainer.nativeElement.swiper;
+    if (this.swiper) {
+      this.swiper.allowTouchMove = false;
+      console.log('Instancia de Swiper:', this.swiper);
     } else {
-      console.error('Swiper no está disponible.');
+      console.error('La instancia de Swiper no está disponible.');
     }
   }
 
-  validarPasoActual(): boolean {
-    // Implementa aquí la lógica de validación para el slide actual.
-    // Retorna true si la validación es exitosa o false si no se puede avanzar.
-    return true;
+  nextSlide(): void {
+    if (this.swiperContainer.nativeElement.swiper) {
+      this.swiperContainer.nativeElement.swiper.slideNext();
+      this.step++;
+      // if (this.step === 2) {
+      //   this.stepIsValid = false;
+      // }
+    }
+
   }
+
+  prevSlide(): void {
+    if (this.swiperContainer.nativeElement.swiper) {
+      this.swiperContainer.nativeElement.swiper.slidePrev();
+      this.step--;
+      if (this.step < 2) {
+        this.stepIsValid = true;
+      }
+    }
+  }
+
+  stepsReturnInfo(stepNumber: number): void {
+    console.log('Información del paso:', stepNumber);
+  }
+
 }
