@@ -17,7 +17,7 @@ export class UserService {
   
   constructor() {
     const savedUser = localStorage.getItem('user');
-    this.userSubject = new BehaviorSubject<any>(savedUser ? JSON.parse(savedUser) : null);
+    this.userSubject = new BehaviorSubject<UserResponseDTO>(savedUser ? JSON.parse(savedUser) : null);
    }
 
   setUser(user: any) {
@@ -25,7 +25,7 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUser() {
+  getUser(): UserResponseDTO {
     return this.userSubject.getValue();
   }
 

@@ -7,6 +7,8 @@ import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
+import { SessionServiceService } from 'src/app/services/session-service.service';
+import { PushNotifications } from '@capacitor/push-notifications';
 
 @Component({
   selector: 'app-auth',
@@ -39,6 +41,7 @@ export class AuthPage {
   userService = inject(UserService)
   utilsService = inject(UtilsService);
   storageService = inject(StorageService);
+  private sessionService = inject(SessionServiceService)
 
   constructor() { }
 
@@ -70,7 +73,9 @@ export class AuthPage {
             this.utilsService.router.navigate(['/auth/select-tenants']);
           }
           this.storageService.setSessionStorage('user', user);
-
+          PushNotifications.checkPermissions().then(result =>{
+            if (result.receive === 'granted') this.sessionService.handleSession();
+          })
           loading.dismiss();
         });
 
