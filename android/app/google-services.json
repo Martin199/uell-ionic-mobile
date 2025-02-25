@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "2267757255",
-    "project_id": "push-noti-jose",
-    "storage_bucket": "push-noti-jose.firebasestorage.app"
+    "project_number": "684323851738",
+    "project_id": "uell-stage",
+    "storage_bucket": "uell-stage.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:2267757255:android:6b06c35969ad26e40e5ce2",
+        "mobilesdk_app_id": "1:684323851738:android:ee758b5a04371f7207c4e3",
         "android_client_info": {
           "package_name": "com.uell.ionic.mobile"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "684323851738-rmdenvdd3pgffu72lfnmqbsu74v2rlnh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyA5faMM-jzmGUUroomVlK0yDmo6HeZntyU"
+          "current_key": "AIzaSyD9xqPBOYjbYq7FT46UHPFMLzJha3ZEhpM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684323851738-rmdenvdd3pgffu72lfnmqbsu74v2rlnh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
