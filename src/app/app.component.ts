@@ -7,8 +7,9 @@ import {
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
-import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { SessionServiceService } from './services/session-service.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +17,13 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  // platform = inject(Platform);
+  private sessionService = inject(SessionServiceService)
   private router = inject(Router);
 
-  constructor(private platform: Platform) {
+  constructor() {
     this.initializeApp();
     this.showSplash();
-    this.initPush();
+    if(Capacitor.isNativePlatform()) this.initPush();
   }
 
   initializeApp() {
@@ -34,6 +35,7 @@ export class AppComponent {
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
     PushNotifications.requestPermissions().then((result: any) => {
+      alert('req permision push: ' + result.receive);
       if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
@@ -44,7 +46,8 @@ export class AppComponent {
 
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration', (token: Token) => {
-      alert('Push registration success 1234, token: ');
+      alert('Push registration success, token: '+ token.value);
+      this.sessionService.fcmToken = token;
     });
 
     // Some issue with our setup and push will not work
