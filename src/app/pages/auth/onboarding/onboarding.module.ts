@@ -13,6 +13,7 @@ import { UserContactInfoPageModule } from './steps/user-contact-info/user-contac
 import { UserAddressInfoModule } from './steps/user-address-info/user-address-info.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MedicalInformationComponent } from './steps/medical-information/medical-information.component';
+import { MedicalInformationSecondComponent } from './steps/medical-information-second/medical-information-second.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { MedicalInformationComponent } from './steps/medical-information/medical
     UserAddressInfoModule,
     SharedModule
   ],
-  declarations: [OnboardingPage, UserInfoComponent, UserEmploymentInfoComponent, MedicalInformationComponent],
+  declarations: [OnboardingPage, UserInfoComponent, UserEmploymentInfoComponent, MedicalInformationComponent, MedicalInformationSecondComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class OnboardingPageModule {}
