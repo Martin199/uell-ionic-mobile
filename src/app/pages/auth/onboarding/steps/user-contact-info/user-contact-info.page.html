@@ -1,16 +1,67 @@
-  @if(country==='ARGENTINA'){
-    <p>Argentina</p>
-    <app-arg-contact-info> </app-arg-contact-info>
-  }
-  @if(country==='COLOMBIA'){
-    <p>Colombia</p>
-    <app-col-contact-info> </app-col-contact-info>
-  }
-  @if(country==='PERU'){
-    <p>Peru</p>
-    <app-per-contact-info> </app-per-contact-info>
-  }
-  @if(country==='ECUADOR'){
-    <p>Ecuador</p>
-    <app-ecu-contact-info> </app-ecu-contact-info>
-  }
+  <div class="container">
+
+    @if (tenantParameters) {
+      <div class="header">
+        <h3 class="text-with-icon">
+            <img src="./assets/icons/icon-alert.svg" class="pr-2">
+            {{ tenantParameters.tenantParameters.localization.onboarding['important'] }}
+        </h3>
+        <h5 class="text-with-info">
+            {{ tenantParameters.tenantParameters.localization.onboarding['notif-disclaimer'] }}
+        </h5>
+      </div>
+    }
+
+    <form [formGroup]="contactInfoForm">
+
+      <app-custom-input
+        [control]="contactInfoForm.controls['email']"
+        label="Email"
+        placeholder="Ingresa tu email"
+        type="email"
+      ></app-custom-input>
+
+      <div class="tel-container">
+        <div class="select-container">
+          <ion-label class="label-input">Codigo de pais</ion-label>
+          <div class="custom-select" (click)="toggleDropdown()">
+            <div class="selected-item">
+              @if (selectedCountry) {
+                @if (selectedCountry.flagUrl) {
+                  <img [src]="selectedCountry.flagUrl" alt="Bandera" class="flag" />
+                }
+                <span>{{ selectedCountry.phoneCode }}</span>
+              }
+            </div>
+            @if (isOpen) {
+              <div class="options">
+                @for (country of countryCode; track country.phoneCode) {
+                  <div class="option" (click)="selectCountryCode(country)">
+                    @if (country.flagUrl) {
+                      <img [src]="country.flagUrl" alt="Bandera de {{ country.name }}" class="flag" />
+                    }
+                    <span>{{ country.phoneCode }}</span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        @if (enableAreaCode) {
+          <app-custom-input
+            [control]="contactInfoForm.controls['areaCode']"
+            label="Código de área"
+            placeholder="Código de área"
+          ></app-custom-input>
+        }
+      </div>
+
+      <app-custom-input
+        [control]="contactInfoForm.controls['phoneNumber']"
+        label="Teléfono"
+        placeholder="Teléfono"
+      ></app-custom-input>
+  
+    </form>
+  </div>

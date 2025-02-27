@@ -19,7 +19,7 @@
       <app-user-employment-info></app-user-employment-info>
     </swiper-slide> 
     <swiper-slide>
-      <app-user-contact-info></app-user-contact-info>
+      <app-user-contact-info (contactInfo)="setContactInfo($event)"></app-user-contact-info>
     </swiper-slide>
     <swiper-slide>
       <app-user-address-info></app-user-address-info>

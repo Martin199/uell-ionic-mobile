@@ -1,0 +1,103 @@
+  .container {
+    padding: 10px 15px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .text-with-icon {
+    color: #1da4b1;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    img {
+      color: black;
+    }
+  }
+  .text-with-info {
+    color: #383e52;
+    font-size: 16px;
+    font-weight: normal !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .tel-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .select-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .custom-select {
+    position: relative;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    height: 48px;
+    margin-top: 0.25rem;
+    width: 100px;
+  }
+
+  .custom-select:hover {
+    border-color: #1DA4B1;
+  }
+  .custom-select:focus-within {
+    border-color: #1DA4B1;
+  }
+  
+  .selected-item {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .flag {
+    width: 20px;
+    height: auto;
+  }
+  
+  .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  .option {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+  
+  .error-message {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.875rem;
+  }
+
+  .label-input {
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.048px;
+}

@@ -51,12 +51,10 @@ export class AuthPage {
 
 
   async submit(){
-    console.log(this.formAuth.value)
     if (this.formAuth.invalid) {
       console.log('Formulario inválido');
       return;
     }
-  
     const { cuil, password } = this.formAuth.value;
     const loading = await this.utilsService.loading();
     await loading.present();
