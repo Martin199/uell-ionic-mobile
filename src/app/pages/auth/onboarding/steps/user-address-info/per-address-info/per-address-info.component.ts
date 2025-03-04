@@ -18,8 +18,8 @@ export class PERAddressInfoComponent  implements OnInit {
   userService = inject(UserService);
 
   addressForm = new FormGroup({
-    Calle: new FormControl('', { validators: [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)] }),
-    Numero: new FormControl('', { validators: [Validators.required, Validators.maxLength(50), Validators.pattern(/^[0-9]\d*$/) ] }),
+    Calle: new FormControl('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z0-9.\-# ]+$/)] }),
+    Numero: new FormControl('', { validators: [Validators.pattern(/^[a-zA-Z0-9.\-# ]+$/)] }),
     Piso: new FormControl('', { validators: [Validators.pattern('[a-zA-Z0-9]*'), Validators.maxLength(3)] }),
     Depto: new FormControl('', { validators: [Validators.pattern('[a-zA-Z0-9]*'), Validators.maxLength(3)] }),
     Provincia: new FormControl('', { validators: [Validators.required] }),

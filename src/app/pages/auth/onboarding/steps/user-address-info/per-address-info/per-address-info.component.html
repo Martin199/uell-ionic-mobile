@@ -10,6 +10,10 @@
               class="form-error-msg">
               {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
         </span>
+        <span *ngIf="addressForm.controls['Calle'].errors?.['pattern']"
+              class="form-error-msg">
+              Solo se permite el uso de letras, numeros y (., - y #)
+        </span>
     </div>
     <div class="form-group d-flex">
         <div class="form-group col-md-3 pl-0">

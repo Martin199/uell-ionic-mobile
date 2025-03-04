@@ -5,3 +5,45 @@
     
 }
 
+.footer-btn-back {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    --background: white;
+    --background-hover: #4c8dff;
+    --background-activated: #3366cc;
+    --color: #1da4b1;
+    border-radius: 100px;
+    font-weight: bold;
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+    border: 2px solid #1da4b1;
+}
+
+.footer-btn-back:hover {
+    background-color: var(--background-hover);
+    border: 2px solid #1da4b1;
+}
+
+.footer-btn-back:active {
+    background-color: var(--background-activated);
+    border: 2px solid #1da4b1;
+}
+
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-wrapper {
+    display: flex;
+  }
+  
+  .swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+  }
+  

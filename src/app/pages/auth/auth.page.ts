@@ -71,6 +71,7 @@ export class AuthPage {
             this.utilsService.router.navigate(['/auth/select-tenants']);
           }
           this.storageService.setSessionStorage('user', user);
+
           PushNotifications.checkPermissions().then(result =>{
             if (result.receive === 'granted') this.sessionService.handleSession();
           })
@@ -78,7 +79,7 @@ export class AuthPage {
         });
 
         //parcialmente
-        this.userService.getTenantParameters().subscribe((res: any) => {      
+        this.userService.getTenantParameters().subscribe((res: any) => {
           this.storageService.setSessionStorage('tenantParameters', res);        
         });
         //------------------------------

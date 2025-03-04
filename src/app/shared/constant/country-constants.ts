@@ -32,6 +32,160 @@ export const COUNTRY_CODE = [
   { phoneCode: 'Otro', name: 'Otro', country: countryENUM.OTHER },
 ];
 
+export const COUNTRY_ADDRESS_VALIDATIONS = {
+  ARGENTINA: {
+    street: {
+     required: true,
+     pattern: /^[a-zA-Z0-9.\s]+$/,
+    },
+    number: {
+      required: true,
+      maxLength: 5,
+      pattern: /^[0-9]+$/,
+    },
+    floor: {
+      maxLength: 3,
+      pattern: /^[a-zA-Z0-9]+$/,
+    },
+    apartment: {
+      maxLength: 3,
+      pattern: /^[a-zA-Z0-9]+$/,
+    },
+    postalCode: {
+      required: true,
+      minLength: 3,
+      maxLength: 5,
+      pattern: /^[0-9]+$/,
+    },
+    province: {
+      required: true,
+    },
+    locality: {
+      required: true,
+    },
+    observation: {
+      maxLength: 250,
+    },
+  },
+  COLOMBIA: {
+    street: {
+      required: true,
+      pattern: /^[a-zA-Z0-9.\s]+$/,
+    },
+    number: {
+      maxLength: 5,
+      pattern: /^[a-zA-Z0-9\-#\s]+$/,
+    },
+    floor: {
+      pattern: /^[a-zA-Z0-9]+$/,
+      maxLength: 3,
+    },
+    apartment: {
+      pattern: /^[a-zA-Z0-9]+$/,
+      maxLength: 3,
+    },
+    postalCode: {
+      required: true,
+      minLength: 3,
+      maxLength: 5,
+      pattern: /^[0-9]+$/,
+    },
+    province: {
+      required: true,
+    },
+    locality: {
+      required: true,
+    },
+    observation: {
+      maxLength: 250,
+    },
+  },
+  ECUADOR: {
+    street: {
+      required: true,
+      pattern: /^[a-zA-Z0-9.\s]+$/,
+    },
+    number: {
+      required: true,
+      maxLength: 5,
+      pattern: /^[0-9]+$/,
+    },
+    floor: {
+      maxLength: 3,
+      pattern: /^[a-zA-Z0-9]+$/,
+    },
+    apartment: {
+      maxLength: 3,
+      pattern: /^[a-zA-Z0-9]+$/,
+    },
+    postalCode: {
+      required: true,
+      minLength: 3,
+      maxLength: 5,
+      pattern: /^[0-9]+$/,
+    },
+    province: {
+      required: true,
+    },
+    locality: {
+      required: true,
+    },
+    observation: {
+      maxLength: 250,
+    },
+  },
+  PERU: {
+    street: {
+      required: true,
+      // pattern: /^[a-zA-Z0-9.\-#\s]+$/,
+    },
+    number: {
+      // pattern: /^[a-zA-Z0-9.\-#\s]+$/,
+    },
+    floor: {
+      // pattern: /^[a-zA-Z0-9]+$/,
+    },
+    apartment: {
+      // pattern: /^[a-zA-Z0-9]+$/,
+    },
+    postalCode: {
+      minLength: 5,
+      // pattern: /^[0-9]+$/,
+    },
+    province: {
+      required: true,
+    },
+    locality: {
+      required: true,
+    },
+    observation: {
+      maxLength: 250,
+    },
+  },
+  OTHER: {
+    street: {
+      required: true,
+    },
+    number: {
+    },
+    floor: {
+    },
+    apartment: {
+    },
+    postalCode: {
+    },
+    province: {
+      required: true,
+    },
+    locality: {
+      required: true,
+    },
+    observation: {
+      maxLength: 250,
+    },
+  }
+}
+
 export const COUNTRY_PHONE_VALIDATIONS = {
 
   ARGENTINA: {

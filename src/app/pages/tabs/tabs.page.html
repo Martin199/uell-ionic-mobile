@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
   <ion-tabs>
-    <ion-tab-bar slot="bottom" class="ion-safe-area-bottom">
+    <ion-tab-bar slot="bottom" class="ion-safe-area-bottom" [ngClass]="{'ios-platform': this.platform === 'ios'}">
       <ion-tab-button tab="home">
         <ion-icon name="home"></ion-icon>
         <ion-label>Inicio</ion-label>

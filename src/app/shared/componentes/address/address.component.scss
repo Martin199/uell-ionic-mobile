@@ -1,0 +1,55 @@
+.error{
+  color: red;
+  font-size: 16px;
+}
+input[type=number]::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.form-group{
+margin-bottom: 15px;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+}
+.form-group.row.d-flex{
+margin: 0px;
+}
+.form-group.mr-3.col-sm-3.pl-0{
+margin-bottom: 32px;
+padding-right: 0px;
+}
+.label {
+font-size: 16px;
+font-weight: 600;
+color: #383e52;
+// margin: 4px 0px 4px auto;
+}
+.ion-text {
+font-size: 14px;
+color: #505A78;
+position: absolute;
+}
+.form-error-msg {
+// margin: 4px 0px 0px auto;
+// position:absolute;
+color: red;
+}
+.titulo{
+font-size: 20px;
+color: #1da4b1;
+font-weight: bold;
+}
+.country {
+margin-left: 0;
+margin-right: 0 !important;
+padding-left: 0;
+padding-right: 0;
+}
+form {
+padding: 15px;
+}
+.row{
+display: flex;
+gap: 20px
+}

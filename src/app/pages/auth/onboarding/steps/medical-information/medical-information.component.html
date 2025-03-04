@@ -1,0 +1,54 @@
+<form [formGroup]="formMedical">
+  <div class="radio-container ion-padding">
+    <ion-label class="title-label ">¿Estos son tus datos?</ion-label>
+    
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Hipertensión arterial</ion-label>
+      <ion-radio-group formControlName="arterialHypertension" class="radio-group">
+        <ion-radio value="si">Sí</ion-radio>
+        <ion-radio value="no">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Diabetes</ion-label>
+      <ion-radio-group formControlName="diabetes" class="radio-group">
+        <ion-radio value="si">Sí</ion-radio>
+        <ion-radio value="no">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Respiratorias</ion-label>
+      <ion-radio-group formControlName="respiratory" class="radio-group">
+        <ion-radio value="si">Sí</ion-radio>
+        <ion-radio value="no">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Cardiovasculares (Angina de pecho, arritmia, soplo, infarto miocardio)</ion-label>
+      <ion-radio-group formControlName="cardiac" class="radio-group">
+        <ion-radio value="si">Sí</ion-radio>
+        <ion-radio value="no">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Neurológicas</ion-label>
+      <ion-radio-group formControlName="neurological" class="radio-group">
+        <ion-radio value="si">Sí</ion-radio>
+        <ion-radio value="no">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Metabólicas (Triglicéridos, colesterol, resistencia a la insulina)</ion-label>
+      <ion-radio-group formControlName="metabolice" class="radio-group">
+        <ion-radio value="si">Sí</ion-radio>
+        <ion-radio value="no">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+  </div>
+</form>

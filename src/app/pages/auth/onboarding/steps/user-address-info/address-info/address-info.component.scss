@@ -8,6 +8,9 @@ input[type=number]::-webkit-inner-spin-button {
 }
 .form-group{
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .form-group.row.d-flex{
   margin: 0px;
@@ -20,7 +23,12 @@ input[type=number]::-webkit-inner-spin-button {
   font-size: 16px;
   font-weight: 600;
   color: #383e52;
-  margin: 4px 0px 4px auto;
+  // margin: 4px 0px 4px auto;
+}
+.max-length {
+  font-size: 14px;
+  color: #505A78;
+  margin: 0px 4px 0px auto;
 }
 .ion-text {
   font-size: 14px;
@@ -28,7 +36,7 @@ input[type=number]::-webkit-inner-spin-button {
   position: absolute;
 }
 .form-error-msg {
-  margin: 4px 0px 0px auto;
+  // margin: 4px 0px 0px auto;
   // position:absolute;
   color: red;
 }

@@ -1,5 +1,5 @@
 <ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar >
+  <ion-toolbar>
     <div class="d-flex-center ion-padding-top">
       <ion-thumbnail class="logo-thumbnail">
         <ion-img src="../../../../assets/auth/logo-login - copia.png"></ion-img>
@@ -7,34 +7,33 @@
     </div>
   </ion-toolbar>
   <ion-progress-bar class="ion-margin-top"></ion-progress-bar>
-
 </ion-header>
 
- <ion-content [fullscreen]="true">
-  <swiper-container>
+<ion-content  [fullscreen]="true">
+  <swiper-container #swiperContainer allow-touch-move="false">
     <swiper-slide>
-      <app-user-info></app-user-info>
+      <app-user-info ></app-user-info>
     </swiper-slide>
     <swiper-slide>
       <app-user-employment-info></app-user-employment-info>
-    </swiper-slide> 
-    <swiper-slide>
-      <app-user-contact-info (contactInfo)="setContactInfo($event)"></app-user-contact-info>
     </swiper-slide>
     <swiper-slide>
-      <app-user-address-info></app-user-address-info>
+      <app-user-contact-info (contactInfo)="stepsReturnContactInfo($event)"></app-user-contact-info>
     </swiper-slide>
- 
-  </swiper-container> 
+    <swiper-slide>
+      <app-user-address-info (contactInfo)="stepsReturnAddressInfo($event)"></app-user-address-info>
+    </swiper-slide>
+    <swiper-slide>
+      <app-medical-information></app-medical-information>
+    </swiper-slide>
+  </swiper-container>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end" class="ion-padding-end">
-        <ion-button  fill="outline" shape="round" class="ion-margin-end footer-btn-back"> Volver </ion-button>
-        <ion-button expand="block" shape="round" type="submit" class="submit-btn" >
-          Siguiente 
-        </ion-button>
+      <ion-button shape="round" class="ion-margin-end footer-btn-back" (click)="prevSlide()">Volver</ion-button>
+      <ion-button expand="block" shape="round" type="submit" class="submit-btn" (click)="nextSlide()" [disabled]="disabledNextButton()">Siguiente</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

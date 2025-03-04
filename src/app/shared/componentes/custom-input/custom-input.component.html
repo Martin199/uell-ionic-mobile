@@ -7,11 +7,7 @@
     <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
   }
   
-  @if(maxLength){
-    <ion-input [type]="type" [formControl]="control" [maxlength]="maxLength" ></ion-input>  
-  }@else{
-    <ion-input [type]="type" [formControl]="control" ></ion-input>
-  }
+  <ion-input [type]="type" [formControl]="control" [maxlength]="maxLength() || null"></ion-input>  
   
   @if (isPassword) {
     <ion-button (click)="showOrhidePassword()" slot="end" fill="clear" shape="round">

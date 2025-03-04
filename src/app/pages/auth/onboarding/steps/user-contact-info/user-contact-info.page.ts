@@ -21,7 +21,7 @@ export class UserContactInfoPage implements OnDestroy {
 
   contactInfo = output<{data: IContactInfo; isValid: boolean}>();
   user! : User ;
-  tenantParameters : TenantParametersResponse | null = null;
+  tenantParameters: TenantParametersResponse | null = null;
   countryCode = COUNTRY_CODE;
   phoneValidations = COUNTRY_PHONE_VALIDATIONS;
   selectedCountry: ICountryCode | null = null;
@@ -50,6 +50,7 @@ export class UserContactInfoPage implements OnDestroy {
   
   setData() {
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
+    //TODO: COUNTRY
     const country = this.tenantParameters!.tenantParameters.country ? this.tenantParameters!.tenantParameters.country : countryENUM.OTHER;
     this.user = this.utilsService.getUser();
     const defaultCountry = COUNTRY_CODE.find(

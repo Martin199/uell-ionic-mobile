@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { COLAddressInfoComponent } from './col-address-info.component';
+import { AddressInfoComponent } from './address-info.component';
 
-describe('COLAddressInfoComponent', () => {
-  let component: COLAddressInfoComponent;
-  let fixture: ComponentFixture<COLAddressInfoComponent>;
+describe('AddressInfoComponent', () => {
+  let component: AddressInfoComponent;
+  let fixture: ComponentFixture<AddressInfoComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ COLAddressInfoComponent ],
+      declarations: [ AddressInfoComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(COLAddressInfoComponent);
+    fixture = TestBed.createComponent(AddressInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
