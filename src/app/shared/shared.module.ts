@@ -16,6 +16,7 @@ import { FormIspsStepTwoComponent } from './componentes/forms-isps/form-isps-ste
 import { SearchbarAnimationComponent } from './componentes/searchbar-animation/searchbar-animation.component';
 import { FormIspsStepThreeComponent } from './componentes/forms-isps/form-isps-step-three/form-isps-step-three.component';
 import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-step-four/form-isps-step-four.component';
+import { ModalSuggestAddressComponent } from './componentes/modal-suggest-address/modal-suggest-address.component';
 
 
 
@@ -34,7 +35,9 @@ import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-st
      FormIspsStepThreeComponent,
      FormIspsStepFourComponent, 
      SearchbarAnimationComponent, 
-     UellMultimediaComponent],
+     UellMultimediaComponent,
+     ModalSuggestAddressComponent,
+    ],
   imports: [
     CommonModule,
     IonicModule,
@@ -49,7 +52,8 @@ import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-st
     LogoComponent,
     IspsCircleComponent,
     UellMultimediaComponent,
-    SearchbarAnimationComponent
+    SearchbarAnimationComponent,
+    ModalSuggestAddressComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

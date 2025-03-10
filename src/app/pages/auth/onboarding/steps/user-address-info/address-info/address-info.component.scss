@@ -12,6 +12,9 @@ input[type=number]::-webkit-inner-spin-button {
   flex-direction: column;
   justify-content: flex-start;
 }
+.no-mb {
+  margin-bottom: 0px;
+}
 .form-group.row.d-flex{
   margin: 0px;
 }

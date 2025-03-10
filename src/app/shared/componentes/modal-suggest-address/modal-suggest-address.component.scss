@@ -1,0 +1,93 @@
+@import './../../../../global.scss';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  .title {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1%;
+    color: #383E52;
+  }
+  .description {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25%;
+    color: #505A78;
+  }
+  .address-card {
+    border: 1px solid #DADFE9;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    .address-title {
+      font-family: 'Inter';
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.1%;
+      color: #383E52;
+    }
+    .address {
+      margin-top: 0.5rem;
+      font-family: 'Inter';
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0.25%;
+      color: #505A78;
+    }
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      .outline-button {
+        width: 104;
+        height: 40;
+        gap: 10px;
+        border-radius: 20px;
+        border-width: 1px;
+        padding-top: 10px;
+        padding-right: 20px;
+        padding-bottom: 10px;
+        padding-left: 20px;
+        border: 1px solid #1DA4B1        
+      }
+      .button {
+        border-radius: 20px;
+        padding-top: 10px;
+        padding-right: 20px;
+        padding-bottom: 10px;
+        padding-left: 20px;
+        background: #1DA4B1;
+      }
+      .footer-btn-back {
+        --padding-start: 20px;
+        --padding-end: 20px;
+        --padding-top: 15px;
+        --padding-bottom: 15px;
+        --background: white;
+        --background-hover: #4c8dff;
+        --background-activated: #3366cc;
+        color: #1da4b1;
+        border-radius: 100px;
+        font-weight: bold;
+        text-transform: none;
+        font-family: 'Inter', sans-serif;
+        border: 2px solid #1da4b1;
+      }
+    }
+  }
+  .address-card:hover {
+    background-color: #f0f8ff;
+  }
+  .card-selected {
+    border-color: #44D8E8;
+    background-color: #f0f8ff;
+  }
+}

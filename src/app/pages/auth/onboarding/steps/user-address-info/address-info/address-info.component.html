@@ -17,7 +17,7 @@
           </span>
         }
     </div>
-    <div class="form-group d-flex">
+    <div class="form-group no-mb d-flex">
         <div class="form-group col-md-3 pl-0">
             <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['number'] }}</p>
             <app-custom-input  [control]="addressForm.controls['number']" [maxLength]="50"></app-custom-input>
@@ -39,7 +39,7 @@
             }
         </div>
         <div class="row">
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-2">
             <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['floor'] }}</p>
             <app-custom-input  [control]="addressForm.controls['floor']"></app-custom-input>
             @if (addressForm.controls['floor'].hasError('pattern')) {
@@ -53,7 +53,7 @@
               </span>
             }
           </div>
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-2">
               <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['dept'] }}</p>
               <app-custom-input  [control]="addressForm.controls['apartment']"></app-custom-input>
               @if (addressForm.controls['apartment'].hasError('pattern')) {
@@ -67,30 +67,32 @@
                 </span>
               }
           </div>
-          <div class="form-group col-md-3 pr-0">
-              <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['zip-code'] }}</p>
-              <app-custom-input  [control]="addressForm.controls['postalCode']" [maxLength]="6"></app-custom-input>
-              @if (addressForm.controls['postalCode'].errors?.['required'] && (addressForm.controls['postalCode'].touched || addressForm.controls['postalCode'].dirty)) {
-                <span class="form-error-msg">
-                  - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
-                </span>
-              }
-              @if (addressForm.controls['postalCode'].errors?.['maxlength'] && !addressForm.controls['postalCode'].hasError('pattern')) {
-                <span class="form-error-msg">
-                  - Máximo {{ countryValidations.postalCode.maxLength }} dígitos
-                </span>
-              }
-              @if (addressForm.controls['postalCode'].errors?.['minlength'] && !addressForm.controls['postalCode'].hasError('pattern')) {
-                <span class="form-error-msg">
-                  - Mínimo {{ countryValidations.postalCode.minLength }} dígitos
-                </span>
-              }
-              @if (addressForm.controls['postalCode'].hasError('pattern')) {
-                <span class="form-error-msg">
-                  - Caracteres invalidos
-                </span>
-              }
-          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <div class="form-group col-md-3 pl-0">
+            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['zip-code'] }}</p>
+            <app-custom-input  [control]="addressForm.controls['postalCode']" [maxLength]="6"></app-custom-input>
+            @if (addressForm.controls['postalCode'].errors?.['required'] && (addressForm.controls['postalCode'].touched || addressForm.controls['postalCode'].dirty)) {
+              <span class="form-error-msg">
+                - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+              </span>
+            }
+            @if (addressForm.controls['postalCode'].errors?.['maxlength'] && !addressForm.controls['postalCode'].hasError('pattern')) {
+              <span class="form-error-msg">
+                - Máximo {{ countryValidations.postalCode.maxLength }} dígitos
+              </span>
+            }
+            @if (addressForm.controls['postalCode'].errors?.['minlength'] && !addressForm.controls['postalCode'].hasError('pattern')) {
+              <span class="form-error-msg">
+                - Mínimo {{ countryValidations.postalCode.minLength }} dígitos
+              </span>
+            }
+            @if (addressForm.controls['postalCode'].hasError('pattern')) {
+              <span class="form-error-msg">
+                - Caracteres invalidos
+              </span>
+            }
+        </div>
         </div>
     </div>
     <div class="form-group">
@@ -115,7 +117,7 @@
         <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['locality'] }}</p>
            <ion-list>
             <ion-item>
-              <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione locality" formControlName="locality">
+              <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione locality" formControlName="locality" [disabled]="loadingLocality">
                 @for (loc of localitiesResponse; track $index) {
                   <ion-select-option [value]="loc">{{loc.name}}</ion-select-option>
                 }

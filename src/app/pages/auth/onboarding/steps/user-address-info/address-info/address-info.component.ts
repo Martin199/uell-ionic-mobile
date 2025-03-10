@@ -6,7 +6,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { COUNTRY_ADDRESS_VALIDATIONS, countryENUM } from 'src/app/shared/constant/country-constants';
-import { ICountryAddressValidation, IlocalitiesResponse, IStatesResponse } from 'src/app/shared/interface/country-interfaces';
+import { IAddressInfo, ICountryAddressValidation, IlocalitiesResponse, IStatesResponse } from 'src/app/shared/interface/country-interfaces';
 
 @Component({
   selector: 'app-address-info',
@@ -19,14 +19,15 @@ export class AddressInfoComponent  implements OnInit {
   userService = inject(UserService);
   utilsService = inject (UtilsService);
   
-  addressInfo = output<{data: any; isValid: boolean}>();
+  addressInfo = output<{data: IAddressInfo; isValid: boolean}>();
   user! : User ;
   tenantParameters: TenantParametersResponse | null = null;
   provincesResponse: IStatesResponse[] = [];
   localitiesResponse: IlocalitiesResponse[] = [];
   //TODO: cambiar default luego de hacer las pruebas
-  country: countryENUM = countryENUM.ARGENTINA;
+  country: countryENUM = countryENUM.OTHER;
   countryValidations: ICountryAddressValidation = COUNTRY_ADDRESS_VALIDATIONS[countryENUM.OTHER];
+  loadingLocality: boolean = false;
 
   addressForm = new FormGroup({
     street: new FormControl('', { validators: [Validators.required] }),
@@ -53,8 +54,8 @@ export class AddressInfoComponent  implements OnInit {
   setData() {
     this.user = this.utilsService.getUser();
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
-    //TODO: revisar porque el back no responde el pais correcto (puede ser el token que se envia pero es el mismo que el del /me)
-    // this.country = this.tenantParameters!.tenantParameters.country ? this.tenantParameters!.tenantParameters.country : countryENUM.OTHER;
+    const countryEnum = this.utilsService.findCountryEnum(this.tenantParameters!.tenantParameters?.country ? this.tenantParameters!.tenantParameters.country : countryENUM.ARGENTINA);
+    this.country = countryEnum;
     this.setCountryValidation(this.country);
   }
 
@@ -144,7 +145,7 @@ export class AddressInfoComponent  implements OnInit {
     ]);
     this.addressForm.get('street')?.updateValueAndValidity();
     this.addressForm.get('number')?.setValidators([
-      Validators.maxLength(5),
+      Validators.maxLength(56),
       Validators.pattern(/^[a-zA-Z0-9\-#\s]+$/),
     ]);
     this.addressForm.get('number')?.updateValueAndValidity();
@@ -159,7 +160,7 @@ export class AddressInfoComponent  implements OnInit {
     ]);
     this.addressForm.get('apartment')?.updateValueAndValidity();
     this.addressForm.get('postalCode')?.setValidators([
-      Validators.pattern(/^[0-9]\d*$/),
+      Validators.pattern(/^[0-9]+$/),
       Validators.maxLength(6),
       Validators.minLength(6),
     ]);
@@ -214,42 +215,38 @@ export class AddressInfoComponent  implements OnInit {
   }
 
   private getProvincias() {
-    this.userService.getAddressesState().subscribe((res: any) => {
-      res.forEach((e: any) => {
+    this.userService.getAddressesState().subscribe((res: IStatesResponse[]) => {
+      res.forEach((e: IStatesResponse) => {
         e.name = e.name.toUpperCase();
       });
       this.provincesResponse = res;
       if (this.provincesResponse.length > 0) {
         this.addressForm.controls.province.enable();
-        this.addressForm.controls.locality.disable();
       }
     });
   }
 
   private observerProvinceControl() {
     this.addressForm.get('province')?.valueChanges.subscribe(() => {
+      this.loadingLocality = true;
+      this.addressForm.get('locality')?.reset();
       this.localitiesResponse = [];
       const value = this.addressForm.get('province')?.value as any;
       const id = value?.id + '';
-      this.addressForm.get('locality')?.disable();
+      // this.addressForm.get('locality')?.disable();
       if (value?.id) {
-        this.userService.getLocalitiesByState(id).subscribe((res: any) => {
-          res.forEach((e: any) => {
+        this.userService.getLocalitiesByState(id).subscribe((res: IlocalitiesResponse[]) => {
+          res.forEach((e: IlocalitiesResponse) => {
             e.name = e.name.toUpperCase();
             this.localitiesResponse.push(e);
           });
           if (this.localitiesResponse.length > 0) {
-            this.resetLocalityCode();
+            this.addressForm.get('locality')?.updateValueAndValidity();
+            this.loadingLocality = false;
           }
         });
       }
     });
-  }
-
-  resetLocalityCode() {
-    this.addressForm.get('locality')?.enable();
-    this.addressForm.get('locality')?.reset();
-    this.addressForm.get('locality')?.updateValueAndValidity();
   }
 
   observerAddressInfoForm() {
@@ -259,15 +256,15 @@ export class AddressInfoComponent  implements OnInit {
   }
 
   emitAddressInfo(formValue: any) {
-    const contactInfo: any = {
-      street: formValue.street || '',
-      number: formValue.number || '',
-      floor: formValue.floor || '',
-      apartment: formValue.apartment || '',
-      postalCode: formValue.postalCode || '',
-      province: formValue.province || '',
-      locality: formValue.locality || '',
-      observation: formValue.observation || '',
+    const contactInfo: IAddressInfo = {
+      street: formValue.street,
+      number: formValue.number,
+      floor: formValue.floor,
+      apartment: formValue.apartment,
+      postalCode: formValue.postalCode,
+      province: formValue.province,
+      locality: formValue.locality,
+      observation: formValue.observation,
     };
     this.addressInfo.emit({
       data: contactInfo,

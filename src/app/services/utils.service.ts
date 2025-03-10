@@ -4,6 +4,7 @@ import { AlertController, LoadingController, ModalController, NavController, Toa
 import { StorageService } from './storage.service';
 import { Localization, TenantParameters, TenantParametersResponse } from '../core/interfaces/tenantParameters';
 import { User } from '../pages/tabs/interfaces/user-interfaces';
+import { countryENUM } from '../shared/constant/country-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -104,5 +105,25 @@ export class UtilsService {
       ],
     });
     await alert.present();
+  }
+
+  capitalizeText(text: string): string {
+    if (!text) return text;
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  }
+
+  findCountryEnum(country: string): countryENUM {
+    switch (country) {
+      case 'ARGENTINA':
+        return countryENUM.ARGENTINA;
+      case 'COLOMBIA':
+        return countryENUM.COLOMBIA;
+      case 'PERU':
+        return countryENUM.PERU;
+      case 'ECUADOR':
+        return countryENUM.ECUADOR;
+      default:
+        return countryENUM.OTHER;
+    }
   }
 }

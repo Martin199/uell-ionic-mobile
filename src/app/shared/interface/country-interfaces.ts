@@ -12,6 +12,16 @@ export interface IContactInfo {
     areaCode?: string | null;
     phoneNumber: string;
 }
+export interface IAddressInfo {
+  street: string;
+  number?: string;
+  floor?: string;
+  apartment?: string;
+  postalCode?: string;
+  province?: IStatesResponse | null;
+  locality?: IlocalitiesResponse | null;
+  observation?: string;
+}
 export interface ICountryAddressValidation {
     street: IValidation;
     number: IValidation;

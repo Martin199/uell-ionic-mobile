@@ -80,7 +80,7 @@ export class AuthPage {
 
         //parcialmente
         this.userService.getTenantParameters().subscribe((res: any) => {
-          this.storageService.setSessionStorage('tenantParameters', res);        
+          this.storageService.setSessionStorage('tenantParameters', res);     
         });
         //------------------------------
     

@@ -73,7 +73,7 @@ export const COUNTRY_ADDRESS_VALIDATIONS = {
       pattern: /^[a-zA-Z0-9.\s]+$/,
     },
     number: {
-      maxLength: 5,
+      maxLength: 6,
       pattern: /^[a-zA-Z0-9\-#\s]+$/,
     },
     floor: {
@@ -86,8 +86,8 @@ export const COUNTRY_ADDRESS_VALIDATIONS = {
     },
     postalCode: {
       required: true,
-      minLength: 3,
-      maxLength: 5,
+      minLength: 6,
+      maxLength: 6,
       pattern: /^[0-9]+$/,
     },
     province: {
