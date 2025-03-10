@@ -37,10 +37,14 @@ export class OnboardingPage implements AfterViewInit {
     }
   }
 
-  nextSlide(): void {
+  async nextSlide() {
     if (this.swiperContainer.nativeElement.swiper) {
       if (this.step === 3) {
-        this.validacionGoogleMaps(this.addressInfo);
+        const confirmAddress: any = await this.validacionGoogleMaps(this.addressInfo);
+        if (confirmAddress) {
+          this.swiperContainer.nativeElement.swiper.slideNext();
+          this.step++;
+        }
       } else {
         this.swiperContainer.nativeElement.swiper.slideNext();
         this.step++;
@@ -70,7 +74,7 @@ export class OnboardingPage implements AfterViewInit {
 
   validacionGoogleMaps(addressInfo: IAddressInfo) {
     // const address = this.formatAddress(addressInfo);
-    this.googleApisService.validacionGoogleMaps(addressInfo);
+    return this.googleApisService.validacionGoogleMaps(addressInfo);
   }
 
   disabledNextButton(): boolean {

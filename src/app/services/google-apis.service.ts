@@ -38,7 +38,12 @@ export class GoogleApisService {
   async validacionGoogleMaps(addressInfo: IAddressInfo) {
     const formattedStreet: string = this.formatAddress(addressInfo);
     this.validationResult = await this.validateAndSuggestAddress(formattedStreet);
-    this.openSuggestAddressModal(addressInfo);
+    const confirmAddress = await this.openSuggestAddressModal(addressInfo);
+    if (confirmAddress) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   async openSuggestAddressModal(addresInfo: IAddressInfo) {
@@ -53,7 +58,9 @@ export class GoogleApisService {
     const { data } = await modal.onDidDismiss();
     if (data?.addressPayload) {
       this.addressPayload = data.addressPayload;
-      //TODO: cambiar al siguiente step
+      return true;
+    } else {
+      return false;
     }
   }
 

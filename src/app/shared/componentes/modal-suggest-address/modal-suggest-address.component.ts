@@ -128,7 +128,7 @@ export class ModalSuggestAddressComponent implements OnInit{
           }
         },
         observation: this.addressInfo.observation ? this.addressInfo.observation : '',
-        addressValidated: false, // Al ser la direccion cargada por el usuario no fue validada
+        addressValidated: false,
         addressGeometryLocationType: this.validationResult.locationType ? this.validationResult.locationType : '',
         countryCode: ''
       }
