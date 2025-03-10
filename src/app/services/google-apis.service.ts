@@ -53,6 +53,7 @@ export class GoogleApisService {
     const { data } = await modal.onDidDismiss();
     if (data?.addressPayload) {
       this.addressPayload = data.addressPayload;
+      //TODO: cambiar al siguiente step
     }
   }
 
