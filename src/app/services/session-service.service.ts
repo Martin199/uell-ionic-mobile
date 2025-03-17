@@ -5,6 +5,7 @@ import { Token } from '@capacitor/push-notifications';
 import { UserService } from './user.service';
 import { HttpClientService } from '../core/services/http-client.service';
 import { environment } from 'src/environments/environment';
+import { UserResponseDTO } from '../core/interfaces/user';
 
 
 @Injectable({
@@ -29,8 +30,9 @@ export class SessionServiceService{
     return this._fcmToken;
   }
   
-  async handleSession(){
+  async handleSession(user: UserResponseDTO){
     const deviceId = (await Device.getId()).identifier;
+    this._userInfo = user;
     this.getSession()?.subscribe({
       next: (data) => {
         console.log('get sessions data', data);

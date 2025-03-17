@@ -68,7 +68,7 @@ export class AuthPage {
           console.log('Usuario:', user);
           this.storageService.setSessionStorage('user', user);
           PushNotifications.checkPermissions().then(result =>{
-            if (result.receive === 'granted') this.sessionService.handleSession();
+            if (result.receive === 'granted') this.sessionService.handleSession(user);
           })
           loading.dismiss();
           this.utilsService.router.navigate(['/auth/select-tenants']);
