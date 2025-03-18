@@ -1,20 +1,29 @@
-<ion-toolblar class="stepper">
-  <ion-title >Paso {{step}} de {{totalSteps}}</ion-title>
-  <ion-buttons slot="end">
-    <ion-button  class="btnClose" (click)="closeModal()">
-      <ion-icon name="close" slot="icon-only"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <div class="mb">
-    <ion-label class="title">
-      Índice de salud Psicosocial(I-SPS)
-    </ion-label>
-  </div>
-  <ion-progress-bar class="ion-margin-top" [value]="progress"></ion-progress-bar>
-</ion-toolblar>
+<ion-header>
+  <ion-toolbar class="stepper">
+    <ion-title>Paso {{ onboarding ? step : step - 1 }} de {{ onboarding ? totalSteps : totalSteps - 1 }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  class="btnClose" (click)="closeModal()">
+        @if(!onboarding){
+          <ion-icon name="close" slot="icon-only"></ion-icon>
+        }
+      </ion-button>
+    </ion-buttons>
+    <div class="mb">
+      <ion-label class="title">
+        Índice de salud Psicosocial(I-SPS)
+      </ion-label>
+    </div>
+    <ion-progress-bar class="ion-margin-top" [value]="progress"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content #content>
+<ion-content [fullscreen]="true" #content>
   <swiper-container #swiperContainer>
+    @if(onboarding){
+      <swiper-slide>
+        <app-form-isps-introduction></app-form-isps-introduction>
+      </swiper-slide>
+    }
     <swiper-slide>
       <app-form-isps-step-one (validForm)="updateValidStep($event)" (returnFirstStep)="returnFirstStep($event)"></app-form-isps-step-one>
     </swiper-slide>
@@ -24,7 +33,7 @@
     <swiper-slide>
       <app-form-isps-step-three (validForm)="updateValidStep($event)" (returnThirdStep)="returnThirdStep($event)"></app-form-isps-step-three>
     </swiper-slide>
-    <swiper-slide>
+    <swiper-slide *ngIf="!onboarding">
       <!-- Resultados -->
       <ion-spinner *ngIf="!dataIsps"></ion-spinner>
       @if(dataIsps){
@@ -43,15 +52,15 @@
   <ion-toolbar>
     <!-- Usamos clases nativas de Ionic para alinear el botón a la derecha -->
     <ion-buttons slot="end" class="ion-padding-end">
-      @if(step !== 4 && step !== 1){
+      @if(step !== 5 && step !== 2){
         <ion-button @slideOut fill="outline" shape="round" class="ion-margin-end footer-btn-back" (click)="goBack()"> Volver </ion-button>
       }
-      @if(step !== 4){
+      @if(step !== 5){
         <ion-button expand="block" shape="round" type="submit" class="submit-btn footer-btn" [disabled]="!validStep" (click)="nextSlide()">
           {{returnDescriptionBtn()}}
         </ion-button>
       }
-      @if(step === 4){
+      @if(step === 5){
         <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>   
       }
     </ion-buttons>

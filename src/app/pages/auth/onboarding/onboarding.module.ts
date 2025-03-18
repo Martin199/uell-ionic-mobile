@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,6 +14,7 @@ import { UserAddressInfoModule } from './steps/user-address-info/user-address-in
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MedicalInformationComponent } from './steps/medical-information/medical-information.component';
 import { MedicalInformationSecondComponent } from './steps/medical-information-second/medical-information-second.component';
+import { InitialClinicalDataComponent } from './steps/initial-clinical-data/initial-clinical-data.component';
 
 @NgModule({
   imports: [
@@ -23,9 +24,10 @@ import { MedicalInformationSecondComponent } from './steps/medical-information-s
     OnboardingPageRoutingModule,
     UserContactInfoPageModule,
     UserAddressInfoModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
   ],
-  declarations: [OnboardingPage, UserInfoComponent, UserEmploymentInfoComponent, MedicalInformationComponent, MedicalInformationSecondComponent],
+  declarations: [OnboardingPage, UserInfoComponent, UserEmploymentInfoComponent, MedicalInformationComponent, MedicalInformationSecondComponent, InitialClinicalDataComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class OnboardingPageModule {}

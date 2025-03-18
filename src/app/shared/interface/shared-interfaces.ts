@@ -4,3 +4,11 @@ export interface IValidation {
     maxLength?: number;
     pattern?: RegExp;
 }
+
+export interface StatusForm {
+	nextTitle: string;
+	state: {
+		status: boolean,
+		description: string
+	};
+}

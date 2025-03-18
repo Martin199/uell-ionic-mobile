@@ -12,7 +12,7 @@
 <ion-content  [fullscreen]="true">
   <swiper-container #swiperContainer allow-touch-move="false">
     <swiper-slide>
-      <app-user-info ></app-user-info>
+      <app-user-info (contactInfo)="stepReturnUserInfo($event)"></app-user-info>
     </swiper-slide>
     <swiper-slide>
       <app-user-employment-info></app-user-employment-info>
@@ -24,9 +24,15 @@
       <app-user-address-info (addressInfo)="stepsReturnAddressInfo($event)"></app-user-address-info>
     </swiper-slide>
     <swiper-slide>
-      <app-medical-information></app-medical-information>
+      <app-medical-information (medicalInfo)="stepsReturnMedicalInfo($event)"></app-medical-information>
     </swiper-slide>
-  </swiper-container>
+    <swiper-slide>
+      <app-medical-information-second (medicalInfoTwo)="stepsReturnMedicalInfoTwo($event)"></app-medical-information-second>
+    </swiper-slide>
+    <swiper-slide>
+      <app-initial-clinical-data (returnResponse)="buildClinicalData($event)"></app-initial-clinical-data>
+    </swiper-slide>
+  </swiper-container> 
 </ion-content>
 
 <ion-footer>

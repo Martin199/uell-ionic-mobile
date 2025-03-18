@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject, output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/services/storage.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
@@ -11,6 +11,7 @@ import * as moment from 'moment';
 })
 export class UserInfoComponent implements OnInit {
   storageService = inject(StorageService) 
+  @Output() contactInfo = new EventEmitter<{ data: any }>();
 
   userInfoForm = new FormGroup({
     birthDate: new FormControl('', [Validators.required]),
@@ -27,12 +28,18 @@ export class UserInfoComponent implements OnInit {
     if (this.user?.bornDate) {
       const formattedDate = moment(this.user.bornDate).format('DD/MM/YYYY');
       this.userInfoForm.patchValue({ birthDate: formattedDate });
+      this.emitBirthDate(formattedDate);
       this.updateDisplayDate(formattedDate);
     }
 
     this.userInfoForm.get('birthDate')?.valueChanges.subscribe((date) => {
-     this.user.bornDate =  moment(date).format('DD/MM/YYYY');
+      this.emitBirthDate(date);
     });
+  }
+
+  emitBirthDate(date: any) {
+    const formattedDate = moment(date, ['DD/MM/YYYY', 'YYYY-MM-DD']).format('YYYY-MM-DD');
+    this.contactInfo.emit({ data: formattedDate });
   }
 
   openDatePicker() {

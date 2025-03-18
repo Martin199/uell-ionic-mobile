@@ -17,6 +17,8 @@ import { SearchbarAnimationComponent } from './componentes/searchbar-animation/s
 import { FormIspsStepThreeComponent } from './componentes/forms-isps/form-isps-step-three/form-isps-step-three.component';
 import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-step-four/form-isps-step-four.component';
 import { ModalSuggestAddressComponent } from './componentes/modal-suggest-address/modal-suggest-address.component';
+import { ModalMedicalRecordComponent } from './componentes/modal-medical-record/modal-medical-record.component';
+import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isps-introduction/form-isps-introduction.component';
 
 
 
@@ -30,6 +32,7 @@ import { ModalSuggestAddressComponent } from './componentes/modal-suggest-addres
      ModalDescriptionComponent, 
      UellMultimediaComponent,
      FormsIspsComponent, 
+     FormIspsIntroductionComponent,
      FormIspsStepOneComponent, 
      FormIspsStepTwoComponent, 
      FormIspsStepThreeComponent,
@@ -37,6 +40,7 @@ import { ModalSuggestAddressComponent } from './componentes/modal-suggest-addres
      SearchbarAnimationComponent, 
      UellMultimediaComponent,
      ModalSuggestAddressComponent,
+     ModalMedicalRecordComponent
     ],
   imports: [
     CommonModule,
@@ -53,7 +57,13 @@ import { ModalSuggestAddressComponent } from './componentes/modal-suggest-addres
     IspsCircleComponent,
     UellMultimediaComponent,
     SearchbarAnimationComponent,
-    ModalSuggestAddressComponent
+    ModalSuggestAddressComponent,
+    FormsIspsComponent,
+    FormIspsIntroductionComponent,
+    FormIspsStepOneComponent, 
+    FormIspsStepTwoComponent, 
+    FormIspsStepThreeComponent,
+    FormIspsStepFourComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

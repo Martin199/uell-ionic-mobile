@@ -74,4 +74,22 @@ export class UserService {
     // return this.getDataContent(`v2/localities?state.id=${id}&size=1000&sort=name,asc`);
 	}
 
+  postMedicalDiseases(userId: number, body: any) {
+    return this.http.post(`${environment.apiBaseUrl}${environment.apiVersion}/medical-history/${userId}`, body);
+	}
+
+  postCompletenessMedicalInformation(userId: number, body: any) {
+    return this.http.post(`${environment.apiBaseUrl}${environment.apiVersion}/medical-history/completeness/${userId}`, body);
+	}
+
+  postOnBoarding(id: number, body: any) {
+    return this.http.patch(`${environment.apiBaseUrl}${environment.apiVersion}/users/${id}`, body);
+		// return this.pacthDataContent(`${environment.apiversion}users/${id}`, body);
+	}
+
+  getOnBoarding(id: number) {
+		return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/users/onboarding/${id}`);
+	}
+
+
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-medical-information',
@@ -7,20 +7,24 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./medical-information.component.scss'],
 })
 export class MedicalInformationComponent implements OnInit {
+  @Output() medicalInfo = new EventEmitter<any>();
 
   formMedical = new FormGroup({
-    arterialHypertension: new FormControl('', [Validators.required]),
-    diabetes: new FormControl('', [Validators.required]),
-    respiratory: new FormControl('', [Validators.required]),
-    cardiac: new FormControl('', [Validators.required]),
-    neurological: new FormControl('', [Validators.required]),
-    metabolice: new FormControl('', [Validators.required]),
-    diabetesType: new FormControl('', [Validators.required]),
-    insulineRequiring: new FormControl('', [Validators.required]),
+    arterialHypertension: new FormControl(''),
+    diabetes: new FormControl(''),
+    respiratory: new FormControl(''),
+    cardiac: new FormControl(''),
+    neurological: new FormControl(''),
+    metabolice: new FormControl(''),
   })
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+    this.medicalInfo.emit(this.formMedical.value);
+    this.formMedical.valueChanges.subscribe(values => {
+      this.medicalInfo.emit(values);  
+    });
+  }
 
 }

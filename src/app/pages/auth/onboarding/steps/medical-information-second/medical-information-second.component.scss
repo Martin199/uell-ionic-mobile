@@ -28,3 +28,49 @@
     display: flex;
     gap: 15px;
 }
+
+.margin{
+    display: grid;
+    gap: 5px;
+    margin: 10px;
+}
+
+.form-check{
+    display: flex;
+    gap: 5px;
+}
+
+.form-check input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: transparent;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.form-check input[type="checkbox"]:checked {
+    background-color: white;
+    border-color: black;
+}
+
+.form-check input[type="checkbox"]:checked::before {
+    content: '✓';
+    font-size: 14px;
+    color: black;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+textarea{
+    width: 100%;
+    background-color: white;
+}

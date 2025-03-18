@@ -1,0 +1,77 @@
+.c-container{
+    padding: 10px 10px;
+}
+.m-title{
+    color: var(--neutral-grey-medium, #505a78);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+}
+h4 {
+	font-size: 18px;
+	font-weight: 700;
+	color: black;
+}
+.error {
+	color: red;
+}
+// input[type="number"]::-webkit-inner-spin-button {
+// 	// -webkit-appearance: none;
+// 	margin: 0;
+// }
+input[type="radio"] {
+    accent-color: #1da4b1; /* Cambia el color del radio button */
+    background-color: white; 
+  }
+input[type="radio"]:not(:checked) {
+    background-color: white; /* Asegura que el fondo se mantenga blanco */
+    border: 2px solid #1da4b1;
+  }
+p {
+    color: var(--neutral-grey-dark, #383e52);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+small {
+	font-weight: normal;
+	width: 100%;
+}
+.titu {
+	font-size: 16px;
+	font-weight: 700;
+	width: 100%;
+	color: black;
+
+	span {
+		font-size: 16px;
+		font-weight: 400;
+	}
+}
+.txt {
+	font-weight: normal;
+	width: 100%;
+}
+.medical-info {
+	width: 90% !important;
+}
+.measure {
+	margin-left: 0;
+	margin-right: 0 !important;
+	padding-left: 0;
+	padding-right: 0;
+}
+form {
+	padding: 0px 20px;
+}
+.icon-circle {
+	border-radius: 8px;
+	padding: 3px;
+}
+.form-check{
+	.form-check-label{
+		padding-left: 3px;
+	}
+}
