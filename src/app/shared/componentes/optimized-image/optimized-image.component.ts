@@ -12,7 +12,7 @@ import { FilesService } from 'src/app/services/files.service';
 export class OptimizedImageComponent  implements OnInit {
 
   @Input() borderRadius: boolean = false;
-  @Input() height150px: boolean = false;
+  @Input() height130px: boolean = false;
   @Input() url: string = '';
 
   constructor() { }
