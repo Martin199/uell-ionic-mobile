@@ -35,6 +35,10 @@ export class GoogleApisService {
     return this.addressPayload;
   }
 
+  pushIdAddress(id: any) {
+    this.addressPayload!.id = id;
+  }
+
   async validacionGoogleMaps(addressInfo: IAddressInfo) {
     const formattedStreet: string = this.formatAddress(addressInfo);
     this.validationResult = await this.validateAndSuggestAddress(formattedStreet);
@@ -67,7 +71,7 @@ export class GoogleApisService {
   async validateAndSuggestAddress(address: string): Promise<IAddressValidationResult> {
 
     //* url sin proxy para producción y ambientes bajos:
-    // const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${this.apiKey}`;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${this.apiKey}`;
 
     //* url con proxy para probar en local:
     /* Configuracion en el angular.json:
@@ -77,7 +81,7 @@ export class GoogleApisService {
           "proxyConfig": "src/proxy.conf.json"
         },
     */
-    const url = `/maps-api/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${this.apiKey}`;
+    // const url = `/maps-api/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${this.apiKey}`;
 
     try {
       const response: any = await this.http.get(url).toPromise();

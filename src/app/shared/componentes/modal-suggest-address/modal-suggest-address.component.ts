@@ -135,11 +135,11 @@ export class ModalSuggestAddressComponent implements OnInit{
     } else {
       //PARTIAL y ROOFTOP -> addressValidated = true
       this.addressPayload = {
-        addressCodePostal: this.addressSuggestObj.postalCode ? this.addressSuggestObj.postalCode : '',
+        addressCodePostal: this.addressSuggestObj.postalCode ? this.addressSuggestObj.postalCode : this.addressInfo.postalCode ,
         addressDepartment: this.addressInfo.apartment ? this.addressInfo.apartment : '',
         addressFloor: this.addressInfo.floor ? this.addressInfo.floor : '',
-        addressName: this.addressSuggestObj.street,
-        addressNumber: this.addressSuggestObj.number,
+        addressName: this.addressSuggestObj.street? this.addressSuggestObj.street : this.addressInfo.street,
+        addressNumber: this.addressSuggestObj.number? this.addressSuggestObj.number : this.addressInfo.number,
         addressType: 'HOME',
         isPrimary: true,
         latitude: this.validationResult.coordinates?.lat ? this.validationResult.coordinates.lat: 0,

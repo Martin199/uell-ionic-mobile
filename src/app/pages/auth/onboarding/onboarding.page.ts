@@ -45,6 +45,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
   personalFormResponse: PersonalFormResponse | null = null;
   userInfo: any;
   dataPersonal: any | null = null;
+  adressUser: any;
 
   constructor() { 
     this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
@@ -67,6 +68,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
   private getDataUser() {
 		this.userService.getOnBoarding(this.user.id).subscribe(
 			(res: any) => {
+        this.adressUser = res.address[0];
 				this.setDataUser(res);
 				this.setPersonalDataForm(res);
 			},
@@ -246,14 +248,22 @@ export class OnboardingPage implements AfterViewInit, OnInit {
 
   private buildPostResquest(): OnBoardingRequest {
 		this.adressList = [];
-		this.adressList.push(this.addressInfo);
+    this.googleApisService.pushIdAddress(this.adressUser.id)
+		this.adressList.push(this.googleApisService.getAddressPayload()!);
+
+    const contactInfo : any ={
+      countryCode: this.contactInfo?.countryCode,
+      areaCode: this.contactInfo?.areaCode,
+      phoneNumber: this.contactInfo?.phoneNumber,
+      id: this.personalFormResponse?.cellphoneNumber?.id
+    }
 
     const onBoardingRequest: any = {
       bornDate: this.userInfo,
       email: this.contactInfo!.email,
       emailCorporate: this.contactInfo!.email,
-      telephoneNumber: this.personalFormResponse?.phone,
-      cellphoneNumber: this.personalFormResponse?.phone,
+      telephoneNumber: contactInfo,
+      cellphoneNumber: contactInfo,
       maritalStatus: this.dataPersonal.estadoCivil,
       address: this.adressList,
       onboarded: true

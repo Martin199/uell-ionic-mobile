@@ -69,7 +69,7 @@ export class UserContactInfoPage implements OnDestroy {
 
   emitContactInfo(formValue: any) {
     const contactInfo: IContactInfo = {
-      email: formValue.email,
+      email: formValue.email? formValue.email : this.contactInfoForm.get('email')?.value,
       countryCode: formValue.countryCode,
       areaCode: formValue.areaCode || null,
       phoneNumber: formValue.phoneNumber,
