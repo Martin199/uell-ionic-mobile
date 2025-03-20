@@ -40,8 +40,6 @@ export class HomePage implements OnInit {
    }
 
   async ngOnInit() {
-    this.presentEmotionalModal();
-    
     this.homeService.callAllMethodsForModule().subscribe({
       next: results => {
         this.moduleResults = results; 
