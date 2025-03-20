@@ -22,8 +22,8 @@ export class MultimediaIframeComponent {
 
   playVideo() {
     const videoUrl = `${this.url}?autoplay=1`;
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
     this.isPlaying = true;
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
   }
 
   getYouTubeThumbnail(url: string): string { const videoId = url.split('embed/')[1]; return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }

@@ -1,6 +1,4 @@
 import { Observable } from 'rxjs';
-// import { IUser } from './user.interfaces';
-
 
 export interface IUserCredentials {
 	username: string;

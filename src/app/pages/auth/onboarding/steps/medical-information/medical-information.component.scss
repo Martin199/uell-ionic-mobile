@@ -1,0 +1,31 @@
+.centered-radio-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-label {
+    font-size: 18px;
+    padding-bottom: 16px;
+    font-weight: 700;
+    color: #1da4b1;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.radio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.radio-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    /* Espacio entre los radios */
+}

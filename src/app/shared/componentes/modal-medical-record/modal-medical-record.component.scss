@@ -1,0 +1,26 @@
+@import './../../../../global.scss';
+
+.btn{
+    color: black;
+}
+.header{
+    margin: 48px 40px 0;
+    font-weight: 700;
+    line-height: 28px;
+    text-align: center;
+    color: #383e52;
+}
+.description{
+    margin: 24px 40px 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300 !important;
+    line-height: 22px;
+    color: #505a78;
+}
+.buttons{
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}

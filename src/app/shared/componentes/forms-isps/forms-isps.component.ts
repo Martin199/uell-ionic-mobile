@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { ISPSService } from 'src/app/services/isps.service';
@@ -37,7 +37,7 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   nextBtnDescription: string = 'Siguiente';
   step: number = 1;
   progress: number = 0.25;
-  totalSteps: number = 4;
+  totalSteps: number = 5;
   dataIsps: any;
   user!: User;
   translatesISPS: any;
@@ -59,10 +59,12 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   storageService = inject(StorageService);
   utilsService = inject(UtilsService)
 
+  @Input() onboarding!: boolean;
+
   constructor() { }
 
   async ngOnInit() {
-    this.user = await this.storageService.getSessionStorage<User>('user') !;
+    this.user = this.storageService.getSessionStorage<User>('user')!;
     this.translatesISPS = this.utilsService.getLocalization('isps');
     if (localStorage.getItem('gestorWillContactYou') && localStorage.getItem('gestorWillContactYou') === 'true' || localStorage.getItem('gestorWillContactYou') === 'false') {
       this.questionGestor = localStorage.getItem('gestorWillContactYou');
@@ -70,6 +72,9 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
       this.viewChoiceMessageThroughCellphone = false;
       this.invalidLastStep = false;
     }
+
+    this.onboarding ? (this.validStep = true) : this.step++;
+
   } 
 
   ngAfterViewInit(): void {
@@ -78,7 +83,14 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   }
 
   closeModal(){
-    this.utilsService.modalCtrl.dismiss()
+    if(this.onboarding){
+      this.utilsService.modalCtrl.dismiss({
+        onboarding: true,
+      })
+    }else{
+      this.utilsService.modalCtrl.dismiss()
+    }
+    
   }
 
   returnFirstStep(event: Event) {
@@ -94,14 +106,17 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   }
 
   nextSlide() {
-    this.validStep=false;
+    this.validStep=false;    
     
-    if (this.step === 3 ) {
+    if (this.step === 4 ) {
       this.saveAnswers();
       this.swiper.slideNext();
         this.step++;
         this.updateProgress();
         this.scrollToTop();
+        if(this.onboarding){
+          this.closeModal();
+        }
     } else {
       if (this.swiper) {      
         this.swiper.slideNext();
@@ -135,10 +150,10 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
 
   returnDescriptionBtn() {
     switch (this.step) {
-      case 3:
+      case 4:
         this.nextBtnDescription = 'Enviar'
         break;
-      case 4:
+      case 5:
         this.nextBtnDescription = 'Finalizar'
         break;
       default:

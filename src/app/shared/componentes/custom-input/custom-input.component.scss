@@ -7,3 +7,31 @@
     line-height: 16px; /* 133.333% */
     letter-spacing: 0.048px;
 }
+
+.no-margin{
+    margin-bottom: 0rem;
+    border: 0.1rem solid var(--Neutral-GreyLight, #E5E5E5);
+    border-radius: 0.5rem;
+}
+
+.error-field{
+    display: flex;
+    padding: .25rem 0.25rem;
+    align-items: center;
+    gap: 0.25rem;
+    align-self: stretch;
+
+    color: var(--States-Error, #E00000);
+
+
+    font-family: 'Inter';
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1rem;
+    letter-spacing: 0.003rem;
+}
+
+.error-placeholder{
+    height: 25px;
+}

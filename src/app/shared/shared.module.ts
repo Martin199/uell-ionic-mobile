@@ -22,8 +22,9 @@ import { ModalFooterComponent } from './componentes/modals-components/modal-foot
 import { EmotionStatusComponent } from './componentes/emotion-status/emotion-status.component';
 import { MoodStatusComponent } from './componentes/mood-status/mood-status.component';
 import { ContextStatusComponent } from './componentes/context-status/context-status.component';
-
-
+import { ModalSuggestAddressComponent } from './componentes/modal-suggest-address/modal-suggest-address.component';
+import { ModalMedicalRecordComponent } from './componentes/modal-medical-record/modal-medical-record.component';
+import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isps-introduction/form-isps-introduction.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +36,15 @@ import { ContextStatusComponent } from './componentes/context-status/context-sta
      ModalDescriptionComponent, 
      UellMultimediaComponent,
      FormsIspsComponent, 
+     FormIspsIntroductionComponent,
      FormIspsStepOneComponent, 
      FormIspsStepTwoComponent, 
      FormIspsStepThreeComponent,
      FormIspsStepFourComponent, 
      SearchbarAnimationComponent, 
      UellMultimediaComponent,
+     ModalSuggestAddressComponent,
+     ModalMedicalRecordComponent,
      ModalMentalStatusComponent,
      ModalHeaderComponent,
      ModalFooterComponent,
@@ -65,6 +69,13 @@ import { ContextStatusComponent } from './componentes/context-status/context-sta
     UellMultimediaComponent,
     SearchbarAnimationComponent,
     ModalMentalStatusComponent,
+    ModalSuggestAddressComponent,
+    FormsIspsComponent,
+    FormIspsIntroductionComponent,
+    FormIspsStepOneComponent, 
+    FormIspsStepTwoComponent, 
+    FormIspsStepThreeComponent,
+    FormIspsStepFourComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

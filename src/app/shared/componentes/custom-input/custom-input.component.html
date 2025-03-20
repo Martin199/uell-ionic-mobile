@@ -2,16 +2,24 @@
   <ion-label class="label-input"> {{ label }}</ion-label>
 }
 
-<ion-item class="custom-input" lines="none">
+<ion-item class="custom-input" lines="none" class="no-margin">
   @if (icon) {
     <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
   }
   
-  <ion-input [type]="type" [formControl]="control" ></ion-input>
-
+  <ion-input [type]="type" [formControl]="control" [maxlength]="maxLength() || null"></ion-input>  
+  
   @if (isPassword) {
     <ion-button (click)="showOrhidePassword()" slot="end" fill="clear" shape="round">
       <ion-icon slot="start" [name]="hide ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
     </ion-button>
   }
 </ion-item>
+
+@if(control.errors && control.touched) {
+  <span class="error-field">
+    {{ getFieldError() }}
+ </span>
+} @else {
+  <div class="error-placeholder"> </div>
+}

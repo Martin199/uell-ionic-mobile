@@ -198,7 +198,7 @@ export class WellnessPortalPage {
   }
 
   redirectToPost(idPost: any) {
-    this.utilsService.router.navigate([`tabs/home/details/${idPost}`])
+    this.utilsService.router.navigate([`tabs/wellness-portal/details/${idPost}`])
   }
 
 }

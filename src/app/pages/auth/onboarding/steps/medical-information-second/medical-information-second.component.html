@@ -1,0 +1,103 @@
+<form [formGroup]="formMedicalSecond">
+  <div class="radio-container ion-padding">
+    <ion-label class="title-label ">Historia Clínica - Antecendentes médicos</ion-label>
+    
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Psiquiátricas (Ansiedad, angustia, depresión)</ion-label>
+      <ion-radio-group formControlName="mentalDisorders" class="radio-group">
+        <ion-radio [value]="true">Sí</ion-radio>
+        <ion-radio [value]="false">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Oncológicas (Respiratorio, ginecológico, nefro-urológico, gastrointestinal, endócrino, neurológico)</ion-label>
+      <ion-radio-group formControlName="oncology" class="radio-group">
+        <ion-radio [value]="true" (click)="whichOncology(true)">Sí</ion-radio>
+        <ion-radio [value]="false" (click)="whichOncology(false)">No</ion-radio>
+      </ion-radio-group>
+
+      @if(isOncology){
+        <ng-container>
+          <form class="margin" [formGroup]="onchologicform">
+            <div class="form-group form-check">
+              <input type="checkbox" formControlName="onchologicRespiratory"/>
+              <label class="form-check-label" for="onchologicRespiratory">Respiratorias</label>
+            </div>
+          
+            <div class="form-group form-check">
+              <input type="checkbox" formControlName="onchologicGinecological"/>
+              <label class="form-check-label" for="onchologicGinecological">Ginecológico</label>
+            </div>
+          
+            <div class="form-group form-check">
+              <input type="checkbox" formControlName="onchologicNephrourological"/>
+              <label class="form-check-label" for="onchologicNephrourological">Nefro-Urológico</label>
+            </div>
+
+          
+            <div class="form-group form-check">
+              <input type="checkbox" formControlName="onchologicGastrointestinal"/>
+              <label class="form-check-label" for="onchologicGastrointestinal">Gastroinstestinal</label>
+            </div>
+          
+            <div class="form-group form-check">
+              <input type="checkbox" formControlName="onchologicEndocrinal"/>
+              <label class="form-check-label" for="onchologicEndocrinal">Endócrino</label>
+            </div>
+          
+            <div class="form-group form-check">
+              <input type="checkbox" name="notificateLicenseOnUpdate" formControlName="onchologicNeurological" [value]="true"/>
+              <label class="form-check-label" for="for="onchologicNeurological>Neurológicas</label>
+            </div>
+          </form>
+        </ng-container>
+      }
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label"> Gastrointestinales (Gastritis, úlcera, celiaquía, colon irritable) </ion-label>
+      <ion-radio-group formControlName="gastrointestinal" class="radio-group">
+        <ion-radio [value]="true">Sí</ion-radio>
+        <ion-radio [value]="false">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label"> Columna vertebral (Hernia, lumbalgia, cervicalgia)</ion-label>
+      <ion-radio-group formControlName="spine" class="radio-group">
+        <ion-radio [value]="true">Sí</ion-radio>
+        <ion-radio [value]="false">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label"> Endocrinológicas (Tiroides)</ion-label>
+      <ion-radio-group formControlName="endocrinological" class="radio-group">
+        <ion-radio [value]="true">Sí</ion-radio>
+        <ion-radio [value]="false">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Infeccionas</ion-label>
+      <ion-radio-group formControlName="infectious" class="radio-group">
+        <ion-radio [value]="true">Sí</ion-radio>
+        <ion-radio [value]="false">No</ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="radio-container ion-padding">
+      <ion-label class="radio-label">Cirugías</ion-label>
+      <ion-radio-group formControlName="surgeries" class="radio-group">
+        <ion-radio [value]="true" (click)="hasSurgeries(true)">Sí</ion-radio>
+        <ion-radio [value]="false" (click)="hasSurgeries(false)">No</ion-radio>
+      </ion-radio-group>
+    </div>
+    @if(_hasSurgeries){
+      <ng-container>
+        <textarea formControlName="surgeriesDescription" cols="20" rows="5" maxlength="255"></textarea>
+      </ng-container>
+    }
+  </div>
+</form>

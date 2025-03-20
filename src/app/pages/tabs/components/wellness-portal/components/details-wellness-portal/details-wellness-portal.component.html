@@ -11,7 +11,7 @@
     @if (loadImage) {
       <div class="banner-container w-100" [ngStyle]="{'background-image': 'url(' + (post.title_image.content! || '') + ')'}">
         @if (post.multiMediaUrl) {
-          <app-uell-multimedia [url]="post.multiMediaUrl"></app-uell-multimedia>
+          <app-uell-multimedia [url]="post.multiMediaUrl" class="multimedia"></app-uell-multimedia>
         }
         @else {
           <img src="{{ post.title_image ? post.title_image.content : '../../../../assets/imgs/Uell_Img.jpg' }}" alt="Banner" class="banner-img">
@@ -69,7 +69,7 @@
                     {{ getImageName(attachment.url) }}
                 </span>
                 <button class="btn" title="Descargar" placement="right" (click)="openAsLink(attachment.url)">
-                    <img src="assets/download.svg">
+                    <img src="assets/icons/download.svg" class="color">
                 </button>
               </div>
             }
