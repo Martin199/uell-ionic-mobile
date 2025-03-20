@@ -67,6 +67,34 @@ letter-spacing: 0.048px;
   margin-bottom: 2rem;
 }
 
+.validators{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.error-field{
+  display: flex;
+  padding: .25rem 0.25rem;
+  align-items: center;
+  gap: 0.25rem;
+  align-self: stretch;
+
+  color: var(--States-Error, #E00000);
+
+
+  font-family: 'Inter';
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+  letter-spacing: 0.003rem;
+}
+
+.error-placeholder{
+  height: 25px;
+}
+
 .logo{
   margin-top: 6rem;
 }

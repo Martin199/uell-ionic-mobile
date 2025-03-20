@@ -10,13 +10,10 @@
         <h1 class="title"> ¡Te damos la bienvenida! </h1>
       </ion-text>
       <!-- Usuario -->
-      <div #userContainer>
+      <div #userContainer class="user-container">
         <app-custom-input icon="person-outline" [control]="formAuth.controls.cuil" label="Usuario">
         </app-custom-input>
 
-        <div class="validators" *ngIf="formAuth.controls.cuil.errors && formAuth.controls.cuil.touched">
-          <div *ngIf="formAuth.controls.cuil.errors?.['required']">El cuil es requerido</div>
-        </div>
       </div>
 
       <!-- Contraseña -->
@@ -24,14 +21,17 @@
         <app-custom-input icon="lock-closed-outline" [control]="formAuth.controls.password" type="password"
           label="Contraseña">
         </app-custom-input>
-
-        <div class="validators" *ngIf="formAuth.controls.password.errors && formAuth.controls.password.touched">
-          <div *ngIf="formAuth.controls.password.errors?.['required']">El password es requerido</div>
-        </div>
         <ion-text color="primary" class="forgot-password" (click)="forgotPassword()">¿Olvidaste tu contraseña?</ion-text>
       </div>
-
-      <ion-button expand="block" shape="round" type="submit" class="submit-btn submit" [disabled]="formAuth.invalid">
+      
+      @if(formAuth.errors?.['incorrect']) {
+        <div class="validators">
+          <div class="error-field">Usuario o contraseña incorrectos</div>
+        </div>
+      } @else {
+        <div class="error-placeholder"> </div>
+      }
+      <ion-button expand="block" shape="round" type="submit" class="submit-btn submit">
         Iniciar sesión 
       </ion-button>
       

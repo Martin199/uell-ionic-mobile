@@ -2,7 +2,7 @@
   <ion-label class="label-input"> {{ label }}</ion-label>
 }
 
-<ion-item class="custom-input" lines="none">
+<ion-item class="custom-input" lines="none" class="no-margin">
   @if (icon) {
     <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
   }
@@ -15,3 +15,11 @@
     </ion-button>
   }
 </ion-item>
+
+@if(control.errors && control.touched) {
+  <span class="error-field">
+    {{ getFieldError() }}
+ </span>
+} @else {
+  <div class="error-placeholder"> </div>
+}
