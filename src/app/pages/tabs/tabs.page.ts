@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Device } from '@capacitor/device';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-tabs',
@@ -10,6 +11,7 @@ export class TabsPage implements OnInit {
 
   selectedTab: string = 'home';
   platform: string = '';
+  utilsService = inject (UtilsService);
 
   constructor() { }
 
@@ -24,6 +26,7 @@ export class TabsPage implements OnInit {
 
   selectTab(tab: string) {
     this.selectedTab = tab;
+    this.utilsService.goTo(`/tabs/${this.selectedTab}`);
   }
 
 }
