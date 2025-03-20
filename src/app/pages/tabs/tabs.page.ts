@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-tabs',
   templateUrl: './tabs.page.html',
   styleUrls: ['./tabs.page.scss'],
+  
 })
 export class TabsPage implements OnInit {
   selectedTab: string = 'home';

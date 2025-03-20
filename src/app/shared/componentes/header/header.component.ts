@@ -20,7 +20,6 @@ export class HeaderComponent  implements OnInit {
 
   ngOnInit() {
     this.user = this.storageService.getSessionStorage('user');
-    console.log(this.user, 'header');
   }
 
 

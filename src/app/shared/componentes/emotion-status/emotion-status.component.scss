@@ -1,0 +1,52 @@
+@import 'src/theme/colors';
+
+ion-content {
+  --background: transparent;
+  background: transparent;
+}
+
+.emotion-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+
+  .emotion-box {
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    border: 1px solid $neutral-grey-light;
+    background: $background-white-80;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    p {
+      margin: 0px;
+      color: $neutral-grey-dark;
+      font-family: "Red Hat Display";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    &.selected {
+      background-color: $primary-uell-selected;
+      border-color: $primary-uell;
+    }
+  }
+
+  .show-more {
+    margin: auto;
+    color: $primary-uell;
+    font-family: 'Inter';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.016px;
+    cursor: pointer;
+  }
+}

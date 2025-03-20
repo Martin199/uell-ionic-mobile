@@ -175,7 +175,6 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   }
 
   returnQuestionValue(value: string){
-    console.log(value, 'value')
     this.invalidLastStep = false;
     this.questionGestor = value
     this.stepFour = this.questionGestor === 'true' ? true : false;

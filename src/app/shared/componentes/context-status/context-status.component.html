@@ -1,0 +1,11 @@
+<ion-content class="ion-padding">
+  <div class="context-container">
+    @for (context of contextInfo(); track $index) {
+      <div class="context-box" 
+           (click)="selectContext(context)"
+           [class.selected]="isSelected(context)">
+        <p>{{ context.description }}</p>
+      </div>
+    }
+  </div>
+</ion-content>

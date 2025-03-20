@@ -16,6 +16,12 @@ import { FormIspsStepTwoComponent } from './componentes/forms-isps/form-isps-ste
 import { SearchbarAnimationComponent } from './componentes/searchbar-animation/searchbar-animation.component';
 import { FormIspsStepThreeComponent } from './componentes/forms-isps/form-isps-step-three/form-isps-step-three.component';
 import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-step-four/form-isps-step-four.component';
+import { ModalMentalStatusComponent } from './componentes/modals-components/modal-mental-status/modal-mental-status.component';
+import { ModalHeaderComponent } from './componentes/modals-components/modal-header/modal-header.component';
+import { ModalFooterComponent } from './componentes/modals-components/modal-footer/modal-footer.component';
+import { EmotionStatusComponent } from './componentes/emotion-status/emotion-status.component';
+import { MoodStatusComponent } from './componentes/mood-status/mood-status.component';
+import { ContextStatusComponent } from './componentes/context-status/context-status.component';
 
 
 
@@ -34,7 +40,15 @@ import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-st
      FormIspsStepThreeComponent,
      FormIspsStepFourComponent, 
      SearchbarAnimationComponent, 
-     UellMultimediaComponent],
+     UellMultimediaComponent,
+     ModalMentalStatusComponent,
+     ModalHeaderComponent,
+     ModalFooterComponent,
+     MoodStatusComponent,
+     EmotionStatusComponent,
+     ContextStatusComponent,
+
+    ],
   imports: [
     CommonModule,
     IonicModule,
@@ -49,7 +63,8 @@ import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-st
     LogoComponent,
     IspsCircleComponent,
     UellMultimediaComponent,
-    SearchbarAnimationComponent
+    SearchbarAnimationComponent,
+    ModalMentalStatusComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

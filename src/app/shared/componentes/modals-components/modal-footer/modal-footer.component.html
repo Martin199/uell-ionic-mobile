@@ -1,0 +1,37 @@
+@if (btnFill() || btnPrimary()) {
+  <div class="container">
+    @if (btnFill()) {
+      <ion-button
+        (click)="clickBtnEvent('fill')"
+        class="btn-fill"
+        expand="block"
+        shape="round"
+        fill="outline"
+        [disabled]="btnFillDisabled()"
+      >
+        {{ btnFill() }}
+      </ion-button>
+    }
+    @if (btnPrimary()) {
+      <ion-button
+        (click)="clickBtnEvent('primary')"
+        class="btn-primary"
+        expand="block"
+        shape="round"
+        [disabled]="btnPrimaryDisabled()"
+      >
+        {{ btnPrimary() }}
+      </ion-button>
+    }
+  </div>
+}
+@if (onlytBtn()) {
+  <ion-button
+  shape="round"
+  [ngClass]="primaryColor() ? 'primary-color' : 'white-color'"
+  (click)="clickBtnEvent('')"
+  [disabled]="onlytBtnDisabled()"
+  >{{onlytBtn()}}</ion-button>
+
+  <!-- [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'" -->
+}

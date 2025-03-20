@@ -1,0 +1,23 @@
+<ion-content class="ion-padding">
+  <div class="emotion-container">
+    @for (emotion of filteredEmotions; track $index) {
+      <div class="emotion-box" 
+           (click)="selectEmotion(emotion)"
+           [class.selected]="isSelected(emotion)">
+        <p>{{ emotion.description }}</p>
+      </div>
+    }
+    @if (!showMore) {
+      <p class="show-more" (click)="showMoreSelect()">Mostrar más</p>
+    }
+    @else {
+      @for (emotion of remainingEmotions; track $index) {
+        <div class="emotion-box" 
+             (click)="selectEmotion(emotion)"
+             [class.selected]="isSelected(emotion)">
+          <p>{{ emotion.description }}</p>
+        </div>
+      }
+    }
+  </div>
+</ion-content>

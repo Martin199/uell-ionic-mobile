@@ -1,0 +1,50 @@
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>
+      @if (backButton() || closeModal()) {
+        <div [ngClass]="closeModal() && backButton() ? 'header-content-space-between'
+        : closeModal()! && backButton() ? 'header-content-flex-start'
+        : closeModal() && backButton()! ? 'header-content-flex-end' : 'header-content-flex-end'">
+          @if (backButton()) {
+            <ion-buttons>
+              <ion-button (click)="backEvent()"  class="icon-arrow-back">
+                <ion-icon slot="icon-only" src="assets/icons/icon-arrow-back.svg"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          }
+          @if (closeModal()) {
+            <ion-buttons>
+              <ion-button (click)="dissmisModal()">
+                <ion-icon slot="icon-only" src="assets/icons/icon-close.svg"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          }
+        </div>
+      }
+      @if (imgPatch() || imgDescription()) {
+        <div class="header-content-colum">
+          @if (imgPatch()) {
+            <img [src]="imgPatch()" alt="" width="120px" height="120px">
+          }
+          @if (imgDescription()) {
+            <p class="img-description">{{imgDescription()}}</p>
+          }
+        </div>
+      }
+      @if (subtitle() || title()) {
+        <div class="header-content-space-between">
+          <ion-col>
+            @if (subtitle()) {
+              <ion-label class="sub-title">{{subtitle()}}</ion-label>
+            }
+            <br />
+            @if (title()) {
+              <ion-label class="title">{{title()}}</ion-label>
+            }
+          </ion-col>
+        </div>
+      }
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+

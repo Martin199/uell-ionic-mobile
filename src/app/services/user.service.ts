@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { EmotionalResponse } from '../shared/interface/emotional-interfaces';
+import { EmotionalResponse } from '../shared/interface/mental-status.interfaces';
 import { UserResponseDTO } from '../core/interfaces/user';
 
 @Injectable({
