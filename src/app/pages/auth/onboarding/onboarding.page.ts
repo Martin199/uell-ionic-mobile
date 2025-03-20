@@ -120,7 +120,8 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     if (this.step === 7) {
       this.sendCompletenessMedical();
       this.tenantParameters=this.storageService.getSessionStorage('tenantParameters')
-      if(this.tenantParameters.tenantParameters.activeModules.find((x: any) => x === 'isps')){ 
+      if(this.tenantParameters.tenantParameters.activeModules.find((x: any) => x === 'isps') &&
+         this.tenantParameters.tenantParameters.excludeISPSFromOnboarding !== 'true'){ 
         this.goIsps();
       }
     }    

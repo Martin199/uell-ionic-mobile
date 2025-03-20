@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <ion-tabs>
     <ion-tab-bar slot="bottom" class="ion-safe-area-bottom" [ngClass]="{'ios-platform': this.platform === 'ios'}">
-      <ion-tab-button tab="home">
+      <ion-tab-button tab="home" (click)="selectTab('home')">
         <ion-icon name="home"></ion-icon>
         <ion-label>Inicio</ion-label>
       </ion-tab-button>
@@ -10,7 +10,7 @@
         <ion-img src="../../../assets/tabs/nutrition-icon-tab.svg" class="nutrition-icon"></ion-img>
         <ion-label>Nutrición</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="psychosocial-health">
+      <ion-tab-button tab="psychosocial-health" (click)="selectTab('psychosocial-health')">
         <ion-img src="../../../assets/tabs/psychology-icon-tab.svg" class="nutrition-icon"></ion-img>
         <ion-label>Salud psicosocial</ion-label>
       </ion-tab-button>

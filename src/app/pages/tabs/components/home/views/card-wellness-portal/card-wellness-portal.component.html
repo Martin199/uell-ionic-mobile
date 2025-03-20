@@ -5,7 +5,7 @@
           <img [src]="imgUrl" alt="advert-img.svg" />
         }
         @if(wellnessData.multiMediaUrl){
-         <app-uell-multimedia [url]="wellnessData.multiMediaUrl"></app-uell-multimedia>
+         <app-uell-multimedia [url]="wellnessData.multiMediaUrl" class="multimedia"></app-uell-multimedia>
         }
       </ng-container>
     </div>
@@ -37,7 +37,7 @@
           </ng-container>
         }
         <div class="card-rrhh__cont-button">
-          <ion-button class="card-rrhh__button" expand="block" fill="clear" (click)="goTo(wellnessData)">
+          <ion-button class="card-rrhh__button" expand="block" fill="clear" (click)="goTo(wellnessData.id)">
             <ion-label color="tertiary" class="card-rrhh__button-label">
               {{ tenantParameters.tenantParameters.localization['home-cards']['wellness-card']['read-now'] }}
             </ion-label>

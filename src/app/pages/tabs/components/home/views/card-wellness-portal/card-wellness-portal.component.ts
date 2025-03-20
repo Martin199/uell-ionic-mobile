@@ -1,8 +1,10 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { PortalService } from 'src/app/services/portal.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-card-wellness-portal',
@@ -19,6 +21,7 @@ export class CardWellnessPortalComponent implements OnInit  {
   portalService = inject (PortalService)
   userService = inject (UserService)
   storageService = inject (StorageService)
+  utilsService = inject (UtilsService)
   
   constructor() {
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
@@ -33,6 +36,7 @@ export class CardWellnessPortalComponent implements OnInit  {
   }
 
   getlastWellnessPost() {
+    console.log(this.wellnessData, 'wellnesa')
     if (this.wellnessData && this.wellnessData?.title_image?.url) {
       this.userService.downloadFile(this.wellnessData.title_image.url).subscribe((url: string) => {
         this.imgUrl = url;
@@ -41,6 +45,8 @@ export class CardWellnessPortalComponent implements OnInit  {
   }
 
   goTo(post: any) {
+    this.utilsService.goTo(`tabs/wellness-portal/details/${post}`)
+   
     // this.router.navigate(['newton/wellness-portal'], { replaceUrl: true });
     // this.trackingModules('wellness_blog');
   }

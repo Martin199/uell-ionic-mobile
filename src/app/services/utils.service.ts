@@ -126,4 +126,9 @@ export class UtilsService {
         return countryENUM.OTHER;
     }
   }
+
+  goTo(path: string) {
+    this.router.navigate([path]);
+  }
+
 }
