@@ -1,23 +1,18 @@
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-tabs>
-    <ion-tab slot="bottom" class="ion-safe-area-bottom">
+    <ion-tab-bar slot="bottom" class="ion-safe-area-bottom">
       <ion-tab-button tab="home">
         <ion-icon name="home"></ion-icon>
         <ion-label>Inicio</ion-label>
       </ion-tab-button>
-      <!-- <ion-tab-button tab="nutrition" (click)="selectTab('nutrition')" (keydown.enter)="selectTab('nutrition')"
-        (keydown.space)="selectTab('nutrition')" [ngClass]="{ 'tab-selected': selectedTab === 'nutrition' }">
-        <ion-img src="../../../assets/tabs/nutrition-icon-tab.svg" class="nutrition-icon"></ion-img>
-        <ion-label>Nutrición</ion-label>
-      </ion-tab-button> -->
       <ion-tab-button tab="psychosocial-health">
         <ion-img src="../../../assets/tabs/psychology-icon-tab.svg" class="nutrition-icon"></ion-img>
         <ion-label>Salud psicosocial</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="wellness-portal" (click)="selectTab('wellness-portal')">
+      <ion-tab-button tab="wellness-portal">
         <ion-icon name="person-outline"></ion-icon>
         <ion-label>Portal de Bienestar</ion-label>
       </ion-tab-button>
-    </ion-tab>
+    </ion-tab-bar>
   </ion-tabs>
 </ion-content>

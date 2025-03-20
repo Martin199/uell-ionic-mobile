@@ -1,5 +1,5 @@
 ion-tab-bar {
-  padding-bottom: 0.25rem;
+  padding-bottom: 1rem;
   ion-tab-button {
     ion-label {
       color: var(--ion-color-medium); /* Color de texto por defecto */
@@ -27,7 +27,4 @@ ion-tab-bar {
       }
     }
   }
-}
-.ios-platform {
-  padding-bottom: 2.3rem;
 }
