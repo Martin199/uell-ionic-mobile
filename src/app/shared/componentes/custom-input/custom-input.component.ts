@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -13,6 +13,10 @@ export class CustomInputComponent  implements OnInit {
   @Input() type!: string;
   @Input() autocomplete!: string;
   @Input() icon!: string;
+  // @Input() maxLength!: number;
+  pattern = input<string>;
+  maxLength = input<number | null>(null);
+  
   isPassword!: boolean;
   hide: boolean = true;
 

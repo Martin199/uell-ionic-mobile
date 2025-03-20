@@ -1,0 +1,145 @@
+@if (tenantParameters) {
+  <form class="form" [formGroup]="addressForm">
+      <div class="titulo">
+        <p>{{ tenantParameters.tenantParameters.localization.onboarding['adress'] }}</p>
+      </div>
+    <div class="form-group">
+        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['street'] }}</p>
+        <app-custom-input  [control]="addressForm.controls['street']" [maxLength]="255"></app-custom-input>
+        @if (addressForm.controls['street'].errors?.['required'] && (addressForm.controls['street'].touched || addressForm.controls['street'].dirty)) {
+          <span class="form-error-msg">
+            - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+          </span>
+        }
+        @if (addressForm.controls['street'].hasError('pattern')) {
+          <span class="form-error-msg">
+            - Caracteres invalidos
+          </span>
+        }
+    </div>
+    <div class="form-group no-mb d-flex">
+        <div class="form-group col-md-3 pl-0">
+            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['number'] }}</p>
+            <app-custom-input  [control]="addressForm.controls['number']" [maxLength]="50"></app-custom-input>
+            @if (addressForm.controls['number'].errors?.['required'] && 
+                   (addressForm.controls['number'].touched || addressForm.controls['number'].dirty)) {
+              <span class="form-error-msg">
+                - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+              </span>
+            }
+            @if (addressForm.controls['number'].errors?.['maxlength']) {
+              <span class="form-error-msg">
+                - Máximo {{ countryValidations.number.maxLength }} dígitos
+              </span>
+            }
+            @if (addressForm.controls['number'].hasError('pattern')) {
+              <span class="form-error-msg">
+                - Caracteres invalidos
+              </span>
+            }
+        </div>
+        <div class="row">
+          <div class="form-group col-md-2">
+            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['floor'] }}</p>
+            <app-custom-input  [control]="addressForm.controls['floor']"></app-custom-input>
+            @if (addressForm.controls['floor'].hasError('pattern')) {
+              <span class="form-error-msg">
+                - Caracteres epseciales no permitidos
+              </span>
+            }
+            @if (addressForm.controls['floor'].errors?.['maxlength']) {
+              <span class="form-error-msg">
+                - Maximo {{ countryValidations.floor.maxLength }} caracteres
+              </span>
+            }
+          </div>
+          <div class="form-group col-md-2">
+              <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['dept'] }}</p>
+              <app-custom-input  [control]="addressForm.controls['apartment']"></app-custom-input>
+              @if (addressForm.controls['apartment'].hasError('pattern')) {
+                <span class="form-error-msg">
+                  - Caracteres epseciales no permitidos
+                </span>
+              }
+              @if (addressForm.controls['apartment'].errors?.['maxlength']) {
+                <span class="form-error-msg">
+                  - Maximo {{ countryValidations.apartment.maxLength }} caracteres
+                </span>
+              }
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <div class="form-group col-md-3 pl-0">
+            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['zip-code'] }}</p>
+            <app-custom-input  [control]="addressForm.controls['postalCode']" [maxLength]="6"></app-custom-input>
+            @if (addressForm.controls['postalCode'].errors?.['required'] && (addressForm.controls['postalCode'].touched || addressForm.controls['postalCode'].dirty)) {
+              <span class="form-error-msg">
+                - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+              </span>
+            }
+            @if (addressForm.controls['postalCode'].errors?.['maxlength'] && !addressForm.controls['postalCode'].hasError('pattern')) {
+              <span class="form-error-msg">
+                - Máximo {{ countryValidations.postalCode.maxLength }} dígitos
+              </span>
+            }
+            @if (addressForm.controls['postalCode'].errors?.['minlength'] && !addressForm.controls['postalCode'].hasError('pattern')) {
+              <span class="form-error-msg">
+                - Mínimo {{ countryValidations.postalCode.minLength }} dígitos
+              </span>
+            }
+            @if (addressForm.controls['postalCode'].hasError('pattern')) {
+              <span class="form-error-msg">
+                - Caracteres invalidos
+              </span>
+            }
+        </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['province'] }}</p>
+            <ion-list>
+              <ion-item>
+                <ion-select aria-label="province" interface="action-sheet" placeholder="Seleccione province" formControlName="province">
+                  @for (prov of provincesResponse; track $index) {
+                    <ion-select-option [value]="prov">{{prov.name}}</ion-select-option>
+                  }
+                </ion-select>
+              </ion-item>
+            </ion-list>
+            @if (addressForm.controls['province'].errors?.['required'] && (addressForm.controls['province'].touched || addressForm.controls['province'].dirty)) {
+              <span class="form-error-msg">
+                - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+              </span>
+            }
+
+    </div>
+    <div class="form-group">
+        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['locality'] }}</p>
+           <ion-list>
+            <ion-item>
+              <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione locality" formControlName="locality" [disabled]="loadingLocality">
+                @for (loc of localitiesResponse; track $index) {
+                  <ion-select-option [value]="loc">{{loc.name}}</ion-select-option>
+                }
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          @if (addressForm.controls['locality'].errors?.['required'] && (addressForm.controls['locality'].touched || addressForm.controls['locality'].dirty)) {
+            <span class="form-error-msg">
+              - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+            </span>
+          }
+    </div>
+    <div class="form-group">
+        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['observations'] }}</p>
+        <app-custom-input  [control]="addressForm.controls['observation']">
+        </app-custom-input>
+        @if (addressForm.controls['observation'].errors?.['maxlength']) {
+          <span class="form-error-msg">
+            - Máximo {{ countryValidations.observation.maxLength }} dígitos
+          </span>
+        }
+        <p class="max-length">{{addressForm.get('observation')?.value?.length + ' / '}}<b>{{countryValidations.observation.maxLength}}</b></p>
+    </div>
+  </form>
+}

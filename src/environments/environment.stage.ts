@@ -14,5 +14,6 @@ export const environment = {
     identityPoolId: 'us-east-1:17f920e7-a136-4345-b445-9c16c0c3906c',
     region: 'us-east-1',
   },
+  googleMapsApiKey: 'AIzaSyBGCT0YarM7z7ZMlTvrVZ6wUTKz-FSVQhk',
 };
 

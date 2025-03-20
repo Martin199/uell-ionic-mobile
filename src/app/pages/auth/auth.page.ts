@@ -6,6 +6,7 @@ import { CognitoService } from 'src/app/core/services/cognito.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { SessionServiceService } from 'src/app/services/session-service.service';
 import { PushNotifications } from '@capacitor/push-notifications';
 
@@ -50,12 +51,10 @@ export class AuthPage {
 
 
   async submit(){
-    console.log(this.formAuth.value)
     if (this.formAuth.invalid) {
       console.log('Formulario inválido');
       return;
     }
-  
     const { cuil, password } = this.formAuth.value;
     const loading = await this.utilsService.loading();
     await loading.present();
@@ -63,17 +62,28 @@ export class AuthPage {
       const result = await this.cognitoService.signIn(cuil as string, password as string);
       console.log('Inicio de sesión exitoso:', result);
       if (result) {
-        this.userService.getMe().subscribe((user) => {
+        this.userService.getMe().subscribe((user: UserResponseDTO) => {
           this.userService.setUser(user);
           console.log('Usuario:', user);
+          if (!user.onboarded) {
+            this.utilsService.router.navigate(['/auth/onboarding']);
+          } else {
+            this.utilsService.router.navigate(['/auth/select-tenants']);
+          }
           this.storageService.setSessionStorage('user', user);
+
           PushNotifications.checkPermissions().then(result =>{
             if (result.receive === 'granted') this.sessionService.handleSession();
           })
           loading.dismiss();
-          this.utilsService.router.navigate(['/auth/select-tenants']);
         });
 
+        //parcialmente
+        this.userService.getTenantParameters().subscribe((res: any) => {
+          this.storageService.setSessionStorage('tenantParameters', res);     
+        });
+        //------------------------------
+    
         this.userService.getUserTenants().subscribe((user) => {
           console.log('getUserTenants:', user);
         });

@@ -1,0 +1,44 @@
+<div class="c-container">
+  <p class="m-title">Historia clínica ocupacional</p>
+  <form [formGroup]="clinicalForm" class="c-form">
+      <div>
+          <p>1.¿Estás tomando algún medicamento actualmente?</p>
+          <div>
+              <ion-radio-group formControlName="takesMedication">
+                <ion-radio labelPlacement="end" [value]="true">Sí</ion-radio><br />
+                <ion-radio labelPlacement="end" [value]="false">No</ion-radio><br />
+              </ion-radio-group>
+          </div>
+      </div>
+      <div>
+          <p>2.¿Has tenido algún accidente de trabajo en el pasado?</p>
+          <div>
+            <ion-radio-group formControlName="hadJobAccidents">
+              <ion-radio labelPlacement="end" [value]="true">Sí</ion-radio><br />
+              <ion-radio labelPlacement="end" [value]="false">No</ion-radio><br />
+            </ion-radio-group>
+          </div>
+      </div>
+      <div>
+          <p>3.¿Has sufrido alguna enfermedad profesional en algún momento?</p>
+          <ion-radio-group formControlName="hadJobSickness">
+            <ion-radio labelPlacement="end" [value]="true">Sí</ion-radio><br />
+            <ion-radio labelPlacement="end" [value]="false">No</ion-radio><br />
+          </ion-radio-group>
+      </div>
+      <div>
+          <p>4.¿Has tenido algún otro trabajo anteriormente?</p>
+          <ion-radio-group formControlName="hadPreviousJobs">
+            <ion-radio labelPlacement="end" [value]="true">Sí</ion-radio><br />
+            <ion-radio labelPlacement="end" [value]="false">No</ion-radio><br />
+          </ion-radio-group>
+      </div>
+      <div>
+          <p>5.¿Has recibido alguna vacuna relevante para tu salud en los últimos años?</p>
+          <ion-radio-group formControlName="hadVaccines">
+            <ion-radio labelPlacement="end" [value]="true">Sí</ion-radio><br />
+            <ion-radio labelPlacement="end" [value]="false">No</ion-radio><br />
+          </ion-radio-group>
+      </div>
+  </form>
+</div>
