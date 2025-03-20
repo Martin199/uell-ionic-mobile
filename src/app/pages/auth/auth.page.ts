@@ -51,6 +51,7 @@ export class AuthPage {
 
 
   async submit(){
+    this.formAuth.markAllAsTouched();
     if (this.formAuth.invalid) {
       console.log('Formulario inválido');
       return;
@@ -95,6 +96,8 @@ export class AuthPage {
       // Redirige al usuario a la página principal o realiza otras acciones
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
+      this.formAuth.setErrors({ 'incorrect': true });
+      loading.dismiss();
       // Muestra un mensaje de error al usuario
     }
   }
