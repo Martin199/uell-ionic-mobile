@@ -10,6 +10,8 @@ import {
 import { Router } from '@angular/router';
 import { SessionServiceService } from './services/session-service.service';
 import { Capacitor } from '@capacitor/core';
+import { StorageService } from './services/storage.service';
+import { UtilsService } from './services/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -17,17 +19,26 @@ import { Capacitor } from '@capacitor/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  private sessionService = inject(SessionServiceService)
+  private sessionService = inject(SessionServiceService);
   private router = inject(Router);
+  private storageService = inject(StorageService);
+  private utilsService = inject(UtilsService);
 
   constructor() {
     this.initializeApp();
     this.showSplash();
-    if(Capacitor.isNativePlatform()) this.initPush();
+    if (Capacitor.isNativePlatform()) this.initPush();
   }
 
-  initializeApp() {
+  async initializeApp() {
     StatusBar.setOverlaysWebView({ overlay: false });
+    const user = this.storageService.getSessionStorage('user');
+    const accessToken = sessionStorage.getItem('accessToken');
+    const tenant = this.storageService.getSessionStorage('tenant');
+    const tenantParameters = this.storageService.getSessionStorage('tenantParameters');
+    if (user && accessToken && tenant && tenantParameters) {
+      this.utilsService.router.navigateByUrl('tabs/home');
+    }
   }
 
   initPush() {
