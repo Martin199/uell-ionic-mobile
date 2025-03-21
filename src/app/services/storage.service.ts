@@ -1,11 +1,64 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
+  private _storage: Storage | null = null;
+  private storage = inject(Storage);
+  private _initPromise: Promise<void> | null = null;
 
-  constructor() { }
+  constructor() {
+    this._initPromise = this.initializeStorage();
+  }
+
+  saveToken() {
+    const token = sessionStorage.getItem('accessToken');
+    sessionStorage.removeItem('token');
+    this.setSessionStorage('accessToken', token);
+  }
+
+  async waitForInitialization(): Promise<void> {
+    if (!this._initPromise) {
+      this._initPromise = this.initializeStorage();
+    }
+    return this._initPromise;
+  }
+
+  async checkStorage() {
+    if (!this._storage) return;
+    const keys = await this._storage.keys();
+    for (const key of keys) {
+      let value = await this._storage.get(key);
+      console.log('STORAGE KEY: ' + key + '  Value: ' + value);
+    }
+  }
+
+  private async initializeStorage(): Promise<void> {
+    try {
+      const storage = await this.storage.create();
+      this._storage = storage;
+
+      if (this._storage) {
+        const keys = await this._storage.keys();
+        for (const key of keys) {
+          let value = await this._storage.get(key);
+          if (value !== null && value !== undefined) {
+            if (typeof value === 'string') {
+              sessionStorage.setItem(key, value);
+            } else {
+              sessionStorage.setItem(key, JSON.stringify(value));
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error initializing storage', error);
+      throw error;
+    }
+  }
+
   // Métodos para localStorage
   setLocalStorage(key: string, value: any): void {
     localStorage.setItem(key, JSON.stringify(value));
@@ -24,9 +77,15 @@ export class StorageService {
     localStorage.clear();
   }
 
-  // Métodos para sessionStorage
-  setSessionStorage(key: string, value: any): void {
-    sessionStorage.setItem(key, JSON.stringify(value));
+  // metodos para session storage
+  async setSessionStorage(key: string, value: any): Promise<void> {
+    await this.waitForInitialization();
+    const valueString =  typeof value === 'string' ? value : JSON.stringify(value);
+    sessionStorage.setItem(key, valueString);
+
+    if (this._storage) {
+      await this._storage.set(`${key}`, value);
+    }
   }
 
   getSessionStorage<T>(key: string): T | null {
@@ -34,11 +93,22 @@ export class StorageService {
     return data ? JSON.parse(data) : null;
   }
 
-  removeSessionStorage(key: string): void {
+  async removeSessionStorage(key: string): Promise<void> {
+    await this.waitForInitialization();
     sessionStorage.removeItem(key);
+    if (this._storage) {
+      await this._storage.remove(`${key}`);
+    }
   }
 
-  clearSessionStorage(): void {
+  async clearSessionStorage(): Promise<void> {
+    await this.waitForInitialization();
     sessionStorage.clear();
+    if (this._storage) {
+      const keys = await this._storage.keys();
+      for (const key of keys) {
+        await this._storage.remove(key);
+      }
+    }
   }
 }
