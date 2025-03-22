@@ -1,4 +1,4 @@
-export interface IMentalStatus {
+export interface IMentalStatusResponse {
     context: IContextStatus[];
     created: string | null;
     emotion: IEmotionStatus[];

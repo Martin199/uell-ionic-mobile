@@ -4,7 +4,7 @@ import { ModalMentalStatusComponent } from '../shared/componentes/modals-compone
 import { environment } from 'src/environments/environment';
 import { HttpClientService } from '../core/services/http-client.service';
 import { Observable } from 'rxjs';
-import { IMentalStatus } from '../shared/interface/mental-status.interfaces';
+import { IMentalStatusResponse } from '../shared/interface/mental-status.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,9 @@ export class MentalStatusService {
 
   constructor() { }
 
-  getMentalStatus(userId?: number): Observable<IMentalStatus> {
+  getMentalStatus(userId?: number): Observable<IMentalStatusResponse> {
     const userIdParam: string = userId ? `/${userId}` : '';
-    return this.httpClientService.get<IMentalStatus>(`${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status${userIdParam}`);
+    return this.httpClientService.get<IMentalStatusResponse>(`${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status${userIdParam}`);
   }
 
   postMentalStatus(userId: number, payload: any) {

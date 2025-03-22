@@ -5,6 +5,7 @@ import { EmotionalModalComponent } from 'src/app/shared/componentes/emotional-mo
 import { User } from '../../interfaces/user-interfaces';
 import { HomeService } from './config/home.service';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
+import { IMentalStatusResponse } from 'src/app/shared/interface/mental-status.interfaces';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,8 @@ export class HomePage implements OnInit {
   tenantParameters: any;
   ispsData: any = null;
   wellnessData: any = null;
+  emotionalModule: string = '';
+  emotionalData: IMentalStatusResponse[] = [];
 
   storageService = inject(StorageService);
   modalCtrl = inject(ModalController)
@@ -51,27 +54,12 @@ export class HomePage implements OnInit {
 
         const wellnessModule = results.find((module) => module.moduleName === 'wellness');
         this.wellnessData = wellnessModule?.body || null;
+
+        const emotionalModule = results.find((module) => module.moduleName === 'emotional');
+        this.emotionalModule = emotionalModule?.moduleName || '';
+        this.emotionalData = emotionalModule?.body || [];
       },
       error: error => console.error('Error al obtener los módulos:', error),
     });
-
-    this.mentalStatusService.openModalMentalStatus();
   }
-
-  async presentEmotionalModal() {
-    const user = this.storageService.getSessionStorage<User>('user');
-    if (!user) return;
-    this.user = user;
-
-    const modal = await this.modalCtrl.create({
-      component: EmotionalModalComponent,
-      componentProps: {
-        userName: this.user.name,
-        userId: this.user.id,
-      },
-      backdropDismiss: false,
-    });
-    await modal.present();
-  }
-
 }

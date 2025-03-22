@@ -6,39 +6,42 @@ import { ISPSService } from 'src/app/services/isps.service';
 import { User } from '../../../interfaces/user-interfaces';
 import { PortalService } from 'src/app/services/portal.service';
 import { ISPSScore } from 'src/app/pages/tabs/interfaces/isps';
+import { MentalStatusService } from 'src/app/services/mental-status.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HomeService {
-
   user: User;
-  ispsScore! : ISPSScore;
+  ispsScore!: ISPSScore;
   storageService = inject(StorageService);
   ispsService = inject(ISPSService);
-  portalService = inject (PortalService)
+  portalService = inject(PortalService);
   http = inject(HttpClient);
+  mentalStatusService = inject(MentalStatusService);
 
   constructor() {
-    this.user = this.storageService.getSessionStorage<User>('user') !;
+    this.user = this.storageService.getSessionStorage<User>('user')!;
   }
 
-
   callModuleMethod(moduleName: string): Observable<any> {
-    const generalParameters: any = this.storageService.getSessionStorage('tenantParameters')
+    const generalParameters: any =
+      this.storageService.getSessionStorage('tenantParameters');
 
-    const modulesActive = generalParameters.tenantParameters.activeModules.find((module: any) => module === moduleName);
+    const modulesActive = generalParameters.tenantParameters.activeModules.find(
+      (module: any) => module === moduleName
+    );
     switch (modulesActive) {
       case 'isps':
-         return this.ispsService.getISPSScore(this.user.id);
+        return this.ispsService.getISPSScore(this.user.id);
       case 'wellness':
-        return  this.portalService.getLastPostPortal();
+        return this.portalService.getLastPostPortal();
       // case 'hc_onboarding':
       //   return this.http.put(endpoint, payload);
       // case 'hc_user':
       //   return this.http.delete(endpoint);
-      // case 'emotional':
-      //   return this.http.delete(endpoint);
+      case 'emotional':
+        return this.mentalStatusService.getMentalStatus(this.user.id);
       // case 'profile':
       //   return this.http.delete(endpoint);
       // case 'ausentismo':
@@ -49,9 +52,8 @@ export class HomeService {
       //   return this.http.delete(endpoint);
       default:
         return of(null);
-      }
+    }
   }
-
 
   callAllMethodsForModule(): Observable<any[]> {
     const generalParameters: any = this.storageService.getSessionStorage('tenantParameters');
@@ -81,7 +83,4 @@ export class HomeService {
       )
     );
   }
-  
-  
-
 }

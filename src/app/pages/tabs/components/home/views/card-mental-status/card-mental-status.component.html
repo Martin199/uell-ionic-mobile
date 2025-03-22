@@ -1,0 +1,18 @@
+<ion-card>
+  <ion-card-content class="ion-no-padding">
+    <div class="header">
+      <ion-img src="assets/highlight-cards/icon-mental-status.svg"></ion-img> 
+      <ion-label class="title">Emociones</ion-label>
+    </div>
+    <div class="body">
+      <ion-label class="title">¿Cómo te sientes hoy? </ion-label>
+      <div class="icon-container">
+        <ion-img class="icon" src="assets/highlight-cards/mental-status.svg"></ion-img> 
+        <ion-img class="stars" src="assets/highlight-cards/stars.svg"></ion-img> 
+      </div>
+    </div>
+    <div class="footer">
+      <ion-button fill="clear" [disabled]="disabledBtn()" (click)="openModalMentalStatus()">Registrar emoción</ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

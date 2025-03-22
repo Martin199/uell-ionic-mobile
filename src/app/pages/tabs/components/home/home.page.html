@@ -1,5 +1,8 @@
 <app-header></app-header>
 <ion-content [fullscreen]="true">
+      @if(emotionalModule){
+            <app-card-mental-status></app-card-mental-status>
+      }
       @if(ispsData){
             <app-card-psicosocial [ispsScore]="ispsData"></app-card-psicosocial>
       }

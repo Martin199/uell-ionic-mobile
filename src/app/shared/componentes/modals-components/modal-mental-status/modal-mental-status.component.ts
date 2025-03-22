@@ -2,7 +2,13 @@ import { Component, inject, signal } from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
 import { UserService } from 'src/app/services/user.service';
-import { IContextStatus, IEmotionStatus, IMentalStatus, IMentalStatusPayload, IMoodsStatus } from 'src/app/shared/interface/mental-status.interfaces';
+import {
+  IContextStatus,
+  IEmotionStatus,
+  IMentalStatusResponse,
+  IMentalStatusPayload,
+  IMoodsStatus,
+} from 'src/app/shared/interface/mental-status.interfaces';
 
 @Component({
   selector: 'app-modal-mental-status',
@@ -43,8 +49,8 @@ export class ModalMentalStatusComponent {
 
   getMentalStatus() {
     this.mentalStatusService.getMentalStatus().subscribe({
-      next: (res: IMentalStatus ) => {
-        this.moodsInfo = res.moods
+      next: (res: IMentalStatusResponse) => {
+        this.moodsInfo = res.moods;
         this.emotionInfo = res.emotion;
         this.contextInfo = res.context;
       },
