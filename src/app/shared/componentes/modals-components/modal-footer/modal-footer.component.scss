@@ -1,0 +1,53 @@
+@import 'src/theme/colors';
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 2rem;
+  .btn-fill {
+    width: 90px;
+  }
+  .btn-primary {
+    width: 117px;
+  }
+}
+
+ion-button.primary-color {
+  --background: #1DA4B1;
+  --color: #FFF;
+  --font-family: "Red Hat Display", sans-serif;
+  --font-size: 16px;
+  --font-weight: 600;
+  --line-height: 24px;
+  --letter-spacing: 0.016px;
+  width: 100%;
+  display: block;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+}
+ion-button.white-color {
+  --background: #FFF;
+  --color: #505A78;
+  --font-family: "Red Hat Display", sans-serif;
+  --font-size: 16px;
+  --font-weight: 600;
+  --line-height: 24px;
+  --letter-spacing: 0.016px;
+  width: 100%;
+  display: block;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+}
+
+ion-button.white-color {
+  --background-activated: #E8F6F7;
+}

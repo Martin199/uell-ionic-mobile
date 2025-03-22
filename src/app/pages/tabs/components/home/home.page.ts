@@ -4,6 +4,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { EmotionalModalComponent } from 'src/app/shared/componentes/emotional-modal/emotional-modal.component';
 import { User } from '../../interfaces/user-interfaces';
 import { HomeService } from './config/home.service';
+import { MentalStatusService } from 'src/app/services/mental-status.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomePage implements OnInit {
   storageService = inject(StorageService);
   modalCtrl = inject(ModalController)
   homeService = inject(HomeService);
+  mentalStatusService = inject(MentalStatusService);
 
   constructor() {
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters')
@@ -38,8 +40,6 @@ export class HomePage implements OnInit {
    }
 
   async ngOnInit() {
-    this.presentEmotionalModal();
-    
     this.homeService.callAllMethodsForModule().subscribe({
       next: results => {
         this.moduleResults = results; 
@@ -54,6 +54,8 @@ export class HomePage implements OnInit {
       },
       error: error => console.error('Error al obtener los módulos:', error),
     });
+
+    this.mentalStatusService.openModalMentalStatus();
   }
 
   async presentEmotionalModal() {

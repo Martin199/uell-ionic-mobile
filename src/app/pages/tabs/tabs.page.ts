@@ -6,6 +6,7 @@ import { UtilsService } from '../../services/utils.service';
   selector: 'app-tabs',
   templateUrl: './tabs.page.html',
   styleUrls: ['./tabs.page.scss'],
+  
 })
 export class TabsPage implements OnInit {
 

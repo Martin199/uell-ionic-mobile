@@ -1,0 +1,29 @@
+<div class="main-container">
+  <app-modal-header
+    [title]="titleStep()"
+    [subtitle]="subtitleStep()"
+    [imgPatch]="currentStep() !== 1 ? imgPatch() : ''"
+    [imgDescription]="currentStep() !== 1 ? imgDescription() : ''"
+    [closeModal]="true"
+    [backButton]="currentStep() !== 1"
+    (backModalEvent)="prevStep()">
+  </app-modal-header>
+
+  @if (moodsInfo.length > 0 && emotionInfo.length > 0 && contextInfo.length > 0) {
+    <div class="content">
+      @if (currentStep() === 1) {
+        <app-mood-status [moodsInfo]="moodsInfo" [moodsData]="moodsData" (rangeChange)="onRangeChange($event)"></app-mood-status>
+      }
+      @else if (currentStep() === 2) {
+        <app-emotion-status [emotionInfo]="emotionInfo" [selectedEmotions]="emotionData" [emotionIdFilter]="emotionIdFilter()" (selectedEmotionsChange)="selectedEmotionsChange($event)"></app-emotion-status>
+      }
+      @else if (currentStep() === 3) {
+        <app-context-status [contextInfo]="contextInfo" [selectedContext]="contextData" (selectedContextChange)="selectedContextChange($event)"></app-context-status>
+      }
+    </div>
+  
+    <app-modal-footer [onlytBtn]="'Continuar'" [primaryColor]="currentStep() !== 1" (clickModalEvent)="nextStep()"></app-modal-footer>
+  
+    <div class="gradient-container" [ngStyle]="{'background': gradientStyle}"></div>
+  }
+</div>

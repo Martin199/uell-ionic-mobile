@@ -6,7 +6,7 @@ import { SwiperOptions } from 'swiper/types/swiper-options';
 import { register } from 'swiper/element/bundle';
 import { UserService } from 'src/app/services/user.service';
 import { emojiList } from './constants/emojiList';
-import { ContentEmotional, Emoji, EmotionalResponse } from '../../interface/emotional-interfaces';
+import { ContentEmotional, Emoji, EmotionalResponse } from '../../interface/mental-status.interfaces';
  
 register();
 

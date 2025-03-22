@@ -16,11 +16,15 @@ import { FormIspsStepTwoComponent } from './componentes/forms-isps/form-isps-ste
 import { SearchbarAnimationComponent } from './componentes/searchbar-animation/searchbar-animation.component';
 import { FormIspsStepThreeComponent } from './componentes/forms-isps/form-isps-step-three/form-isps-step-three.component';
 import { FormIspsStepFourComponent } from './componentes/forms-isps/form-isps-step-four/form-isps-step-four.component';
+import { ModalMentalStatusComponent } from './componentes/modals-components/modal-mental-status/modal-mental-status.component';
+import { ModalHeaderComponent } from './componentes/modals-components/modal-header/modal-header.component';
+import { ModalFooterComponent } from './componentes/modals-components/modal-footer/modal-footer.component';
+import { EmotionStatusComponent } from './componentes/emotion-status/emotion-status.component';
+import { MoodStatusComponent } from './componentes/mood-status/mood-status.component';
+import { ContextStatusComponent } from './componentes/context-status/context-status.component';
 import { ModalSuggestAddressComponent } from './componentes/modal-suggest-address/modal-suggest-address.component';
 import { ModalMedicalRecordComponent } from './componentes/modal-medical-record/modal-medical-record.component';
 import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isps-introduction/form-isps-introduction.component';
-
-
 
 @NgModule({
   declarations: [
@@ -40,7 +44,14 @@ import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isp
      SearchbarAnimationComponent, 
      UellMultimediaComponent,
      ModalSuggestAddressComponent,
-     ModalMedicalRecordComponent
+     ModalMedicalRecordComponent,
+     ModalMentalStatusComponent,
+     ModalHeaderComponent,
+     ModalFooterComponent,
+     MoodStatusComponent,
+     EmotionStatusComponent,
+     ContextStatusComponent,
+
     ],
   imports: [
     CommonModule,
@@ -57,6 +68,7 @@ import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isp
     IspsCircleComponent,
     UellMultimediaComponent,
     SearchbarAnimationComponent,
+    ModalMentalStatusComponent,
     ModalSuggestAddressComponent,
     FormsIspsComponent,
     FormIspsIntroductionComponent,

@@ -1,0 +1,73 @@
+@import 'src/theme/colors';
+
+ion-content {
+  --background: transparent;
+  background: transparent;
+}
+
+.image-container {
+  margin: auto;
+  margin-top: 4.5rem;
+  width: 180px;
+  height: 180px;
+  img {
+    width: 180px;
+    height: 180px;
+  }
+}
+.mental-status {
+  margin: auto;
+  padding-top: 2.5rem;
+  padding-bottom: 5rem;
+  color: $neutral-grey-dark;
+  text-align: center;
+  font-family: "Red Hat Display";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+ion-range {
+  --bar-background-active: #fff;
+  --bar-background: #fff;
+}
+
+ion-range::part(knob)::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border: 4px solid #fff;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.range-color-0 {
+  --knob-background: #EE316B;
+}
+
+.range-color-1 {
+  --knob-background: #F26D00;
+}
+
+.range-color-2 {
+  --knob-background: #F9B10C;
+}
+
+.range-color-3 {
+  --knob-background: #8A95AB;
+}
+
+.range-color-4 {
+  --knob-background: #15BD6D;
+}
+
+.range-color-5 {
+  --knob-background: #1DA4B1;
+}
+
+.range-color-6 {
+  --knob-background: #44D8E8;
+}

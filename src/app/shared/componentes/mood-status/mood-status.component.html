@@ -1,0 +1,17 @@
+<ion-content class="ion-padding">
+  <div class="image-container">
+    <img [src]="currentImage" alt="Dynamic Image">
+  </div>
+
+  <p class="mental-status">{{ descriptionCurrent }}</p>
+
+  <ion-range
+    min="0"
+    max="6"
+    step="1"
+    [ticks]="true"
+    [(ngModel)]="selectedValue"
+    (ionInput)="onRangeChange($event)"
+    [ngClass]="'range-color-' + selectedValue">
+  </ion-range>
+</ion-content>
