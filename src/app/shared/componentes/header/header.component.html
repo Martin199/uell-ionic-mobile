@@ -7,7 +7,9 @@
           <ion-label class="name-user">{{ user?.name | titlecase }} {{ user?.surname | titlecase }}</ion-label>
           <ion-label class="role">COLABORADOR</ion-label>
         </div>
-        <ion-img src="../../../../assets/logo-header.svg" (click)="presentActionSheet()"></ion-img>
+        <div class="container-avatar">
+          <ion-img class="avatar" [src]="userAvatarUrl ? userAvatarUrl : defaultAvatarUrl" (click)="presentActionSheet()"></ion-img>
+        </div>
       </div>
     </div>
   </ion-toolbar>
