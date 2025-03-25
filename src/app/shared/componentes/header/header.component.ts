@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
+import { FilesService } from 'src/app/services/files.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -11,15 +12,19 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class HeaderComponent  implements OnInit {
   user: any;
   actionSheetActive: boolean = false;
+  userAvatarUrl!: string;
+  defaultAvatarUrl: string = '../../../../assets/imgs/icon-avatar.svg';
 
   storageService = inject(StorageService);
   actionSheetController = inject(ActionSheetController);
   utilServices = inject(UtilsService);
+  fileService = inject(FilesService);
 
   constructor() { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.user = this.storageService.getSessionStorage('user');
+    await this.loadProfilePicture();
   }
 
 
@@ -56,6 +61,27 @@ export class HeaderComponent  implements OnInit {
 
     await actionSheet.present();
   }
+
+  async loadProfilePicture() {
+    let currentPhoto = localStorage.getItem('current_photo');
+
+  
+    if (this.user.photo && this.user.photo !== '') {
+      this.fileService.downloadFile(this.user.photo).subscribe(
+        (photo) => {
+          localStorage.setItem('current_photo', photo);
+          this.userAvatarUrl = photo;
+        },
+        () => {
+          this.userAvatarUrl = this.defaultAvatarUrl;
+        }
+      );
+    } else if (currentPhoto) {
+      this.userAvatarUrl = currentPhoto;
+    } else {
+      this.userAvatarUrl = this.defaultAvatarUrl;
+    }
+}
 
   logOut(){
     this.utilServices.showConfirmation('Cerrar sesión', '¿Estás seguro de que deseas cerrar sesión?', () => {

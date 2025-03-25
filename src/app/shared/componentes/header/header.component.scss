@@ -3,9 +3,15 @@
     --background-size: cover;
 }
 
-ion-img{
-    width: 61px;
-    height: 32px;
+.container-avatar{
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;  
 }
 .container {
     display: flex;
@@ -23,7 +29,7 @@ ion-img{
 .d-flex-column{
     display: flex;
     flex-direction: column;
-    margin-right: 16px;
+    margin-right: 10px;
 
 }
 
