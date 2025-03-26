@@ -15,6 +15,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MedicalInformationComponent } from './steps/medical-information/medical-information.component';
 import { MedicalInformationSecondComponent } from './steps/medical-information-second/medical-information-second.component';
 import { InitialClinicalDataComponent } from './steps/initial-clinical-data/initial-clinical-data.component';
+import { UserPictureInfoComponent } from './steps/user-picture-info/user-picture-info.component';
 
 @NgModule({
   imports: [
@@ -26,8 +27,16 @@ import { InitialClinicalDataComponent } from './steps/initial-clinical-data/init
     UserAddressInfoModule,
     SharedModule,
     ReactiveFormsModule,
+    UserPictureInfoComponent,
   ],
-  declarations: [OnboardingPage, UserInfoComponent, UserEmploymentInfoComponent, MedicalInformationComponent, MedicalInformationSecondComponent, InitialClinicalDataComponent],
+  declarations: [
+    OnboardingPage,
+    UserInfoComponent,
+    UserEmploymentInfoComponent,
+    MedicalInformationComponent,
+    MedicalInformationSecondComponent,
+    InitialClinicalDataComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class OnboardingPageModule {}

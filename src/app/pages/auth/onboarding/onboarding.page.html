@@ -13,6 +13,9 @@
 <ion-content  [fullscreen]="true">
   <swiper-container #swiperContainer allow-touch-move="false">
     <swiper-slide>
+      <app-user-picture-info (profilePicture)="profilePictureEvent($event)"></app-user-picture-info>
+    </swiper-slide>
+    <swiper-slide>
       <app-user-info (contactInfo)="stepReturnUserInfo($event)"></app-user-info>
     </swiper-slide>
     <swiper-slide>

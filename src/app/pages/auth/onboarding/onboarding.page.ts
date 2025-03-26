@@ -11,6 +11,8 @@ import { InitialClinicalData, MedicalFormData, MedicalFormDataTwo, OnBoardingReq
 import { UtilsService } from 'src/app/services/utils.service';
 import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
+import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-onboarding',
@@ -34,6 +36,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
   stepUserAddresstInfo: boolean = false;
   tenantParameters: any;
   country: string = '';
+  profilePicture: ImageClass | null = null;
   adressRespons!: AdressResponse;
   user: UserResponseDTO;
   medicalFormData!: MedicalFormData;
@@ -207,6 +210,10 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     this.userInfo = event.data;
   }
 
+  profilePictureEvent(event: ImageClass | null) {
+    this.profilePicture = event;
+  }
+
   validacionGoogleMaps(addressInfo: IAddressInfo) {
     return this.googleApisService.validacionGoogleMaps(addressInfo);
   }
@@ -282,7 +289,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       .subscribe(() => {});
   }
 
-  private buildPostResquest(): OnBoardingRequest {
+  private async buildPostRequest(): Promise<OnBoardingRequest> {
     this.adressList = [];
     this.googleApisService.pushIdAddress(this.adressUser.id);
     this.adressList.push(this.googleApisService.getAddressPayload()!);
@@ -294,6 +301,21 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       id: this.personalFormResponse?.cellphoneNumber?.id,
     };
 
+    let photo = null;
+    if (this.profilePicture) {
+      try {
+        const photoResponse = await firstValueFrom(
+          this.userService.postB64Picture({
+            fileName: `profile_${this.user.id}.${this.profilePicture.format}`,
+            fileContent: this.profilePicture.base64String,
+          })
+        );
+        photo = photoResponse;
+      } catch (error) {
+        console.error('Error uploading profile picture:', error);
+      }
+    }
+
     const onBoardingRequest: any = {
       bornDate: this.userInfo,
       email: this.contactInfo!.email,
@@ -303,13 +325,13 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       maritalStatus: this.dataPersonal.estadoCivil,
       address: this.adressList,
       onboarded: true,
+      photo: photo,
     };
     return onBoardingRequest;
   }
 
-  public postOnboarding() {
-    this.userService
-      .postOnBoarding(this.user.id, this.buildPostResquest())
-      .subscribe(() => {});
+  public async postOnboarding() {
+    const request = await this.buildPostRequest();
+    this.userService.postOnBoarding(this.user.id, request).subscribe(() => {});
   }
 }
