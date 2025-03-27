@@ -124,7 +124,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     if (this.step === 6) {
       this.openModal();
     }
-    if (this.step === 7) {
+    if (this.step === 8) {
       this.sendCompletenessMedical();
       this.tenantParameters =
         this.storageService.getSessionStorage('tenantParameters');
