@@ -33,6 +33,9 @@
     <swiper-slide>
       <app-initial-clinical-data (returnResponse)="buildClinicalData($event)"></app-initial-clinical-data>
     </swiper-slide>
+    <swiper-slide>
+      <app-user-picture-info (profilePicture)="profilePictureEvent($event)"></app-user-picture-info>
+    </swiper-slide>
   </swiper-container> 
 </ion-content>
 
