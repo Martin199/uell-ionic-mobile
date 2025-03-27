@@ -24,8 +24,8 @@ export class SelectTenantsPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.user = this.storageService.getSessionStorage('user');
+  async ngOnInit() {
+    this.user = await this.storageService.getSessionStorage('user');
     console.log(this.user);
   }
 

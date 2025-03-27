@@ -3,6 +3,8 @@ PODS:
     - CapacitorCordova
   - CapacitorApp (7.0.0):
     - Capacitor
+  - CapacitorCamera (7.0.0):
+    - Capacitor
   - CapacitorCordova (7.0.1)
   - CapacitorDevice (7.0.0):
     - Capacitor
@@ -75,6 +77,7 @@ PODS:
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
+  - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
@@ -101,6 +104,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorApp:
     :path: "../../node_modules/@capacitor/app"
+  CapacitorCamera:
+    :path: "../../node_modules/@capacitor/camera"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorDevice:
@@ -121,6 +126,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Capacitor: de199cba6c8b20995428ad0b7cb0bc6ca625ffd4
   CapacitorApp: 9cb31064a6c6bb2b1438583733a7bf45557fc1da
+  CapacitorCamera: 20a37684b81c69c0c33fb5a7216919f135371a6f
   CapacitorCordova: 63d476958d5022d76f197031e8b7ea3519988c64
   CapacitorDevice: 069faf433b3a99c3d5f0e500fbe634f60a8c6a84
   CapacitorFilesystem: 59a2b7b56a897c6a3de4d04c5718e1d80de9d2f5
