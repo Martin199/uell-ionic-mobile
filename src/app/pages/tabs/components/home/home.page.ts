@@ -55,7 +55,7 @@ export class HomePage implements OnInit {
       error: error => console.error('Error al obtener los módulos:', error),
     });
 
-    this.mentalStatusService.openModalMentalStatus();
+    // this.mentalStatusService.openModalMentalStatus();  -- comento modal de emociones
   }
 
   async presentEmotionalModal() {
