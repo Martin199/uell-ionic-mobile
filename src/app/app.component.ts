@@ -21,8 +21,8 @@ export class AppComponent {
   private router = inject(Router);
 
   constructor() {
-    this.initializeApp();
     this.showSplash();
+      this.initializeApp();
     if(Capacitor.isNativePlatform()) this.initPush();
   }
 
