@@ -150,7 +150,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     if (data?.onboarding) {
-      this.postOnboarding();
+      await this.postOnboarding();
       this.utilService.router.navigate(['/tabs/home']);
     }
   }
@@ -307,10 +307,12 @@ export class OnboardingPage implements AfterViewInit, OnInit {
         const photoResponse = await firstValueFrom(
           this.userService.postB64Picture({
             fileName: `profile_${this.user.id}.${this.profilePicture.format}`,
-            fileContent: this.profilePicture.base64String,
+            fileContent: `data:image/${this.profilePicture.format};base64,${this.profilePicture.base64String}`,
           })
         );
         photo = photoResponse;
+        const stringWithoutQuotes = JSON.stringify(photo).replace(/^"(.*)"$/, '$1');
+        localStorage.setItem('current_photo', stringWithoutQuotes);
       } catch (error) {
         console.error('Error uploading profile picture:', error);
       }

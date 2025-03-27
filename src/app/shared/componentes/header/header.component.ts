@@ -63,13 +63,13 @@ export class HeaderComponent  implements OnInit {
   }
 
   async loadProfilePicture() {
+    
     let currentPhoto = localStorage.getItem('current_photo');
-
   
     if (this.user.photo && this.user.photo !== '') {
-      this.fileService.downloadFile(this.user.photo).subscribe(
+      let currentPhoto = localStorage.getItem('current_photo');
+      this.fileService.downloadFile(currentPhoto? currentPhoto : this.user.photo).subscribe(
         (photo) => {
-          localStorage.setItem('current_photo', photo);
           this.userAvatarUrl = photo;
         },
         () => {
