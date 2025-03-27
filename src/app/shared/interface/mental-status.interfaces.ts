@@ -23,6 +23,13 @@ export interface IMentalStatusPayload {
     contextIdList: number[];
     moodId: number;
 }
+export interface IMoodDayList {
+  day: number;
+  emotionalColor: string;
+  description?: string;
+  userMoodRecordId?: number;
+  moodId?: number;
+}
 
 export interface Emoji {
     id: number;

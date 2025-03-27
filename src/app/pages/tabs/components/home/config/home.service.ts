@@ -20,14 +20,19 @@ export class HomeService {
   http = inject(HttpClient);
   mentalStatusService = inject(MentalStatusService);
 
+  currentDate: Date = new Date();
+  currentYear: number;
+  currentMonth: number;
+
   constructor() {
     this.user = this.storageService.getSessionStorage<User>('user')!;
+    this.currentYear = this.currentDate.getFullYear();
+    this.currentMonth = this.currentDate.getMonth() + 1;
   }
 
   callModuleMethod(moduleName: string): Observable<any> {
     const generalParameters: any =
       this.storageService.getSessionStorage('tenantParameters');
-
     const modulesActive = generalParameters.tenantParameters.activeModules.find(
       (module: any) => module === moduleName
     );
@@ -42,6 +47,8 @@ export class HomeService {
       //   return this.http.delete(endpoint);
       case 'emotional':
         return this.mentalStatusService.getMentalStatus(this.user.id);
+      case 'emotion_map':
+        return this.mentalStatusService.getEmotionalMap( this.user.id, this.currentYear, this.currentMonth);
       // case 'profile':
       //   return this.http.delete(endpoint);
       // case 'ausentismo':
@@ -56,27 +63,29 @@ export class HomeService {
   }
 
   callAllMethodsForModule(): Observable<any[]> {
-    const generalParameters: any = this.storageService.getSessionStorage('tenantParameters');
-    const activeModules = generalParameters?.tenantParameters?.activeModules || [];
-  
+    const generalParameters: any =
+      this.storageService.getSessionStorage('tenantParameters');
+    const activeModules =
+      generalParameters?.tenantParameters?.activeModules || [];
+
     if (activeModules.length === 0) {
       console.warn('No hay módulos activos configurados.');
       return of([]);
     }
-  
+
     const observables = activeModules.map((moduleName: string) =>
       this.callModuleMethod(moduleName).pipe(
         map((response: any) => ({
           moduleName,
           body: response,
         })),
-        catchError(error => {
+        catchError((error) => {
           console.error(`Error en el módulo ${moduleName}:`, error);
           return of({ moduleName, error });
         })
       )
     );
-  
+
     return forkJoin(observables).pipe(
       map((results: any) =>
         results.filter((result: any) => result.body !== null || result.error)

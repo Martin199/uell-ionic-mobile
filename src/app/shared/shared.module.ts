@@ -25,42 +25,43 @@ import { ContextStatusComponent } from './componentes/context-status/context-sta
 import { ModalSuggestAddressComponent } from './componentes/modal-suggest-address/modal-suggest-address.component';
 import { ModalMedicalRecordComponent } from './componentes/modal-medical-record/modal-medical-record.component';
 import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isps-introduction/form-isps-introduction.component';
+import { EmotionsCalendarComponent } from './componentes/emotions-calendar/emotions-calendar.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-     CustomInputComponent, 
-     LogoComponent, 
-     EmotionalModalComponent, 
-     IspsCircleComponent, 
-     ModalDescriptionComponent, 
-     UellMultimediaComponent,
-     FormsIspsComponent, 
-     FormIspsIntroductionComponent,
-     FormIspsStepOneComponent, 
-     FormIspsStepTwoComponent, 
-     FormIspsStepThreeComponent,
-     FormIspsStepFourComponent, 
-     SearchbarAnimationComponent, 
-     UellMultimediaComponent,
-     ModalSuggestAddressComponent,
-     ModalMedicalRecordComponent,
-     ModalMentalStatusComponent,
-     ModalHeaderComponent,
-     ModalFooterComponent,
-     MoodStatusComponent,
-     EmotionStatusComponent,
-     ContextStatusComponent,
-
-    ],
+    CustomInputComponent,
+    LogoComponent,
+    EmotionalModalComponent,
+    IspsCircleComponent,
+    ModalDescriptionComponent,
+    UellMultimediaComponent,
+    FormsIspsComponent,
+    FormIspsIntroductionComponent,
+    FormIspsStepOneComponent,
+    FormIspsStepTwoComponent,
+    FormIspsStepThreeComponent,
+    FormIspsStepFourComponent,
+    SearchbarAnimationComponent,
+    UellMultimediaComponent,
+    ModalSuggestAddressComponent,
+    ModalMedicalRecordComponent,
+    ModalMentalStatusComponent,
+    ModalHeaderComponent,
+    ModalFooterComponent,
+    MoodStatusComponent,
+    EmotionStatusComponent,
+    ContextStatusComponent,
+    EmotionsCalendarComponent,
+  ],
   imports: [
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
     FormsModule,
-    CountUpModule
+    CountUpModule,
   ],
-  exports:[
+  exports: [
     HeaderComponent,
     CustomInputComponent,
     ReactiveFormsModule,
@@ -72,11 +73,12 @@ import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isp
     ModalSuggestAddressComponent,
     FormsIspsComponent,
     FormIspsIntroductionComponent,
-    FormIspsStepOneComponent, 
-    FormIspsStepTwoComponent, 
+    FormIspsStepOneComponent,
+    FormIspsStepTwoComponent,
     FormIspsStepThreeComponent,
-    FormIspsStepFourComponent
+    FormIspsStepFourComponent,
+    EmotionsCalendarComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SharedModule { }
+export class SharedModule {}

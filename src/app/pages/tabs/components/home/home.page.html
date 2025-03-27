@@ -1,7 +1,10 @@
 <app-header></app-header>
 <ion-content [fullscreen]="true">
       @if(emotionalModule){
-            <app-card-mental-status></app-card-mental-status>
+            <app-card-mental-status [emotionalData]="emotionalData" (refreshEmotionsMap)="refreshEmotionsMap()"></app-card-mental-status>
+      }
+      @if (emotionMapModule) {
+            <app-card-emotions-map [emotionMapData]="emotionMapData"></app-card-emotions-map>
       }
       @if(ispsData){
             <app-card-psicosocial [ispsScore]="ispsData"></app-card-psicosocial>

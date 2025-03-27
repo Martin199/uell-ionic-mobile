@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
-import {ModalController} from '@ionic/angular';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
 import { UserService } from 'src/app/services/user.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import {
   IContextStatus,
   IEmotionStatus,
@@ -17,9 +17,9 @@ import {
 })
 export class ModalMentalStatusComponent {
 
-  private modalCtrl = inject(ModalController)
   private  mentalStatusService = inject(MentalStatusService);
   private  userService = inject(UserService);
+  utilsService = inject(UtilsService);
 
   private _userInfo = this.userService.getUser();
   currentStep = signal<number>(1);
@@ -153,12 +153,13 @@ export class ModalMentalStatusComponent {
   postMentalStatus() {
     this.mentalStatusService.postMentalStatus(this._userInfo.id, this.mentalStatusPayload).subscribe({
       next: () => {
+        this.closeModal(true);
       },
       error: (err) => {
         console.error(err);
+        this.closeModal(false);
       },
       complete: () => {
-        this.closeModal();
       }
     });
   }
@@ -182,8 +183,10 @@ export class ModalMentalStatusComponent {
     }
   }
 
-  closeModal(){
-    this.modalCtrl.dismiss();
+  closeModal(postMentalStatus: boolean){
+    this.utilsService.modalCtrl.dismiss({
+      postMentalStatus: postMentalStatus,
+    });
   }
 
 }

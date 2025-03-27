@@ -1,11 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
-import { EmotionalModalComponent } from 'src/app/shared/componentes/emotional-modal/emotional-modal.component';
 import { User } from '../../interfaces/user-interfaces';
 import { HomeService } from './config/home.service';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
-import { IMentalStatusResponse } from 'src/app/shared/interface/mental-status.interfaces';
+import { IMentalStatusResponse, IMoodDayList } from 'src/app/shared/interface/mental-status.interfaces';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +12,6 @@ import { IMentalStatusResponse } from 'src/app/shared/interface/mental-status.in
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
   user!: User;
   moduleResults: any[] = [];
   tenantParameters: any;
@@ -21,45 +19,70 @@ export class HomePage implements OnInit {
   wellnessData: any = null;
   emotionalModule: string = '';
   emotionalData: IMentalStatusResponse[] = [];
+  emotionMapModule: string = '';
+  emotionMapData: IMoodDayList[] = [];
+  refreshEmotionMapModule = signal<string>('no_refresh');
+  reloadEmotionMapModule: boolean = true;
 
   storageService = inject(StorageService);
-  modalCtrl = inject(ModalController)
+  modalCtrl = inject(ModalController);
   homeService = inject(HomeService);
   mentalStatusService = inject(MentalStatusService);
 
   constructor() {
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters')
+    this.tenantParameters =
+      this.storageService.getSessionStorage('tenantParameters');
 
     if (this.tenantParameters?.tenantParameters.gestorWillContactYou) {
-      const gestorWillContactYou = this.tenantParameters.tenantParameters.gestorWillContactYou;
-      console.log(gestorWillContactYou, ' gestor')
-      gestorWillContactYou === 'true' ? localStorage.setItem('gestorWillContactYou', 'true') :
-      gestorWillContactYou === 'false' ? localStorage.setItem('gestorWillContactYou', 'false') :
-      localStorage.setItem('gestorWillContactYou', 'null');
-    } 
-    else {
+      const gestorWillContactYou =
+        this.tenantParameters.tenantParameters.gestorWillContactYou;
+      console.log(gestorWillContactYou, ' gestor');
+      gestorWillContactYou === 'true'
+        ? localStorage.setItem('gestorWillContactYou', 'true')
+        : gestorWillContactYou === 'false'
+        ? localStorage.setItem('gestorWillContactYou', 'false')
+        : localStorage.setItem('gestorWillContactYou', 'null');
+    } else {
       localStorage.setItem('gestorWillContactYou', 'null');
     }
-   }
+  }
 
   async ngOnInit() {
     this.homeService.callAllMethodsForModule().subscribe({
-      next: results => {
-        this.moduleResults = results; 
+      next: (results) => {
+        this.moduleResults = results;
         console.log('Resultados de los módulos:', this.moduleResults);
 
         // Filtrar por modulo
-        const ispsModule = this.moduleResults.find(module => module.moduleName === 'isps');
+        const ispsModule = this.moduleResults.find(
+          (module) => module.moduleName === 'isps'
+        );
         this.ispsData = ispsModule?.body || null;
 
-        const wellnessModule = results.find((module) => module.moduleName === 'wellness');
+        const wellnessModule = results.find(
+          (module) => module.moduleName === 'wellness'
+        );
         this.wellnessData = wellnessModule?.body || null;
 
-        const emotionalModule = results.find((module) => module.moduleName === 'emotional');
+        const emotionalModule = results.find(
+          (module) => module.moduleName === 'emotional'
+        );
         this.emotionalModule = emotionalModule?.moduleName || '';
         this.emotionalData = emotionalModule?.body || [];
+
+        const emotionMapModule = results.find(
+          (module) => module.moduleName === 'emotion_map'
+        );
+        this.emotionMapModule = emotionMapModule?.moduleName || '';
+        this.emotionMapData = emotionMapModule?.body?.moodDayList || [];
       },
-      error: error => console.error('Error al obtener los módulos:', error),
+      error: (error) => console.error('Error al obtener los módulos:', error),
     });
+  }
+
+  refreshEmotionsMap() {
+    // this.reloadEmotionMapModule = false;
+    // this.refreshEmotionMapModule.set('refresh');
+    // this.reloadEmotionMapModule = true;
   }
 }

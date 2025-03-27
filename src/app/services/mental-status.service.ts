@@ -7,18 +7,19 @@ import { Observable } from 'rxjs';
 import { IMentalStatusResponse } from '../shared/interface/mental-status.interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MentalStatusService {
+  private modalCtrl = inject(ModalController);
+  httpClientService = inject(HttpClientService);
 
-  private modalCtrl = inject(ModalController)
-  httpClientService = inject(HttpClientService)
-
-  constructor() { }
+  constructor() {}
 
   getMentalStatus(userId?: number): Observable<IMentalStatusResponse> {
     const userIdParam: string = userId ? `/${userId}` : '';
-    return this.httpClientService.get<IMentalStatusResponse>(`${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status${userIdParam}`);
+    return this.httpClientService.get<IMentalStatusResponse>(
+      `${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status${userIdParam}`
+    );
   }
 
   postMentalStatus(userId: number, payload: any) {
@@ -26,16 +27,24 @@ export class MentalStatusService {
     return this.httpClientService.post(url, payload);
   }
 
-  openModalMentalStatus() {
-    this.modalCtrl.create({
+  getEmotionalMap(userId: number, year: number, month: number): Observable<any> {
+    // /wellness/mental-status/877/emotional-map?year=2025&month=3
+    return this.httpClientService.get<any>(
+      `${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/${userId}/emotional-map?year=${year}&month=${month}`
+    );
+  }
+
+  async openModalMentalStatus() {
+    const modal = await this.modalCtrl.create({
       component: ModalMentalStatusComponent,
       cssClass: 'modal-mental-status',
       backdropDismiss: false,
       showBackdrop: true,
       keyboardClose: false,
       mode: 'ios',
-    }).then((modal) => {
-      modal.present();
     });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    return data.postMentalStatus;
   }
 }

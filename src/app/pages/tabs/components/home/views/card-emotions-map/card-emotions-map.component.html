@@ -1,0 +1,21 @@
+<ion-card>
+  <ion-card-content class="ion-no-padding">
+    <div class="header">
+      <ion-img src="assets/highlights/icon-emotions-map.svg"></ion-img> 
+      <ion-label class="title">Mapa de emociones</ion-label>
+    </div>
+    <div class="body">
+      @if (!loading) {
+        <!-- *CALENDARIO DE EMOCIONES -->
+        <app-emotions-calendar 
+          [emotionMapData]="moodDayList" 
+          (changeMonth)="refreshEmotionalMap($event)">
+        </app-emotions-calendar>
+      } @else {
+        <div class="loading-spinner">
+          <ion-spinner name="crescent"></ion-spinner>
+        </div>
+      }
+    </div>
+  </ion-card-content>
+</ion-card>
