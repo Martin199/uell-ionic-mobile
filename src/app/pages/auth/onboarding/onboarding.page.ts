@@ -11,6 +11,8 @@ import { InitialClinicalData, MedicalFormData, MedicalFormDataTwo, OnBoardingReq
 import { UtilsService } from 'src/app/services/utils.service';
 import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
+import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-onboarding',
@@ -34,6 +36,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
   stepUserAddresstInfo: boolean = false;
   tenantParameters: any;
   country: string = '';
+  profilePicture: ImageClass | null = null;
   adressRespons!: AdressResponse;
   user: UserResponseDTO;
   medicalFormData!: MedicalFormData;
@@ -121,7 +124,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     if (this.step === 6) {
       this.openModal();
     }
-    if (this.step === 7) {
+    if (this.step === 8) {
       this.sendCompletenessMedical();
       this.tenantParameters =
         this.storageService.getSessionStorage('tenantParameters');
@@ -147,7 +150,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     if (data?.onboarding) {
-      this.postOnboarding();
+      await this.postOnboarding();
       this.utilService.router.navigate(['/tabs/home']);
     }
   }
@@ -205,6 +208,10 @@ export class OnboardingPage implements AfterViewInit, OnInit {
 
   stepReturnUserInfo(event: any) {
     this.userInfo = event.data;
+  }
+
+  profilePictureEvent(event: ImageClass | null) {
+    this.profilePicture = event;
   }
 
   validacionGoogleMaps(addressInfo: IAddressInfo) {
@@ -282,7 +289,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       .subscribe(() => {});
   }
 
-  private buildPostResquest(): OnBoardingRequest {
+  private async buildPostRequest(): Promise<OnBoardingRequest> {
     this.adressList = [];
     this.googleApisService.pushIdAddress(this.adressUser.id);
     this.adressList.push(this.googleApisService.getAddressPayload()!);
@@ -294,6 +301,23 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       id: this.personalFormResponse?.cellphoneNumber?.id,
     };
 
+    let photo = null;
+    if (this.profilePicture) {
+      try {
+        const photoResponse = await firstValueFrom(
+          this.userService.postB64Picture({
+            fileName: `profile_${this.user.id}.${this.profilePicture.format}`,
+            fileContent: `data:image/${this.profilePicture.format};base64,${this.profilePicture.base64String}`,
+          })
+        );
+        photo = photoResponse;
+        const stringWithoutQuotes = JSON.stringify(photo).replace(/^"(.*)"$/, '$1');
+        localStorage.setItem('current_photo', stringWithoutQuotes);
+      } catch (error) {
+        console.error('Error uploading profile picture:', error);
+      }
+    }
+
     const onBoardingRequest: any = {
       bornDate: this.userInfo,
       email: this.contactInfo!.email,
@@ -303,13 +327,13 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       maritalStatus: this.dataPersonal.estadoCivil,
       address: this.adressList,
       onboarded: true,
+      photo: photo,
     };
     return onBoardingRequest;
   }
 
-  public postOnboarding() {
-    this.userService
-      .postOnBoarding(this.user.id, this.buildPostResquest())
-      .subscribe(() => {});
+  public async postOnboarding() {
+    const request = await this.buildPostRequest();
+    this.userService.postOnBoarding(this.user.id, request).subscribe(() => {});
   }
 }

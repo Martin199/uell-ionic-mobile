@@ -4,6 +4,7 @@ export const environment = {
   env: 'qa',
   httpTimeout: 60000,
   apiVersion: 'v2',
+  maxImageSize: 1024 * 1024 * 5, // 5MB
   aws: {
     clientId: '3h53imnpjvm0ehmkkh7vd6lj8o',
     userPoolId: 'us-east-1_VgovTfmV2',

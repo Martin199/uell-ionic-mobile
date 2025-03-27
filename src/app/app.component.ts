@@ -26,7 +26,6 @@ export class AppComponent {
   private utilsService = inject(UtilsService);
 
   constructor() {
-    this.initializeApp();
     this.showSplash();
     if (Capacitor.isNativePlatform()) {
       this.initPush();
