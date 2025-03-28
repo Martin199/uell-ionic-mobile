@@ -27,6 +27,7 @@ export class AppComponent {
 
   constructor() {
     this.showSplash();
+    this.initializeApp();
     if (Capacitor.isNativePlatform()) {
       this.initPush();
       StatusBar.setOverlaysWebView({ overlay: false });
