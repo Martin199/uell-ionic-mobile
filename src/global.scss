@@ -243,3 +243,21 @@ ion-item.custom-input:focus-within {
   display: flex !important;
   align-items: center !important;
 }
+
+.confirm-button {
+  color:  #1DA4B1 !important;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.confirm-button-danger {
+  color:  #FF0000 !important;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.cancel-button {
+  color: black !important;
+  font-size: 2rem;
+  font-weight: bold;
+}
