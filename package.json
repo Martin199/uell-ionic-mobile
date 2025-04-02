@@ -32,7 +32,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "copy:ios": "ionic build && npx cap copy ios",
-    "android:stage": "ionic build --configuration stage && npx cap sync android"
+    "android:stage": "ionic build --configuration stage && npx cap sync android",
+    "ios:stage": "ionic build --configuration stage && npx cap sync ios"
   },
   "private": true,
   "dependencies": {
@@ -47,8 +48,10 @@
     "@capacitor/android": "^7.0.1",
     "@capacitor/app": "7.0.0",
     "@capacitor/assets": "^3.0.5",
+    "@capacitor/camera": "^7.0.0",
     "@capacitor/core": "^7.0.1",
     "@capacitor/device": "^7.0.0",
+    "@capacitor/filesystem": "^7.0.0",
     "@capacitor/haptics": "7.0.0",
     "@capacitor/ios": "^7.0.1",
     "@capacitor/keyboard": "7.0.0",
@@ -56,6 +59,8 @@
     "@capacitor/splash-screen": "^7.0.0",
     "@capacitor/status-bar": "^7.0.0",
     "@ionic/angular": "^7.8.6",
+    "@ionic/pwa-elements": "^3.3.0",
+    "@ionic/storage-angular": "^4.0.0",
     "amazon-cognito-identity-js": "^6.3.12",
     "ionicons": "^7.0.0",
     "moment": "^2.30.1",
@@ -76,7 +81,7 @@
     "@angular/compiler-cli": "^18.0.0",
     "@angular/language-service": "^18.0.0",
     "@capacitor/cli": "^7.0.1",
-    "@ionic/angular-toolkit": "^9.0.0",
+    "@ionic/angular-toolkit": "12.1.1",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",

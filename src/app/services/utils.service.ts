@@ -71,9 +71,11 @@ export class UtilsService {
           text: 'Cancelar',
           role: 'cancel',
           handler: cancelHandler,
+          cssClass: 'cancel-button',
         },
         {
           text: 'Confirmar',
+          cssClass: 'confirm-button-danger',
           handler: confirmHandler,
         },
       ],

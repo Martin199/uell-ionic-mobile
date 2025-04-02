@@ -61,10 +61,11 @@ export class AuthPage {
     await loading.present();
     try {
       const result = await this.cognitoService.signIn(cuil as string, password as string);
-      console.log('Inicio de sesión exitoso:', result);
       if (result) {
+        this.storageService.saveToken();
         this.userService.getMe().subscribe((user: UserResponseDTO) => {
           this.userService.setUser(user);
+          this.storageService.setSessionStorage('user', user);
           console.log('Usuario:', user);
           if (!user.onboarded) {
             this.utilsService.router.navigate(['/auth/onboarding']);

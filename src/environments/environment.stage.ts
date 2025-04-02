@@ -4,6 +4,7 @@ export const environment = {
   env: 'stage',
   httpTimeout: 60000,
   apiVersion: 'v2',
+  maxImageSize: 1024 * 1024 * 5, // 5MB
   aws: {
     clientId: '247svd02gbu18j7pgepn2v9vqk',
     userPoolId: 'us-east-1_C8KOLsIvS',
