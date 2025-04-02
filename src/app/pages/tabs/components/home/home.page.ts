@@ -21,8 +21,6 @@ export class HomePage implements OnInit {
   emotionalData: IMentalStatusResponse[] = [];
   emotionMapModule: string = '';
   emotionMapData: IMoodDayList[] = [];
-  refreshEmotionMapModule = signal<string>('no_refresh');
-  reloadEmotionMapModule: boolean = true;
 
   storageService = inject(StorageService);
   modalCtrl = inject(ModalController);
@@ -78,11 +76,5 @@ export class HomePage implements OnInit {
       },
       error: (error) => console.error('Error al obtener los módulos:', error),
     });
-  }
-
-  refreshEmotionsMap() {
-    // this.reloadEmotionMapModule = false;
-    // this.refreshEmotionMapModule.set('refresh');
-    // this.reloadEmotionMapModule = true;
   }
 }

@@ -1,0 +1,12 @@
+<app-modal-header [closeModal]="true"></app-modal-header>
+<ion-content>
+  <div class="main-container">
+    <ion-content class="ion-padding">
+      <div class="image-container">
+        <img [src]="currentImage" alt="Dynamic Image">
+      </div>
+      <p class="mental-status">{{ descriptionCurrent }}</p>
+    </ion-content>
+    <div class="gradient-container" [ngStyle]="{'background': gradientStyle}"></div>
+  </div>
+</ion-content>

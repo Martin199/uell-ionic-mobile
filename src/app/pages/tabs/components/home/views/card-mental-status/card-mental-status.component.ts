@@ -8,11 +8,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./card-mental-status.component.scss'],
 })
 export class CardMentalStatusComponent implements OnInit {
-  
   mentalStatusService = inject(MentalStatusService);
   userService = inject(UserService);
 
-  refreshEmotionsMap = output();
   emotionalData = input<any[]>([]);
   mentalStatusData: any[] = [];
   private _userInfo = this.userService.getUser();
@@ -46,7 +44,7 @@ export class CardMentalStatusComponent implements OnInit {
     this.mentalStatusService.getMentalStatus(this._userInfo.id).subscribe({
       next: (res: any) => {
         this.mentalStatusData = res;
-        this.checkMentalStatus()
+        this.checkMentalStatus();
       },
       error: (err) => {
         console.error(err);
@@ -56,10 +54,10 @@ export class CardMentalStatusComponent implements OnInit {
   }
 
   async openModalMentalStatus() {
-    const postMentalStatus = await this.mentalStatusService.openModalMentalStatus();
+    const postMentalStatus =
+      await this.mentalStatusService.openModalMentalStatus();
     if (postMentalStatus) {
       this.refreshMentalStatus();
-      this.refreshEmotionsMap.emit();
     }
   }
 }

@@ -16,17 +16,16 @@ import {
   styleUrls: ['./modal-mental-status.component.scss'],
 })
 export class ModalMentalStatusComponent {
-
-  private  mentalStatusService = inject(MentalStatusService);
-  private  userService = inject(UserService);
+  private mentalStatusService = inject(MentalStatusService);
+  private userService = inject(UserService);
   utilsService = inject(UtilsService);
 
   private _userInfo = this.userService.getUser();
   currentStep = signal<number>(1);
   titleStep = signal<string>('¿Cómo te sientes hoy?');
   subtitleStep = signal<string>(`Paso ${this.currentStep()} de 3`);
-  imgPatch = signal<string>('')
-  imgDescription = signal<string>('')
+  imgPatch = signal<string>('');
+  imgDescription = signal<string>('');
   gradientStyle: string = this.getGradient(1);
   moodsInfo: IMoodsStatus[] = [];
   emotionInfo: IEmotionStatus[] = [];
@@ -36,11 +35,14 @@ export class ModalMentalStatusComponent {
   contextData: IContextStatus[] = [];
   mentalStatusPayload!: IMentalStatusPayload;
 
-  emotionIdFilterList: {bad: number[], neutral: number[], good: number[], } = {
-    bad: [17, 5, 26, 1, 38, 13, 22, 27, 8, 20, 32, 11, 35, 15, 25, 34, 14, 12, 2, 36],
+  emotionIdFilterList: { bad: number[]; neutral: number[]; good: number[] } = {
+    bad: [
+      17, 5, 26, 1, 38, 13, 22, 27, 8, 20, 32, 11, 35, 15, 25, 34, 14, 12, 2,
+      36,
+    ],
     neutral: [2, 7, 9, 24, 30],
-    good: [6, 18, 35, 29, 21, 3, 37, 28, 10, 19, 16, 33, 4, 23, 9, 7, 30]
-  }
+    good: [6, 18, 35, 29, 21, 3, 37, 28, 10, 19, 16, 33, 4, 23, 9, 7, 30],
+  };
   emotionIdFilter = signal<number[]>([]);
 
   constructor() {
@@ -77,15 +79,22 @@ export class ModalMentalStatusComponent {
 
   getMoodImg(id: number) {
     this.imgPatch.set(
-        id === 1 ? 'assets/imgs/mental-status/mental-status-1.svg'
-      : id === 2 ? 'assets/imgs/mental-status/mental-status-2.svg'
-      : id === 3 ? 'assets/imgs/mental-status/mental-status-3.svg'
-      : id === 4 ? 'assets/imgs/mental-status/mental-status-4.svg'
-      : id === 5 ? 'assets/imgs/mental-status/mental-status-5.svg'
-      : id === 6 ? 'assets/imgs/mental-status/mental-status-6.svg'
-      : id === 7 ? 'assets/imgs/mental-status/mental-status-7.svg'
-      : 'assets/imgs/mental-status/mental-status-4.svg'
-    )
+      id === 1
+        ? 'assets/imgs/mental-status/mental-status-1.svg'
+        : id === 2
+        ? 'assets/imgs/mental-status/mental-status-2.svg'
+        : id === 3
+        ? 'assets/imgs/mental-status/mental-status-3.svg'
+        : id === 4
+        ? 'assets/imgs/mental-status/mental-status-4.svg'
+        : id === 5
+        ? 'assets/imgs/mental-status/mental-status-5.svg'
+        : id === 6
+        ? 'assets/imgs/mental-status/mental-status-6.svg'
+        : id === 7
+        ? 'assets/imgs/mental-status/mental-status-7.svg'
+        : 'assets/imgs/mental-status/mental-status-4.svg'
+    );
   }
 
   getGradient(value: number): string {
@@ -125,10 +134,13 @@ export class ModalMentalStatusComponent {
 
   getEmotionIdFilter(id: number) {
     this.emotionIdFilter.set(
-      id === 1 || id === 2 || id === 3 ? this.emotionIdFilterList.bad
-      : id === 4 ? this.emotionIdFilterList.neutral
-      : id === 5 || id === 6 || id === 7 ? this.emotionIdFilterList.good
-      : this.emotionIdFilterList.neutral
+      id === 1 || id === 2 || id === 3
+        ? this.emotionIdFilterList.bad
+        : id === 4
+        ? this.emotionIdFilterList.neutral
+        : id === 5 || id === 6 || id === 7
+        ? this.emotionIdFilterList.good
+        : this.emotionIdFilterList.neutral
     );
   }
 
@@ -141,27 +153,30 @@ export class ModalMentalStatusComponent {
   }
 
   buldMentalStatusPayload() {
-    const emotionIdList = this.emotionData.map(emotion => emotion.id);
-    const contextIdList = this.contextData.map(context => context.id);
+    const emotionIdList = this.emotionData.map((emotion) => emotion.id);
+    const contextIdList = this.contextData.map((context) => context.id);
     this.mentalStatusPayload = {
       moodId: this.moodsData.id,
       emotionIdList: emotionIdList,
-      contextIdList: contextIdList
-    }
+      contextIdList: contextIdList,
+    };
   }
 
   postMentalStatus() {
-    this.mentalStatusService.postMentalStatus(this._userInfo.id, this.mentalStatusPayload).subscribe({
-      next: () => {
-        this.closeModal(true);
-      },
-      error: (err) => {
-        console.error(err);
-        this.closeModal(false);
-      },
-      complete: () => {
-      }
-    });
+    this.mentalStatusService
+      .postMentalStatus(this._userInfo.id, this.mentalStatusPayload)
+      .subscribe({
+        next: () => {
+          this.closeModal(true);
+        },
+        error: (err) => {
+          console.error(err);
+          this.closeModal(false);
+        },
+        complete: () => {
+          this.refreshCalendarToCurrentMonth();
+        },
+      });
   }
 
   nextStep() {
@@ -183,10 +198,13 @@ export class ModalMentalStatusComponent {
     }
   }
 
-  closeModal(postMentalStatus: boolean){
+  closeModal(postMentalStatus: boolean) {
     this.utilsService.modalCtrl.dismiss({
       postMentalStatus: postMentalStatus,
     });
   }
 
+  refreshCalendarToCurrentMonth() {
+    this.mentalStatusService.triggerRefreshToCurrentMonth();
+  }
 }

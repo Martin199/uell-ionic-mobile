@@ -23,7 +23,7 @@
     justify-content: space-around;
     padding: 10px 0;
     font-weight: bold;
-    border-bottom: 1px solid var(--ion-color-light);
+    border-bottom: 1px solid #DADFE9;
     .weekday {
       flex: 1;
       text-align: center;
@@ -45,7 +45,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 4px;
-    /* Estilos base se mantienen */
     transition: all 0.2s ease;
     position: relative;
     
@@ -73,5 +72,17 @@
       background-color: transparent;
       color: #ccc;
     }
+  }
+}
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  ion-spinner {
+    width: 48px;
+    height: 48px;
+    color: $primary-uell;
   }
 }

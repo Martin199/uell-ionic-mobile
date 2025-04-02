@@ -25,7 +25,8 @@ import { ContextStatusComponent } from './componentes/context-status/context-sta
 import { ModalSuggestAddressComponent } from './componentes/modal-suggest-address/modal-suggest-address.component';
 import { ModalMedicalRecordComponent } from './componentes/modal-medical-record/modal-medical-record.component';
 import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isps-introduction/form-isps-introduction.component';
-import { EmotionsCalendarComponent } from './componentes/emotions-calendar/emotions-calendar.component';
+import { ModalMentalStatusDescriptionComponent } from './componentes/modals-components/modal-mental-status-description/modal-mental-status-description.component';
+import { MentalStatusCalendarComponent } from './componentes/mental-status-calendar/mental-status-calendar.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { EmotionsCalendarComponent } from './componentes/emotions-calendar/emoti
     MoodStatusComponent,
     EmotionStatusComponent,
     ContextStatusComponent,
-    EmotionsCalendarComponent,
+    MentalStatusCalendarComponent,
+    ModalMentalStatusDescriptionComponent,
   ],
   imports: [
     CommonModule,
@@ -77,7 +79,8 @@ import { EmotionsCalendarComponent } from './componentes/emotions-calendar/emoti
     FormIspsStepTwoComponent,
     FormIspsStepThreeComponent,
     FormIspsStepFourComponent,
-    EmotionsCalendarComponent,
+    MentalStatusCalendarComponent,
+    ModalMentalStatusDescriptionComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -5,12 +5,9 @@
       <ion-label class="title">Mapa de emociones</ion-label>
     </div>
     <div class="body">
-      @if (!loading) {
+      @if (true) {
         <!-- *CALENDARIO DE EMOCIONES -->
-        <app-emotions-calendar 
-          [emotionMapData]="moodDayList" 
-          (changeMonth)="refreshEmotionalMap($event)">
-        </app-emotions-calendar>
+        <app-mental-status-calendar [emotionMapData]="moodDayList"></app-mental-status-calendar>
       } @else {
         <div class="loading-spinner">
           <ion-spinner name="crescent"></ion-spinner>

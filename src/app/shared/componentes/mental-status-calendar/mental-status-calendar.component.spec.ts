@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { EmotionsCalendarComponent } from './emotions-calendar.component';
+import { MentalStatusCalendarComponent } from './mental-status-calendar.component';
 
-describe('EmotionsCalendarComponent', () => {
-  let component: EmotionsCalendarComponent;
-  let fixture: ComponentFixture<EmotionsCalendarComponent>;
+describe('MentalStatusCalendarComponent', () => {
+  let component: MentalStatusCalendarComponent;
+  let fixture: ComponentFixture<MentalStatusCalendarComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EmotionsCalendarComponent ],
+      declarations: [ MentalStatusCalendarComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EmotionsCalendarComponent);
+    fixture = TestBed.createComponent(MentalStatusCalendarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

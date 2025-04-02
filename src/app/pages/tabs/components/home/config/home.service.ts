@@ -47,8 +47,8 @@ export class HomeService {
       //   return this.http.delete(endpoint);
       case 'emotional':
         return this.mentalStatusService.getMentalStatus(this.user.id);
-      case 'emotion_map':
-        return this.mentalStatusService.getEmotionalMap( this.user.id, this.currentYear, this.currentMonth);
+      // case 'emotion_map':
+      //   return this.mentalStatusService.getEmotionalMap( this.user.id, this.currentYear, this.currentMonth);
       // case 'profile':
       //   return this.http.delete(endpoint);
       // case 'ausentismo':
