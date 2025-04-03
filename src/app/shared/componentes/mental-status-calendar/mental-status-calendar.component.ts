@@ -4,22 +4,23 @@ import { MentalStatusService } from 'src/app/services/mental-status.service';
 import { UserService } from 'src/app/services/user.service';
 import { ModalMentalStatusDescriptionComponent } from '../modals-components/modal-mental-status-description/modal-mental-status-description.component';
 import { ModalController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/storage.service';
+import { UserResponseDTO } from 'src/app/core/interfaces/user';
 
 type CalendarDay = Date | null;
 
 @Component({
-    selector: 'app-mental-status-calendar',
-    templateUrl: './mental-status-calendar.component.html',
-    styleUrls: ['./mental-status-calendar.component.scss'],
+  selector: 'app-mental-status-calendar',
+  templateUrl: './mental-status-calendar.component.html',
+  styleUrls: ['./mental-status-calendar.component.scss'],
 })
 export class MentalStatusCalendarComponent implements OnInit {
   mentalStatusService = inject(MentalStatusService);
-  userService = inject(UserService);
+  storageService = inject(StorageService);
   modalCtrl = inject(ModalController);
 
   @Input() emotionMapData: IMoodDayList[] = [];
-  private cachedMonths: { [key: string]: IMoodDayList[] } = {};
-  private _userInfo = this.userService.getUser();
+  private user: UserResponseDTO | null = null
   currentDate: Date = new Date();
   currentYear: number;
   currentMonth: number;
@@ -41,7 +42,8 @@ export class MentalStatusCalendarComponent implements OnInit {
     this.refreshEmotionalMap();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+     this.user = await this.storageService.getSessionStorage('user');
     this.refreshEmotionalMap();
   }
 
@@ -52,28 +54,32 @@ export class MentalStatusCalendarComponent implements OnInit {
       this.currentYear === today.getFullYear() &&
       this.currentMonth === today.getMonth();
     this.loading = true;
-
-    // Si no es el mes actual y ya está cacheado, usar los datos
-    if (!isCurrentMonth && this.cachedMonths[key]) {
-      this.emotionMapData = this.cachedMonths[key];
-      this.generateCalendar();
-      this.loading = false;
+    if (!isCurrentMonth) {
+      const cachedData = this.mentalStatusService.getCachedMonth(key);
+      if (cachedData) {
+        console.log(`Usando caché para: ${key}`);
+        this.emotionMapData = cachedData;
+        this.generateCalendar();
+        this.loading = false;
+        return;
+      }
+    }
+    debugger
+    if (!this.user) {
+      console.error('No hay usuario en sesión');
       return;
     }
-
-    // Si es el mes actual o no hay caché, hacer el GET
     this.mentalStatusService
       .getEmotionalMap(
-        this._userInfo.id,
+        this.user.id!,
         this.currentYear,
         this.currentMonth + 1
       )
       .subscribe({
         next: (res: any) => {
           this.emotionMapData = res?.moodDayList ? res.moodDayList : [];
-          // Guardar en caché si NO es el mes actual
           if (!isCurrentMonth) {
-            this.cachedMonths[key] = this.emotionMapData;
+            this.mentalStatusService.setCachedMonth(key, this.emotionMapData);
           }
         },
         error: (err) => {
@@ -171,7 +177,7 @@ export class MentalStatusCalendarComponent implements OnInit {
       if (emotionalDay?.moodId) {
         const modal = await this.modalCtrl.create({
           component: ModalMentalStatusDescriptionComponent,
-          componentProps: { mentalStatusData: emotionalDay },
+          componentProps: { modDayData: emotionalDay },
           cssClass: 'modal-mental-status',
           backdropDismiss: false,
           showBackdrop: true,

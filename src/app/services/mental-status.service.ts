@@ -4,7 +4,7 @@ import { ModalMentalStatusComponent } from '../shared/componentes/modals-compone
 import { environment } from 'src/environments/environment';
 import { HttpClientService } from '../core/services/http-client.service';
 import { Observable, Subject } from 'rxjs';
-import { IMentalStatusResponse } from '../shared/interface/mental-status.interfaces';
+import { IMentalStatusResponse, IMoodDayList } from '../shared/interface/mental-status.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +14,27 @@ export class MentalStatusService {
   httpClientService = inject(HttpClientService);
 
   private refreshToCurrentMonthSubject = new Subject<void>();
+  private cachedMonths: { [key: string]: IMoodDayList[] } = {};
   refreshToCurrentMonth$ = this.refreshToCurrentMonthSubject.asObservable();
 
   constructor() {}
+
+
+  // Exponer el caché para lectura desde el componente
+  getCachedMonth(key: string): IMoodDayList[] | undefined {
+    return this.cachedMonths[key];
+  }
+
+  // Guardar datos en caché
+  setCachedMonth(key: string, data: IMoodDayList[]) {
+    this.cachedMonths[key] = data;
+  }
+
+  // Limpiar todo el caché (por ejemplo, al cambiar de usuario)
+  clearEmotionalCache() {
+    this.cachedMonths = {};
+    console.log('Caché de meses emocionales limpiado');
+  }
 
   triggerRefreshToCurrentMonth() {
     this.refreshToCurrentMonthSubject.next();
@@ -58,17 +76,12 @@ export class MentalStatusService {
     return data.postMentalStatus;
   }
 
-  getMentalSatudByUserMoodRecordId(moodRecordId: number): Observable<any> {
-    const url: string = `${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/${moodRecordId}`;
+  getMentalSatudByUserMoodRecordId(
+    moodRecordId: number,
+    description: string
+  ): Observable<any> {
+    console.log(description);
+    const url: string = `${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/getByUserMoodRecordId?userMoodRecordId=${moodRecordId}&description=${description}`;
     return this.httpClientService.get(url);
-  }
-
-  postMentalSatudByUserMoodRecordId(moodRecordId: number): Observable<any> {
-    const payload = {
-      id: moodRecordId, //id del userMoodRecordId
-      description: null, // descripcion que devuelve el mapa
-    };
-    const url: string = `${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/${moodRecordId}`;
-    return this.httpClientService.post(url, payload);
   }
 }

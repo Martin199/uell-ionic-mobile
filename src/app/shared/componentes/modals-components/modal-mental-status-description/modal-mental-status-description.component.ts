@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
-import { IMoodDayList } from 'src/app/shared/interface/mental-status.interfaces';
+import { IMentalStatusResponse, IMoodDayList } from 'src/app/shared/interface/mental-status.interfaces';
 
 @Component({
   selector: 'app-modal-mental-status-description',
@@ -10,7 +10,8 @@ import { IMoodDayList } from 'src/app/shared/interface/mental-status.interfaces'
 export class ModalMentalStatusDescriptionComponent implements OnInit {
   mentalStatusService = inject(MentalStatusService);
 
-  @Input() mentalStatusData!: IMoodDayList;
+  @Input() modDayData!: IMoodDayList;
+  mentalStatusData!: IMentalStatusResponse;
   descriptionCurrent: string = 'Muy mal';
   currentImage: string = 'assets/imgs/mental-status/mental-status-4.svg';
   gradientStyle: string = this.getGradient(1);
@@ -18,22 +19,26 @@ export class ModalMentalStatusDescriptionComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    if (this.mentalStatusData.userMoodRecordId) {
+    if (this.modDayData.userMoodRecordId && this.modDayData.description) {
       this.getMentalSatudByUserMoodRecordId(
-        this.mentalStatusData.userMoodRecordId
+        this.modDayData.userMoodRecordId,
+        this.modDayData.description
       );
     }
-    if (this.mentalStatusData) {
-      this.setImage(this.mentalStatusData);
+    if (this.modDayData) {
+      this.setImage(this.modDayData);
     }
   }
 
-  getMentalSatudByUserMoodRecordId(userMoodRecordId: number) {
+  getMentalSatudByUserMoodRecordId(
+    userMoodRecordId: number,
+    description: string
+  ) {
     this.mentalStatusService
-      .getMentalSatudByUserMoodRecordId(userMoodRecordId)
+      .getMentalSatudByUserMoodRecordId(userMoodRecordId, description)
       .subscribe({
         next: (res: any) => {
-          console.log(res);
+          this.mentalStatusData = res;
         },
         error: (err) => {
           console.error(err);
@@ -45,21 +50,21 @@ export class ModalMentalStatusDescriptionComponent implements OnInit {
   setImage(mentalStatus: IMoodDayList) {
     this.gradientStyle = this.getGradient(mentalStatus.moodId!);
     this.currentImage =
-    mentalStatus.moodId === 1
-    ? 'assets/imgs/mental-status/mental-status-1.svg'
-    : mentalStatus.moodId === 2
-    ? 'assets/imgs/mental-status/mental-status-2.svg'
-    : mentalStatus.moodId === 3
-    ? 'assets/imgs/mental-status/mental-status-3.svg'
-    : mentalStatus.moodId === 4
-    ? 'assets/imgs/mental-status/mental-status-4.svg'
-    : mentalStatus.moodId === 5
-    ? 'assets/imgs/mental-status/mental-status-5.svg'
-    : mentalStatus.moodId === 6
-    ? 'assets/imgs/mental-status/mental-status-6.svg'
-    : mentalStatus.moodId === 7
-    ? 'assets/imgs/mental-status/mental-status-7.svg'
-    : '';
+      mentalStatus.moodId === 1
+        ? 'assets/imgs/mental-status/mental-status-1.svg'
+        : mentalStatus.moodId === 2
+        ? 'assets/imgs/mental-status/mental-status-2.svg'
+        : mentalStatus.moodId === 3
+        ? 'assets/imgs/mental-status/mental-status-3.svg'
+        : mentalStatus.moodId === 4
+        ? 'assets/imgs/mental-status/mental-status-4.svg'
+        : mentalStatus.moodId === 5
+        ? 'assets/imgs/mental-status/mental-status-5.svg'
+        : mentalStatus.moodId === 6
+        ? 'assets/imgs/mental-status/mental-status-6.svg'
+        : mentalStatus.moodId === 7
+        ? 'assets/imgs/mental-status/mental-status-7.svg'
+        : '';
     this.descriptionCurrent = mentalStatus.description
       ? mentalStatus.description
       : '';

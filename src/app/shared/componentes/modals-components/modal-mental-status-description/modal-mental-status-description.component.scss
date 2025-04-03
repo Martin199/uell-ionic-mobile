@@ -9,7 +9,7 @@ ion-content {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 20px;
 }
 .gradient-container {
@@ -34,7 +34,7 @@ ion-content {
 .mental-status {
   margin: auto;
   padding-top: 2.5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 2rem;
   color: $neutral-grey-dark;
   text-align: center;
   font-family: "Red Hat Display";
@@ -42,4 +42,58 @@ ion-content {
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+}
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid $primary-uell;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 20px;
+  background: #fff;
+  .title {
+    width: 100%;
+    text-align: center;
+    margin: 0px;
+    font-family: 'Red Hat Display';
+    color: #383E52;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: 0%;
+  }
+  .box {
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    border: 1px solid $primary-uell;
+    background: $primary-uell-selected;
+    transition: background-color 0.3s ease;
+    p {
+      margin: 0px;
+      color: $neutral-grey-dark;
+      font-family: "Red Hat Display";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+    }
+  }
+}
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  ion-spinner {
+    width: 48px;
+    height: 48px;
+    color: $primary-uell;
+  }
 }
