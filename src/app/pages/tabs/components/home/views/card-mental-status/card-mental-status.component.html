@@ -1,0 +1,29 @@
+<ion-card>
+  <ion-card-content class="ion-no-padding">
+    <div class="header">
+      <ion-img src="assets/highlights/icon-mental-status.svg"></ion-img> 
+      <ion-label class="title">Emociones</ion-label>
+    </div>
+    <div class="body">
+      @if (disabledMentalStatusEdit()) {
+        <ion-label class="title">¿Cómo te sientes hoy? </ion-label>
+        <div class="icon-container">
+          <ion-img class="icon" src="assets/highlights/mental-status.svg"></ion-img> 
+          <ion-img class="stars" src="assets/highlights/stars.svg"></ion-img> 
+        </div>
+      } @else {
+        <ion-label class="title">¿Tu día mejoró? </ion-label>
+      }
+    </div>
+    <div class="footer">
+      @if (disabledMentalStatusEdit()) {
+        <ion-button class="btn-clear" fill="clear" [disabled]="disabledBtn()" (click)="openModalMentalStatus()">Registrar emoción</ion-button>
+      } @else {
+        <div class="btn-flex">
+          <ion-button class="btn-outline" fill="outline" shape="round" (click)="openModalMentalStatus()">Sí</ion-button>
+          <ion-button class="btn-outline" fill="outline" shape="round" (click)="openModalMentalStatus()">No</ion-button>
+        </div>
+      }
+    </div>
+  </ion-card-content>
+</ion-card>

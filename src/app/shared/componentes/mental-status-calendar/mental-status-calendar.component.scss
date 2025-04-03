@@ -1,0 +1,88 @@
+@import 'src/theme/colors';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  .title {
+    color: $neutral-grey-medium;
+    text-align: center;
+    font-family: 'Inter';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18.19px;
+    letter-spacing: 0.013px;
+  }
+}
+.calendar-container {
+  padding: 0 10px;
+  .weekdays {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    font-weight: bold;
+    border-bottom: 1px solid #DADFE9;
+    .weekday {
+      flex: 1;
+      text-align: center;
+    }
+  }
+}
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+  .calendar-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  .calendar-day {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    position: relative;
+    
+    &.current-month {
+      padding: 0.75rem 1.25rem;
+      // Color base cuando no hay dato emocional
+      background-color: rgba(#f0f0f0, 0.3);
+      color: #333;
+      
+      &:hover {
+        transform: scale(1.05);
+        z-index: 1;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      }
+      
+      // Indicador de que tiene dato emocional
+      &[style*="background"] {
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+      }
+    }
+    
+    &.other-month {
+      background-color: transparent;
+      color: #ccc;
+    }
+  }
+}
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  ion-spinner {
+    width: 48px;
+    height: 48px;
+    color: $primary-uell;
+  }
+}

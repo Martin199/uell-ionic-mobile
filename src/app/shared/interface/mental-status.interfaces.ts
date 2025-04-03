@@ -1,4 +1,4 @@
-export interface IMentalStatus {
+export interface IMentalStatusResponse {
     context: IContextStatus[];
     created: string | null;
     emotion: IEmotionStatus[];
@@ -22,6 +22,13 @@ export interface IMentalStatusPayload {
     emotionIdList: number[];
     contextIdList: number[];
     moodId: number;
+}
+export interface IMoodDayList {
+  day: number;
+  emotionalColor: string;
+  description?: string;
+  userMoodRecordId?: number;
+  moodId?: number;
 }
 
 export interface Emoji {
