@@ -65,7 +65,7 @@ export class ModalMentalStatusComponent {
 
   onRangeChange(value: any) {
     if (this.currentStep() != 1) {
-      this.gradientStyle = '#F8F8F8';
+      this.gradientStyle = '#fff';
     } else {
       this.gradientStyle = this.getGradient(value.id);
       this.getEmotionIdFilter(value.id);
@@ -122,10 +122,10 @@ export class ModalMentalStatusComponent {
     if (this.currentStep() === 1) {
       return '¿Cómo te sientes hoy?';
     } else if (this.currentStep() === 2) {
-      this.gradientStyle = '#F8F8F8';
+      this.gradientStyle = '#fff';
       return '¿Qué emociones sientes en este momento?';
     } else if (this.currentStep() === 3) {
-      this.gradientStyle = '#F8F8F8';
+      this.gradientStyle = '#fff';
       return '¿Qué factores han influido en cómo te sientes hoy?';
     } else {
       return '';
