@@ -19,7 +19,7 @@ export class MentalStatusCalendarComponent implements OnInit {
   modalCtrl = inject(ModalController);
 
   @Input() emotionMapData: IMoodDayList[] = [];
-  private user: UserResponseDTO | null = null
+  private user: UserResponseDTO | null = null;
   currentDate: Date = new Date();
   currentYear: number;
   currentMonth: number;
@@ -62,17 +62,13 @@ export class MentalStatusCalendarComponent implements OnInit {
         return;
       }
     }
-     this.user = await this.storageService.getSessionStorage('user');
+    this.user = await this.storageService.getSessionStorage('user');
     if (!this.user) {
       console.error('No hay usuario en sesión');
       return;
     }
     this.mentalStatusService
-      .getEmotionalMap(
-        this.user.id!,
-        this.currentYear,
-        this.currentMonth + 1
-      )
+      .getEmotionalMap(this.user.id!, this.currentYear, this.currentMonth + 1)
       .subscribe({
         next: (res: any) => {
           this.emotionMapData = res?.moodDayList ? res.moodDayList : [];
