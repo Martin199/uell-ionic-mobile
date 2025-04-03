@@ -37,7 +37,7 @@ export class ModalMentalStatusDescriptionComponent implements OnInit {
     this.mentalStatusService
       .getMentalSatudByUserMoodRecordId(userMoodRecordId, description)
       .subscribe({
-        next: (res: any) => {
+        next: (res: IMentalStatusResponse) => {
           this.mentalStatusData = res;
         },
         error: (err) => {

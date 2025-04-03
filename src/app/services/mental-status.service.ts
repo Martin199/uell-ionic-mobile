@@ -4,7 +4,7 @@ import { ModalMentalStatusComponent } from '../shared/componentes/modals-compone
 import { environment } from 'src/environments/environment';
 import { HttpClientService } from '../core/services/http-client.service';
 import { Observable, Subject } from 'rxjs';
-import { IMentalStatusResponse, IMoodDayList } from '../shared/interface/mental-status.interfaces';
+import { IEmotionalMapResponse, IMentalStatusResponse, IMoodDayList } from '../shared/interface/mental-status.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -19,21 +19,16 @@ export class MentalStatusService {
 
   constructor() {}
 
-
-  // Exponer el caché para lectura desde el componente
   getCachedMonth(key: string): IMoodDayList[] | undefined {
     return this.cachedMonths[key];
   }
 
-  // Guardar datos en caché
   setCachedMonth(key: string, data: IMoodDayList[]) {
     this.cachedMonths[key] = data;
   }
 
-  // Limpiar todo el caché (por ejemplo, al cambiar de usuario)
   clearEmotionalCache() {
     this.cachedMonths = {};
-    console.log('Caché de meses emocionales limpiado');
   }
 
   triggerRefreshToCurrentMonth() {
@@ -56,8 +51,8 @@ export class MentalStatusService {
     userId: number,
     year: number,
     month: number
-  ): Observable<any> {
-    return this.httpClientService.get<any>(
+  ): Observable<IEmotionalMapResponse> {
+    return this.httpClientService.get<IEmotionalMapResponse>(
       `${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/${userId}/emotional-map?year=${year}&month=${month}`
     );
   }
@@ -79,9 +74,9 @@ export class MentalStatusService {
   getMentalSatudByUserMoodRecordId(
     moodRecordId: number,
     description: string
-  ): Observable<any> {
+  ): Observable<IMentalStatusResponse> {
     console.log(description);
     const url: string = `${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/getByUserMoodRecordId?userMoodRecordId=${moodRecordId}&description=${description}`;
-    return this.httpClientService.get(url);
+    return this.httpClientService.get<IMentalStatusResponse>(url);
   }
 }

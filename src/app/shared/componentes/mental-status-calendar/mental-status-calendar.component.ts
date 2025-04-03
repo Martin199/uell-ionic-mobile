@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IMoodDayList } from '../../interface/mental-status.interfaces';
+import { IEmotionalMapResponse, IMoodDayList } from '../../interface/mental-status.interfaces';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
 import { ModalMentalStatusDescriptionComponent } from '../modals-components/modal-mental-status-description/modal-mental-status-description.component';
 import { ModalController } from '@ionic/angular';
@@ -55,7 +55,6 @@ export class MentalStatusCalendarComponent implements OnInit {
     if (!isCurrentMonth) {
       const cachedData = this.mentalStatusService.getCachedMonth(key);
       if (cachedData) {
-        console.log(`Usando caché para: ${key}`);
         this.emotionMapData = cachedData;
         this.generateCalendar();
         this.loading = false;
@@ -70,7 +69,7 @@ export class MentalStatusCalendarComponent implements OnInit {
     this.mentalStatusService
       .getEmotionalMap(this.user.id!, this.currentYear, this.currentMonth + 1)
       .subscribe({
-        next: (res: any) => {
+        next: (res: IEmotionalMapResponse) => {
           this.emotionMapData = res?.moodDayList ? res.moodDayList : [];
           if (!isCurrentMonth) {
             this.mentalStatusService.setCachedMonth(key, this.emotionMapData);

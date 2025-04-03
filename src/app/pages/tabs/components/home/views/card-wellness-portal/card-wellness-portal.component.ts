@@ -36,7 +36,6 @@ export class CardWellnessPortalComponent implements OnInit  {
   }
 
   getlastWellnessPost() {
-    console.log(this.wellnessData, 'wellnesa')
     if (this.wellnessData && this.wellnessData?.title_image?.url) {
       this.userService.downloadFile(this.wellnessData.title_image.url).subscribe((url: string) => {
         this.imgUrl = url;

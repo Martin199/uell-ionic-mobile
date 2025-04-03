@@ -1,6 +1,7 @@
 import { Component, inject, input, OnInit, output, signal } from '@angular/core';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
 import { UserService } from 'src/app/services/user.service';
+import { IMentalStatusResponse, IMoodsStatus } from 'src/app/shared/interface/mental-status.interfaces';
 
 @Component({
   selector: 'app-card-mental-status',
@@ -11,7 +12,7 @@ export class CardMentalStatusComponent implements OnInit {
   mentalStatusService = inject(MentalStatusService);
   userService = inject(UserService);
 
-  emotionalData = input<any[]>([]);
+  emotionalData = input<IMentalStatusResponse[]>([]);
   mentalStatusData: any[] = [];
   private _userInfo = this.userService.getUser();
   disabledBtn = signal<boolean>(true);
@@ -28,7 +29,7 @@ export class CardMentalStatusComponent implements OnInit {
     if (this.mentalStatusData.length === 0) {
       this.disabledBtn.set(false);
     } else if (this.mentalStatusData.length === 1) {
-      const moods = this.mentalStatusData[0].moods;
+      const moods: IMoodsStatus = this.mentalStatusData[0].moods;
       if (moods.id && (moods.id === 1 || moods.id === 2 || moods.id === 3)) {
         this.disabledMentalStatusEdit.set(false);
       } else {
