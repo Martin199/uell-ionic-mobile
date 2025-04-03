@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">uell-ionic-mobile</string>
-    <string name="title_activity_main">uell-ionic-mobile</string>
+    <string name="app_name">Uell</string>
+    <string name="title_activity_main">Uell</string>
     <string name="package_name">com.uell.ionic.mobile</string>
     <string name="custom_url_scheme">com.uell.ionic.mobile</string>
 </resources>
