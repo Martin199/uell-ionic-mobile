@@ -1,7 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { IMoodDayList } from '../../interface/mental-status.interfaces';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
-import { UserService } from 'src/app/services/user.service';
 import { ModalMentalStatusDescriptionComponent } from '../modals-components/modal-mental-status-description/modal-mental-status-description.component';
 import { ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
@@ -42,12 +41,11 @@ export class MentalStatusCalendarComponent implements OnInit {
     this.refreshEmotionalMap();
   }
 
-  async ngOnInit() {
-     this.user = await this.storageService.getSessionStorage('user');
+  ngOnInit() {
     this.refreshEmotionalMap();
   }
 
-  refreshEmotionalMap() {
+  async refreshEmotionalMap() {
     const key = `${this.currentYear}-${this.currentMonth + 1}`;
     const today = new Date();
     const isCurrentMonth =
@@ -64,7 +62,7 @@ export class MentalStatusCalendarComponent implements OnInit {
         return;
       }
     }
-    debugger
+     this.user = await this.storageService.getSessionStorage('user');
     if (!this.user) {
       console.error('No hay usuario en sesión');
       return;
