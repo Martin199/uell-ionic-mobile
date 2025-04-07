@@ -1,5 +1,11 @@
 <app-header></app-header>
 <ion-content [fullscreen]="true">
+      @if(emotionalModule){
+            <app-card-mental-status [emotionalData]="emotionalData"></app-card-mental-status>
+      }
+      @if (emotionalModule) {
+            <app-card-emotions-map [emotionMapData]="emotionMapData"></app-card-emotions-map>
+      }
       @if(ispsData){
             <app-card-psicosocial [ispsScore]="ispsData"></app-card-psicosocial>
       }

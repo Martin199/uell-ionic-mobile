@@ -1,0 +1,51 @@
+<div class="header">
+  <ion-buttons slot="start">
+    <ion-button (click)="previousMonth()">
+      <ion-icon name="chevron-back"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title class="title">
+    {{ getMonthName() }} {{ currentYear }}
+  </ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="nextMonth()">
+      <ion-icon name="chevron-forward"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</div>
+
+<div class="calendar-container">
+  <div class="weekdays">
+    <div class="weekday">D</div>
+    <div class="weekday">L</div>
+    <div class="weekday">M</div>
+    <div class="weekday">M</div>
+    <div class="weekday">J</div>
+    <div class="weekday">V</div>
+    <div class="weekday">S</div>
+  </div>
+  @if (!loading) {
+    <div class="calendar-grid">
+      @for (week of weeks; track $index) {
+        <div class="calendar-row">
+          @for (day of week; track $index) {
+            <div 
+              class="calendar-day"
+              [class.current-month]="isCurrentMonth(day)"
+              [class.other-month]="!isCurrentMonth(day)"
+              [style.background]="getEmotionalColor(day) || ''"
+              [title]="getEmotionalDescription(day) || ''"
+              (click)="onDayClick(day)"
+            >
+              {{ day !== null ? day.getDate() : '' }}
+            </div>
+          }
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="loading-spinner">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  }
+</div>

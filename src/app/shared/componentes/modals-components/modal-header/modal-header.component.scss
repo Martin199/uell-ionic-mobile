@@ -11,6 +11,9 @@ ion-header{
   font-style: normal;
   font-weight: 700;
   line-height: 130%;
+  word-break: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 .sub-title {
   color: var(--Neutral-GreyMedium, #505A78);

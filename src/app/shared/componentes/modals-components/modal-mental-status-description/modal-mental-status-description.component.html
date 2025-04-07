@@ -1,0 +1,38 @@
+<app-modal-header [closeModal]="true"></app-modal-header>
+<ion-content>
+  <div class="main-container">
+    <div>
+      <div class="image-container">
+        <img [src]="currentImage" alt="Dynamic Image">
+      </div>
+      <p class="mental-status">{{ descriptionCurrent }}</p>
+    </div>
+    <div class="gradient-container" [ngStyle]="{'background': gradientStyle}"></div>
+    @if (mentalStatusData) {
+      @if (mentalStatusData.emotion.length > 0) {
+        <div class="box-container">
+          <p class="title">Emociones</p>
+          @for (item of mentalStatusData.emotion; track $index) {
+              <div class="box">
+                <p>{{ item.description }}</p>
+              </div>
+          }
+        </div>
+      }
+      @if (mentalStatusData.context.length > 0) {
+        <div class="box-container">
+          <p class="title">Contextos</p>
+          @for (item of mentalStatusData.context; track $index) {
+              <div class="box">
+                <p>{{ item.description }}</p>
+              </div>
+          }
+        </div>
+      }
+    } @else {
+      <div class="loading-spinner">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    }
+  </div>
+</ion-content>
