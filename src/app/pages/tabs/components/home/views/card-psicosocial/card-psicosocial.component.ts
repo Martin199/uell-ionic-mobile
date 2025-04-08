@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ISPSScore, ManagerResponse } from 'src/app/pages/tabs/interfaces/isps';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { ISPSService } from 'src/app/services/isps.service';
@@ -10,18 +10,19 @@ import { ModalDescriptionComponent } from 'src/app/shared/componentes/modal-desc
 import { ModalController } from '@ionic/angular';
 import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
 import { UtilsService } from 'src/app/services/utils.service';
+import { TenantParameters } from '../../../../../../core/interfaces/tenantParameters';
 
 @Component({
   selector: 'app-card-psicosocial',
   templateUrl: './card-psicosocial.component.html',
   styleUrls: ['./card-psicosocial.component.scss'],
 })
-export class CardPsicosocialComponent  implements OnInit {
+export class CardPsicosocialComponent  implements OnInit, OnChanges {
 
   @Input() ispsScore: ISPSScore = {} as ISPSScore;
   tenantParameters : any;
   user: User= {} as User;
-  score: boolean = false;
+  score: boolean | null= false;
   hasEditISPS: boolean = false;
   porcentajeProgressBar: number = 0;
   totalProgressBar: number = 0;
@@ -29,6 +30,7 @@ export class CardPsicosocialComponent  implements OnInit {
   managerData: ManagerResponse = {} as ManagerResponse;
   isColombia: boolean = false;
   urlImg: string = 'assets/highlights/person.svg';
+  viewBtnTurnito: boolean = false;
 
 
   ispsService = inject (ISPSService);
@@ -39,11 +41,35 @@ export class CardPsicosocialComponent  implements OnInit {
 
   constructor() { 
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
+
+    console.log(this.tenantParameters, 'tenantParameters')
+    
+    if(this.tenantParameters.tenantParameters.gestorWillContactYou){
+      const gestorWillContactYou = this.tenantParameters.tenantParameters.gestorWillContactYou;
+      gestorWillContactYou === 'true' ? localStorage.setItem('gestorWillContactYou', 'true') :
+      gestorWillContactYou === 'false' ? localStorage.setItem('gestorWillContactYou', 'false') :
+      this.viewBtnTurnito = gestorWillContactYou;
+    
+      localStorage.setItem('gestorWillContactYou', 'null');
+    } else {
+      // this.psychosocialService.gestorWillContactYouSubject$.next(true)
+      this.viewBtnTurnito = true;
+      localStorage.setItem('gestorWillContactYou', 'null');
+    }
+
    }
 
   async ngOnInit() {
     this.user = await this.storageService.getSessionStorage<User>('user') !;
-    this.getISPSScore();
+    // this.getISPSScore();
+    // this.viewBtnTurnito = this.psychosocialService.getGestorWillContactYou()
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ispsScore'] && changes['ispsScore'].currentValue) {
+      this.getISPSScore();
+    }
   }
   
   getISPSScore() {
@@ -121,4 +147,8 @@ export class CardPsicosocialComponent  implements OnInit {
     }
   }
 
+  openTurnito() {
+    this.ispsService.postSelfAppointmentManaggerTurnito(this.user.id);
+    window.open('https://turnito.app/p/uell-bienestar', '_blank');
+  }
 }

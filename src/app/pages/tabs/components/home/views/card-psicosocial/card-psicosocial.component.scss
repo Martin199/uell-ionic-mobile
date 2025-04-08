@@ -211,3 +211,18 @@ ion-card{
 .fs-20 {
   font-size: 20px;
 }
+
+.turnito{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.turnito-button{
+  border-radius: 8px;
+  background-color: #1da4b1;
+  overflow: hidden;
+  .turnito-label{
+    color: white;
+  }
+}

@@ -30,4 +30,8 @@ export class ISPSService {
   public patchIPSContent(idUser: number, data:any): Observable<any>{
     return this.httpClientService.patch(`${environment.apiBaseUrl}${environment.apiVersion}/psico-health/${idUser}`, data);
   }
+
+  postSelfAppointmentManaggerTurnito(idUser: number) {
+    return this.httpClientService.post(`${environment.apiBaseUrl}${environment.apiVersion}/psico-health/${idUser}`, {});
+  }
 }

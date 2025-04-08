@@ -55,7 +55,7 @@ export class HomePage implements OnInit {
         const ispsModule = this.moduleResults.find(
           (module) => module.moduleName === 'isps'
         );
-        this.ispsData = ispsModule?.body || null;
+        this.ispsData = ispsModule?.body || 0;
 
         const wellnessModule = results.find(
           (module) => module.moduleName === 'wellness'

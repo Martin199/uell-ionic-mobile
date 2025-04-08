@@ -12,8 +12,8 @@
 
       <div class="card-rrhh__content-flex-row">
         <div class="isps-description">
-          <app-isps-circle [score]="ispsScore.score || 0"></app-isps-circle>
-          @if(!score && !(ispsScore && ispsScore.score >= 0)){
+          <app-isps-circle [score]="(ispsScore && ispsScore.score) || 0"></app-isps-circle>
+          @if( score === false  ){
             <div class="content-notscore">
               <ion-label class="label-notscore"
                 >Muy pronto podrás completar el cuestionario de salud psicosocial y recibir recomendaciones personalizada para
@@ -72,8 +72,13 @@
         <div class="card-rrhh__content-flex-row isps-results ion-margin-top ion-align-items-center">
           <ion-progress-bar [value]="totalProgressBar" style="--progress-background: #1da4b1;"></ion-progress-bar>
           <div class="session">
-            <ion-label color="dark" class="fw-700 fs-20">{{ ispsScore.remainingSessions || 0 }}</ion-label>
-            <ion-label class="lower-fw">/{{ ispsScore.totalSessions || 0 }} </ion-label>
+            @if(ispsScore){
+              <ion-label color="dark" class="fw-700 fs-20">{{ ispsScore.remainingSessions || 0 }}</ion-label>
+              <ion-label class="lower-fw">/{{ ispsScore.totalSessions || 0 }} </ion-label>
+            } @else {
+              <ion-label color="dark" class="fw-700 fs-20">0</ion-label>
+              <ion-label class="lower-fw">/0</ion-label>
+            }
             <ion-label class="lower-fw fp">
               {{tenantParameters?.tenantParameters.localization['home-cards']['psychosocial-card'].sessions}}
             </ion-label>
@@ -105,9 +110,21 @@
         </div>
       </div>
 
+      @if(viewBtnTurnito){
+        <div class="turnito">
+          <p>📅 Agenda tu turno hoy mismo 👉</p>
+          <ion-button (click)="openTurnito()" class="turnito-button">
+            <ion-label>
+              <p class="turnito-label">Sacar Turno</p>
+            </ion-label>
+          </ion-button>
+        </div>
+      }
+
+
       <div class="card-rrhh__cont-button ion-margin-top">
         <ion-button [disabled]="hasEditISPS"  class="card-rrhh__button" (click)="goIsps()" expand="block" fill="clear">
-          @if(ispsScore && ispsScore.score === null){
+          @if(score === false ){
             <ion-label color="tertiary" class="card-rrhh__button-label ion-text-wrap" color="tertiary">
               Quiero evaluar mi Bienestar
             </ion-label>
