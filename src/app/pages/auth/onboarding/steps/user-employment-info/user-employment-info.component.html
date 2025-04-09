@@ -11,12 +11,15 @@
         </ion-label>
       </ion-item>
 
-      <ion-item lines="none">
-        <ion-label>
-          <strong>Segmentacion:</strong>
-          <p>{{ user.segmentationUnit.segDescription | titlecase }}</p>
-        </ion-label>
-      </ion-item>
+      @if (user.segmentationUnit && user.segmentationUnit.segDescription )  {
+        <ion-item lines="none">
+          <ion-label>
+            <strong>Segmentacion:</strong>
+            <p>{{ user.segmentationUnit.segDescription | titlecase }}</p>
+          </ion-label>
+        </ion-item>
+      }
+      
 
       <ion-item lines="none">
         <ion-label>
