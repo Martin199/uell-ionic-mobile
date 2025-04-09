@@ -62,6 +62,11 @@ export class AuthPage {
     try {
       const result = await this.cognitoService.signIn(cuil as string, password as string);
       if (result) {
+        if (result.type === 'passwordChange') {
+          this.utilsService.router.navigate(['auth/create-new-password']);
+          loading.dismiss();
+          return;
+        }
         this.storageService.saveToken();
         this.userService.getMe().subscribe((user: UserResponseDTO) => {
           this.userService.setUser(user);

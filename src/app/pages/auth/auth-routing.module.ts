@@ -27,10 +27,15 @@ const routes: Routes = [
   {
     path: 'term-and-conditions',
     loadChildren: () => import('./term-and-conditions/term-and-conditions.module').then( m => m.TermAndConditionsPageModule)
-  },  {
+  },
+  {
     path: 'onboarding',
     loadChildren: () => import('./onboarding/onboarding.module').then( m => m.OnboardingPageModule)
   },
+  {
+    path: 'create-new-password',
+    loadChildren: () => import('./create-password/create-password.module').then( m => m.CreatePasswordModule)
+  }
 
 
 

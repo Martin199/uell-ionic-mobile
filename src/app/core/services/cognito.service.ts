@@ -67,6 +67,7 @@ export class CognitoService {
     };
 
     const cognitoUser = new CognitoUser(userData);
+    this.cognitoUser = cognitoUser;
 
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
@@ -74,6 +75,11 @@ export class CognitoService {
           sessionStorage.setItem('accessToken', result.getIdToken().getJwtToken());
           resolve(result);
         },
+        newPasswordRequired: () => {
+					this.currentUser = this.buildNewPasswordRequired(username, password);
+					resolve(this.currentUser);
+					reject((err: any) => console.log(err));
+				},
         onFailure: (err) => {
           console.error('Login error:', err);
           reject(err);
@@ -81,6 +87,47 @@ export class CognitoService {
       });
     });
   }
+
+  private buildNewPasswordRequired(username: any, password: any): IUser {
+		return {
+			type: 'passwordChange',
+			pass: password,
+			entity: {
+				id: username,
+				name: username
+			}
+		};
+	}
+
+  public getUserFirst(): IUser | null {
+		return this.currentUser;
+	}
+
+  public changeFirstPassword(password: string): Promise<void> {
+		return new Promise((resolve, reject) => {
+			if (this.cognitoUser === null) { 
+				// TODO handle it, it needs to do a login before.
+				return;
+			}
+
+			if (this.currentUser && this.currentUser.entity) {
+				this.cognitoUser.completeNewPasswordChallenge(password, {
+					name: this.currentUser.entity.name
+				}, {
+					onSuccess: () => {
+						this.resetUser();
+						resolve();
+					},
+					onFailure: (err: any) => {
+						reject(err);
+					}
+				});
+			} else {
+				reject('Current user do not set');
+			}
+		});
+	}
+
 
   private getUserPool(): CognitoUserPool {
 		const clientId: string =  this.userPool.getClientId();
