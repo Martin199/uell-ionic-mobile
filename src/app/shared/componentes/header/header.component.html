@@ -4,7 +4,7 @@
       <ion-img src="../../../../assets/logo-header.svg"></ion-img>
       <div class="container">
         <div class="d-flex-column">
-          <ion-label class="name-user">{{ user?.name | titlecase }} {{ user?.surname | titlecase }}</ion-label>
+          <ion-label class="name-user">{{ user()?.name! | titlecase }} {{ user()?.surname! | titlecase }}</ion-label>
           <ion-label class="role">COLABORADOR</ion-label>
         </div>
         <div class="container-avatar">

@@ -11,14 +11,14 @@ export class MoodStatusComponent  implements OnInit {
   moodsInfo = input<IMoodsStatus[]>()
   moodsData = input<IMoodsStatus>()
   rangeChange = output<IMoodsStatus>()
-  selectedValue: number = 0;
-  descriptionCurrent: string = 'Muy mal';
-  currentImage: string = 'assets/imgs/mental-status/mental-status-1.svg';
+  selectedValue: number = 3;
+  descriptionCurrent: string = 'Neutral';
+  currentImage: string = 'assets/imgs/mental-status/mental-status-4.svg';
 
   constructor() { }
 
   ngOnInit() {
-    const rangeCurrent = this.moodsData() ? this.moodsData()?.id! - 1 : 0;
+    const rangeCurrent = this.moodsData() ? this.moodsData()?.id! - 1 : 3;
     this.selectedValue = rangeCurrent;
     this.updateImage(rangeCurrent);
   }
@@ -39,7 +39,7 @@ export class MoodStatusComponent  implements OnInit {
         : mood.id === 5 ? 'assets/imgs/mental-status/mental-status-5.svg'
         : mood.id === 6 ? 'assets/imgs/mental-status/mental-status-6.svg'
         : mood.id === 7 ? 'assets/imgs/mental-status/mental-status-7.svg'
-        : '';
+        : 'assets/imgs/mental-status/mental-status-4.svg';
         this.descriptionCurrent = mood.description;
         this.rangeChange.emit(mood);
     } else {
