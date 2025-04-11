@@ -26,7 +26,6 @@ export class HeaderComponent  implements OnInit {
   constructor() { }
 
   async ngOnInit() {
-    console.log('INICIADO HEADER');
     this.user.set(this.storageService.getSessionStorage('user'));
     await this.loadProfilePicture();
   }

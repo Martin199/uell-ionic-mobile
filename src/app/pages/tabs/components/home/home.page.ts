@@ -28,7 +28,6 @@ export class HomePage implements OnInit {
   mentalStatusService = inject(MentalStatusService);
 
   constructor() {
-    console.log('INICIADO HOME constructor');
     this.tenantParameters =
       this.storageService.getSessionStorage('tenantParameters');
 
@@ -47,7 +46,6 @@ export class HomePage implements OnInit {
   }
 
   async ngOnInit() {
-    console.log('INICIADO HOME');
     this.homeService.callAllMethodsForModule().subscribe({
       next: (results) => {
         this.moduleResults = results;
