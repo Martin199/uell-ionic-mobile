@@ -136,6 +136,9 @@ export class OnboardingPage implements AfterViewInit, OnInit {
           'true'
       ) {
         this.goIsps();
+      } else {
+        await this.postOnboarding();
+        this.utilService.router.navigate(['/tabs/home']);
       }
     }
   }
