@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnDestroy, OnInit } from '@angular/core';
 import { IMoodDayList } from 'src/app/shared/interface/mental-status.interfaces';
 
 @Component({
@@ -6,7 +6,7 @@ import { IMoodDayList } from 'src/app/shared/interface/mental-status.interfaces'
   templateUrl: './card-emotions-map.component.html',
   styleUrls: ['./card-emotions-map.component.scss'],
 })
-export class CardEmotionsMapComponent implements OnInit {
+export class CardEmotionsMapComponent implements OnInit, OnDestroy {
   emotionMapData = input<IMoodDayList[]>([]);
   refreshEmotionMapModule = input<string>('');
   moodDayList: IMoodDayList[] = [];
@@ -14,6 +14,11 @@ export class CardEmotionsMapComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    console.log('INICIADO CARD EMOTIONS MAP');
     this.moodDayList = this.emotionMapData();
+  }
+
+  ngOnDestroy(): void {
+    console.log('DESTRUIDO CARD EMOTIONS MAP');
   }
 }

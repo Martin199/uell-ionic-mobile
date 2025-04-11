@@ -22,7 +22,9 @@ export class ModalMentalStatusComponent {
 
   private _userInfo = this.userService.getUser();
   currentStep = signal<number>(1);
-  titleStep = signal<string>('¿Cómo te sientes hoy?');
+  titleStep = signal<string>(
+    `¿Cómo te sientes hoy ${this._userInfo.name ? this._userInfo.name.split(' ')[0] : ''}?`
+  );
   subtitleStep = signal<string>(`Paso ${this.currentStep()} de 3`);
   imgPatch = signal<string>('');
   imgDescription = signal<string>('');
@@ -120,7 +122,7 @@ export class ModalMentalStatusComponent {
 
   getTitle() {
     if (this.currentStep() === 1) {
-      return '¿Cómo te sientes hoy?';
+      return `¿Cómo te sientes hoy ${this._userInfo.name ? this._userInfo.name.split(' ')[0] : ''}?`
     } else if (this.currentStep() === 2) {
       this.gradientStyle = '#fff';
       return '¿Qué emociones sientes en este momento?';
@@ -201,6 +203,12 @@ export class ModalMentalStatusComponent {
   closeModal(postMentalStatus: boolean) {
     this.utilsService.modalCtrl.dismiss({
       postMentalStatus: postMentalStatus,
+      creditPoints:
+        this.emotionData.length > 0 && this.contextData.length > 0
+          ? 3
+          : this.emotionData.length > 0 || this.contextData.length > 0
+          ? 2
+          : 1,
     });
   }
 

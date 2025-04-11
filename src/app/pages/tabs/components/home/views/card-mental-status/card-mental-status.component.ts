@@ -1,5 +1,7 @@
 import { Component, inject, input, OnInit, output, signal } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
+import { UellCoinService } from 'src/app/services/uell-coin.service';
 import { UserService } from 'src/app/services/user.service';
 import { IMentalStatusResponse, IMoodsStatus } from 'src/app/shared/interface/mental-status.interfaces';
 
@@ -10,6 +12,8 @@ import { IMentalStatusResponse, IMoodsStatus } from 'src/app/shared/interface/me
 })
 export class CardMentalStatusComponent implements OnInit {
   mentalStatusService = inject(MentalStatusService);
+  uellCoinService = inject(UellCoinService);
+  toastController = inject(ToastController);
   userService = inject(UserService);
 
   emotionalData = input<IMentalStatusResponse[]>([]);
@@ -45,7 +49,9 @@ export class CardMentalStatusComponent implements OnInit {
     this.mentalStatusService.getMentalStatus(this._userInfo.id).subscribe({
       next: (res: any) => {
         this.mentalStatusData = res;
-        this.checkMentalStatus();
+        //TODO: habilitar Uellcoin cuando exista la imagen
+        // this.checkMentalStatus();
+        this.uellCoinService.showCoin();
       },
       error: (err) => {
         console.error(err);
@@ -57,8 +63,22 @@ export class CardMentalStatusComponent implements OnInit {
   async openModalMentalStatus() {
     const postMentalStatus =
       await this.mentalStatusService.openModalMentalStatus();
-    if (postMentalStatus) {
+    if (postMentalStatus.postMentalStatus) {
       this.refreshMentalStatus();
+      this.presentWinToast(postMentalStatus.creditPoints);
     }
+  }
+
+  async presentWinToast(creditPoints: number) {
+    creditPoints ? creditPoints : 1;
+    const toast = await this.toastController.create({
+      message: '🎉 Felicidades, ganaste ' + creditPoints + ' créditos',
+      duration: 4000,
+      position: 'bottom',
+      cssClass: 'custom-toast',
+      animated: true,
+    });
+
+    await toast.present();
   }
 }
