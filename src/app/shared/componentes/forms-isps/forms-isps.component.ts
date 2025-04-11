@@ -83,14 +83,20 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   }
 
   closeModal(){
-    if(this.onboarding){
+
+    if(this.onboarding && this.step === 1) {
       this.utilsService.modalCtrl.dismiss({
         onboarding: true,
-      })
-    }else{
-      this.utilsService.modalCtrl.dismiss()
+        resetToStepOne: true
+      });
+    } else if(this.onboarding) {
+      this.utilsService.modalCtrl.dismiss({
+        onboarding: true,
+      });
+    } else {
+      this.utilsService.modalCtrl.dismiss();
     }
-    
+
   }
 
   returnFirstStep(event: Event) {
