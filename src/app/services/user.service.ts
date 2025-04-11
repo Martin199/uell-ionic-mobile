@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -84,14 +84,12 @@ export class UserService {
       `${environment.apiBaseUrl}${environment.apiVersion}/states?sort=name,asc`,
       filter
     );
-    // return this.http.get('v2/states?sort=name,asc', filter);
   }
 
   public getLocalitiesByState(id: string): Observable<any> {
     return this.http.get(
       `${environment.apiBaseUrl}${environment.apiVersion}/localities?state.id=${id}&size=1000&sort=name,asc`
     );
-    // return this.getDataContent(`v2/localities?state.id=${id}&size=1000&sort=name,asc`);
   }
 
   postMedicalDiseases(userId: number, body: any) {
@@ -128,7 +126,6 @@ export class UserService {
       `${environment.apiBaseUrl}${environment.apiVersion}/users/${id}`,
       body
     );
-    // return this.pacthDataContent(`${environment.apiversion}users/${id}`, body);
   }
 
   getOnBoarding(id: number) {
