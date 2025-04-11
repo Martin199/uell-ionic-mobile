@@ -99,7 +99,7 @@
         <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['province'] }}</p>
             <ion-list>
               <ion-item>
-                <ion-select aria-label="province" interface="action-sheet" placeholder="Seleccione province" formControlName="province">
+                <ion-select aria-label="province" interface="action-sheet" placeholder="Seleccione provincia" formControlName="province">
                   @for (prov of provincesResponse; track $index) {
                     <ion-select-option [value]="prov">{{prov.name}}</ion-select-option>
                   }
@@ -117,7 +117,7 @@
         <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['locality'] }}</p>
            <ion-list>
             <ion-item>
-              <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione locality" formControlName="locality" [disabled]="loadingLocality">
+              <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione localidad" formControlName="locality" [disabled]="loadingLocality">
                 @for (loc of localitiesResponse; track $index) {
                   <ion-select-option [value]="loc">{{loc.name}}</ion-select-option>
                 }

@@ -152,9 +152,13 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
-    if (data?.onboarding) {
+    if (data?.onboarding && !data?.resetToStepOne) {
       await this.postOnboarding();
       this.utilService.router.navigate(['/tabs/home']);
+    } else if (data?.resetToStepOne) {
+      this.step = 0;
+      this.progress = 0.125;
+      this.swiperContainer.nativeElement.swiper.slideTo(0);
     }
   }
 
