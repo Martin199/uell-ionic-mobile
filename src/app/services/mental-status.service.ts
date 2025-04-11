@@ -68,7 +68,7 @@ export class MentalStatusService {
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
-    return data.postMentalStatus;
+    return data;
   }
 
   getMentalSatudByUserMoodRecordId(

@@ -49,11 +49,15 @@ export class SelectTenantsPage implements OnInit {
       this.storageService.setSessionStorage('tenantParameters', res);
       const user: any = this.storageService.getSessionStorage('user');
       this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
-        if (res.length > 0) {
-          this.storageService.setSessionStorage('termsAndConditions', res);
-          this.utilsService.router.navigateByUrl('/auth/term-and-conditions');
-        } else {
+        if (user.onboarded) {
           this.utilsService.router.navigateByUrl('tabs/home');
+        } else {
+          if (res.length > 0) {
+            this.storageService.setSessionStorage('termsAndConditions', res);
+            this.utilsService.router.navigateByUrl('/auth/term-and-conditions');
+          } else {
+            this.utilsService.router.navigateByUrl('/auth/onboarding');
+          }
         }
       });
       loading.dismiss();

@@ -27,6 +27,7 @@ import { ModalMedicalRecordComponent } from './componentes/modal-medical-record/
 import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isps-introduction/form-isps-introduction.component';
 import { ModalMentalStatusDescriptionComponent } from './componentes/modals-components/modal-mental-status-description/modal-mental-status-description.component';
 import { MentalStatusCalendarComponent } from './componentes/mental-status-calendar/mental-status-calendar.component';
+import { UellCoinComponent } from './componentes/uell-coin/uell-coin.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MentalStatusCalendarComponent } from './componentes/mental-status-calen
     ContextStatusComponent,
     MentalStatusCalendarComponent,
     ModalMentalStatusDescriptionComponent,
+    UellCoinComponent,
   ],
   imports: [
     CommonModule,
@@ -81,6 +83,7 @@ import { MentalStatusCalendarComponent } from './componentes/mental-status-calen
     FormIspsStepFourComponent,
     MentalStatusCalendarComponent,
     ModalMentalStatusDescriptionComponent,
+    UellCoinComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

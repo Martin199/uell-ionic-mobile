@@ -74,14 +74,19 @@ export class AuthPage {
           this.storageService.setSessionStorage('user', user);
           console.log('Usuario:', user);
           this.userDTO = user;
-          if (user.tenant.length === 1 && !user.onboarded) {
-            this.termsAndConditions(user)
+          if (user.onboarded) {
+            if (user.tenant.length > 1) {
+              this.utilsService.router.navigate(['/auth/select-tenants']);
+            } else {
+              this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
+              this.utilsService.router.navigateByUrl('tabs/home');
+            }
           } else {
-            this.utilsService.router.navigateByUrl('/auth/onboarding');
-          }
-
-          if (user.tenant.length > 1 && !user.onboarded) {
-            this.utilsService.router.navigate(['/auth/select-tenants']);
+            if (user.tenant.length > 1) {
+              this.utilsService.router.navigate(['/auth/select-tenants']);
+            } else {
+              this.termsAndConditions(user);
+            }
           }
 
           PushNotifications.checkPermissions().then(result => {

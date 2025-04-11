@@ -1,5 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
+import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { FilesService } from 'src/app/services/files.service';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -11,7 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent  implements OnInit {
-  user: any;
+  user = signal<UserResponseDTO | null>(null);
   actionSheetActive: boolean = false;
   userAvatarUrl!: string;
   defaultAvatarUrl: string = '../../../../assets/imgs/icon-avatar.svg';
@@ -25,7 +26,7 @@ export class HeaderComponent  implements OnInit {
   constructor() { }
 
   async ngOnInit() {
-    this.user = this.storageService.getSessionStorage('user');
+    this.user.set(this.storageService.getSessionStorage('user'));
     await this.loadProfilePicture();
   }
 
@@ -67,17 +68,21 @@ export class HeaderComponent  implements OnInit {
   async loadProfilePicture() {
     
     let currentPhoto = localStorage.getItem('current_photo');
+
   
-    if (this.user.photo && this.user.photo !== '') {
+    if (!this.user()?.photo || this.user()?.photo === '') {
       let currentPhoto = localStorage.getItem('current_photo');
-      this.fileService.downloadFile(currentPhoto? currentPhoto : this.user.photo).subscribe(
-        (photo) => {
-          this.userAvatarUrl = photo;
-        },
-        () => {
-          this.userAvatarUrl = this.defaultAvatarUrl;
-        }
-      );
+      this.fileService
+        .downloadFile(currentPhoto ? currentPhoto : this.user()?.photo!)
+        .subscribe({
+          next: (photo: any) => {
+            this.userAvatarUrl = photo;
+          },
+          error: (err) => {
+            console.error(err);
+            this.userAvatarUrl = this.defaultAvatarUrl;
+          }
+        });
     } else if (currentPhoto) {
       this.userAvatarUrl = currentPhoto;
     } else {
@@ -92,7 +97,7 @@ export class HeaderComponent  implements OnInit {
       async () => {
         await this.mentalStatusService.clearEmotionalCache();
         await this.storageService.clearSessionStorage();
-        this.utilServices.router.navigate(['/auth']);
+        this.utilServices.navCtrl.navigateRoot(['/auth']);
       }
     );
   }
