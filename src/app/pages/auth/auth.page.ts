@@ -41,16 +41,17 @@ export class AuthPage {
   userService = inject(UserService)
   utilsService = inject(UtilsService);
   storageService = inject(StorageService);
-  private sessionService = inject(SessionServiceService)
+  private readonly sessionService = inject(SessionServiceService)
+
+  userDTO!: UserResponseDTO;
 
   constructor() { }
 
   ngAfterViewInit() {
     this.animateElements();
   }
-
-
-  async submit(){
+  
+  async submit() {
     this.formAuth.markAllAsTouched();
     if (this.formAuth.invalid) {
       console.log('Formulario inválido');
@@ -72,14 +73,18 @@ export class AuthPage {
           this.userService.setUser(user);
           this.storageService.setSessionStorage('user', user);
           console.log('Usuario:', user);
-          if (!user.onboarded) {
-            this.utilsService.router.navigate(['/auth/onboarding']);
+          this.userDTO = user;
+          if (user.tenant.length === 1 && !user.onboarded) {
+            this.termsAndConditions(user)
           } else {
+            this.utilsService.router.navigateByUrl('/auth/onboarding');
+          }
+
+          if (user.tenant.length > 1 && !user.onboarded) {
             this.utilsService.router.navigate(['/auth/select-tenants']);
           }
-          this.storageService.setSessionStorage('user', user);
 
-          PushNotifications.checkPermissions().then(result =>{
+          PushNotifications.checkPermissions().then(result => {
             if (result.receive === 'granted') this.sessionService.handleSession();
           })
           loading.dismiss();
@@ -87,10 +92,9 @@ export class AuthPage {
 
         //parcialmente
         this.userService.getTenantParameters().subscribe((res: any) => {
-          this.storageService.setSessionStorage('tenantParameters', res);     
+          this.storageService.setSessionStorage('tenantParameters', res);
         });
         //------------------------------
-    
         this.userService.getUserTenants().subscribe((user) => {
           console.log('getUserTenants:', user);
         });
@@ -106,6 +110,23 @@ export class AuthPage {
       loading.dismiss();
       // Muestra un mensaje de error al usuario
     }
+  }
+
+  termsAndConditions(user: UserResponseDTO) {
+    this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
+      if (res.length > 0) {
+        this.storageService.setSessionStorage('termsAndConditions', res);
+        this.utilsService.router.navigateByUrl('/auth/term-and-conditions');
+      } else {
+        this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
+        if (!this.userDTO.onboarded) {
+          this.utilsService.router.navigateByUrl('/auth/onboarding');
+        } else {
+          this.utilsService.router.navigateByUrl('tabs/home');
+
+        }
+      }
+    });
   }
 
   animateElements() {
@@ -134,7 +155,7 @@ export class AuthPage {
     passwordAnimation.play();
   }
 
-  forgotPassword(){
+  forgotPassword() {
     this.utilsService.router.navigate(['/recovery-password']);
   }
 }

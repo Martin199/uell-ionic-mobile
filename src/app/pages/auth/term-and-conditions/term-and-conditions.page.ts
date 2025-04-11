@@ -42,7 +42,11 @@ export class TermAndConditionsPage implements OnInit {
     console.log(this.formTermCondition.value);
     const user: any = this.storageService.getSessionStorage('user');
     this.userService.postTermsAndConditions(user?.id).subscribe((res: any) => {
-      this.utilsService.router.navigateByUrl('tabs/home');
+      if (!user.onboarded) {
+        this.utilsService.router.navigateByUrl('auth/onboarding');
+      } else {
+        this.utilsService.router.navigateByUrl('tabs/home');
+      }
 
      });
 
