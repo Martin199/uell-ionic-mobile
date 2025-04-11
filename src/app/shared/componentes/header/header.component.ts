@@ -97,7 +97,7 @@ export class HeaderComponent  implements OnInit {
       async () => {
         await this.mentalStatusService.clearEmotionalCache();
         await this.storageService.clearSessionStorage();
-        this.utilServices.router.navigate(['/auth']);
+        this.utilServices.navCtrl.navigateRoot(['/auth']);
       }
     );
   }
