@@ -1,55 +1,59 @@
-.error{
+.error {
   color: red;
   font-size: 16px;
 }
-input[type=number]::-webkit-inner-spin-button {
--webkit-appearance: none;
-margin: 0;
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
-.form-group{
-margin-bottom: 15px;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
-.form-group.row.d-flex{
-margin: 0px;
+.form-group.row.d-flex {
+  margin: 0px;
 }
-.form-group.mr-3.col-sm-3.pl-0{
-margin-bottom: 32px;
-padding-right: 0px;
+.form-group.mr-3.col-sm-3.pl-0 {
+  margin-bottom: 32px;
+  padding-right: 0px;
 }
-.label {
-font-size: 16px;
-font-weight: 600;
-color: #383e52;
-// margin: 4px 0px 4px auto;
+.label-input {
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.048px;
+    margin-bottom: 0.1rem;
 }
 .ion-text {
-font-size: 14px;
-color: #505A78;
-position: absolute;
+  font-size: 14px;
+  color: #505a78;
+  position: absolute;
 }
 .form-error-msg {
-// margin: 4px 0px 0px auto;
-// position:absolute;
-color: red;
+  // margin: 4px 0px 0px auto;
+  // position:absolute;
+  color: red;
 }
-.titulo{
-font-size: 20px;
-color: #1da4b1;
-font-weight: bold;
+.titulo {
+  font-size: 20px;
+  color: #1da4b1;
+  font-weight: bold;
 }
 .country {
-margin-left: 0;
-margin-right: 0 !important;
-padding-left: 0;
-padding-right: 0;
+  margin-left: 0;
+  margin-right: 0 !important;
+  padding-left: 0;
+  padding-right: 0;
 }
 form {
-padding: 15px;
+  padding: 15px;
 }
-.row{
-display: flex;
-gap: 20px
+.row {
+  display: flex;
+  gap: 20px;
 }

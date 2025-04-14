@@ -34,7 +34,7 @@ export class CreatePasswordPage   {
     this.user = this.cognitoService.getUserFirst();    
     if (null === this.user) {
 			// TODO Handle it
-			this.utilsService.router.navigate(['auth']);
+			this.utilsService.navCtrl.navigateRoot(['auth']);
 			throw new Error('CurrentUser not found');
 		}
 
@@ -65,7 +65,7 @@ export class CreatePasswordPage   {
     this.loading = true;
 		if (this.createNewPassForm.valid) {
 			this.cognitoService.changeFirstPassword(this.createNewPassForm.value.newPass).then(() => {
-				this.utilsService.router.navigate(['login'], {
+				this.utilsService.navCtrl.navigateRoot(['login'], {
 					queryParams: {
 						message: 'no+hemos+podido+completar+la+operacion'
 					}
@@ -81,7 +81,7 @@ export class CreatePasswordPage   {
 	}
 
   goToLogin(){
-    this.utilsService.router.navigate(['auth']);
+    this.utilsService.navCtrl.navigateRoot(['auth']);
   }
 
   passwordMatchValidator(formGroup: FormGroup) {

@@ -51,6 +51,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
   adressUser: any;
   progress: number = 0.125;
   totalSteps: number = 8;
+  skipClinicalHistory: boolean = false;
 
   constructor() {
     this.user = localStorage.getItem('user')
@@ -77,6 +78,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
         this.adressUser = res.address[0];
         this.setDataUser(res);
         this.setPersonalDataForm(res);
+        this.validCLinicalHistory();
       },
       (error) => {
         console.error(error);
@@ -102,6 +104,13 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     };
 
     this.personalFormResponse = dataPersonalForm;
+  }
+
+  validCLinicalHistory() {
+    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
+    if (!this.tenantParameters.tenantParameters.activeModules.find((x: any) => x === 'hc_onboarding')) {
+      this.skipClinicalHistory = true;
+    }
   }
 
   async nextSlide() {
@@ -138,7 +147,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
         this.goIsps();
       } else {
         await this.postOnboarding();
-        this.utilService.router.navigate(['/tabs/home']);
+        this.utilService.navCtrl.navigateRoot(['/tabs/home']);
       }
     }
   }
@@ -154,7 +163,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     const { data } = await modal.onDidDismiss();
     if (data?.onboarding && !data?.resetToStepOne) {
       await this.postOnboarding();
-      this.utilService.router.navigate(['/tabs/home']);
+      this.utilService.navCtrl.navigateRoot(['/tabs/home']);
     } else if (data?.resetToStepOne) {
       this.step = 0;
       this.progress = 0.125;

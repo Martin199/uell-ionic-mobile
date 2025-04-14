@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { ISearchbarAnimation } from 'src/app/shared/interface/searchbar-animation-interfaces';
 import { ICarouselWellnessPortal, IWellnessPortalPost } from '../../interfaces/wellness-portal-interfaces';
 import { WellnessPortalService } from 'src/app/services/wellness-portal.service';
-// import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -198,7 +197,7 @@ export class WellnessPortalPage {
   }
 
   redirectToPost(idPost: any) {
-    this.utilsService.router.navigate([`tabs/wellness-portal/details/${idPost}`])
+    this.utilsService.navCtrl.navigateRoot([`tabs/wellness-portal/details/${idPost}`])
   }
 
 }

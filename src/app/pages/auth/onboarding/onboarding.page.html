@@ -24,15 +24,17 @@
     <swiper-slide>
       <app-user-address-info (addressInfo)="stepsReturnAddressInfo($event)"></app-user-address-info>
     </swiper-slide>
+    @if (!skipClinicalHistory) {
     <swiper-slide>
       <app-medical-information (medicalInfo)="stepsReturnMedicalInfo($event)"></app-medical-information>
     </swiper-slide>
     <swiper-slide>
       <app-medical-information-second (medicalInfoTwo)="stepsReturnMedicalInfoTwo($event)"></app-medical-information-second>
     </swiper-slide>
-    <swiper-slide>
-      <app-initial-clinical-data (returnResponse)="buildClinicalData($event)"></app-initial-clinical-data>
-    </swiper-slide>
+      <swiper-slide>
+        <app-initial-clinical-data (returnResponse)="buildClinicalData($event)"></app-initial-clinical-data>
+      </swiper-slide>
+    }
     <swiper-slide>
       <app-user-picture-info (profilePicture)="profilePictureEvent($event)"></app-user-picture-info>
     </swiper-slide>

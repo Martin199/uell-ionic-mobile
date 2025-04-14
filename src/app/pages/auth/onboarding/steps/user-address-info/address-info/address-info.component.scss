@@ -22,11 +22,15 @@ input[type=number]::-webkit-inner-spin-button {
   margin-bottom: 32px;
   padding-right: 0px;
 }
-.label {
-  font-size: 16px;
-  font-weight: 600;
-  color: #383e52;
-  // margin: 4px 0px 4px auto;
+.label-input {
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.048px;
+    margin-bottom: 0.1rem;
 }
 .max-length {
   font-size: 14px;

@@ -64,7 +64,7 @@ export class AuthPage {
       const result = await this.cognitoService.signIn(cuil as string, password as string);
       if (result) {
         if (result.type === 'passwordChange') {
-          this.utilsService.router.navigate(['auth/create-new-password']);
+          this.utilsService.navCtrl.navigateRoot(['auth/create-new-password']);
           loading.dismiss();
           return;
         }
@@ -74,21 +74,17 @@ export class AuthPage {
           this.storageService.setSessionStorage('user', user);
           console.log('Usuario:', user);
           this.userDTO = user;
-          if (user.onboarded) {
-            if (user.tenant.length > 1) {
-              this.utilsService.router.navigate(['/auth/select-tenants']);
-            } else {
-              this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
-              this.utilsService.router.navigateByUrl('tabs/home');
-            }
+          const hasMultipleTenants = user.tenant.length > 1;
+          if (hasMultipleTenants) {
+            this.utilsService.router.navigate(['/auth/select-tenants']);
           } else {
-            if (user.tenant.length > 1) {
-              this.utilsService.router.navigate(['/auth/select-tenants']);
+            this.storageService.setSessionStorage('tenant',JSON.stringify(user.tenant[0]));
+            if (user.onboarded) {
+              this.utilsService.router.navigateByUrl('tabs/home');
             } else {
               this.termsAndConditions(user);
             }
           }
-
           PushNotifications.checkPermissions().then(result => {
             if (result.receive === 'granted') this.sessionService.handleSession();
           })
@@ -121,13 +117,13 @@ export class AuthPage {
     this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
       if (res.length > 0) {
         this.storageService.setSessionStorage('termsAndConditions', res);
-        this.utilsService.router.navigateByUrl('/auth/term-and-conditions');
+        this.utilsService.navCtrl.navigateRoot(['/auth/term-and-conditions']);
       } else {
         this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
         if (!this.userDTO.onboarded) {
-          this.utilsService.router.navigateByUrl('/auth/onboarding');
+          this.utilsService.navCtrl.navigateRoot(['/auth/onboarding']);
         } else {
-          this.utilsService.router.navigateByUrl('tabs/home');
+          this.utilsService.navCtrl.navigateRoot(['tabs/home']);
 
         }
       }
@@ -161,6 +157,6 @@ export class AuthPage {
   }
 
   forgotPassword() {
-    this.utilsService.router.navigate(['/recovery-password']);
+    this.utilsService.navCtrl.navigateRoot(['/recovery-password']);
   }
 }

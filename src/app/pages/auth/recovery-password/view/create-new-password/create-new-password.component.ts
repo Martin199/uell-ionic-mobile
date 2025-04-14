@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { interval, take } from 'rxjs';
 import { ICodeDeliveryDetails, IUserCredentials } from 'src/app/core/interfaces/auth.interfaces';
 import { LoginService } from 'src/app/services/login.service';
@@ -26,7 +25,6 @@ export class CreateNewPasswordComponent  implements OnInit {
   otpDigits = [0, 1, 2, 3, 4, 5];
 
   fb = inject ( FormBuilder );
-  router = inject ( Router )
   login = inject ( LoginService )
   auth = inject ( CognitoService )
   utilsService = inject (UtilsService)
@@ -51,14 +49,14 @@ export class CreateNewPasswordComponent  implements OnInit {
     this.login.getRecoverPasswordDataObservable.subscribe((res: ICodeDeliveryDetails) => {
       this.userData = res;
       if (!res) {
-        this.router.navigate(['/auth']);
+        this.utilsService.navCtrl.navigateRoot(['/auth']);
       }
     });
 
     this.login.getUserCredentialsObservable.subscribe((res: IUserCredentials) => {
       this.userCredentials = res;
       if (!res) {
-        this.router.navigate(['/auth']);
+        this.utilsService.navCtrl.navigateRoot(['/auth']);
       }
     });
   }
@@ -133,12 +131,12 @@ export class CreateNewPasswordComponent  implements OnInit {
   }
 
   navToLogin() {
-    this.router.navigate(['recovery-password']);
+    this.utilsService.navCtrl.navigateRoot(['recovery-password']);
   }
 
   confirmPasswordChange() {
 		this.auth.confirmRecoverPassword(this.otpInput.value.join(''), this.newPassword.value).then(() => {
-      this.router.navigate(['auth']);
+      this.utilsService.navCtrl.navigateRoot(['auth']);
       this.utilsService.getToastMessage('bottom',3000,'Contraseña actualizada')
     }).catch((err) => {
       this.error = err;

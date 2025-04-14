@@ -1,6 +1,6 @@
 import { Component, inject, input, output } from '@angular/core';
-import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-modal-header',
@@ -10,7 +10,7 @@ import { ModalController } from '@ionic/angular';
 export class ModalHeaderComponent {
 
     private modalCtrl = inject(ModalController);
-    private router = inject(Router);
+    utilsService = inject (UtilsService)
 
     title = input <string>();
     subtitle = input <string>();
@@ -32,7 +32,7 @@ export class ModalHeaderComponent {
       sessionStorage.removeItem('stepPreference');
     }
     if (this.routerUrl()) {
-      this.router.navigateByUrl('/newton');
+      this.utilsService.navCtrl.navigateRoot(['/newton']);
       this.modalCtrl.dismiss();
     } else {
       this.modalCtrl.dismiss({ dismiss: true });

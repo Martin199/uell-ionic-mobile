@@ -42,11 +42,11 @@ export class RecoveryPasswordPage  {
 
   navToSecurityCode(res: ICodeDeliveryDetails) {
     this.login.setRecoverPasswordDataObservable = res;
-    this.utilsService.router.navigate(['/recovery-password/security-code']);
+    this.utilsService.navCtrl.navigateRoot(['/recovery-password/security-code']);
   }
   
   navToLogin() {
-    this.utilsService.router.navigate(['auth']);
+    this.utilsService.navCtrl.navigateRoot(['auth']);
   }
 
 

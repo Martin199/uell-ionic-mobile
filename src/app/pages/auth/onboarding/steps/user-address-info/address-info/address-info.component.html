@@ -4,8 +4,7 @@
         <p>{{ tenantParameters.tenantParameters.localization.onboarding['adress'] }}</p>
       </div>
     <div class="form-group">
-        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['street'] }}</p>
-        <app-custom-input  [control]="addressForm.controls['street']" [maxLength]="255"></app-custom-input>
+        <app-custom-input  [control]="addressForm.controls['street']" [maxLength]="255" [label]="tenantParameters.tenantParameters.localization.onboarding['street']"></app-custom-input>
         @if (addressForm.controls['street'].errors?.['required'] && (addressForm.controls['street'].touched || addressForm.controls['street'].dirty)) {
           <span class="form-error-msg">
             - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
@@ -19,10 +18,8 @@
     </div>
     <div class="form-group no-mb d-flex">
         <div class="form-group col-md-3 pl-0">
-            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['number'] }}</p>
-            <app-custom-input  [control]="addressForm.controls['number']" [maxLength]="50"></app-custom-input>
-            @if (addressForm.controls['number'].errors?.['required'] && 
-                   (addressForm.controls['number'].touched || addressForm.controls['number'].dirty)) {
+            <app-custom-input  [control]="addressForm.controls['number']" [maxLength]="50" [label]="tenantParameters.tenantParameters.localization.onboarding['number']"></app-custom-input>
+            @if (addressForm.controls['number'].errors?.['required'] && (addressForm.controls['number'].touched || addressForm.controls['number'].dirty)) {
               <span class="form-error-msg">
                 - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
               </span>
@@ -40,8 +37,7 @@
         </div>
         <div class="row">
           <div class="form-group col-md-2">
-            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['floor'] }}</p>
-            <app-custom-input  [control]="addressForm.controls['floor']"></app-custom-input>
+            <app-custom-input  [control]="addressForm.controls['floor']" [label]="tenantParameters.tenantParameters.localization.onboarding['floor']"></app-custom-input>
             @if (addressForm.controls['floor'].hasError('pattern')) {
               <span class="form-error-msg">
                 - Caracteres epseciales no permitidos
@@ -54,8 +50,7 @@
             }
           </div>
           <div class="form-group col-md-2">
-              <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['dept'] }}</p>
-              <app-custom-input  [control]="addressForm.controls['apartment']"></app-custom-input>
+              <app-custom-input  [control]="addressForm.controls['apartment']" [label]="tenantParameters.tenantParameters.localization.onboarding['dept']"></app-custom-input>
               @if (addressForm.controls['apartment'].hasError('pattern')) {
                 <span class="form-error-msg">
                   - Caracteres epseciales no permitidos
@@ -70,8 +65,7 @@
         </div>
         <div class="form-group col-md-3">
           <div class="form-group col-md-3 pl-0">
-            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['zip-code'] }}</p>
-            <app-custom-input  [control]="addressForm.controls['postalCode']" [maxLength]="6"></app-custom-input>
+            <app-custom-input  [control]="addressForm.controls['postalCode']" [maxLength]="6" [label]="tenantParameters.tenantParameters.localization.onboarding['zip-code']"></app-custom-input>
             @if (addressForm.controls['postalCode'].errors?.['required'] && (addressForm.controls['postalCode'].touched || addressForm.controls['postalCode'].dirty)) {
               <span class="form-error-msg">
                 - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
@@ -96,7 +90,7 @@
         </div>
     </div>
     <div class="form-group">
-        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['province'] }}</p>
+        <ion-label class="label-input">{{ tenantParameters.tenantParameters.localization.onboarding['province'] }}</ion-label>
             <ion-list>
               <ion-item>
                 <ion-select aria-label="province" interface="action-sheet" placeholder="Seleccione provincia" formControlName="province">
@@ -131,8 +125,7 @@
           }
     </div>
     <div class="form-group">
-        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['observations'] }}</p>
-        <app-custom-input  [control]="addressForm.controls['observation']">
+        <app-custom-input  [control]="addressForm.controls['observation']" [label]="tenantParameters.tenantParameters.localization.onboarding['observations']">
         </app-custom-input>
         @if (addressForm.controls['observation'].errors?.['maxlength']) {
           <span class="form-error-msg">

@@ -31,12 +31,13 @@
   .select-container {
     display: flex;
     flex-direction: column;
+    width: 140px;
   }
   
   .custom-select {
     position: relative;
-    border: 1px solid #e0e0e0;
-    border-radius: 15px;
+    border: 0.1rem solid var(--Neutral-GreyLight, #E5E5E5);
+    border-radius: 0.5rem;
     cursor: pointer;
     margin-bottom: 20px;
     height: 48px;
@@ -69,7 +70,7 @@
     left: 0;
     right: 0;
     background: white;
-    border: 1px solid #ccc;
+    border: 0.1rem solid var(--Neutral-GreyLight, #E5E5E5);
     border-radius: 4px;
     max-height: 200px;
     overflow-y: auto;
@@ -95,9 +96,12 @@
   .label-input {
     color: var(--Neutral-GreyDark, #383E52);
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 16px; /* 133.333% */
     letter-spacing: 0.048px;
+    // font-size: 16px;
+    // font-weight: 600;
+      // color: #383e52;
 }
