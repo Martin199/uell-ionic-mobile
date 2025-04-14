@@ -12,7 +12,7 @@
 
       <div class="card-rrhh__content-flex-row">
         <div class="isps-description">
-          <app-isps-circle [score]="(ispsScore && ispsScore.score) || 0"></app-isps-circle>
+          <app-isps-circle [score]="(ispsData && ispsData.score) || 0"></app-isps-circle>
           @if( score === false  ){
             <div class="content-notscore">
               <ion-label class="label-notscore"
@@ -23,7 +23,7 @@
           }
           
           <div class="card-rrhh__content-flex-row content-score ion-margin-top">
-            @if(scoreDescription && ispsScore && ispsScore.score >= 0){
+            @if(scoreDescription && ispsData && ispsData.score >= 0){
               <div class="card-rrhh__content-flex-col fs-14">
                 <ion-label color="description" class="fw-600">
                   {{ scoreDescription.title }}
@@ -72,9 +72,9 @@
         <div class="card-rrhh__content-flex-row isps-results ion-margin-top ion-align-items-center">
           <ion-progress-bar [value]="totalProgressBar" style="--progress-background: #1da4b1;"></ion-progress-bar>
           <div class="session">
-            @if(ispsScore){
-              <ion-label color="dark" class="fw-700 fs-20">{{ ispsScore.remainingSessions || 0 }}</ion-label>
-              <ion-label class="lower-fw">/{{ ispsScore.totalSessions || 0 }} </ion-label>
+            @if(ispsData){
+              <ion-label color="dark" class="fw-700 fs-20">{{ ispsData.remainingSessions || 0 }}</ion-label>
+              <ion-label class="lower-fw">/{{ ispsData.totalSessions || 0 }} </ion-label>
             } @else {
               <ion-label color="dark" class="fw-700 fs-20">0</ion-label>
               <ion-label class="lower-fw">/0</ion-label>
@@ -105,7 +105,6 @@
             @if(!managerData){
               <div class="card-rrhh__new-icon ion-no-margin"> <p>Muy pronto se le asignará un Gestor de Bienestar</p> </div>
             }           
-            <!--!! AGREGAR ESTO en el if cuando se habilite tenantparams && tenantParams==='soandes' -->
           </div>
         </div>
       </div>
@@ -121,6 +120,7 @@
         </div>
       }
 
+      <app-isps-result [emocionalDimension]="emocionalDimension" [fisicoDimension]="fisicoDimension" [socialDimension]="socialDimension"></app-isps-result>
 
       <div class="card-rrhh__cont-button ion-margin-top">
         <ion-button [disabled]="hasEditISPS"  class="card-rrhh__button" (click)="goIsps()" expand="block" fill="clear">
@@ -129,13 +129,14 @@
               Quiero evaluar mi Bienestar
             </ion-label>
           }
-          @if(scoreDescription && ispsScore && ispsScore.score >= 0 && ispsScore.score !== null){
+          @if(scoreDescription && ispsData && ispsData.score >= 0 && ispsData.score !== null){
             <ion-label color="tertiary" class="card-rrhh__button-label ion-text-wrap" color="tertiary">
               {{ tenantParameters.tenantParameters.localization['home-cards']['psychosocial-card']['recalulate-wellness'] }}
             </ion-label>
           }
         </ion-button>
       </div>
+
     </ion-card-content>
   </div>
 </ion-card>
