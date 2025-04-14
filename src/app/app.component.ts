@@ -41,10 +41,8 @@ export class AppComponent {
     const termsAndConditions: Array<any> | null = this.storageService.getSessionStorage('termsAndConditions');
     if (user && accessToken && tenant && tenantParameters) {
       if (termsAndConditions && termsAndConditions.length > 0) this.utilsService.navCtrl.navigateRoot(['auth/term-and-conditions']);
-      if (!user.onboarded)  {this.utilsService.navCtrl.navigateRoot(['auth/onboarding']);} else {
-        this.utilsService.navCtrl.navigateRoot(['tabs/home']);
-
-      }
+      if (!user.onboarded) { this.utilsService.navCtrl.navigateRoot(['auth']); return} 
+      this.utilsService.navCtrl.navigateRoot(['tabs/home']);
     }
   }
 
