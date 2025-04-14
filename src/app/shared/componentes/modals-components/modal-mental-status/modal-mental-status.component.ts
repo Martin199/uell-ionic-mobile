@@ -38,10 +38,7 @@ export class ModalMentalStatusComponent {
   mentalStatusPayload!: IMentalStatusPayload;
 
   emotionIdFilterList: { bad: number[]; neutral: number[]; good: number[] } = {
-    bad: [
-      17, 5, 26, 1, 38, 13, 22, 27, 8, 20, 32, 11, 35, 15, 25, 34, 14, 12, 2,
-      36, 39,
-    ],
+    bad: [17, 5, 26, 1, 38, 13, 22, 27, 8, 20, 32, 11, 35, 15, 25, 34, 14, 12, 39, 2, 36],
     neutral: [2, 7, 9, 24, 30],
     good: [6, 18, 35, 29, 21, 3, 37, 28, 10, 19, 16, 33, 4, 23, 9, 7, 30],
   };
