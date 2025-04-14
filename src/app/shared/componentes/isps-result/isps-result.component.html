@@ -14,7 +14,7 @@
               </div>
               <div class="title-row" style="display: flex; align-items: center; cursor: pointer;">
                 <p class="title" style="margin: 0;">{{ item.name }}</p>
-                <img [src]="expandedEmocionalDimension.has(i) ? 'assets/icons/arrow-up.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
+                <img [src]="expandedEmocionalDimension.has(i) ? 'assets/icons/arrow-down.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
                 [ngStyle]="{ transform: expandedEmocionalDimension.has(i) ? 'rotate(180deg)' : 'rotate(0deg)' }" class="arrows"/>
               </div>
               @if (expandedEmocionalDimension.has(i)) {
@@ -41,7 +41,7 @@
               </div>
               <div class="title-row" style="display: flex; align-items: center; cursor: pointer;">
                 <p class="title" style="margin: 0;">{{ item.name }}</p>
-                <img [src]="expandedSocialDimension.has(i) ? 'assets/icons/arrow-up.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
+                <img [src]="expandedSocialDimension.has(i) ? 'assets/icons/arrow-down.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
                 [ngStyle]="{ transform: expandedSocialDimension.has(i) ? 'rotate(180deg)' : 'rotate(0deg)' }" class="arrows"/>
               </div>
               @if (expandedSocialDimension.has(i)) {
@@ -68,7 +68,7 @@
               </div>
               <div class="title-row" style="display: flex; align-items: center; cursor: pointer;">
                 <p class="title" style="margin: 0;">{{ item.name }}</p>
-                <img [src]="expandedFisicoDimension.has(i) ? 'assets/icons/arrow-up.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
+                <img [src]="expandedFisicoDimension.has(i) ? 'assets/icons/arrow-down.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
                 [ngStyle]="{ transform: expandedFisicoDimension.has(i) ? 'rotate(180deg)' : 'rotate(0deg)' }" class="arrows"/>
               </div>
               @if (expandedFisicoDimension.has(i)) {
