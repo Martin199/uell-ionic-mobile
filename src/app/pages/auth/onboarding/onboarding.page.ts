@@ -169,6 +169,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       const loading = await this.utilService.loading();
       await loading.present();
       await this.postOnboarding();
+      loading.dismiss();
       this.utilService.navCtrl.navigateRoot(['/tabs/home']);
     } else if (data?.resetToStepOne) {
       this.step = 0;
