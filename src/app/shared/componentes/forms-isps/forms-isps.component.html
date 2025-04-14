@@ -33,12 +33,13 @@
     <swiper-slide>
       <app-form-isps-step-three (validForm)="updateValidStep($event)" (returnThirdStep)="returnThirdStep($event)"></app-form-isps-step-three>
     </swiper-slide>
-    <swiper-slide *ngIf="!onboarding">
+    <swiper-slide *ngIf="((onboarding===true && questionGestor === null) || onboarding===false)">
       <!-- Resultados -->
       <ion-spinner *ngIf="!dataIsps"></ion-spinner>
       @if(dataIsps){
         <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
-        [hiddenCardChoiceMessageThroughCellphone]="messageThroughCellphone === 'false' ? true : false"
+        [hiddenCardChoiceMessageThroughCellphone]="(messageThroughCellphone === 'false' || messageThroughCellphone === 'true') ? false : true"
+        [onboarding]="onboarding"
          (isChecked)="returnQuestionValue($event)" 
          [responseISPS]="dataIsps">
         </app-form-isps-step-four>

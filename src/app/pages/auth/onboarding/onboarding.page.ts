@@ -165,7 +165,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     await modal.present();
 
     const { data } = await modal.onWillDismiss();
-    if (data?.onboarding && !data?.resetToStepOne) {
+    if ((data?.onboarding && !data?.resetToStepOne) || data.updated === true) {
       const loading = await this.utilService.loading();
       await loading.present();
       await this.postOnboarding();

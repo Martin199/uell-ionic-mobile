@@ -12,6 +12,7 @@ export class FormIspsStepFourComponent  implements OnInit {
   nameUsername = input <string>();
   viewChoiceMessageThroughCellphone = input <boolean>();
   hiddenCardChoiceMessageThroughCellphone= input <boolean>(false);
+  onboarding = input <boolean>(false);
   isChecked=output<string>();
   
   score: number = 0;
