@@ -130,6 +130,9 @@ export class OnboardingPage implements AfterViewInit, OnInit {
         this.step++;
       }
     }
+    if (this.step === 4 && this.skipClinicalHistory) {
+      this.step = 7;
+    }
     if (this.step === 6) {
       this.openModal();
     }
