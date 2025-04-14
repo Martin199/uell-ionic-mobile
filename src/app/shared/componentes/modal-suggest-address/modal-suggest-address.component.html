@@ -7,7 +7,7 @@
       <p class="address">{{addressSuggest()  || ''}}</p>
     </div>
     <div class="address-card" [ngClass]="{'card-selected': uploadedAddressSelected}" (click)="selectUploadedAddress()">
-      <ion-checkbox [(ngModel)]="uploadedAddressSelected" (ionChange)="selectUploadedAddress()" (ionChange)="selectSuggestAddress()" labelPlacement="end">Dirección ingresada</ion-checkbox>
+      <ion-checkbox [(ngModel)]="uploadedAddressSelected" labelPlacement="end">Dirección ingresada</ion-checkbox>
       <p class="address">{{addressUploaded() || ''}}</p>
     </div>
   </div>

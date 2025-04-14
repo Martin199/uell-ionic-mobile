@@ -69,7 +69,7 @@ export class AuthPage {
   
       if (result) {
         if (result.type === 'passwordChange') {
-          this.utilsService.router.navigate(['auth/create-new-password']);
+          this.utilsService.navCtrl.navigateRoot(['auth/create-new-password']);
           loading.dismiss();
           return;
         }
@@ -151,13 +151,13 @@ export class AuthPage {
     this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
       if (res.length > 0) {
         this.storageService.setSessionStorage('termsAndConditions', res);
-        this.utilsService.router.navigateByUrl('/auth/term-and-conditions');
+        this.utilsService.navCtrl.navigateRoot(['/auth/term-and-conditions']);
       } else {
         this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
         if (!this.userDTO.onboarded) {
-          this.utilsService.router.navigateByUrl('/auth/onboarding');
+          this.utilsService.navCtrl.navigateRoot(['/auth/onboarding']);
         } else {
-          this.utilsService.router.navigateByUrl('tabs/home');
+          this.utilsService.navCtrl.navigateRoot(['tabs/home']);
 
         }
       }
@@ -191,6 +191,6 @@ export class AuthPage {
   }
 
   forgotPassword() {
-    this.utilsService.router.navigate(['/recovery-password']);
+    this.utilsService.navCtrl.navigateRoot(['/recovery-password']);
   }
 }

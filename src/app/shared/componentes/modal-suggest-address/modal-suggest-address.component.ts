@@ -41,7 +41,9 @@ export class ModalSuggestAddressComponent implements OnInit{
 
   ngOnInit(): void {
     this.setUploadedAddress(this.addressInfo)
-    this.setSuggestAddress(this.validationResult.addressComponents)
+    if (this.validationResult.addressComponents) {
+      this.setSuggestAddress(this.validationResult.addressComponents)
+    }
   }
 
   setUploadedAddress(addressInfo: IAddressInfo) {
@@ -54,6 +56,7 @@ export class ModalSuggestAddressComponent implements OnInit{
     addressUploaded += addressInfo?.province?.name ? `, ${this.utilsService.capitalizeText(addressInfo.province.name)}` : '';
     addressUploaded += this.country ? `, ${this.utilsService.capitalizeText(this.country)}` : '';
     this.addressUploaded.set(addressUploaded);
+    this.selectUploadedAddress();
   }
 
   setSuggestAddress(addressComponents: any) {
@@ -91,6 +94,7 @@ export class ModalSuggestAddressComponent implements OnInit{
     addressSuggest += province ? `, ${province}` : '';
     addressSuggest += this.country ? `, ${this.utilsService.capitalizeText(this.country)}` : '';
     this.addressSuggest.set(addressSuggest);
+    this.selectUploadedAddress();
   }
 
   selectSuggestAddress() {

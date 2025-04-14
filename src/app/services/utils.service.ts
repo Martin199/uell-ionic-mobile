@@ -130,7 +130,7 @@ export class UtilsService {
   }
 
   goTo(path: string) {
-    this.router.navigate([path]);
+    this.navCtrl.navigateRoot([path]);
   }
 
 }

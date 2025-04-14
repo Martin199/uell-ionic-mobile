@@ -1,5 +1,4 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { PortalService } from 'src/app/services/portal.service';
 import { StorageService } from 'src/app/services/storage.service';

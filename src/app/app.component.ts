@@ -7,7 +7,6 @@ import {
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
-import { Router } from '@angular/router';
 import { SessionServiceService } from './services/session-service.service';
 import { Capacitor } from '@capacitor/core';
 import { StorageService } from './services/storage.service';
@@ -21,7 +20,6 @@ import { UserResponseDTO } from './core/interfaces/user';
 })
 export class AppComponent {
   private sessionService = inject(SessionServiceService);
-  private router = inject(Router);
   private storageService = inject(StorageService);
   private utilsService = inject(UtilsService);
 
@@ -42,9 +40,9 @@ export class AppComponent {
     const tenantParameters = this.storageService.getSessionStorage('tenantParameters');
     const termsAndConditions: Array<any> | null = this.storageService.getSessionStorage('termsAndConditions');
     if (user && accessToken && tenant && tenantParameters) {
-      if (termsAndConditions && termsAndConditions.length > 0) this.utilsService.router.navigateByUrl('auth/term-and-conditions');
-      if (!user.onboarded)  this.utilsService.router.navigateByUrl('auth/onboarding');
-      this.utilsService.router.navigateByUrl('tabs/home');
+      if (termsAndConditions && termsAndConditions.length > 0) this.utilsService.navCtrl.navigateRoot(['auth/term-and-conditions']);
+      if (!user.onboarded)  this.utilsService.navCtrl.navigateRoot(['auth/onboarding']);
+      this.utilsService.navCtrl.navigateRoot(['tabs/home']);
     }
   }
 
@@ -87,7 +85,7 @@ export class AppComponent {
       (notification: ActionPerformed) => {
         // alert('Push action performed: ' + JSON.stringify(notification));
         const redirection = notification.notification.data.redirectTo;
-        if (redirection) this.router.navigateByUrl(redirection);
+        if (redirection) this.utilsService.navCtrl.navigateRoot(redirection);
       }
     );
   }

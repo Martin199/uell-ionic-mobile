@@ -50,13 +50,13 @@ export class SelectTenantsPage implements OnInit {
       const user: any = this.storageService.getSessionStorage('user');
       this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
         if (user.onboarded) {
-          this.utilsService.router.navigateByUrl('tabs/home');
+          this.utilsService.navCtrl.navigateRoot(['tabs/home']);
         } else {
           if (res.length > 0) {
             this.storageService.setSessionStorage('termsAndConditions', res);
-            this.utilsService.router.navigateByUrl('/auth/term-and-conditions');
+            this.utilsService.navCtrl.navigateRoot(['auth/term-and-conditions']);
           } else {
-            this.utilsService.router.navigateByUrl('/auth/onboarding');
+            this.utilsService.navCtrl.navigateRoot(['auth/onboarding']);
           }
         }
       });

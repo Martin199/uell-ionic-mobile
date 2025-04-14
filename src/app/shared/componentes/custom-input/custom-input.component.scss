@@ -1,14 +1,16 @@
 .label-input {
     color: var(--Neutral-GreyDark, #383E52);
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 16px; /* 133.333% */
     letter-spacing: 0.048px;
+    margin-bottom: 0.1rem;
 }
 
 .no-margin{
+    margin-top: 0.25rem;
     margin-bottom: 0rem;
     border: 0.1rem solid var(--Neutral-GreyLight, #E5E5E5);
     border-radius: 0.5rem;
