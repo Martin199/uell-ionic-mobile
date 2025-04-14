@@ -31,7 +31,7 @@
   .select-container {
     display: flex;
     flex-direction: column;
-    width: 140px;
+    width: 160px;
   }
   
   .custom-select {
@@ -40,9 +40,9 @@
     border-radius: 0.5rem;
     cursor: pointer;
     margin-bottom: 20px;
-    height: 48px;
-    margin-top: 0.25rem;
-    width: 100px;
+    height: 50px;
+    margin-top: 7px;
+    width: 140px;
   }
 
   .custom-select:hover {
@@ -99,9 +99,6 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
-    line-height: 16px; /* 133.333% */
+    line-height: 16px;
     letter-spacing: 0.048px;
-    // font-size: 16px;
-    // font-weight: 600;
-      // color: #383e52;
 }

@@ -49,9 +49,9 @@ export class CardMentalStatusComponent implements OnInit {
     this.mentalStatusService.getMentalStatus(this._userInfo.id).subscribe({
       next: (res: any) => {
         this.mentalStatusData = res;
+        this.checkMentalStatus();
         //TODO: habilitar Uellcoin cuando exista la imagen
-        // this.checkMentalStatus();
-        this.uellCoinService.showCoin();
+        // this.uellCoinService.showCoin();
       },
       error: (err) => {
         console.error(err);

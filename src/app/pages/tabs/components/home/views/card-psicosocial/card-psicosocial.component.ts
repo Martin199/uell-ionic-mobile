@@ -10,7 +10,6 @@ import { ModalDescriptionComponent } from 'src/app/shared/componentes/modal-desc
 import { ModalController } from '@ionic/angular';
 import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
 import { UtilsService } from 'src/app/services/utils.service';
-import { TenantParameters } from '../../../../../../core/interfaces/tenantParameters';
 
 @Component({
   selector: 'app-card-psicosocial',
@@ -19,7 +18,7 @@ import { TenantParameters } from '../../../../../../core/interfaces/tenantParame
 })
 export class CardPsicosocialComponent  implements OnInit, OnChanges {
 
-  @Input() ispsScore: ISPSScore = {} as ISPSScore;
+  @Input() ispsData: ISPSScore = {} as ISPSScore;
   tenantParameters : any;
   user: User= {} as User;
   score: boolean | null= false;
@@ -31,7 +30,9 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
   isColombia: boolean = false;
   urlImg: string = 'assets/highlights/person.svg';
   viewBtnTurnito: boolean = false;
-
+  emocionalDimension: any;
+  fisicoDimension: any;
+  socialDimension: any;
 
   ispsService = inject (ISPSService);
   storageService = inject(StorageService);
@@ -61,32 +62,34 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
 
   async ngOnInit() {
     this.user = await this.storageService.getSessionStorage<User>('user') !;
+    this.serDimensions(this.ispsData);
+
     // this.getISPSScore();
     // this.viewBtnTurnito = this.psychosocialService.getGestorWillContactYou()
   }
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['ispsScore'] && changes['ispsScore'].currentValue) {
+    if (changes['ispsData'] && changes['ispsData'].currentValue) {
       this.getISPSScore();
     }
   }
   
   getISPSScore() {
-    this.ispsScore.score ? (this.score = true) : (this.score = false);
+    this.ispsData.score ? (this.score = true) : (this.score = false);
     this.validatorsCalculateISPS();
     this.getDescriptionWellnes();
-    if (this.ispsScore?.remainingSessions && this.ispsScore?.totalSessions) {
-      this.porcentajeProgressBar = (this.ispsScore.remainingSessions / this.ispsScore.totalSessions) * 100;
-      this.totalProgressBar = ((this.ispsScore.remainingSessions / this.ispsScore.totalSessions) * 100) / 100;
+    if (this.ispsData?.remainingSessions && this.ispsData?.totalSessions) {
+      this.porcentajeProgressBar = (this.ispsData.remainingSessions / this.ispsData.totalSessions) * 100;
+      this.totalProgressBar = ((this.ispsData.remainingSessions / this.ispsData.totalSessions) * 100) / 100;
     } else {
       this.porcentajeProgressBar = 0;
     }
-    this.scoreDescription = this.isColombia ? Utils.returnSpeechIndiceLATAM(this.ispsScore.score): Utils.returnSpeechIndice(this.ispsScore.score);
+    this.scoreDescription = this.isColombia ? Utils.returnSpeechIndiceLATAM(this.ispsData.score): Utils.returnSpeechIndice(this.ispsData.score);
   }
 
   validatorsCalculateISPS() {
-    if (this.ispsScore.score === null || this.ispsScore.allowRedoIt || this.calculateDate()) {
+    if (this.ispsData.score === null || this.ispsData.allowRedoIt || this.calculateDate()) {
       this.hasEditISPS = false;
     } else {
       this.hasEditISPS = true;
@@ -94,16 +97,16 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
   }
 
   calculateDate() {
-    if (this.ispsScore.updated) {
-      const isIspValid = moment(this.ispsScore.updated).add(45, 'days').format('YYYY-MM-DD');
+    if (this.ispsData.updated) {
+      const isIspValid = moment(this.ispsData.updated).add(45, 'days').format('YYYY-MM-DD');
       return moment().isSameOrAfter(isIspValid);
     }
     return false;
   }
 
   getDescriptionWellnes() {
-    if (this.ispsScore?.managerId) {
-      this.ispsService.getWellnessManager(this.ispsScore.managerId).subscribe((data: any) => {
+    if (this.ispsData?.managerId) {
+      this.ispsService.getWellnessManager(this.ispsData.managerId).subscribe((data: any) => {
         this.managerData = data.content;
         //!!!!!!!!! TODO - validar imagen de gestor !!!!!!!!!!!!!!!!!!!!!!!!
         if (this.managerData.profilePicture) {
@@ -129,10 +132,20 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
   }	
 
   refreshISPS(){
+    debugger
       this.ispsService.getISPSScore(this.user.id).subscribe((data:any) =>{
-        this.ispsScore = data;
+        this.ispsData = data;
         this.getISPSScore();
+        this.serDimensions(data);
       })
+  }
+
+  serDimensions(data: any){
+    debugger
+      this.emocionalDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Emocional');
+      this.fisicoDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Físico');
+      this.socialDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Social');
+      debugger
   }
 
   async showModal() {
