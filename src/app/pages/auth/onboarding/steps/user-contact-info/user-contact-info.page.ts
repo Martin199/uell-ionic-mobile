@@ -48,8 +48,8 @@ export class UserContactInfoPage implements OnDestroy {
     this.observerContactInfoForm();
   }
   
-  setData() {
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
+  async setData() {
+    this.tenantParameters = await this.storageService.getSessionStorage('tenantParameters');
     //TODO: COUNTRY
     const country = this.tenantParameters!.tenantParameters.country ? this.tenantParameters!.tenantParameters.country : countryENUM.OTHER;
     this.user = this.utilsService.getUser();
