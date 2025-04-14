@@ -28,6 +28,7 @@ import { FormIspsIntroductionComponent } from './componentes/forms-isps/form-isp
 import { ModalMentalStatusDescriptionComponent } from './componentes/modals-components/modal-mental-status-description/modal-mental-status-description.component';
 import { MentalStatusCalendarComponent } from './componentes/mental-status-calendar/mental-status-calendar.component';
 import { UellCoinComponent } from './componentes/uell-coin/uell-coin.component';
+import { IspsResultComponent } from './componentes/isps-result/isps-result.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { UellCoinComponent } from './componentes/uell-coin/uell-coin.component';
     MentalStatusCalendarComponent,
     ModalMentalStatusDescriptionComponent,
     UellCoinComponent,
+    IspsResultComponent,
   ],
   imports: [
     CommonModule,
@@ -84,6 +86,7 @@ import { UellCoinComponent } from './componentes/uell-coin/uell-coin.component';
     MentalStatusCalendarComponent,
     ModalMentalStatusDescriptionComponent,
     UellCoinComponent,
+    IspsResultComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -47,13 +47,14 @@
             }
           </div>
         </div>
-
         @if (enableAreaCode) {
-          <app-custom-input
-            [control]="contactInfoForm.controls['areaCode']"
-            label="Código de área"
-            placeholder="Código de área"
-          ></app-custom-input>
+          <div class="area-code">
+            <app-custom-input
+              [control]="contactInfoForm.controls['areaCode']"
+              label="Código de área"
+              placeholder="Código de área"
+            ></app-custom-input>
+          </div>
         }
       </div>
 

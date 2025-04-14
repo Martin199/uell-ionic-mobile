@@ -1,0 +1,81 @@
+  @if(emocionalDimension){
+    <div class="card-dimension" [ngClass]="emocionalDimension.isAffected ? 'card-affected' : ''">
+      <div class="header-color" [ngClass]="emocionalDimension.isAffected ? 'affected' : 'no-affected'"></div>
+      <div class="icon">
+        <img [src]="emocionalDimension.isAffected ? 'assets/wellness-icons/dimenssion_emocional_affected.svg' : 'assets/wellness-icons/dimenssion_emocional.svg'" alt="" width="32px" height="32px">
+      </div>
+      <div class="title">Dimensión emocional</div>
+      <div class="status" [ngClass]="emocionalDimension.isAffected ? 'affected' : ''">{{emocionalDimension.isAffected ? 'Afectada' : 'En Equilibrio'}}</div>
+      @if(emocionalDimension){
+          @for(item of emocionalDimension.subdimentionDTO; track item; let i = $index) {
+            <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'" (click)="toggleExpandEmocionalDimension(i)">
+              <div class="subdimension-status">
+                <img [src]="item.isAffected ? 'assets/wellness-icons/circle_affected.svg' : 'assets/wellness-icons/circle_no_affected.svg'" alt="">
+              </div>
+              <div class="title-row" style="display: flex; align-items: center; cursor: pointer;">
+                <p class="title" style="margin: 0;">{{ item.name }}</p>
+                <img [src]="expandedEmocionalDimension.has(i) ? 'assets/icons/arrow-up.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
+                [ngStyle]="{ transform: expandedEmocionalDimension.has(i) ? 'rotate(180deg)' : 'rotate(0deg)' }" class="arrows"/>
+              </div>
+              @if (expandedEmocionalDimension.has(i)) {
+                <p class="description">{{ item.description }}</p>
+              }
+            </div>
+          }
+      }   
+    </div>
+  }
+  @if(socialDimension){
+    <div class="card-dimension" [ngClass]="socialDimension.isAffected ? 'card-affected' : ''">
+      <div class="header-color" [ngClass]="socialDimension.isAffected ? 'affected' : 'no-affected'"></div>
+      <div class="icon">
+        <img [src]="socialDimension.isAffected ? 'assets/wellness-icons/dimenssion_social_affected.svg' : 'assets/wellness-icons/dimenssion_social.svg'" alt="" width="32px" height="32px">
+      </div>
+      <div class="title">Dimensión social</div>
+      <div class="status" [ngClass]="socialDimension.isAffected ? 'affected' : ''">{{socialDimension.isAffected ? 'Afectada' : 'En Equilibrio'}}</div>
+      @if(socialDimension){
+          @for(item of socialDimension.subdimentionDTO; track item; let i = $index) {
+            <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'" (click)="toggleExpandSocialDimension(i)">
+              <div class="subdimension-status">
+                <img [src]="item.isAffected ? 'assets/wellness-icons/circle_affected.svg' : 'assets/wellness-icons/circle_no_affected.svg'" alt="">
+              </div>
+              <div class="title-row" style="display: flex; align-items: center; cursor: pointer;">
+                <p class="title" style="margin: 0;">{{ item.name }}</p>
+                <img [src]="expandedSocialDimension.has(i) ? 'assets/icons/arrow-up.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
+                [ngStyle]="{ transform: expandedSocialDimension.has(i) ? 'rotate(180deg)' : 'rotate(0deg)' }" class="arrows"/>
+              </div>
+              @if (expandedSocialDimension.has(i)) {
+                <p class="description">{{ item.description }}</p>
+              }
+            </div>
+          }
+      }
+    </div>
+  }
+  @if(fisicoDimension){
+    <div class="card-dimension" [ngClass]="fisicoDimension.isAffected ? 'card-affected' : ''">
+      <div class="header-color" [ngClass]="fisicoDimension.isAffected ? 'affected' : 'no-affected'"></div>
+      <div class="icon">
+        <img [src]="fisicoDimension.isAffected ? 'assets/wellness-icons/dimenssion_salud_affected.svg' : 'assets/wellness-icons/dimenssion_salud.svg'" alt="" width="32px" height="32px">
+      </div>
+      <div class="title">Dimensión física</div>
+      <div class="status" [ngClass]="fisicoDimension.isAffected ? 'affected' : ''">{{fisicoDimension.isAffected ? 'Afectada' : 'En Equilibrio'}}</div>
+      @if(fisicoDimension){
+          @for(item of fisicoDimension.subdimentionDTO; track item; let i = $index) {
+            <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'" (click)="toggleExpandFisicoDimension(i)">
+              <div class="subdimension-status">
+                <img [src]="item.isAffected ? 'assets/wellness-icons/circle_affected.svg' : 'assets/wellness-icons/circle_no_affected.svg'" alt="">
+              </div>
+              <div class="title-row" style="display: flex; align-items: center; cursor: pointer;">
+                <p class="title" style="margin: 0;">{{ item.name }}</p>
+                <img [src]="expandedFisicoDimension.has(i) ? 'assets/icons/arrow-up.svg' : 'assets/icons/arrow-down.svg'" alt="toggle" 
+                [ngStyle]="{ transform: expandedFisicoDimension.has(i) ? 'rotate(180deg)' : 'rotate(0deg)' }" class="arrows"/>
+              </div>
+              @if (expandedFisicoDimension.has(i)) {
+                <p class="description">{{ item.description }}</p>
+              }
+            </div>
+          }
+      }
+    </div>
+  }
