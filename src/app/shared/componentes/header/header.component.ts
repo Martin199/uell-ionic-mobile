@@ -68,27 +68,18 @@ export class HeaderComponent  implements OnInit {
   async loadProfilePicture() {
     
     let currentPhoto = localStorage.getItem('current_photo');
-
-  
-    if (!this.user()?.photo || this.user()?.photo === '') {
-      let currentPhoto = localStorage.getItem('current_photo');
-      this.fileService
-        .downloadFile(currentPhoto ? currentPhoto : this.user()?.photo!)
-        .subscribe({
-          next: (photo: any) => {
-            this.userAvatarUrl = photo;
-          },
-          error: (err) => {
-            console.error(err);
-            this.userAvatarUrl = this.defaultAvatarUrl;
-          }
-        });
-    } else if (currentPhoto) {
-      this.userAvatarUrl = currentPhoto;
-    } else {
-      this.userAvatarUrl = this.defaultAvatarUrl;
-    }
-}
+    this.fileService
+      .downloadFile(currentPhoto ? currentPhoto : this.user()?.photo!)
+      .subscribe({
+        next: (photo: any) => {
+          this.userAvatarUrl = photo;
+        },
+        error: (err) => {
+          console.error(err);
+          this.userAvatarUrl = this.defaultAvatarUrl;
+        }
+      });
+  }
 
   logOut(){
     this.utilServices.showConfirmation(
