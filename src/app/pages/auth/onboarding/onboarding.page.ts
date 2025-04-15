@@ -172,9 +172,8 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       loading.dismiss();
       this.utilService.navCtrl.navigateRoot(['/tabs/home']);
     } else if (data?.resetToStepOne) {
-      this.step = 0;
-      this.progress = 0.125;
-      this.swiperContainer.nativeElement.swiper.slideTo(0);
+      this.step = 7;
+      this.progress = 1;
     }
   }
 
@@ -187,11 +186,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     const { data } = await modal.onDidDismiss();
     if (data && data.accepted) {
       this.postMedicalInfo(this.medicalFormData, this.medicalFormDataTwo);
-    } else {
-      localStorage.removeItem('user');
-      this.storageService.clearLocalStorage();
-      window.location.href = '/auth';
-    }
+    } 
   }
 
   prevSlide(): void {
