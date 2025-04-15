@@ -79,25 +79,23 @@ ion-radio::part(container) {
 
 /* Aplica el color cuando está seleccionado */
 ion-radio[aria-checked="true"] {
-  --color: #1DA4B1; /* Color del círculo interno cuando está seleccionado */
-  --border-color: #1DA4B1; /* Borde azul cuando está seleccionado */
+  --color: #1da4b1; /* Color del círculo interno cuando está seleccionado */
+  --border-color: #1da4b1; /* Borde azul cuando está seleccionado */
 }
 
 /* Asegurar que el círculo interno se muestre al seleccionar */
 ion-radio[aria-checked="true"]::part(container) {
-  background: radial-gradient(circle, #1DA4B1 50%, transparent 55%);
+  background: radial-gradient(circle, #1da4b1 50%, transparent 55%);
 }
-
-
 
 ion-checkbox {
   --size: 25px;
-  --checkbox-background-checked: #1DA4B1;
+  --checkbox-background-checked: #1da4b1;
 }
 
 ion-checkbox::part(container) {
   border-radius: 6px;
-  border: 2px solid #1DA4B1;
+  border: 2px solid #1da4b1;
 }
 
 .custom-input {
@@ -110,10 +108,10 @@ ion-checkbox::part(container) {
   transition: all 0.3s ease-in-out;
 
   ion-select {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 14px;
     font-weight: 400;
-    color: var(--Neutral-GreyDark, #383E52);
+    color: var(--Neutral-GreyDark, #383e52);
     padding: 0;
     margin: 0;
     --padding-start: 0;
@@ -121,7 +119,7 @@ ion-checkbox::part(container) {
   }
 
   ion-select::part(text) {
-    color: var(--Neutral-GreyDark, #383E52);
+    color: var(--Neutral-GreyDark, #383e52);
     padding-left: 0;
     font-size: 14px;
   }
@@ -133,12 +131,10 @@ ion-checkbox::part(container) {
   }
 }
 
-
 ion-item.custom-input:hover,
 ion-item.custom-input:focus-within {
-  --border-color: #1DA4B1;
+  --border-color: #1da4b1;
 }
-
 
 .submit-btn {
   --padding-start: 20px;
@@ -152,8 +148,7 @@ ion-item.custom-input:focus-within {
   border-radius: 100px;
   font-weight: bold;
   text-transform: none;
-  font-family: 'Inter', sans-serif;
-
+  font-family: "Inter", sans-serif;
 }
 
 .alert-button {
@@ -169,20 +164,18 @@ ion-item.custom-input:focus-within {
   color: var(--ion-color-primary);
 }
 
-  .alert-button {
-    font-size: 16px;
-    font-weight: bold;
-  }
+.alert-button {
+  font-size: 16px;
+  font-weight: bold;
+}
 
-  .alert-button-role-cancel {
-    color: var(--ion-color-medium); /* Color del botón "Cancelar" */
-  }
+.alert-button-role-cancel {
+  color: var(--ion-color-medium); /* Color del botón "Cancelar" */
+}
 
-  .alert-button-role-confirm {
-    color: var(--ion-color-primary); /* Color del botón "Confirmar" */
-  }
-
-
+.alert-button-role-confirm {
+  color: var(--ion-color-primary); /* Color del botón "Confirmar" */
+}
 
 .validators {
   color: var(--ion-color-danger);
@@ -245,25 +238,40 @@ ion-item.custom-input:focus-within {
 }
 
 .confirm-button {
-  color:  #1DA4B1 !important;
+  color: #1da4b1 !important;
   font-size: 2rem;
   font-weight: bold;
 }
 
 .confirm-button-danger {
-  color:  #FF0000 !important;
-  font-size: 2rem;
-  font-weight: bold;
+  border-radius: 20px!important;
+  padding-top: 10px!important;
+  padding-right: 20px!important;
+  padding-bottom: 10px!important;
+  padding-left: 20px!important;
+  background: #1da4b1!important;
+  color: white!important;
+  text-transform: capitalize!important;
 }
 
 .cancel-button {
-  color: black !important;
-  font-size: 2rem;
-  font-weight: bold;
+  width: 104!important;
+  height: 40!important;
+  gap: 10px!important;
+  border-radius: 20px!important;
+  border-width: 1px!important;
+  padding-top: 10px!important;
+  padding-right: 20px!important;
+  padding-bottom: 10px!important;
+  padding-left: 20px!important;
+  border: 1px solid #1da4b1!important;
+  color: #1da4b1!important;
+  text-transform: capitalize!important;
+
 }
 
 ion-toast.custom-toast {
-  --background: #1DA4B1;
+  --background: #1da4b1;
   --color: white;
   --border-radius: 12px;
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -273,8 +281,7 @@ ion-toast.custom-toast {
   --padding-end: 20px;
 
   text-align: center;
-  font-family: 'Red Hat Display', sans-serif;
+  font-family: "Red Hat Display", sans-serif;
   font-weight: 600;
   z-index: 9999;
-
 }
