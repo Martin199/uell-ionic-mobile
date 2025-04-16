@@ -47,9 +47,9 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
     
     if(this.tenantParameters.tenantParameters.gestorWillContactYou){
       const gestorWillContactYou = this.tenantParameters.tenantParameters.gestorWillContactYou;
-      gestorWillContactYou === 'true' ? localStorage.setItem('gestorWillContactYou', 'true') :
-      gestorWillContactYou === 'false' ? localStorage.setItem('gestorWillContactYou', 'false') :
-      this.viewBtnTurnito = gestorWillContactYou;
+      // gestorWillContactYou === 'true' ? localStorage.setItem('gestorWillContactYou', 'true') :
+      // gestorWillContactYou === 'false' ? localStorage.setItem('gestorWillContactYou', 'false') :
+      this.viewBtnTurnito = (gestorWillContactYou === 'true' || gestorWillContactYou !== 'false' ? true : false);
     
       localStorage.setItem('gestorWillContactYou', 'null');
     } else {

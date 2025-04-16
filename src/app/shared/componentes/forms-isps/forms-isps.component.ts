@@ -48,6 +48,7 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   completeIsps: boolean = false;
   messageThroughCellphone: any;
   viewChoiceMessageThroughCellphone: boolean = true;
+  gestorWillContactYou : any;
   
   @ViewChild('swiperContainer', { read: ElementRef }) swiperContainer!: ElementRef;
   @ViewChild(IonContent) content!: IonContent;
@@ -59,18 +60,22 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   storageService = inject(StorageService);
   utilsService = inject(UtilsService)
 
-  @Input() onboarding!: boolean;
+  @Input() onboarding: boolean = false;
 
   constructor() { }
 
   async ngOnInit() {
     this.user = this.storageService.getSessionStorage<User>('user')!;
     this.translatesISPS = this.utilsService.getLocalization('isps');
-    if (localStorage.getItem('gestorWillContactYou') && localStorage.getItem('gestorWillContactYou') === 'true' || localStorage.getItem('gestorWillContactYou') === 'false') {
-      this.questionGestor = localStorage.getItem('gestorWillContactYou');
-      this.messageThroughCellphone = localStorage.getItem('gestorWillContactYou');
+    this.gestorWillContactYou = this.storageService.getSessionStorage('tenantParameters')
+    if (this.gestorWillContactYou && (this.gestorWillContactYou.tenantParameters.gestorWillContactYou === 'true' || this.gestorWillContactYou.tenantParameters.gestorWillContactYou === 'false')) {
+      this.questionGestor = this.gestorWillContactYou.tenantParameters.gestorWillContactYou
+      this.messageThroughCellphone = this.gestorWillContactYou.tenantParameters.gestorWillContactYou
       this.viewChoiceMessageThroughCellphone = false;
       this.invalidLastStep = false;
+    }else{
+      this.invalidLastStep = true;
+      this.messageThroughCellphone = this.gestorWillContactYou.tenantParameters.gestorWillContactYou
     }
 
     this.onboarding ? (this.validStep = true) : this.step++;
@@ -120,9 +125,17 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
         this.step++;
         this.updateProgress();
         this.scrollToTop();
-        if(this.onboarding){
+        
+
+        if(this.onboarding===true && (this.questionGestor === 'false' || this.questionGestor === 'true')) {
           this.closeModal();
         }
+
+        //((onboarding===true && questionGestor === null) || onboarding===false)"
+        
+        // if(this.onboarding){
+        //   this.closeModal();
+        // }
     } else {
       if (this.swiper) {      
         this.swiper.slideNext();
@@ -197,7 +210,7 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
 
   returnQuestionValue(value: string){
     this.invalidLastStep = false;
-    this.questionGestor = value
+    // this.questionGestor = value
     this.stepFour = this.questionGestor === 'true' ? true : false;
   }
 

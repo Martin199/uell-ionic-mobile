@@ -74,7 +74,7 @@ export class UtilsService {
           cssClass: 'cancel-button',
         },
         {
-          text: 'Confirmar',
+          text: 'Aceptar',
           cssClass: 'confirm-button-danger',
           handler: confirmHandler,
         },

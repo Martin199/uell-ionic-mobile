@@ -31,6 +31,12 @@ form{
   align-items: center;
 }	
 
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 
 .t{
   color: var(--Neutral-GreyDark, #383E52);
