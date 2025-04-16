@@ -13,6 +13,7 @@ import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
 import { firstValueFrom } from 'rxjs';
+import { ModalMailRegisteredComponent } from 'src/app/shared/componentes/modal-mail-registered/modal-mail-registered.component';
 
 @Component({
   selector: 'app-onboarding',
@@ -114,9 +115,17 @@ export class OnboardingPage implements AfterViewInit, OnInit {
   }
 
   async nextSlide() {
-    this.progress = this.progress + 0.125;
+    this.step !== 2 ? this.progress = this.progress + 0.125 : this.progress;
     this.content.scrollToTop(0);
     if (this.swiperContainer.nativeElement.swiper) {
+      if (this.step === 2) {
+        const canContinue = await this.usedMail(this.contactInfo!.email);
+        if (canContinue){
+          return;
+        } else {
+          this.nextSlide();
+        }
+      }
       if (this.step === 3) {
         const confirmAddress: any = await this.validacionGoogleMaps(
           this.addressInfo
@@ -155,6 +164,20 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     }
   }
 
+  async usedMail(value: string): Promise<boolean> {
+    try {
+      const res: any = await firstValueFrom(this.userService.getUsedMail(this.user.id, value));
+      if (res === true) {
+        await this.emailRegistered(value);
+        return true;
+      }
+      return false; 
+    } catch (error) {
+      console.error('Error al verificar el mail:', error);
+      return false;
+    }
+  }
+  
   async goIsps() {
     const modal = await this.utilService.modalCtrl.create({
       component: FormsIspsComponent,
@@ -175,6 +198,17 @@ export class OnboardingPage implements AfterViewInit, OnInit {
       this.step = 7;
       this.progress = 1;
     }
+  }
+
+  async emailRegistered(value: string) {
+    const modal = await this.modalController.create({
+      component: ModalMailRegisteredComponent,
+      cssClass: 'custom-modal-class',   
+      componentProps: {
+        email: value
+      }
+    });
+    await modal.present();
   }
 
   async openModal() {
