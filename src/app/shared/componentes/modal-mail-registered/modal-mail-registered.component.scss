@@ -1,0 +1,30 @@
+div{
+    margin: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+p{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    margin: 48px 0px 0;
+    text-align: center;
+    color: #383e52;
+}
+
+.footer-btn-back {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    --background: white;
+    --background-hover: #4c8dff;
+    --background-activated: #3366cc;
+    --color: #1da4b1;
+    border-radius: 100px;
+    font-weight: bold;
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+    border: 2px solid #1da4b1;
+}

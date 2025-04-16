@@ -133,4 +133,10 @@ export class UserService {
       `${environment.apiBaseUrl}${environment.apiVersion}/users/onboarding/${id}`
     );
   }
+
+	getUsedMail(userId: number, mail: string) {
+    return this.http.get(
+      `${environment.apiBaseUrl}${environment.apiVersion}/users/emailValidate?id=${userId}&email=${mail}`
+    );
+	}
 }

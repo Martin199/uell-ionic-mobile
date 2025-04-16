@@ -29,6 +29,7 @@ import { ModalMentalStatusDescriptionComponent } from './componentes/modals-comp
 import { MentalStatusCalendarComponent } from './componentes/mental-status-calendar/mental-status-calendar.component';
 import { UellCoinComponent } from './componentes/uell-coin/uell-coin.component';
 import { IspsResultComponent } from './componentes/isps-result/isps-result.component';
+import { ModalMailRegisteredComponent } from './componentes/modal-mail-registered/modal-mail-registered.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { IspsResultComponent } from './componentes/isps-result/isps-result.compo
     ModalMentalStatusDescriptionComponent,
     UellCoinComponent,
     IspsResultComponent,
+    ModalMailRegisteredComponent
   ],
   imports: [
     CommonModule,
