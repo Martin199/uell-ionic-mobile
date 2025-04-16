@@ -132,7 +132,6 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
   }	
 
   refreshISPS(){
-    debugger
       this.ispsService.getISPSScore(this.user.id).subscribe((data:any) =>{
         this.ispsData = data;
         this.getISPSScore();
@@ -141,11 +140,9 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
   }
 
   serDimensions(data: any){
-    debugger
       this.emocionalDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Emocional');
       this.fisicoDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Físico');
       this.socialDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Social');
-      debugger
   }
 
   async showModal() {
