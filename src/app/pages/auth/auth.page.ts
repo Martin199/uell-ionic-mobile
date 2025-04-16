@@ -10,6 +10,7 @@ import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { SessionServiceService } from 'src/app/services/session-service.service';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { EMPTY, forkJoin, map, switchMap, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-auth',
@@ -17,135 +18,168 @@ import { EMPTY, forkJoin, map, switchMap, tap } from 'rxjs';
   styleUrls: ['./auth.page.scss'],
   animations: [
     trigger('fadeInOut', [
-      transition(':enter', [style({ opacity: 0 }), animate('500ms', style({ opacity: 1 }))]),
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms', style({ opacity: 1 })),
+      ]),
       transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
     ]),
     trigger('enterAnimation', [
-      transition(':enter', [style({ transform: 'translateX(100%)', opacity: 0 }), animate('500ms', style({ transform: 'translateX(0)', opacity: 1 }))]),
-      transition(':leave', [style({ transform: 'translateX(0)', opacity: 1 }), animate('500ms', style({ transform: 'translateX(100%)', opacity: 0 }))])
+      transition(':enter', [
+        style({ transform: 'translateX(100%)', opacity: 0 }),
+        animate('500ms', style({ transform: 'translateX(0)', opacity: 1 })),
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateX(0)', opacity: 1 }),
+        animate('500ms', style({ transform: 'translateX(100%)', opacity: 0 })),
+      ]),
     ]),
   ],
 })
 export class AuthPage {
-
   @ViewChild('userContainer', { static: true }) userContainer!: ElementRef;
-  @ViewChild('passwordContainer', { static: true }) passwordContainer!: ElementRef;
+  @ViewChild('passwordContainer', { static: true })
+  passwordContainer!: ElementRef;
   @ViewChild('buttonContainer', { static: true }) buttonContainer!: ElementRef;
 
   formAuth = new FormGroup({
     cuil: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-  })
+  });
 
-  animationCtrl = inject(AnimationController)
-  cognitoService = inject(CognitoService)
-  userService = inject(UserService)
+  animationCtrl = inject(AnimationController);
+  cognitoService = inject(CognitoService);
+  userService = inject(UserService);
   utilsService = inject(UtilsService);
   storageService = inject(StorageService);
-  private readonly sessionService = inject(SessionServiceService)
+  version = environment.version;
+  env = environment.env;
+  private readonly sessionService = inject(SessionServiceService);
 
   userDTO!: UserResponseDTO;
-  hasMultipleTenants!: boolean
- 
-  constructor() { }
+  hasMultipleTenants!: boolean;
+
+  constructor() {}
 
   ngAfterViewInit() {
     this.animateElements();
   }
-  
+
   async submit() {
     this.formAuth.markAllAsTouched();
     if (this.formAuth.invalid) {
       console.log('Formulario inválido');
       return;
     }
-  
+
     const { cuil, password } = this.formAuth.value;
     const loading = await this.utilsService.loading();
     await loading.present();
-  
+
     try {
-      const result = await this.cognitoService.signIn(cuil as string, password as string);
-  
+      const result = await this.cognitoService.signIn(
+        cuil as string,
+        password as string
+      );
+
       if (result) {
         if (result.type === 'passwordChange') {
           this.utilsService.navCtrl.navigateRoot(['auth/create-new-password']);
           loading.dismiss();
           return;
         }
-  
+
         this.storageService.saveToken();
-  
-        this.userService.getMe().pipe(
-          tap((user: UserResponseDTO) => {
-            this.userService.setUser(user);
-            this.storageService.setSessionStorage('user', user);
-            this.userDTO = user;
-            this.hasMultipleTenants = user.tenant.length > 1;
-  
-            if (!this.hasMultipleTenants) {
-              this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
-            }
-          }),
-          switchMap((user) => {
-            if (!this.hasMultipleTenants) {
-              return new Promise<typeof user>((resolve) => setTimeout(() => resolve(user), 0));
-            }
-            return Promise.resolve(user);
-          }),
-          switchMap((user) =>
-            forkJoin({
-              tenantParameters: this.userService.getTenantParameters(),
-              userTenants: this.userService.getUserTenants(),
-              allSegmentation: this.userService.getAllSegmentation(),
-            }).pipe(
-              map((result) => ({
-                ...result,
-                user,
-              }))
+
+        this.userService
+          .getMe()
+          .pipe(
+            tap((user: UserResponseDTO) => {
+              this.userService.setUser(user);
+              this.storageService.setSessionStorage('user', user);
+              this.userDTO = user;
+              this.hasMultipleTenants = user.tenant.length > 1;
+
+              if (!this.hasMultipleTenants) {
+                this.storageService.setSessionStorage(
+                  'tenant',
+                  JSON.stringify(user.tenant[0])
+                );
+              }
+            }),
+            switchMap((user) => {
+              if (!this.hasMultipleTenants) {
+                return new Promise<typeof user>((resolve) =>
+                  setTimeout(() => resolve(user), 0)
+                );
+              }
+              return Promise.resolve(user);
+            }),
+            switchMap((user) =>
+              forkJoin({
+                tenantParameters: this.userService.getTenantParameters(),
+                userTenants: this.userService.getUserTenants(),
+                allSegmentation: this.userService.getAllSegmentation(),
+              }).pipe(
+                map((result) => ({
+                  ...result,
+                  user,
+                }))
+              )
             )
           )
-        ).subscribe({
-          next: ({ tenantParameters, userTenants, allSegmentation, user }) => {
-            this.storageService.setSessionStorage('tenantParameters', tenantParameters);
-            console.log('getUserTenants:', userTenants);
-            console.log('getAllSegmentation:', allSegmentation);
-  
-            if (this.hasMultipleTenants) {
-              this.utilsService.router.navigate(['/auth/select-tenants']);
-            } else {
-              this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
-  
-              if (user.onboarded) {
-                this.utilsService.router.navigateByUrl('tabs/home');
+          .subscribe({
+            next: ({
+              tenantParameters,
+              userTenants,
+              allSegmentation,
+              user,
+            }) => {
+              this.storageService.setSessionStorage(
+                'tenantParameters',
+                tenantParameters
+              );
+              console.log('getUserTenants:', userTenants);
+              console.log('getAllSegmentation:', allSegmentation);
+
+              if (this.hasMultipleTenants) {
+                this.utilsService.router.navigate(['/auth/select-tenants']);
               } else {
-                this.termsAndConditions(user);
+                this.storageService.setSessionStorage(
+                  'tenant',
+                  JSON.stringify(user.tenant[0])
+                );
+
+                if (user.onboarded) {
+                  this.utilsService.router.navigateByUrl('tabs/home');
+                } else {
+                  this.termsAndConditions(user);
+                }
               }
-            }
-  
-            PushNotifications.checkPermissions().then(result => {
-              if (result.receive === 'granted') {
-                this.sessionService.handleSession();
-              }
-            });
-  
-            loading.dismiss();
-          },
-          error: (error) => {
-            console.error('Error al obtener usuario o datos adicionales:', error);
-            loading.dismiss();
-          }
-        });
+
+              PushNotifications.checkPermissions().then((result) => {
+                if (result.receive === 'granted') {
+                  this.sessionService.handleSession();
+                }
+              });
+
+              loading.dismiss();
+            },
+            error: (error) => {
+              console.error(
+                'Error al obtener usuario o datos adicionales:',
+                error
+              );
+              loading.dismiss();
+            },
+          });
       }
-  
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       this.formAuth.setErrors({ incorrect: true });
       loading.dismiss();
     }
   }
-  
-  
 
   termsAndConditions(user: UserResponseDTO) {
     this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
@@ -153,12 +187,14 @@ export class AuthPage {
         this.storageService.setSessionStorage('termsAndConditions', res);
         this.utilsService.navCtrl.navigateRoot(['/auth/term-and-conditions']);
       } else {
-        this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
+        this.storageService.setSessionStorage(
+          'tenant',
+          JSON.stringify(user.tenant[0])
+        );
         if (!this.userDTO.onboarded) {
           this.utilsService.navCtrl.navigateRoot(['/auth/onboarding']);
         } else {
           this.utilsService.navCtrl.navigateRoot(['tabs/home']);
-
         }
       }
     });
