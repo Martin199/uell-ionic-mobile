@@ -2,6 +2,7 @@ export const environment = {
   production: false,
   apiBaseUrl: 'https://apiqa.uell.newton-development.com/',
   env: 'qa',
+  version: '0.1',
   httpTimeout: 60000,
   apiVersion: 'v2',
   maxImageSize: 1024 * 1024 * 5, // 5MB
