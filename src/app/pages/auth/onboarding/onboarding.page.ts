@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import Swiper from 'swiper';
 import { IAddressInfo, IContactInfo } from 'src/app/shared/interface/country-interfaces';
 import { GoogleApisService } from 'src/app/services/google-apis.service';
@@ -12,7 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { ModalMailRegisteredComponent } from 'src/app/shared/componentes/modal-mail-registered/modal-mail-registered.component';
 
 @Component({
@@ -20,7 +20,7 @@ import { ModalMailRegisteredComponent } from 'src/app/shared/componentes/modal-m
   templateUrl: './onboarding.page.html',
   styleUrls: ['./onboarding.page.scss'],
 })
-export class OnboardingPage implements AfterViewInit, OnInit {
+export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   private googleApisService = inject(GoogleApisService);
   storageService = inject(StorageService);
   utilService = inject(UtilsService);
@@ -54,6 +54,8 @@ export class OnboardingPage implements AfterViewInit, OnInit {
   totalSteps: number = 8;
   skipClinicalHistory: boolean = false;
 
+  private destroy$ = new Subject<void>();
+
   constructor() {
     this.user = localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user')!)
@@ -62,6 +64,11 @@ export class OnboardingPage implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.getDataUser();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngAfterViewInit(): void {
@@ -120,7 +127,7 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     if (this.swiperContainer.nativeElement.swiper) {
       if (this.step === 2) {
         const canContinue = await this.usedMail(this.contactInfo!.email);
-        if (canContinue){
+        if (canContinue || canContinue==null){
           return;
         } else {
           this.nextSlide();
@@ -164,15 +171,21 @@ export class OnboardingPage implements AfterViewInit, OnInit {
     }
   }
 
-  async usedMail(value: string): Promise<boolean> {
+  async usedMail(value: string): Promise<boolean | null> {
+    this.destroy$.next();
     try {
-      const res: any = await firstValueFrom(this.userService.getUsedMail(this.user.id, value));
+      const res: any = await firstValueFrom(this.userService.getUsedMail(this.user.id, value).pipe(
+        takeUntil(this.destroy$)
+      ));
       if (res === true) {
         await this.emailRegistered(value);
         return true;
       }
       return false; 
     } catch (error) {
+      if (error instanceof Error && error.name === 'EmptyError') {
+        return null;
+      }
       console.error('Error al verificar el mail:', error);
       return false;
     }
