@@ -7,25 +7,19 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   templateUrl: './multimedia-iframe.component.html',
   styleUrls: ['./multimedia-iframe.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class MultimediaIframeComponent {
-
-  @Input() url: string = ''
+  @Input() url: string = '';
   @Input() height150px: boolean = false;
   isPlaying: boolean = false;
   sanitizedUrl!: SafeResourceUrl;
 
-  constructor() { }
+  constructor() {}
 
-  sanitizer = inject(DomSanitizer);
-
-  playVideo() {
-    const videoUrl = `${this.url}?autoplay=1`;
-    this.isPlaying = true;
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
+  ngOnInit(): void {
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
 
-  getYouTubeThumbnail(url: string): string { const videoId = url.split('embed/')[1]; return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }
-
+  sanitizer = inject(DomSanitizer);
 }

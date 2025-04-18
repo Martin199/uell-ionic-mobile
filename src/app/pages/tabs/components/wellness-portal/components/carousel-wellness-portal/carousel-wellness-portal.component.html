@@ -3,10 +3,10 @@
   <div class="swiper-container">
     <swiper-container slides-per-view="auto">
       @for (item of data; track $index) {
-        <swiper-slide class="pointer" [ngClass]="item.multimedia ? 'multimedia-width' : ''" (click)="!item.multimedia ? redirectToPost(item.id) : null">
+        <swiper-slide class="pointer" [ngClass]="item.multimedia ? 'multimedia-width' : 'img-width'" (click)="!item.multimedia ? redirectToPost(item.id) : null">
           <div class="card-top">
             @if (!item.img && !item.multimedia) {
-              <app-optimized-image [borderRadius]="true" [url]="defaultImgUrl" [height150px]="true"></app-optimized-image>
+              <app-optimized-image  [borderRadius]="true" [url]="defaultImgUrl" [height150px]="true"></app-optimized-image>
             }
             @if (item.img && !item.multimedia) {
               <app-optimized-image [borderRadius]="true" [url]="item.img" [height150px]="true"></app-optimized-image>

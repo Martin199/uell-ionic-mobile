@@ -15,7 +15,7 @@
     <div class="recommended-container">
       <div class="title">Contenido recomendado</div>
       @for (item of dataRecommendedForYou; track $index) {
-        <app-recommended-wellness-portal [data]="item" (clickEvent)="redirectToPost($event)"></app-recommended-wellness-portal>
+        <app-recommended-wellness-portal [data]="item" (clickEvent)="redirectToPost($event)" style="width: 100%;"></app-recommended-wellness-portal>
       }
     </div>
     <div class="carousel-container">

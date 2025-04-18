@@ -159,6 +159,8 @@ export class ModalMentalStatusComponent {
       emotionIdList: emotionIdList,
       contextIdList: contextIdList,
     };
+    this.emotionData = [];
+    this.contextData = [];
   }
 
   postMentalStatus() {

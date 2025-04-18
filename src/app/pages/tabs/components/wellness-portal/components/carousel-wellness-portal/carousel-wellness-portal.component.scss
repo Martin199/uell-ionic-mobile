@@ -1,4 +1,3 @@
-
 .carousel-container {
   .title {
     color: var(--Neutral-GreyVeryDark, #212532);
@@ -7,42 +6,60 @@
     font-style: normal;
     font-weight: 700;
     line-height: 24px;
-    letter-spacing: 0.016px; 
+    letter-spacing: 0.016px;
   }
   .swiper-container {
     swiper-container {
       width: 100%;
+
       swiper-slide {
         margin-right: 24px;
-        width: 200px;
-        height: 200px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between !important;
+        align-items: center;
+        justify-content: flex-start;
+
         .card-top {
-          width: 100%;
-          // height: 175px;
+          height: 150px;
           border-radius: 10px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
           img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             border-radius: 10px;
           }
         }
         .post-title {
-          margin-top: 0px;
-          overflow: hidden;
+          width: 100%;
+          height: 40px;
+          margin-top: 8px;
+        
           color: var(--Neutral-GreyDark, #383E52);
-          text-overflow: ellipsis;
           font-family: 'Inter';
-          font-size: 16px;
           font-style: normal;
           font-weight: 600;
-          line-height: 24px;
+          line-height: 1.2;
           letter-spacing: 0.016px;
+        
+          white-space: normal;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
         }
       }
     }
+
     .multimedia-width {
-      width: 350px !important;
+      width: 300px !important;
+    }
+    .img-width {
+      width: 200px !important;
     }
   }
 }
