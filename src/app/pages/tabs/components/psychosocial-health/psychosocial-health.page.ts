@@ -1,3 +1,4 @@
+import { TrackingService } from './../../../../services/tracking.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { UtilsService } from 'src/app/services/utils.service';
 import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
@@ -18,10 +19,12 @@ export class PsychosocialHealthPage {
   utilService = inject(UtilsService);
   storageService = inject (StorageService)
   ispsService = inject (ISPSService)
+  trackingService = inject(TrackingService)
 
   constructor(){
     this.user = this.storageService.getSessionStorage<User>('user') !;
     this.getIspsData();
+    this.trackingService.trackingUser(this.user.id.toString(), 'ISPS').subscribe()
   }
   
   getIspsData(){
