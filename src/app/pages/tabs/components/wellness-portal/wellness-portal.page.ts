@@ -3,6 +3,9 @@ import { ISearchbarAnimation } from 'src/app/shared/interface/searchbar-animatio
 import { ICarouselWellnessPortal, IWellnessPortalPost } from '../../interfaces/wellness-portal-interfaces';
 import { WellnessPortalService } from 'src/app/services/wellness-portal.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { TrackingService } from 'src/app/services/tracking.service';
+import { User } from '../../interfaces/user-interfaces';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-wellness-portal',
@@ -12,7 +15,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class WellnessPortalPage {
 
   dataFindPost: ISearchbarAnimation[] = [];
-
+  user: User;
   dataRecommendedForYou: ICarouselWellnessPortal[] = [];
   dataMostViewed: ICarouselWellnessPortal[] = [];
   dataMostViewedByTenant: ICarouselWellnessPortal[] = [];
@@ -21,8 +24,14 @@ export class WellnessPortalPage {
   dataGestionEmocional: ICarouselWellnessPortal[] = [];
   dataSaludMental: ICarouselWellnessPortal[] = [];
 
+  trackingService = inject(TrackingService)
+  storageService = inject (StorageService)
+
   constructor() {
     this.getWellnessData();
+    this.user = this.storageService.getSessionStorage<User>('user') !;
+    this.trackingService.trackingUser(this.user.id.toString(), 'WELLNESS_BLOG').subscribe()
+
   }
 
   wellnessPortalService = inject(WellnessPortalService);
