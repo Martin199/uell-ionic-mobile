@@ -52,8 +52,8 @@ export class AuthPage {
   userService = inject(UserService);
   utilsService = inject(UtilsService);
   storageService = inject(StorageService);
-  version = environment.version;
-  env = environment.env;
+  version = environment?.version;
+  env = environment?.env;
   private readonly sessionService = inject(SessionServiceService);
 
   userDTO!: UserResponseDTO;
