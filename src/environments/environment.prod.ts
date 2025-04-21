@@ -3,6 +3,7 @@ export const environment = {
   apiBaseUrl: 'https://api.uell.com.ar/',
   env: 'prod',
   httpTimeout: 60000,
+  version: '1.0',
   apiVersion: 'v2',
   maxImageSize: 1024 * 1024 * 5, // 5MB
   aws: {

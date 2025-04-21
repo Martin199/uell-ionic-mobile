@@ -232,7 +232,7 @@ ion-item.custom-input:focus-within {
   }
 }
 
-:host ::ng-deep .swiper-wrapper #swiper-wrapper-* {
+:host ::ng-deep .swiper-wrapper [id^="swiper-wrapper-"] {
   display: flex !important;
   align-items: center !important;
 }
