@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "808454967170",
+    "project_id": "uell-prod",
+    "storage_bucket": "uell-prod.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808454967170:android:2646cb6b4fb93dd758099b",
+        "android_client_info": {
+          "package_name": "com.uell.ionic.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAbN04rqCc5PHWtS_1Pm23tBami7YTSZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
