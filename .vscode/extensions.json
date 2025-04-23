@@ -1,6 +1,3 @@
 {
-    "recommendations": [
-      "ionic.ionic",
-      "amazonwebservices.amazon-q-vscode"
-    ]
+    "recommendations": ["ionic.ionic"]
 }

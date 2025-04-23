@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "684323851738",
+    "project_id": "uell-stage",
+    "storage_bucket": "uell-stage.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684323851738:android:ee758b5a04371f7207c4e3",
+        "android_client_info": {
+          "package_name": "com.uell.ionic.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684323851738-rmdenvdd3pgffu72lfnmqbsu74v2rlnh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9xqPBOYjbYq7FT46UHPFMLzJha3ZEhpM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684323851738-rmdenvdd3pgffu72lfnmqbsu74v2rlnh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
