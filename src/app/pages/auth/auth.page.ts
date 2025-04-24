@@ -11,6 +11,7 @@ import { SessionServiceService } from 'src/app/services/session-service.service'
 import { PushNotifications } from '@capacitor/push-notifications';
 import { EMPTY, forkJoin, map, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Capacitor } from '@capacitor/core';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 // import { TenantStateService } from 'src/app/core/state/tenant-state.service';
 // import { SegmentationStateService } from 'src/app/core/state/segmentation-state.service';
@@ -139,13 +140,13 @@ export class AuthPage {
                   this.termsAndConditions(user);
                 }
               }
-
-              PushNotifications.checkPermissions().then((result) => {
-                if (result.receive === 'granted') {
-                  this.sessionService.handleSession();
-                }
-              });
-
+              if (Capacitor.isNativePlatform()) {
+                PushNotifications.checkPermissions().then((result) => {
+                  if (result.receive === 'granted') {
+                    this.sessionService.handleSession(this.userDTO);
+                  }
+                });
+              }
               loading.dismiss();
             },
             error: (error) => {
