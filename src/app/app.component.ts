@@ -12,6 +12,7 @@ import { Capacitor } from '@capacitor/core';
 import { StorageService } from './services/storage.service';
 import { UtilsService } from './services/utils.service';
 import { UserResponseDTO } from './core/interfaces/user';
+import { UserStateService } from './core/state/user-state.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent {
   private sessionService = inject(SessionServiceService);
   private storageService = inject(StorageService);
   private utilsService = inject(UtilsService);
+  private readonly userState = inject(UserStateService);
 
   constructor() {
     this.showSplash();
@@ -33,8 +35,9 @@ export class AppComponent {
   }
 
   async initializeApp() {
+    this.userState.rehydrateFromStorage(this.storageService);
     const user: UserResponseDTO | null =
-      this.storageService.getSessionStorage('user');
+    this.storageService.getSessionStorage('user');
     const accessToken = sessionStorage.getItem('accessToken');
     const tenant = this.storageService.getSessionStorage('tenant');
     const tenantParameters = this.storageService.getSessionStorage('tenantParameters');

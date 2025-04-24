@@ -8,39 +8,36 @@
   </ion-toolbar>
 
   <div class="d-flex-center-login">
-    @if(user()){
+    @if(userFromStore()){
       <form [formGroup]="formSelectTenant" (ngSubmit)="submit()" (keypress.enter)="submit()">
         <div class="logo">
           <app-logo></app-logo>
         </div>
   
-        <ion-text class="d-flex-center ">
+        <ion-text class="d-flex-center">
           <h1 class="title">
-            Hola {{ user()?.name | lowercase }} {{ user()?.surname | lowercase }}
+            Hola {{ userFromStore()?.name | lowercase }} {{ userFromStore()?.surname | lowercase }}
           </h1>
         </ion-text>
   
-  
         <ion-item class="custom-input" lines="none">
-          
           <ion-select
-          label="Selecciona tu empleador"
-          interface="action-sheet"
-          cancelText="cerrar"
-          class="custom-select"
-          (ionChange)="onTenantSelected($event)"
-          formControlName="tenant"
-        >
-          <ion-select-option *ngFor="let userTenant of user()?.tenant" [value]="userTenant">
-            {{ userTenant.description }}
-          </ion-select-option>
-        </ion-select>
+            label="Selecciona tu empleador"
+            interface="action-sheet"
+            cancelText="cerrar"
+            class="custom-select"
+            (ionChange)="onTenantSelected($event)"
+            formControlName="tenant"
+          >
+            <ion-select-option *ngFor="let userTenant of userFromStore()?.tenant" [value]="userTenant">
+              {{ userTenant.description }}
+            </ion-select-option>
+          </ion-select>
         </ion-item>
   
         <ion-button expand="block" shape="round" type="submit" class="submit-btn submit" [disabled]="formSelectTenant.invalid">
           Siguiente 
         </ion-button>
-  
       </form>
     }
   </div>

@@ -11,6 +11,9 @@ import { SessionServiceService } from 'src/app/services/session-service.service'
 import { PushNotifications } from '@capacitor/push-notifications';
 import { EMPTY, forkJoin, map, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UserStateService } from 'src/app/core/state/user-state.service';
+// import { TenantStateService } from 'src/app/core/state/tenant-state.service';
+// import { SegmentationStateService } from 'src/app/core/state/segmentation-state.service';
 
 @Component({
   selector: 'app-auth',
@@ -38,8 +41,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthPage {
   @ViewChild('userContainer', { static: true }) userContainer!: ElementRef;
-  @ViewChild('passwordContainer', { static: true })
-  passwordContainer!: ElementRef;
+  @ViewChild('passwordContainer', { static: true }) passwordContainer!: ElementRef;
   @ViewChild('buttonContainer', { static: true }) buttonContainer!: ElementRef;
 
   formAuth = new FormGroup({
@@ -55,6 +57,9 @@ export class AuthPage {
   version = environment?.version;
   env = environment?.env;
   private readonly sessionService = inject(SessionServiceService);
+  private readonly userState = inject(UserStateService);
+  // private readonly tenantState = inject(TenantStateService);
+  // private readonly segmentationState = inject(SegmentationStateService);
 
   userDTO!: UserResponseDTO;
   hasMultipleTenants!: boolean;
@@ -77,10 +82,7 @@ export class AuthPage {
     await loading.present();
 
     try {
-      const result = await this.cognitoService.signIn(
-        cuil as string,
-        password as string
-      );
+      const result = await this.cognitoService.signIn(cuil as string, password as string);
 
       if (result) {
         if (result.type === 'passwordChange') {
@@ -91,8 +93,7 @@ export class AuthPage {
 
         this.storageService.saveToken();
 
-        this.userService
-          .getMe()
+        this.userService.getMe()
           .pipe(
             tap((user: UserResponseDTO) => {
               this.userService.setUser(user);
@@ -101,17 +102,12 @@ export class AuthPage {
               this.hasMultipleTenants = user.tenant.length > 1;
 
               if (!this.hasMultipleTenants) {
-                this.storageService.setSessionStorage(
-                  'tenant',
-                  JSON.stringify(user.tenant[0])
-                );
+                this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
               }
             }),
             switchMap((user) => {
               if (!this.hasMultipleTenants) {
-                return new Promise<typeof user>((resolve) =>
-                  setTimeout(() => resolve(user), 0)
-                );
+                return new Promise<typeof user>((resolve) => setTimeout(() => resolve(user), 0));
               }
               return Promise.resolve(user);
             }),
@@ -120,36 +116,23 @@ export class AuthPage {
                 tenantParameters: this.userService.getTenantParameters(),
                 userTenants: this.userService.getUserTenants(),
                 allSegmentation: this.userService.getAllSegmentation(),
-              }).pipe(
-                map((result) => ({
-                  ...result,
-                  user,
-                }))
-              )
+              }).pipe(map((result) => ({ ...result, user })))
             )
           )
           .subscribe({
-            next: ({
-              tenantParameters,
-              userTenants,
-              allSegmentation,
-              user,
-            }) => {
-              this.storageService.setSessionStorage(
-                'tenantParameters',
-                tenantParameters
-              );
-              console.log('getUserTenants:', userTenants);
-              console.log('getAllSegmentation:', allSegmentation);
+            next: ({ tenantParameters, userTenants, allSegmentation, user }) => {
+              this.storageService.setSessionStorage('tenantParameters', tenantParameters);
+              if (!this.hasMultipleTenants) {
+                this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
+              }
+
+              this.userState.setUser(user);
+              // this.tenantState.setActiveTenants(userTenants.activeTenants);
+              // this.segmentationState.setAllSegmentations(allSegmentation);
 
               if (this.hasMultipleTenants) {
                 this.utilsService.router.navigate(['/auth/select-tenants']);
               } else {
-                this.storageService.setSessionStorage(
-                  'tenant',
-                  JSON.stringify(user.tenant[0])
-                );
-
                 if (user.onboarded) {
                   this.utilsService.router.navigateByUrl('tabs/home');
                 } else {
@@ -166,10 +149,7 @@ export class AuthPage {
               loading.dismiss();
             },
             error: (error) => {
-              console.error(
-                'Error al obtener usuario o datos adicionales:',
-                error
-              );
+              console.error('Error al obtener usuario o datos adicionales:', error);
               loading.dismiss();
             },
           });
@@ -187,10 +167,7 @@ export class AuthPage {
         this.storageService.setSessionStorage('termsAndConditions', res);
         this.utilsService.navCtrl.navigateRoot(['/auth/term-and-conditions']);
       } else {
-        this.storageService.setSessionStorage(
-          'tenant',
-          JSON.stringify(user.tenant[0])
-        );
+        this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
         if (!this.userDTO.onboarded) {
           this.utilsService.navCtrl.navigateRoot(['/auth/onboarding']);
         } else {
@@ -201,7 +178,6 @@ export class AuthPage {
   }
 
   animateElements() {
-    // Animación para el contenedor de usuario
     const userAnimation = this.animationCtrl
       .create()
       .addElement(this.userContainer.nativeElement)
@@ -211,7 +187,6 @@ export class AuthPage {
       .fromTo('opacity', '0', '1')
       .fromTo('transform', 'translateY(-50px)', 'translateY(0)');
 
-    // Animación para el contenedor de contraseña
     const passwordAnimation = this.animationCtrl
       .create()
       .addElement(this.passwordContainer.nativeElement)
@@ -221,7 +196,6 @@ export class AuthPage {
       .fromTo('opacity', '0', '1')
       .fromTo('transform', 'translateY(-50px)', 'translateY(0)');
 
-    // Reproduce las animaciones en secuencia
     userAnimation.play();
     passwordAnimation.play();
   }

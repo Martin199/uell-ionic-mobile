@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { FilesService } from 'src/app/services/files.service';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -22,6 +23,7 @@ export class HeaderComponent  implements OnInit {
   utilServices = inject(UtilsService);
   fileService = inject(FilesService);
   mentalStatusService = inject(MentalStatusService);
+  private readonly userState = inject(UserStateService);
 
   constructor() { }
 
@@ -81,13 +83,15 @@ export class HeaderComponent  implements OnInit {
       });
   }
 
-  logOut(){
+  logOut() {
+    console.log('cerrar sesion');
     this.utilServices.showConfirmation(
       'Cerrar sesión',
       '¿Estás seguro de que deseas cerrar sesión?',
       async () => {
         await this.mentalStatusService.clearEmotionalCache();
         await this.storageService.clearSessionStorage();
+        this.userState.clear();
         this.utilServices.navCtrl.navigateRoot(['/auth']);
       }
     );
