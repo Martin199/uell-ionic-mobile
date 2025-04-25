@@ -14,6 +14,7 @@ import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { ModalMailRegisteredComponent } from 'src/app/shared/componentes/modal-mail-registered/modal-mail-registered.component';
+import { SwiperOptions } from 'swiper/types';
 
 @Component({
   selector: 'app-onboarding',
@@ -72,12 +73,23 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.swiper = this.swiperContainer.nativeElement.swiper;
-    if (this.swiper) {
-      this.swiper.allowTouchMove = false;
-    } else {
-      console.error('La instancia de Swiper no está disponible.');
-    }
+
+    const swiperOptions: SwiperOptions = {
+      // tus opciones necesarias
+      allowTouchMove: false,
+      autoHeight: true,
+      slidesPerView : 1,
+    };
+  
+    this.swiper = new Swiper(this.swiperContainer.nativeElement.swiper, swiperOptions);
+    console.log(this.swiper , 'swiper');
+    
+    // this.swiper = this.swiperContainer.nativeElement.swiper;
+    // if (this.swiper) {
+    //   this.swiper.allowTouchMove = false;
+    // } else {
+    //   console.error('La instancia de Swiper no está disponible.');
+    // }
   }
 
   private getDataUser() {
@@ -124,51 +136,56 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   async nextSlide() {
     this.step !== 2 ? this.progress = this.progress + 0.125 : this.progress;
     this.content.scrollToTop(0);
-    if (this.swiperContainer.nativeElement.swiper) {
-      if (this.step === 2) {
-        const canContinue = await this.usedMail(this.contactInfo!.email);
-        if (canContinue || canContinue==null){
-          return;
-        } else {
-          this.nextSlide();
-        }
-      }
-      if (this.step === 3) {
-        const confirmAddress: any = await this.validacionGoogleMaps(
-          this.addressInfo
-        );
-        if (confirmAddress) {
-          this.swiperContainer.nativeElement.swiper.slideNext();
-          this.step++;
-        }
-      } else {
-        this.swiperContainer.nativeElement.swiper.slideNext();
-        this.step++;
-      }
+    if( this.swiper){
+      this.swiper.slideNext();
+    }  else {
+      console.error('La instancia de Swiper no está disponible.');
     }
-    if (this.step === 4 && this.skipClinicalHistory) {
-      this.step = 7;
-    }
-    if (this.step === 6) {
-      this.openModal();
-    }
-    if (this.step === 8) {
-      this.sendCompletenessMedical();
-      this.tenantParameters =
-        this.storageService.getSessionStorage('tenantParameters');
-      if (
-        this.tenantParameters.tenantParameters.activeModules.find(
-          (x: any) => x === 'isps'
-        ) &&
-        this.tenantParameters.tenantParameters.excludeISPSFromOnboarding !==
-          'true'
-      ) {
-        this.goIsps();
-      } else {
-        await this.postOnboarding();
-        this.utilService.navCtrl.navigateRoot(['/tabs/home']);
-      }
-    }
+    // if (this.swiperContainer.nativeElement.swiper) {
+    //   if (this.step === 2) {
+    //     const canContinue = await this.usedMail(this.contactInfo!.email);
+    //     if (canContinue || canContinue==null){
+    //       return;
+    //     } else {
+    //       this.nextSlide();
+    //     }
+    //   }
+    //   if (this.step === 3) {
+    //     const confirmAddress: any = await this.validacionGoogleMaps(
+    //       this.addressInfo
+    //     );
+    //     if (confirmAddress) {
+    //       this.swiperContainer.nativeElement.swiper.slideNext();
+    //       this.step++;
+    //     }
+    //   } else {
+    //     this.swiperContainer.nativeElement.swiper.slideNext();
+    //     this.step++;
+    //   }
+    // }
+    // if (this.step === 4 && this.skipClinicalHistory) {
+    //   this.step = 7;
+    // }
+    // if (this.step === 6) {
+    //   this.openModal();
+    // }
+    // if (this.step === 8) {
+    //   this.sendCompletenessMedical();
+    //   this.tenantParameters =
+    //     this.storageService.getSessionStorage('tenantParameters');
+    //   if (
+    //     this.tenantParameters.tenantParameters.activeModules.find(
+    //       (x: any) => x === 'isps'
+    //     ) &&
+    //     this.tenantParameters.tenantParameters.excludeISPSFromOnboarding !==
+    //       'true'
+    //   ) {
+    //     this.goIsps();
+    //   } else {
+    //     await this.postOnboarding();
+    //     this.utilService.navCtrl.navigateRoot(['/tabs/home']);
+    //   }
+    // }
   }
 
   async usedMail(value: string): Promise<boolean | null> {
