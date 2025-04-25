@@ -14,6 +14,8 @@ import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { ModalMailRegisteredComponent } from 'src/app/shared/componentes/modal-mail-registered/modal-mail-registered.component';
+import { register } from 'swiper/element/bundle';
+register();
 
 @Component({
   selector: 'app-onboarding',

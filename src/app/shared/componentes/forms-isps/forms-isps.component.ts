@@ -8,6 +8,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { FormIspsStepOneComponent } from './form-isps-step-one/form-isps-step-one.component';
 import { FormIspsStepTwoComponent } from './form-isps-step-two/form-isps-step-two.component';
 import { FormIspsStepThreeComponent } from './form-isps-step-three/form-isps-step-three.component';
+import { register } from 'swiper/element/bundle';
+register();
 
 @Component({
   selector: 'app-forms-isps',
