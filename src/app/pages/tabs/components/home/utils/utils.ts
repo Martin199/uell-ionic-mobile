@@ -19,46 +19,40 @@ static returnSpeechIndice(valueIndice: number) {
         descriptionOptions: '',
         options: [],
       };
-    if (valueIndice === null) {
-      speech.title = '¡Tenemos una propuesta para vos!',
-        speech.description1 = "Te invitamos a completar el Índice de Salud Psicosocial para conocer tu Bienestar.",
-        speech.description2 = "En Acciones Saludables encontrarás recomendaciones acordes a tus resultados."
-    }
-    if (valueIndice >= 0 && valueIndice <= 15 && valueIndice !== null) {
-      speech.title = 'Bienestar Óptimo',
-        speech.titleRange = '1-15',
-        speech.description1 = "¡Felicitaciones por tus fortalezas!",
-        speech.description2 = "Es un gran logro que gracias a tu flexibilidad y positividad te hayas adaptado tan bien en esta época llena de cambios.",
-        speech.descriptionOptions = "No te olvides de seguir:",
-        speech.options = ["Trabajando tu autoestima.", "Mejorando el manejo del estrés.", "Fortaleciendo tus relaciones sociales.", "Dedica tiempo a las actividades que te relajan y te hacen sentir bien."],
-        speech.description3 = "¡Continua así y vamos por más!"
-    }
-    if (valueIndice >= 16 && valueIndice <= 30) {
-      speech.title = 'Bienestar Moderado',
-        speech.titleRange = '16-30',
-        speech.description1 = "Ya incorporaste algunos hábitos saludables, ¡Siempre podés crecer y mejorar tu calidad de vida!",
-        speech.description2 = "Desde el equipo Uell Bienestar te animamos a fortalecer algunas áreas para vivir mejor cada día.",
-        speech.descriptionOptions = "No te olvides de seguir:",
-        speech.options = ["Ejercitándote con regularidad.", "Limitando el consumo de alimentos procesados, azúcares y grasas saturadas.", "Mejorando el manejo del estrés.", "Fortaleciendo tus relaciones sociales."],
-        speech.description3 = "¡Sigamos trabajando juntos!"
-    }
-    if (valueIndice >= 31 && valueIndice <= 60) {
-      speech.title = 'Salud Psicosocial Afectada',
-        speech.titleRange = '31-60',
-        speech.description1 = "Entendemos que estás atravesando un momento en el que tu bienestar necesita más atención. Queremos ayudarte a transformar y mejorar tu calidad de vida.",
-        speech.description2 = "Nuestros Nuestras Gestoras de Bienestar te acompañan a realizar cambios hacia una vida más feliz.",
-        speech.descriptionOptions = "No te olvides de seguir:",
-        speech.options = ["Encuentra un ejercicio que te guste y que puedas incorporar a tu rutina diaria.", "Dormí lo suficiente.", "Sigue una dieta saludable.", "Encuentra actividades que te relajen y te hagan sentir bien."],
-        speech.description3 = "¡Es el principio del cambio! ¡Comencemos!"
-    }
-    if (valueIndice > 60) {
-      speech.title = 'Salud Psicosocial en Riesgo',
-        speech.titleRange = '61-100',
-        speech.description1 = "Sabemos que atravesar momentos difíciles no es sencillo, estamos aquí para ayudarte a mejorar tu calidad de vida.",
-        speech.description2 = "Nuestro equipo de profesionales está listo para brindarte nuevas herramientas y apoyo.",
-        speech.description3 = "¡No dudes en contactarnos, nunca es tarde para ocuparnos de nosotros mismos!"
-    }
-    return speech
+      if (valueIndice === null) {
+        speech.title = '¡Tenemos una propuesta para vos!',
+          speech.description1 = "Te invitamos a completar el Índice de Salud Psicosocial para conocer tu Bienestar.",
+          speech.description2 = "En Acciones Saludables encontrarás recomendaciones acordes a tus resultados."
+      }
+      if (valueIndice >= 0 && valueIndice <= 15 && valueIndice !== null) {
+        speech.title = 'Bienestar Óptimo',
+          speech.titleRange = '1-15',
+          speech.description1 = "¡Qué bien! Estás en un momento de bienestar óptimo, lo que significa que tendrías una gran capacidad para afrontar los retos diarios y disfrutar de relaciones saludables y enriquecedoras. Este estado indica que cuentas con una base bastante sólida en tus dimensiones mental, social y física, lo cual te ayuda a gestionar el estrés de forma efectiva, mantener un estado de ánimo equilibrado y conectarte de manera significativa con los demás.",
+          speech.descriptionOptions = "Sugerencia:",
+          speech.options = ["¿Hay algún aspecto que te gustaría profundizar en tu vida diaria? Probar una actividad nueva este mes o reflexionar sobre lo que más valoras en tus rutinas de bienestar pueden ayudarte a mantener este equilibrio y abrirte a nuevas experiencias."]
+      }
+      if (valueIndice >= 16 && valueIndice <= 30) {
+        speech.title = 'Bienestar Moderado',
+          speech.titleRange = '16-30',
+          speech.description1 = "¡Vas por buen camino hacia un mayor bienestar! Posiblemente ya has incorporado algunos hábitos saludables que te están beneficiando, y con algunos ajustes o mejoras, podrías alcanzar un estado de bienestar más alto. Esto significa que, si bien ya estás avanzando, podrías añadir algunas prácticas para sentirte aún mejor y más preparado para los retos diarios.",
+          speech.descriptionOptions = "Sugerencia:",
+          speech.options = ["¿Sientes que algún aspecto específico podría mejorar tu energía o motivación? Revisar tu rutina de sueño o planificar tiempos de autocuidado pueden ayudarte a reforzar este equilibrio y a sentirte aún más en sintonía."]
+      }
+      if (valueIndice >= 31 && valueIndice <= 60) {
+        speech.title = 'Salud Psicosocial Afectada',
+          speech.titleRange = '31-60',
+          speech.description1 = "Es posible que estés atravesando un momento en el que tu bienestar necesita más atención. Este estado refleja que podrías estar enfrentando retos que afectan tu salud emocional, tus relaciones o tu bienestar físico. Reconocer este estado es un primer paso crucial para hacer pequeños cambios que te ayuden a sentirte mejor.",
+          speech.descriptionOptions = "Sugerencia:",
+          speech.options = ["¿Estás sintiendo que el estrés o la ansiedad te están afectando más de lo usual? Tal vez podrías considerar dedicar tiempo a revisar tus hábitos de descanso o alimentación, o sumar breves momentos de actividad física que te ayuden a manejar el estrés."]
+      }
+      if (valueIndice > 60) {
+        speech.title = 'Salud Psicosocial en Riesgo',
+          speech.titleRange = '61-100',
+          speech.description1 = "Sabemos que atravesar momentos difíciles no es fácil, y queremos que sepas que tienes herramientas y opciones para enfrentar este reto. Este resultado refleja que actualmente estarías enfrentando situaciones que pueden estar afectando tu salud emocional, tus relaciones o tu bienestar físico. Reconocer este momento es un paso importante hacia la recuperación y el equilibrio.",
+          speech.descriptionOptions = "Sugerencia:",
+          speech.options = ["La ansiedad y el estrés muchas veces nos desconectan de lo que solía hacernos bien. Intentar retomar actividades que alguna vez disfrutaste (aunque sea en pequeñas dosis), como escuchar música, leer, cocinar o ver una serie, puede ser una buena manera de reconectar con sensaciones de calma y satisfacción."]
+      }
+      return speech
   }
 
   static returnSpeechIndiceLATAM(valueIndice: number) {
@@ -81,47 +75,42 @@ static returnSpeechIndice(valueIndice: number) {
         descriptionOptions: '',
         options: [],
       };
-    if (valueIndice === null) {
-      speech.title = '¡Tenemos una propuesta para vos!',
-        speech.titleRange = '',
-        speech.description1 = "Te invitamos a completar el Índice de Salud Psicosocial para conocer tu Bienestar.",
-        speech.description2 = "En Acciones Saludables encontrarás recomendaciones acordes a tus resultados."
-    }
-    if (valueIndice >= 0 && valueIndice <= 15 && valueIndice !== null) {
-      speech.title = 'Bienestar Óptimo',
-        speech.titleRange = '1-15',
-        speech.description1 = "¡Felicidades por tus fortalezas!",
-        speech.description2 = "Es un gran logro que, gracias a tu flexibilidad y positividad, te hayas adaptado tan bien en esta época llena de cambios.",
-        speech.descriptionOptions = "No olvides seguir:",
-        speech.options = ["Trabajando en tu autoestima.", "Mejorando el manejo del estrés.", "Fortaleciendo tus relaciones sociales.", "Dedicando tiempo a las actividades que te relajan y te hacen sentir bien."],
-        speech.description3 = "¡Continúa así y vamos por más!"
-    }
-    if (valueIndice >= 16 && valueIndice <= 30) {
-      speech.title = 'Bienestar Moderado',
-        speech.titleRange = '16-30',
-        speech.description1 = "¡Felicidades por haber incorporado ya algunos hábitos saludables! Recuerda que siempre hay espacio para crecer y mejorar tu calidad de vida.",
-        speech.descriptionOptions = "El equipo de Uell Bienestar te anima a fortalecer algunas áreas para que puedas vivir mejor cada día. Te recomendamos:",
-        speech.options = ["Realizar ejercicio con regularidad.", "Limitar el consumo de alimentos procesados, azúcares y grasas saturadas.", "Mejorar el manejo del estrés.", "Fortalecer tus relaciones sociales."],
-        speech.description3 = "¡Sigamos trabajando juntos por tu bienestar!"
-
-    }
-    if (valueIndice >= 31 && valueIndice <= 60) {
-      speech.title = 'Salud Psicosocial Afectada',
-        speech.titleRange = '31-60',
-        speech.description1 = "Comprendemos que estás atravesando un momento en el que tu bienestar requiere mayor atención. Nos encontramos aquí para ayudarte a transformar y mejorar tu calidad de vida.",
-        speech.description2 = "Nuestras Gestoras de Bienesta te acompañarán en el proceso de realizar cambios para alcanzar una vida más plena y feliz.",
-        speech.descriptionOptions = "Con el objetivo de seguir impulsando tu bienestar, te sugerimos:",
-        speech.options = ["Identificar un ejercicio que te motive y puedas integrar a tu rutina diaria.", "Lograr un descanso adecuado.", "Mantener una dieta saludable.", "Descubrir actividades que te proporcionen relajación y bienestar."],
-        speech.description3 = "¡Este es el inicio del cambio! ¡Comencemos juntos!"
-    }
-    if (valueIndice > 60) {
-      speech.title = 'Salud Psicosocial en Riesgo',
-        speech.titleRange = '61-100',
-        speech.description1 = "Somos conscientes de que atravesar momentos difíciles no es sencillo. Por eso, estamos aquí para ayudarte a mejorar tu calidad de vida.",
-        speech.description2 = "Nuestro equipo de Gestoras de Bienestar está dispuesto a brindarte apoyo y nuevas herramientas que te permitirán alcanzar el mejor estado de bienestar posible.",
-        speech.description3 = "No dudes en contactarnos. ¡Nunca es tarde para ocuparnos de nosotros mismos!"
-    }
-    return speech
+      if (valueIndice === null) {
+        speech.title = '¡Tenemos una propuesta para vos!',
+          speech.titleRange = '',
+          speech.description1 = "Te invitamos a completar el Índice de Salud Psicosocial para conocer tu Bienestar.",
+          speech.description2 = "En Acciones Saludables encontrarás recomendaciones acordes a tus resultados."
+      }
+      if (valueIndice >= 0 && valueIndice <= 15 && valueIndice !== null) {
+        speech.title = 'Bienestar Óptimo',
+          speech.titleRange = '1-15',
+          speech.description1 = "¡Qué bien! Estás en un momento de bienestar óptimo, lo que significa que tendrías una gran capacidad para afrontar los retos diarios y disfrutar de relaciones saludables y enriquecedoras. Este estado indica que cuentas con una base bastante sólida en tus dimensiones mental, social y física, lo cual te ayuda a gestionar el estrés de forma efectiva, mantener un estado de ánimo equilibrado y conectarte de manera significativa con los demás.",
+          speech.descriptionOptions = "Sugerencia:",
+          speech.options = ["¿Hay algún aspecto que te gustaría profundizar en tu vida diaria? Probar una actividad nueva este mes o reflexionar sobre lo que más valoras en tus rutinas de bienestar pueden ayudarte a mantener este equilibrio y abrirte a nuevas experiencias."]
+      }
+      if (valueIndice >= 16 && valueIndice <= 30) {
+        speech.title = 'Bienestar Moderado',
+          speech.titleRange = '16-30',
+          speech.description1 = "¡Vas por buen camino hacia un mayor bienestar! Posiblemente ya has incorporado algunos hábitos saludables que te están beneficiando, y con algunos ajustes o mejoras, podrías alcanzar un estado de bienestar más alto. Esto significa que, si bien ya estás avanzando, podrías añadir algunas prácticas para sentirte aún mejor y más preparado para los retos diarios.",
+          speech.descriptionOptions = "Sugerencia:",
+          speech.options = ["¿Sientes que algún aspecto específico podría mejorar tu energía o motivación? Revisar tu rutina de sueño o planificar tiempos de autocuidado pueden ayudarte a reforzar este equilibrio y a sentirte aún más en sintonía."]
+  
+      }
+      if (valueIndice >= 31 && valueIndice <= 60) {
+        speech.title = 'Salud Psicosocial Afectada',
+          speech.titleRange = '31-60',
+          speech.description1 = "Es posible que estés atravesando un momento en el que tu bienestar necesita más atención. Este estado refleja que podrías estar enfrentando retos que afectan tu salud emocional, tus relaciones o tu bienestar físico. Reconocer este estado es un primer paso crucial para hacer pequeños cambios que te ayuden a sentirte mejor.",
+          speech.descriptionOptions = "Sugerencias:",
+          speech.options = ["¿Estás sintiendo que el estrés o la ansiedad te están afectando más de lo usual? Tal vez podrías considerar dedicar tiempo a revisar tus hábitos de descanso o alimentación, o sumar breves momentos de actividad física que te ayuden a manejar el estrés."]
+      }
+      if (valueIndice > 60) {
+        speech.title = 'Salud Psicosocial en Riesgo',
+          speech.titleRange = '61-100',
+          speech.description1 = "Sabemos que atravesar momentos difíciles no es fácil, y queremos que sepas que tienes herramientas y opciones para enfrentar este reto. Este resultado refleja que actualmente estarías enfrentando situaciones que pueden estar afectando tu salud emocional, tus relaciones o tu bienestar físico. Reconocer este momento es un paso importante hacia la recuperación y el equilibrio.",
+          speech.descriptionOptions = "Sugerencias:",
+          speech.options = ["La ansiedad y el estrés muchas veces nos desconectan de lo que solía hacernos bien. Intentar retomar actividades que alguna vez disfrutaste (aunque sea en pequeñas dosis), como escuchar música, leer, cocinar o ver una serie, puede ser una buena manera de reconectar con sensaciones de calma y satisfacción."]
+      }
+      return speech
   }
 
 }
