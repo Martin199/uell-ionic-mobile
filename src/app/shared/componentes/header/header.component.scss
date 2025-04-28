@@ -33,17 +33,18 @@
 
 }
 
-.name-user{
+.name-user {
     color: #FFF;
     text-align: right;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 16px;
     letter-spacing: 0.016px;
-
-}
+    max-width: 180px; /* Limita el ancho máximo */
+  }
+  
 
 .role{
     color: #FFF;

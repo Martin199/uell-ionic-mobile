@@ -72,7 +72,7 @@ export class CardMentalStatusComponent implements OnInit {
   async presentWinToast(creditPoints: number) {
     creditPoints ? creditPoints : 1;
     const toast = await this.toastController.create({
-      message: '🎉 Felicidades, ganaste ' + creditPoints + ' créditos',
+      message: `🎉 Felicidades, ganaste ${creditPoints} ${creditPoints === 1 ? 'crédito' : 'créditos'}`,
       duration: 4000,
       position: 'bottom',
       cssClass: 'custom-toast',

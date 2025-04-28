@@ -12,7 +12,7 @@ import { MentalStatusService } from 'src/app/services/mental-status.service';
   providedIn: 'root',
 })
 export class HomeService {
-  user: User;
+  user!: User;
   ispsScore!: ISPSScore;
   storageService = inject(StorageService);
   ispsService = inject(ISPSService);
@@ -25,12 +25,13 @@ export class HomeService {
   currentMonth: number;
 
   constructor() {
-    this.user = this.storageService.getSessionStorage<User>('user')!;
+
     this.currentYear = this.currentDate.getFullYear();
     this.currentMonth = this.currentDate.getMonth() + 1;
   }
 
   callModuleMethod(moduleName: string): Observable<any> {
+    this.user = this.storageService.getSessionStorage<User>('user')!;
     const generalParameters: any =
       this.storageService.getSessionStorage('tenantParameters');
     const modulesActive = generalParameters.tenantParameters.activeModules.find(
@@ -38,6 +39,7 @@ export class HomeService {
     );
     switch (modulesActive) {
       case 'isps':
+        console.log(this.user)
         return this.ispsService.getISPSScore(this.user.id);
       case 'wellness':
         return this.portalService.getLastPostPortal();
