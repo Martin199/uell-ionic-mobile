@@ -8,6 +8,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { FormIspsStepOneComponent } from './form-isps-step-one/form-isps-step-one.component';
 import { FormIspsStepTwoComponent } from './form-isps-step-two/form-isps-step-two.component';
 import { FormIspsStepThreeComponent } from './form-isps-step-three/form-isps-step-three.component';
+import { Platform } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
 register();
 
@@ -61,10 +62,17 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   ispsService = inject (ISPSService);
   storageService = inject(StorageService);
   utilsService = inject(UtilsService)
+  platform = inject(Platform);
 
   @Input() onboarding: boolean = false;
 
-  constructor() { }
+  constructor() {
+    this.platform.backButton.subscribeWithPriority(9999, () => {
+      if (!this.onboarding) {
+        this.closeModal();
+      }
+    });
+   }
 
   async ngOnInit() {
     this.user = this.storageService.getSessionStorage<User>('user')!;
@@ -186,7 +194,7 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
 
   finish(data: any) {
     this.ispsService.patchIPSContent(this.user.id, data).subscribe(() => {
-      this.toastMessage=this.translatesISPS.thanks
+      // this.toastMessage=this.translatesISPS.thanks
       this.isToastOpen=true;
       this.utilsService.modalCtrl.dismiss({ updated: true });
     });
@@ -268,7 +276,7 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   sendDataAnswers(data: any) {
     this.ispsService.postIPSContent(this.user.id, data).subscribe((data) => {
       this.dataIsps = data;
-      this.toastMessage='Respuestas isps actualizados exitosamente.';
+      // this.toastMessage='Respuestas isps actualizados exitosamente.';
       this.isToastOpen=true;
     });
     (err: Error) => {
