@@ -12,6 +12,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { EMPTY, forkJoin, map, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Capacitor } from '@capacitor/core';
+import { TrackingService } from 'src/app/services/tracking.service';
 
 @Component({
   selector: 'app-auth',
@@ -53,6 +54,8 @@ export class AuthPage {
   userService = inject(UserService);
   utilsService = inject(UtilsService);
   storageService = inject(StorageService);
+  trackingService = inject(TrackingService)
+
   version = environment?.version;
   env = environment?.env;
   private readonly sessionService = inject(SessionServiceService);
@@ -142,6 +145,7 @@ export class AuthPage {
               );
               console.log('getUserTenants:', userTenants);
               console.log('getAllSegmentation:', allSegmentation);
+              this.trackingService.trackingUser(user.id.toString(), 'LOGIN').subscribe()
 
               if (this.hasMultipleTenants) {
                 this.utilsService.router.navigate(['/auth/select-tenants']);
