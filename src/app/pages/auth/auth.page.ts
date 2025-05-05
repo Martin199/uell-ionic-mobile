@@ -13,6 +13,8 @@ import { EMPTY, forkJoin, map, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Capacitor } from '@capacitor/core';
 import { TrackingService } from 'src/app/services/tracking.service';
+import { UserStateService } from 'src/app/core/state/user-state.service';
+import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
 
 @Component({
   selector: 'app-auth',
@@ -59,6 +61,7 @@ export class AuthPage {
   version = environment?.version;
   env = environment?.env;
   private readonly sessionService = inject(SessionServiceService);
+  private userState = inject(UserStateService);
 
   userDTO!: UserResponseDTO;
   hasMultipleTenants!: boolean;
@@ -143,6 +146,7 @@ export class AuthPage {
                 'tenantParameters',
                 tenantParameters
               );
+              this.userState.setTenantParameters(tenantParameters as TenantParameters);
               console.log('getUserTenants:', userTenants);
               console.log('getAllSegmentation:', allSegmentation);
               this.trackingService.trackingUser(user.id.toString(), 'LOGIN').subscribe()

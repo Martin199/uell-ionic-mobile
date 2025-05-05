@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { UserStateService } from '../core/state/user-state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ export class StorageService {
   private _storage: Storage | null = null;
   private storage = inject(Storage);
   private _initPromise: Promise<void> | null = null;
+  private userState = inject(UserStateService);
 
   constructor() {
     this._initPromise = this.initializeStorage();
@@ -15,7 +17,7 @@ export class StorageService {
 
   saveToken() {
     const token = sessionStorage.getItem('accessToken');
-    sessionStorage.removeItem('token');
+    this.userState.setToken(token);
     this.setSessionStorage('accessToken', token);
   }
 
@@ -110,5 +112,10 @@ export class StorageService {
         await this._storage.remove(key);
       }
     }
+  }
+
+  clearStorage(): void {
+    this.clearLocalStorage();
+    this.clearSessionStorage();
   }
 }

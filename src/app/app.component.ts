@@ -11,6 +11,7 @@ import { SessionServiceService } from './services/session-service.service';
 import { Capacitor } from '@capacitor/core';
 import { StorageService } from './services/storage.service';
 import { UtilsService } from './services/utils.service';
+import { UserStateService } from './core/state/user-state.service';
 import { UserResponseDTO } from './core/interfaces/user';
 
 @Component({
@@ -21,6 +22,7 @@ import { UserResponseDTO } from './core/interfaces/user';
 export class AppComponent {
   private sessionService = inject(SessionServiceService);
   private storageService = inject(StorageService);
+  private userStateService = inject(UserStateService);
   private utilsService = inject(UtilsService);
 
   constructor() {
@@ -64,6 +66,7 @@ export class AppComponent {
     PushNotifications.addListener('registration', (token: Token) => {
       // alert('Push registration success, token: ' + token.value);
       this.sessionService.fcmToken = token;
+      this.userStateService.setFcmToken(token.value);
     });
 
     // Some issue with our setup and push will not work
