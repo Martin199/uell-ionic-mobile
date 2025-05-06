@@ -6,6 +6,7 @@ import { EmotionalResponse } from '../shared/interface/mental-status.interfaces'
 import { UserResponseDTO } from '../core/interfaces/user';
 import { ImageUpload } from './interfaces/camera.interfaces';
 import { UserStateService } from '../core/state/user-state.service';
+import { TenantParametersResponse } from '../core/interfaces/tenantParameters';
 
 @Injectable({
   providedIn: 'root',
@@ -59,9 +60,17 @@ export class UserService {
   }
 
   getTenantParameters() {
-    return this.http.get(
-      `${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`
-    );
+    return this.http
+      .get<TenantParametersResponse>(
+        `${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`
+      )
+      .pipe(
+        tap((tenantParamResponse) => {
+          this.userState.setTenantParameters(
+            tenantParamResponse.tenantParameters
+          );
+        })
+      );
   }
 
   termsAndConditions(userId: number) {

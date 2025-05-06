@@ -143,7 +143,6 @@ export class AuthPage {
                 'tenantParameters',
                 tenantParameters
               );
-              this.userState.setTenantParameters(tenantParameters as TenantParameters);
               console.log('getUserTenants:', userTenants);
               console.log('getAllSegmentation:', allSegmentation);
               this.trackingService.trackingUser(user.id.toString(), 'LOGIN').subscribe()
