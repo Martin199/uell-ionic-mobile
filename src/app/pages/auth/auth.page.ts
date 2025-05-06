@@ -97,6 +97,7 @@ export class AuthPage {
         }
 
         this.storageService.saveToken();
+        this.userState.setToken();
 
         this.userService
           .getMe()

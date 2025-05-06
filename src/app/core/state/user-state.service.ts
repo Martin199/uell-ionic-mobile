@@ -109,7 +109,8 @@ export class UserStateService {
     }));
   }
 
-  setToken(token: UserState['token']) {
+  setToken() {
+    const token: UserState['token'] = sessionStorage.getItem('accessToken');
     this.state.update((state) => ({
       ...state,
       token,

@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { UserStateService } from '../core/state/user-state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +8,6 @@ export class StorageService {
   private _storage: Storage | null = null;
   private storage = inject(Storage);
   private _initPromise: Promise<void> | null = null;
-  private userState = inject(UserStateService);
 
   constructor() {
     this._initPromise = this.initializeStorage();
@@ -17,7 +15,6 @@ export class StorageService {
 
   saveToken() {
     const token = sessionStorage.getItem('accessToken');
-    this.userState.setToken(token);
     this.setSessionStorage('accessToken', token);
   }
 
@@ -82,7 +79,8 @@ export class StorageService {
   // metodos para session storage
   async setSessionStorage(key: string, value: any): Promise<void> {
     await this.waitForInitialization();
-    const valueString =  typeof value === 'string' ? value : JSON.stringify(value);
+    const valueString =
+      typeof value === 'string' ? value : JSON.stringify(value);
     sessionStorage.setItem(key, valueString);
 
     if (this._storage) {
