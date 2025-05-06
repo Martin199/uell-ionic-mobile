@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserResponseDTO } from 'src/app/core/interfaces/user';
+import { TenantElement, UserResponseDTO } from 'src/app/core/interfaces/user';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
@@ -34,11 +34,10 @@ export class SelectTenantsPage implements OnInit {
     this.utilsService.goBack();
   }
 
-  onTenantSelected(event: any) {
+  onTenantSelected(event: CustomEvent) {
     this.selectedTenant = event.detail.value; // El valor seleccionado
     const tenant: any = this.formSelectTenant.value.tenant;
-    this.storageService.setSessionStorage('tenant', JSON.stringify(tenant));
-    this.userState.setTenant(tenant);
+    this.userState.setTenant(tenant as TenantElement);
   }
 
   async submit() {
