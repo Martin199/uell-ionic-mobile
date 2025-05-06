@@ -109,10 +109,7 @@ export class AuthPage {
               this.hasMultipleTenants = user.tenant.length > 1;
 
               if (!this.hasMultipleTenants) {
-                this.storageService.setSessionStorage(
-                  'tenant',
-                  JSON.stringify(user.tenant[0])
-                );
+                this.userState.setTenant(user.tenant[0]);
               }
             }),
             switchMap((user) => {
@@ -155,10 +152,7 @@ export class AuthPage {
               if (this.hasMultipleTenants) {
                 this.utilsService.router.navigate(['/auth/select-tenants']);
               } else {
-                this.storageService.setSessionStorage(
-                  'tenant',
-                  JSON.stringify(user.tenant[0])
-                );
+                this.userState.setTenant(user.tenant[0]);
 
                 if (user.onboarded) {
                   this.utilsService.router.navigateByUrl('tabs/home');
@@ -197,10 +191,7 @@ export class AuthPage {
         this.storageService.setSessionStorage('termsAndConditions', res);
         this.utilsService.navCtrl.navigateRoot(['/auth/term-and-conditions']);
       } else {
-        this.storageService.setSessionStorage(
-          'tenant',
-          JSON.stringify(user.tenant[0])
-        );
+        this.userState.setTenant(user.tenant[0]);
         if (!this.userDTO.onboarded) {
           this.utilsService.navCtrl.navigateRoot(['/auth/onboarding']);
         } else {

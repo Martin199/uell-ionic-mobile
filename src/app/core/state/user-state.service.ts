@@ -7,23 +7,25 @@ import { TenantElement } from '../interfaces/user';
 export class UserStateService {
   // private _user = signal<UserResponseDTO | null>(null);
   private storageService = inject(StorageService);
-  private state = signal<UserState>({
+  private stateNull = {
     isAuthenticated: false, //Todavia no se usa
     userData: null,
     tenantConfig: null, //De donde se levanta?
     tenantParameters: null,
+    tenant: null,
     isLoading: false, //Todavia no se usa
     error: null, //Todavia no se usa
     token: null,
     fcmToken: null,
-  });
+  };
+  private state = signal<UserState>(this.stateNull);
 
   readonly isAuthenticated = computed(() => this.state().isAuthenticated);
   readonly userData = computed(() => this.state().userData);
   readonly userId = computed(() => this.state().userData?.id || null);
   readonly isLoading = computed(() => this.state().isLoading);
   readonly error = computed(() => this.state().error);
-  readonly tenant = computed(() => this.state().userData?.tenant || null);
+  readonly tenant = computed(() => this.state().tenant || null);
   readonly tenantConfig = computed(() => this.state().tenantConfig);
   readonly tenantParameters = computed(() => this.state().tenantParameters);
   readonly token = computed(() => this.state().token);
@@ -32,7 +34,7 @@ export class UserStateService {
   readonly appReady = computed(() => {
     if (
       this.userData() &&
-      // this.tenantConfig() &&
+      this.tenant() &&
       this.tenantParameters() &&
       this.token()
     )
@@ -64,23 +66,14 @@ export class UserStateService {
   }
 
   logout() {
+    const stateNull = this.stateNull;
     this.state.update((state) => ({
-      isAuthenticated: false,
-      userData: null,
-      tenantConfig: null,
-      tenantParameters: null,
-      isLoading: false,
-      error: null,
-      token: null,
-      fcmToken: null,
+      ...state,
+      stateNull,
     }));
     //TODO: Modificar el metodo que llama para que solo llame a este metodo
     this.storageService.clearStorage();
   }
-
-  // getUserTenant(): UserState['tenant'] {
-  //   return this.state().userData?.tenant.map((t) => t.id) ?? [];
-  // }
 
   // Setters
   //Type is reference to the type of the object
@@ -138,17 +131,12 @@ export class UserStateService {
     }));
   }
 
-  setTenant(tenant: TenantElement[]) {
+  setTenant(tenant: TenantElement) {
     // TODO: Implementacion correcta de selected tenant
-    // this.state.update((state) => ({
-    //   ...state,
-    //   userData: state.userData
-    //     ? {
-    //         ...state.userData,
-    //         tenant,
-    //       }
-    //     : null,
-    // }));
+    this.state.update((state) => ({
+      ...state,
+      tenant,
+    }));
   }
 
   // Try to recover the state from the storage

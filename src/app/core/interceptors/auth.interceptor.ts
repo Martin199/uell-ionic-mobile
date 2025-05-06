@@ -4,19 +4,18 @@ import { inject } from '@angular/core';
 import { switchMap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { CognitoService } from '../services/cognito.service';
+import { UserStateService } from '../state/user-state.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const cognitoService = inject(CognitoService);
+  const userState = inject(UserStateService);
   const token = sessionStorage.getItem('accessToken');
- const tenant = sessionStorage.getItem('tenant');
- // Validar si tenant tiene un valor antes de parsear name_tenant
- const name_tenant = tenant ? JSON.parse(tenant) : null;
   const clonedRequest = token
     ? req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
-          Tenant: name_tenant?.name ?? 'uell',
+          Tenant: userState.tenant()?.name ?? 'uell',
         },
       })
     : req;
@@ -30,7 +29,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
               setHeaders: {
                 Authorization: `Bearer ${newToken}`,
                 'Content-Type': 'application/json',
-                Tenant: name_tenant?.name ?? 'uell',
+                Tenant: userState.tenant()?.name ?? 'uell',
               },
             });
             return next(retryRequest);

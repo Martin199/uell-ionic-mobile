@@ -6,7 +6,7 @@ export interface UserState {
   userData: User | UserResponseDTO | null;
   tenantConfig: TenantConfig | null;
   tenantParameters: TenantParameters | null;
-  // teant: TenantElement | null;
+  tenant: TenantElement | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: ErrorLog | null;
