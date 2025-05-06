@@ -103,7 +103,6 @@ export class AuthPage {
           .getMe()
           .pipe(
             tap((user: UserResponseDTO) => {
-              this.userService.setUser(user);
               this.storageService.setSessionStorage('user', user);
               this.userDTO = user;
               this.hasMultipleTenants = user.tenant.length > 1;
@@ -163,7 +162,7 @@ export class AuthPage {
               if (Capacitor.isNativePlatform()) {
                 PushNotifications.checkPermissions().then((result) => {
                   if (result.receive === 'granted') {
-                    this.sessionService.handleSession(this.userDTO);
+                    this.sessionService.handleSession();
                   }
                 });
               }

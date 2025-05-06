@@ -65,12 +65,12 @@ export class AppComponent {
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration', (token: Token) => {
       // alert('Push registration success, token: ' + token.value);
-      this.sessionService.fcmToken = token;
       this.userStateService.setFcmToken(token.value);
     });
 
     // Some issue with our setup and push will not work
     PushNotifications.addListener('registrationError', (error: any) => {
+      console.error('Error on registration:', error);
       // alert('Error on registration: ' + JSON.stringify(error));
     });
 
