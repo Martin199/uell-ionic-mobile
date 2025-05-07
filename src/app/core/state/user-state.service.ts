@@ -45,10 +45,8 @@ export class UserStateService {
   constructor() {
     effect(() => {
       const currentState = this.state();
-      this.storageService.setSessionStorage(
-        'userState',
-        JSON.stringify(currentState.userData)
-      );
+      if (currentState === this.stateNull) return;
+      this.storageService.setLocalStorage('userState', currentState);
       //TODO: Se puede hacer un cleanUp de la app cuando el user sale de la autenticacion
       // if (currentState.isAuthenticated) { }
     });
@@ -66,12 +64,7 @@ export class UserStateService {
   }
 
   logout() {
-    const stateNull = this.stateNull;
-    this.state.update((state) => ({
-      ...state,
-      stateNull,
-    }));
-    //TODO: Modificar el metodo que llama para que solo llame a este metodo
+    this.state.set({ ...this.stateNull });
     this.storageService.clearStorage();
   }
 
@@ -141,14 +134,14 @@ export class UserStateService {
 
   // Try to recover the state from the storage
   private tryRestoreState() {
-    const savedData = this.storageService.getSessionStorage('userState');
+    const savedData: UserState | null =
+      this.storageService.getLocalStorage('userState');
+    console.log('user state tryrestore', savedData);
     if (savedData) {
       try {
-        this.state.update((state) => ({
-          ...state,
-          isAuthenticated: true,
-          savedData,
-        }));
+        this.state.set({
+          ...savedData,
+        });
       } catch (e) {
         //If restore fails, remove the data from storage
         this.storageService.removeSessionStorage('userState');
