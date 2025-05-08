@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TenantParametersResponse } from 'src/app/core/interfaces/tenantParameters';
+import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,10 +19,11 @@ export class AddressInfoComponent  implements OnInit {
   storageService = inject(StorageService);
   userService = inject(UserService);
   utilsService = inject (UtilsService);
+  userState = inject(UserStateService);
   
   addressInfo = output<{data: IAddressInfo; isValid: boolean}>();
   user! : User ;
-  tenantParameters: TenantParametersResponse | null = null;
+  tenantParameters: TenantParameters | null = null;
   provincesResponse: IStatesResponse[] = [];
   localitiesResponse: IlocalitiesResponse[] = [];
   //TODO: cambiar default luego de hacer las pruebas
@@ -41,7 +43,11 @@ export class AddressInfoComponent  implements OnInit {
   });
 
   constructor() {
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
+    this.tenantParameters  =  this.userState.tenantParameters();
+    if (!this.tenantParameters) {
+      console.error('No se puede datos de tenantparameters');
+      return;
+    }
    }
 
   ngOnInit() {
@@ -53,8 +59,7 @@ export class AddressInfoComponent  implements OnInit {
 
   setData() {
     this.user = this.utilsService.getUser();
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
-    const countryEnum = this.utilsService.findCountryEnum(this.tenantParameters!.tenantParameters?.country ? this.tenantParameters!.tenantParameters.country : countryENUM.ARGENTINA);
+    const countryEnum = this.utilsService.findCountryEnum(this.tenantParameters?.country ? this.tenantParameters?.country : countryENUM.ARGENTINA);
     this.country = countryEnum;
     this.setCountryValidation(this.country);
   }

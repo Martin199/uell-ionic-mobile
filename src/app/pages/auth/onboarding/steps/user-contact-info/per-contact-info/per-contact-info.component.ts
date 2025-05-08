@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -13,6 +14,7 @@ tenantParameters : any;
   list: any;
   fb = inject(FormBuilder);
   storageService = inject(StorageService);
+  userState = inject(UserStateService);
 
   personalForm = new FormGroup({
     countryCode: new FormControl(+51, { validators: [Validators.required, Validators.minLength(3)] }),
@@ -24,8 +26,11 @@ tenantParameters : any;
 
   constructor() { 
 
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
-
+    this.tenantParameters  =  this.userState.tenantParameters();
+    if (!this.tenantParameters) {
+      console.error('No se puede datos de tenantparameters');
+      return;
+    }
     // const argentinaPhone = PHONE_CONSTANTS.phone.country.ARGENTINA;
   }
 

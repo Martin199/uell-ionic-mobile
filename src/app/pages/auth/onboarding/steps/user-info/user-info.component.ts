@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/services/storage.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import * as moment from 'moment';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 
 @Component({
   selector: 'app-user-info',
@@ -11,6 +12,7 @@ import * as moment from 'moment';
 })
 export class UserInfoComponent implements OnInit {
   storageService = inject(StorageService) 
+  private userState = inject(UserStateService);
   @Output() contactInfo = new EventEmitter<{ data: any }>();
 
   userInfoForm = new FormGroup({
@@ -19,12 +21,16 @@ export class UserInfoComponent implements OnInit {
 
   isOpen = false;
   displayDate: string = '';  
-  user: User = this.storageService.getSessionStorage<User>('user')!;
+  user: User | null = null;
   returnInfo = output<any>();
 
   ngOnInit() {
-    console.log(this.user);
-    
+    this.user = this.userState.userData();    
+    if (!this.user) {
+      console.error('No se puede obtener el id del usuario');
+      return;
+    }
+       
     if (this.user?.bornDate) {
       const formattedDate = moment(this.user.bornDate).format('DD/MM/YYYY');
       this.userInfoForm.patchValue({ birthDate: formattedDate });

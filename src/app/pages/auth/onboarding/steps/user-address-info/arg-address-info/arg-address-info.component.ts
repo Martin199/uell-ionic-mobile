@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,13 +13,14 @@ import { UserService } from 'src/app/services/user.service';
 export class ARGAddressInfoComponent  implements OnInit {
 
 
-  tenantParameters : any;
+  tenantParameters : TenantParameters | null = null;
   nonWhitespaceRegExp: RegExp = new RegExp('\\S');
   provincias: any[] = [];
   public localidades: any[] = [];
 
   storageService = inject(StorageService);
   userService = inject(UserService);
+  userState = inject(UserStateService);
 
   addressForm = new FormGroup({
     Calle: new FormControl('', { validators: [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)] }),
@@ -32,7 +35,11 @@ export class ARGAddressInfoComponent  implements OnInit {
   });
 
   constructor() {
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
+	this.tenantParameters  =  this.userState.tenantParameters();
+    if (!this.tenantParameters) {
+      console.error('No se puede datos de tenantparameters');
+      return;
+    }
 
     // this.adressForm = this.fb.group({
 		// 	Calle: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
