@@ -59,7 +59,7 @@ export class AddressInfoComponent  implements OnInit {
 
   setData() {
     this.user = this.utilsService.getUser();
-    const countryEnum = this.utilsService.findCountryEnum(this.tenantParameters?.country ? this.tenantParameters?.country : countryENUM.ARGENTINA);
+    const countryEnum = this.utilsService.findCountryEnum(this.tenantParameters?.country ?? countryENUM.ARGENTINA);
     this.country = countryEnum;
     this.setCountryValidation(this.country);
   }

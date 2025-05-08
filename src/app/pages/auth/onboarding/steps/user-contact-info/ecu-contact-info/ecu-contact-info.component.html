@@ -1,56 +1,56 @@
 <div class="container">
-    @if(tenantParameters){
+    @if(tenantParameters()){
 
    
   <form class="form" [formGroup]="personalForm" >
     <div class="header">
         <h3 class="text-with-icon">
             <img src="./assets/icons/icon-alert.svg" class="pr-2">
-            {{ tenantParameters.localization.onboarding['important'] }}
+            {{ tenantParameters()!.localization.onboarding['important'] }}
         </h3>
         <h5 class="text-with-info">
-            {{ tenantParameters.localization.onboarding['notif-disclaimer'] }}
+            {{ tenantParameters()!.localization.onboarding['notif-disclaimer'] }}
         </h5>
     </div>
     <div class="email">
         <div class="email-container">
-                <label>{{ tenantParameters.localization.onboarding['mail'] }}</label>
+                <label>{{ tenantParameters()!.localization.onboarding['mail'] }}</label>
                 <app-custom-input  [control]="personalForm.controls['email']">
                 </app-custom-input>
-                <p *ngIf="personalForm.controls['email'].hasError('pattern')" style="margin-left:0px;">{{ tenantParameters.localization.onboarding['format-mail-err'] }}</p>
-                <p *ngIf="personalForm.controls['email'].hasError('required')" class="error-message" style="margin-left:0px;">{{ tenantParameters.localization.onboarding['mail-required'] }}</p>
+                <p *ngIf="personalForm.controls['email'].hasError('pattern')" style="margin-left:0px;">{{ tenantParameters()!.localization.onboarding['format-mail-err'] }}</p>
+                <p *ngIf="personalForm.controls['email'].hasError('required')" class="error-message" style="margin-left:0px;">{{ tenantParameters()!.localization.onboarding['mail-required'] }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col country">
-                <label>{{ tenantParameters.localization.onboarding['country'] }}</label>
+                <label>{{ tenantParameters()!.localization.onboarding['country'] }}</label>
                     <app-custom-input [control]="personalForm.controls['countryCode']">
                     </app-custom-input>
             </div>
             <div class="col area-code">
-                <label>{{ tenantParameters.localization.onboarding['code'] }}
+                <label>{{ tenantParameters()!.localization.onboarding['code'] }}
                 </label>
                 <app-custom-input [control]="personalForm.controls['areaCode']"></app-custom-input>
             </div>
             <div class="col phone-container">
                 <label>
-                    {{ tenantParameters.localization.onboarding['phone'] }}
+                    {{ tenantParameters()!.localization.onboarding['phone'] }}
                 </label>
                 <app-custom-input [control]="personalForm.controls['phoneNumber']"></app-custom-input>
             </div>
         </div>
         <div class="col email-container">
             <div *ngIf="personalForm.controls['areaCode'].hasError('required')" class="error-message">
-                {{ tenantParameters.localization.onboarding['area-code-required'] }}
+                {{ tenantParameters()!.localization.onboarding['area-code-required'] }}
             </div>
             <div *ngIf="personalForm.controls['areaCode'].hasError('pattern')" class="error-message">
-                {{ tenantParameters.localization.onboarding['area-code-err'] }}
+                {{ tenantParameters()!.localization.onboarding['area-code-err'] }}
             </div>
             <div *ngIf="personalForm.controls['phoneNumber'].touched && personalForm.controls['phoneNumber'].hasError('required')" class="error-message">
-                {{ tenantParameters.localization.onboarding['phone-required'] }}
+                {{ tenantParameters()!.localization.onboarding['phone-required'] }}
             </div>
             <div *ngIf="personalForm.controls['phoneNumber'].hasError('pattern')" class="error-message">
-                {{ tenantParameters.localization.onboarding['phone-err'] }}
+                {{ tenantParameters()!.localization.onboarding['phone-err'] }}
             </div>
         </div>
     </form>

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -10,11 +10,11 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class PERContactInfoComponent  implements OnInit {
 
-tenantParameters : any;
   list: any;
   fb = inject(FormBuilder);
   storageService = inject(StorageService);
   userState = inject(UserStateService);
+  tenantParameters = computed(() => this.userState.tenantParameters());
 
   personalForm = new FormGroup({
     countryCode: new FormControl(+51, { validators: [Validators.required, Validators.minLength(3)] }),
@@ -26,11 +26,6 @@ tenantParameters : any;
 
   constructor() { 
 
-    this.tenantParameters  =  this.userState.tenantParameters();
-    if (!this.tenantParameters) {
-      console.error('No se puede datos de tenantparameters');
-      return;
-    }
     // const argentinaPhone = PHONE_CONSTANTS.phone.country.ARGENTINA;
   }
 

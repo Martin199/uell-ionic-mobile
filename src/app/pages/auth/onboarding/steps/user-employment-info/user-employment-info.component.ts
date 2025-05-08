@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { StorageService } from 'src/app/services/storage.service';
@@ -15,15 +15,9 @@ export class UserEmploymentInfoComponent  implements OnInit {
     isOpen = false;
     displayDate: string = '';  
     // user: User = this.storageService.getSessionStorage<User>('user')!;
-    user: User | null = null;
+    user = computed(() => this.userState.userData());
 
-  constructor() {
-    this.user = this.userState.userData();    
-    if (!this.user) {
-      console.error('No se puede obtener el id del usuario');
-      return;
-    }
-   }
+  constructor() {}
 
   ngOnInit() {
     console.log(this.user);
