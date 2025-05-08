@@ -62,7 +62,7 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
 
   async ngOnInit() {
     this.user = await this.storageService.getSessionStorage<User>('user') !;
-    this.serDimensions(this.ispsData);
+    this.setDimensions(this.ispsData);
 
     // this.getISPSScore();
     // this.viewBtnTurnito = this.psychosocialService.getGestorWillContactYou()
@@ -135,14 +135,16 @@ export class CardPsicosocialComponent  implements OnInit, OnChanges {
       this.ispsService.getISPSScore(this.user.id).subscribe((data:any) =>{
         this.ispsData = data;
         this.getISPSScore();
-        this.serDimensions(data);
+        this.setDimensions(data);
       })
   }
 
-  serDimensions(data: any){
+  setDimensions(data: any){
+    if (data.dimentionDTO && data.dimentionDTO.length > 0) {
       this.emocionalDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Emocional');
       this.fisicoDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Físico');
       this.socialDimension = data.dimentionDTO.find((dimension: any) => dimension.name === 'Social');
+    }
   }
 
   async showModal() {

@@ -1,11 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, computed, effect, inject, Input } from '@angular/core';
 import { IEmotionalMapResponse, IMoodDayList } from '../../interface/mental-status.interfaces';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
 import { ModalMentalStatusDescriptionComponent } from '../modals-components/modal-mental-status-description/modal-mental-status-description.component';
 import { ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
-import { UserResponseDTO } from 'src/app/core/interfaces/user';
-
+import { UserStateService } from 'src/app/core/state/user-state.service';
 type CalendarDay = Date | null;
 
 @Component({
@@ -13,16 +12,17 @@ type CalendarDay = Date | null;
   templateUrl: './mental-status-calendar.component.html',
   styleUrls: ['./mental-status-calendar.component.scss'],
 })
-export class MentalStatusCalendarComponent implements OnInit {
+export class MentalStatusCalendarComponent {
   mentalStatusService = inject(MentalStatusService);
   storageService = inject(StorageService);
   modalCtrl = inject(ModalController);
+  private userState = inject(UserStateService);
 
+  private userId = computed(() => this.userState.userId());
   @Input() emotionMapData: IMoodDayList[] = [];
-  private user: UserResponseDTO | null = null;
   currentDate: Date = new Date();
-  currentYear: number;
-  currentMonth: number;
+  currentYear: number | null = null;
+  currentMonth: number | null = null;
   weeks: CalendarDay[][] = [];
   loading = false;
 
@@ -30,6 +30,13 @@ export class MentalStatusCalendarComponent implements OnInit {
     this.currentYear = this.currentDate.getFullYear();
     this.currentMonth = this.currentDate.getMonth();
     this.mentalStatusService.refreshToCurrentMonth$.subscribe(() => {
+      this.goToCurrentMonth();
+    });
+    effect(() => {
+      if (!this.userId()) {
+        console.error('MentalStatusCalendarComponent: No se puede obtener el id del usuario');
+        return;
+      }
       this.goToCurrentMonth();
     });
   }
@@ -41,11 +48,8 @@ export class MentalStatusCalendarComponent implements OnInit {
     this.refreshEmotionalMap();
   }
 
-  ngOnInit() {
-    this.refreshEmotionalMap();
-  }
-
   async refreshEmotionalMap() {
+    this.currentMonth = this.currentMonth ? this.currentMonth : 0;
     const key = `${this.currentYear}-${this.currentMonth + 1}`;
     const today = new Date();
     const isCurrentMonth =
@@ -61,13 +65,13 @@ export class MentalStatusCalendarComponent implements OnInit {
         return;
       }
     }
-    this.user = await this.storageService.getSessionStorage('user');
-    if (!this.user) {
-      console.error('No hay usuario en sesión');
+    const userId = this.userId();
+    if (!userId) {
+      console.error('refreshEmotionalMap: No se puede obtener el id del usuario');
       return;
     }
     this.mentalStatusService
-      .getEmotionalMap(this.user.id!, this.currentYear, this.currentMonth + 1)
+      .getEmotionalMap(userId, this.currentYear!, this.currentMonth + 1)
       .subscribe({
         next: (res: IEmotionalMapResponse) => {
           this.emotionMapData = res?.moodDayList ? res.moodDayList : [];
@@ -86,9 +90,10 @@ export class MentalStatusCalendarComponent implements OnInit {
   }
 
   generateCalendar(): void {
+    this.currentMonth = this.currentMonth ? this.currentMonth : 0;
     this.weeks = [];
-    const firstDay = new Date(this.currentYear, this.currentMonth, 1);
-    const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+    const firstDay = new Date(this.currentYear!, this.currentMonth, 1);
+    const lastDay = new Date(this.currentYear!, this.currentMonth + 1, 0);
     const daysInMonth = lastDay.getDate();
     let startingDayOfWeek = firstDay.getDay();
     let dayCount = 1;
@@ -102,7 +107,7 @@ export class MentalStatusCalendarComponent implements OnInit {
         ) {
           week.push(null);
         } else {
-          week.push(new Date(this.currentYear, this.currentMonth, dayCount));
+          week.push(new Date(this.currentYear!, this.currentMonth, dayCount));
           dayCount++;
         }
       }
@@ -111,26 +116,25 @@ export class MentalStatusCalendarComponent implements OnInit {
   }
 
   nextMonth(): void {
+    this.currentMonth = this.currentMonth ? this.currentMonth : 0;
     const today = new Date();
     const isSameYear = this.currentYear === today.getFullYear();
     const isNextMonth = this.currentMonth + 1 > today.getMonth() && isSameYear;
-
     if (isNextMonth) return;
-
     if (this.currentMonth === 11) {
       this.currentMonth = 0;
-      this.currentYear++;
+      this.currentYear = this.currentYear! + 1;
     } else {
-      this.currentMonth++;
+      this.currentMonth = this.currentMonth + 1;
     }
-
     this.refreshEmotionalMap();
   }
 
   previousMonth(): void {
+    this.currentMonth = this.currentMonth ? this.currentMonth : 0;
     if (this.currentMonth === 0) {
       this.currentMonth = 11;
-      this.currentYear = this.currentYear - 1;
+      this.currentYear = this.currentYear! - 1;
     } else {
       this.currentMonth = this.currentMonth - 1;
     }
@@ -138,6 +142,7 @@ export class MentalStatusCalendarComponent implements OnInit {
   }
 
   getMonthName(): string {
+    this.currentMonth = this.currentMonth ? this.currentMonth : 0;
     const months = [
       'Enero',
       'Febrero',
