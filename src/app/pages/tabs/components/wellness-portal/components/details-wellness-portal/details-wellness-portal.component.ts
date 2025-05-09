@@ -23,7 +23,6 @@ export class DetailsWellnessPortalComponent {
   @ViewChild(IonContent) ionContent!: IonContent;
   @ViewChild('postBody') postBody!: ElementRef<HTMLDivElement>;
   
-  userData!: User;
   postId: number;
   post!: IWellnessPortalPost;
   likes: number = 0;

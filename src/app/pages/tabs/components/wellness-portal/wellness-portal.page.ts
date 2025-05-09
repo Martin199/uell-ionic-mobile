@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { ISearchbarAnimation } from 'src/app/shared/interface/searchbar-animation-interfaces';
 import { ICarouselWellnessPortal, IWellnessPortalPost } from '../../interfaces/wellness-portal-interfaces';
 import { WellnessPortalService } from 'src/app/services/wellness-portal.service';
@@ -6,6 +6,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { TrackingService } from 'src/app/services/tracking.service';
 import { User } from '../../interfaces/user-interfaces';
 import { StorageService } from 'src/app/services/storage.service';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 
 @Component({
   selector: 'app-wellness-portal',
@@ -13,9 +14,14 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./wellness-portal.page.scss'],
 })
 export class WellnessPortalPage {
+  trackingService = inject(TrackingService);
+  storageService = inject(StorageService);
+  wellnessPortalService = inject(WellnessPortalService);
+  utilsService = inject(UtilsService);
+  private userState = inject(UserStateService);
 
+  private userId = computed(() => this.userState.userId());
   dataFindPost: ISearchbarAnimation[] = [];
-  user: User;
   dataRecommendedForYou: ICarouselWellnessPortal[] = [];
   dataMostViewed: ICarouselWellnessPortal[] = [];
   dataMostViewedByTenant: ICarouselWellnessPortal[] = [];
@@ -24,19 +30,19 @@ export class WellnessPortalPage {
   dataGestionEmocional: ICarouselWellnessPortal[] = [];
   dataSaludMental: ICarouselWellnessPortal[] = [];
 
-  trackingService = inject(TrackingService)
-  storageService = inject (StorageService)
-
   constructor() {
-    this.getWellnessData();
-    this.user = this.storageService.getSessionStorage<User>('user') !;
-    this.trackingService.trackingUser(this.user.id.toString(), 'WELLNESS_BLOG').subscribe()
-
+    effect(() => {
+      const userId = this.userId();
+      if (!userId) {
+        console.error('WellnessPortalPage: No se puede obtener el id del usuario');
+        return;
+      }
+      this.getWellnessData();
+      this.trackingService
+        .trackingUser(userId.toString(), 'WELLNESS_BLOG')
+        .subscribe();
+    });
   }
-
-  wellnessPortalService = inject(WellnessPortalService);
-  // router = inject(Router);
-  utilsService = inject(UtilsService);
 
   async getWellnessData() {
     this.getAllPosts();
@@ -55,10 +61,10 @@ export class WellnessPortalPage {
     await loading.present();
     this.wellnessPortalService.getAllPosts().subscribe({
       next: (res: any) => {
-        if(res && res.length > 0) {
+        if (res && res.length > 0) {
           this.dataFindPost = res.map((item: any) => ({
             title: item.title,
-            id: item.id
+            id: item.id,
           }));
         }
       },
@@ -66,147 +72,168 @@ export class WellnessPortalPage {
         console.error(err);
       },
       complete: () => {
-      loading.dismiss();
+        loading.dismiss();
       },
     });
   }
 
   // RECOMMENDED_FOR_YOU
   getRecommendedForYou(contentType: string, size?: number) {
-    this.wellnessPortalService.getWellnessPortalData(contentType, size).subscribe({
-      next: (res: any) => {
-        if(res && res.length > 0) {
-          this.dataRecommendedForYou = res.map((item: IWellnessPortalPost) => ({
-            title: item.title,
-            subtitle: item.subtitle,
-            id: item.id,
-            img: item.title_image?.url || null,
-            multimedia: item.multiMediaUrl,
-            publishAt: item.publishAt ? item.publishAt : null,
-          }));
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {},
-    });
+    this.wellnessPortalService
+      .getWellnessPortalData(contentType, size)
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.length > 0) {
+            this.dataRecommendedForYou = res.map(
+              (item: IWellnessPortalPost) => ({
+                title: item.title,
+                subtitle: item.subtitle,
+                id: item.id,
+                img: item.title_image?.url || null,
+                multimedia: item.multiMediaUrl,
+                publishAt: item.publishAt ? item.publishAt : null,
+              })
+            );
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {},
+      });
   }
 
   // MOST_VIEWED
   getMostViewed(contentType: string, size?: number) {
-    this.wellnessPortalService.getWellnessPortalData(contentType, size).subscribe({
-      next: (res: any) => {
-        if(res && res.length > 0) {
-          this.dataMostViewed = res.map((item: IWellnessPortalPost) => ({
-            title: item.title,
-            id: item.id,
-            img: item.title_image?.url || null,
-            multimedia: item.multiMediaUrl,
-            publishAt: item.publishAt ? item.publishAt : null,
-          }));
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {
-        this.getMostViewedByTenant('MAS_VISTOS_POR_TENANT', 5);
-      },
-    });
+    this.wellnessPortalService
+      .getWellnessPortalData(contentType, size)
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.length > 0) {
+            this.dataMostViewed = res.map((item: IWellnessPortalPost) => ({
+              title: item.title,
+              id: item.id,
+              img: item.title_image?.url || null,
+              multimedia: item.multiMediaUrl,
+              publishAt: item.publishAt ? item.publishAt : null,
+            }));
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {
+          this.getMostViewedByTenant('MAS_VISTOS_POR_TENANT', 5);
+        },
+      });
   }
-    
+
   // MOST_VIEWED_BY_TENANT
   getMostViewedByTenant(contentType: string, size?: number) {
-    this.wellnessPortalService.getWellnessPortalData(contentType, size).subscribe({
-      next: (res: any) => {
-        if(res && res.length > 0) {
-          this.dataMostViewedByTenant = res.map((item: IWellnessPortalPost) => ({
-            title: item.title,
-            id: item.id,
-            img: item.title_image?.url || null,
-            multimedia: item.multiMediaUrl,
-            publishAt: item.publishAt ? item.publishAt : null,
-          }));
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {
-        this.orderCarrusel()
-      },
-    });
+    this.wellnessPortalService
+      .getWellnessPortalData(contentType, size)
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.length > 0) {
+            this.dataMostViewedByTenant = res.map(
+              (item: IWellnessPortalPost) => ({
+                title: item.title,
+                id: item.id,
+                img: item.title_image?.url || null,
+                multimedia: item.multiMediaUrl,
+                publishAt: item.publishAt ? item.publishAt : null,
+              })
+            );
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {
+          this.orderCarrusel();
+        },
+      });
   }
-  
+
   orderCarrusel() {
-    if (this.dataMostViewed.length === this.dataMostViewedByTenant.length && this.dataMostViewed
-      .every((item, index) => item.id === this.dataMostViewedByTenant[index].id)) {
-        this.dataMostViewedByTenant = this.dataMostViewedByTenant.sort(() => Math.random() - 0.5);
-      }
+    if (
+      this.dataMostViewed.length === this.dataMostViewedByTenant.length &&
+      this.dataMostViewed.every(
+        (item, index) => item.id === this.dataMostViewedByTenant[index].id
+      )
+    ) {
+      this.dataMostViewedByTenant = this.dataMostViewedByTenant.sort(
+        () => Math.random() - 0.5
+      );
+    }
   }
 
   // MOST_LIKED
   getMostLiked(contentType: string, size?: number) {
-    this.wellnessPortalService.getWellnessPortalData(contentType, size).subscribe({
-      next: (res: any) => {
-        if(res && res.length > 0) {
-          this.dataMostLiked = res.map((item: IWellnessPortalPost) => ({
-            title: item.title,
-            id: item.id,
-            img: item.title_image?.url || null,
-            multimedia: item.multiMediaUrl,
-            publishAt: item.publishAt ? item.publishAt : null,
-          }));
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {},
-    });
+    this.wellnessPortalService
+      .getWellnessPortalData(contentType, size)
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.length > 0) {
+            this.dataMostLiked = res.map((item: IWellnessPortalPost) => ({
+              title: item.title,
+              id: item.id,
+              img: item.title_image?.url || null,
+              multimedia: item.multiMediaUrl,
+              publishAt: item.publishAt ? item.publishAt : null,
+            }));
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {},
+      });
   }
 
   getWellnessPortalGeneralCategories(contentType: string, size?: number) {
-    this.wellnessPortalService.getWellnessPortalData(contentType, size).subscribe({
-      next: (res: any) => {
-        if (contentType==="BIENESTAR_FISICO" && res.length > 0) {
-          this.dataBienestarFisico = res.map((item: any) => ({
-            title: item.title,
-            id: item.id,
-            img: item.title_image?.url || null,
-            multimedia: item.multiMediaUrl,
-            publishAt: item.publishAt ? item.publishAt : null,
-          }));
-        }
-        if ((contentType==="GESTION_EMOCIONAL" && res.length > 0)) {
-          this.dataGestionEmocional = res.map((item: any) => ({
-            title: item.title,
-            id: item.id,
-            img: item.title_image?.url || null,
-            multimedia: item.multiMediaUrl,
-            publishAt: item.publishAt ? item.publishAt : null,
-          }));
-        }
-        if ((contentType==="SALUD_MENTAL" && res.length > 0)) {
-          this.dataSaludMental = res.map((item: any) => ({
-            title: item.title,
-            id: item.id,
-            img: item.title_image?.url || null,
-            multimedia: item.multiMediaUrl,
-            publishAt: item.publishAt ? item.publishAt : null,
-          }));
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {},
-    });
+    this.wellnessPortalService
+      .getWellnessPortalData(contentType, size)
+      .subscribe({
+        next: (res: any) => {
+          if (contentType === 'BIENESTAR_FISICO' && res.length > 0) {
+            this.dataBienestarFisico = res.map((item: any) => ({
+              title: item.title,
+              id: item.id,
+              img: item.title_image?.url || null,
+              multimedia: item.multiMediaUrl,
+              publishAt: item.publishAt ? item.publishAt : null,
+            }));
+          }
+          if (contentType === 'GESTION_EMOCIONAL' && res.length > 0) {
+            this.dataGestionEmocional = res.map((item: any) => ({
+              title: item.title,
+              id: item.id,
+              img: item.title_image?.url || null,
+              multimedia: item.multiMediaUrl,
+              publishAt: item.publishAt ? item.publishAt : null,
+            }));
+          }
+          if (contentType === 'SALUD_MENTAL' && res.length > 0) {
+            this.dataSaludMental = res.map((item: any) => ({
+              title: item.title,
+              id: item.id,
+              img: item.title_image?.url || null,
+              multimedia: item.multiMediaUrl,
+              publishAt: item.publishAt ? item.publishAt : null,
+            }));
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {},
+      });
   }
 
   redirectToPost(idPost: any) {
-    this.utilsService.navCtrl.navigateRoot([`tabs/wellness-portal/details/${idPost}`])
+    this.utilsService.navCtrl.navigateRoot([
+      `tabs/wellness-portal/details/${idPost}`,
+    ]);
   }
-
 }

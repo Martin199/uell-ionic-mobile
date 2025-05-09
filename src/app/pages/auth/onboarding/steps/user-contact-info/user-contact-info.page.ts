@@ -2,7 +2,6 @@ import { Component, Inject, inject, HostListener, OnDestroy, output } from '@ang
 import { FormBuilder, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { TenantParametersResponse } from 'src/app/core/interfaces/tenantParameters';
-import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { COUNTRY_CODE, COUNTRY_PHONE_VALIDATIONS, countryENUM } from 'src/app/shared/constant/country-constants';
@@ -20,7 +19,6 @@ export class UserContactInfoPage implements OnDestroy {
   public modalCtrl = Inject(ModalController);
 
   contactInfo = output<{data: IContactInfo; isValid: boolean}>();
-  user! : User ;
   tenantParameters: TenantParametersResponse | null = null;
   countryCode = COUNTRY_CODE;
   phoneValidations = COUNTRY_PHONE_VALIDATIONS;
@@ -52,7 +50,6 @@ export class UserContactInfoPage implements OnDestroy {
     this.tenantParameters = await this.storageService.getSessionStorage('tenantParameters');
     //TODO: COUNTRY
     const country = this.tenantParameters!.tenantParameters.country ? this.tenantParameters!.tenantParameters.country : countryENUM.OTHER;
-    this.user = this.utilsService.getUser();
     const defaultCountry = COUNTRY_CODE.find(
       (c) => c.name.toLowerCase() === country.toLowerCase()
     );
