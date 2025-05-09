@@ -1,5 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,14 +12,15 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ARGAddressInfoComponent  implements OnInit {
 
-
-  tenantParameters : any;
   nonWhitespaceRegExp: RegExp = new RegExp('\\S');
   provincias: any[] = [];
   public localidades: any[] = [];
 
   storageService = inject(StorageService);
   userService = inject(UserService);
+  userState = inject(UserStateService);
+  tenantParameters = computed(() => this.userState.tenantParameters());
+  
 
   addressForm = new FormGroup({
     Calle: new FormControl('', { validators: [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)] }),
@@ -31,22 +34,7 @@ export class ARGAddressInfoComponent  implements OnInit {
     countryCode: new FormControl(''),
   });
 
-  constructor() {
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
-
-    // this.adressForm = this.fb.group({
-		// 	Calle: ['', [Validators.required, Validators.pattern(this.nonWhitespaceRegExp)]],
-		// 	Numero: ['', [this.dinamicRequired(this.isOtherCountry), Validators.pattern(this.dinamicPattern())]],
-		// 	Piso: ['', [Validators.pattern('[a-zA-Z0-9]*'), Validators.maxLength(3)]],
-		// 	Depto: ['', [Validators.pattern('[a-zA-Z0-9]*'), Validators.maxLength(3)]],
-		// 	Provincia: ['', [Validators.required]],
-		// 	codigoPostal: ['', this.country === countryENUM.ECUADOR ? [Validators.pattern(/^[0-9]\d*$/)] :
-		// 						[this.dinamicRequired(this.isOtherCountry), Validators.pattern(/^[0-9]\d*$/)]],
-		// 	Localidad: ['', [ Validators.required]],
-		// 	observation: ['', Validators.maxLength(250)],
-		// 	countryCode: ['']
-		// });
-   }
+  constructor() { }
 
   ngOnInit() {
     this.getProvincias();

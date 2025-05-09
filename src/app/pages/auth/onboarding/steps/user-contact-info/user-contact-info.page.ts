@@ -1,7 +1,9 @@
 import { Component, Inject, inject, HostListener, OnDestroy, output } from '@angular/core';
 import { FormBuilder, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { TenantParametersResponse } from 'src/app/core/interfaces/tenantParameters';
+import { TenantParameters, TenantParametersResponse } from 'src/app/core/interfaces/tenantParameters';
+import { UserStateService } from 'src/app/core/state/user-state.service';
+import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { COUNTRY_CODE, COUNTRY_PHONE_VALIDATIONS, countryENUM } from 'src/app/shared/constant/country-constants';
@@ -17,9 +19,11 @@ export class UserContactInfoPage implements OnDestroy {
   storageService = inject (StorageService);
   fb = inject (FormBuilder);
   public modalCtrl = Inject(ModalController);
+  userState = inject(UserStateService);
 
   contactInfo = output<{data: IContactInfo; isValid: boolean}>();
-  tenantParameters: TenantParametersResponse | null = null;
+  user! : User ;
+  tenantParameters: TenantParameters | null = null;
   countryCode = COUNTRY_CODE;
   phoneValidations = COUNTRY_PHONE_VALIDATIONS;
   selectedCountry: ICountryCode | null = null;
@@ -47,9 +51,14 @@ export class UserContactInfoPage implements OnDestroy {
   }
   
   async setData() {
-    this.tenantParameters = await this.storageService.getSessionStorage('tenantParameters');
+
+    this.tenantParameters  =  this.userState.tenantParameters();
+    if (!this.tenantParameters) {
+      console.error('No se puede datos de tenantparameters');
+      return;
+    }
     //TODO: COUNTRY
-    const country = this.tenantParameters!.tenantParameters.country ? this.tenantParameters!.tenantParameters.country : countryENUM.OTHER;
+    const country = this.tenantParameters.country ? this.tenantParameters.country : countryENUM.OTHER;
     const defaultCountry = COUNTRY_CODE.find(
       (c) => c.name.toLowerCase() === country.toLowerCase()
     );

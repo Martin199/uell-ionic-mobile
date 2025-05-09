@@ -1,5 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 @Component({
@@ -9,13 +11,14 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PERAddressInfoComponent  implements OnInit {
 
- tenantParameters : any;
   nonWhitespaceRegExp: RegExp = new RegExp('\\S');
   provincias: any[] = [];
   public localidades: any[] = [];
 
   storageService = inject(StorageService);
   userService = inject(UserService);
+  private userState = inject(UserStateService);
+  tenantParameters = computed(() => this.userState.tenantParameters());
 
   addressForm = new FormGroup({
     Calle: new FormControl('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z0-9.\-# ]+$/)] }),
@@ -29,9 +32,7 @@ export class PERAddressInfoComponent  implements OnInit {
     countryCode: new FormControl(''),
   });
 
-  constructor() {
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
-   }
+  constructor() { }
 
   ngOnInit() {
     this.getProvincias();

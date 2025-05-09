@@ -1,5 +1,6 @@
 <div class="ion-padding">
   <div class="info-container">
+    @if(user()){
     <form>
 
       <ion-label class="title-label">Información laboral</ion-label>
@@ -7,15 +8,15 @@
       <ion-item lines="none">
         <ion-label>
           <strong>Empresa:</strong>
-          <p>{{ user.tenant[0].description | titlecase }}</p>
+          <p>{{ user()!.tenant[0].description | titlecase }}</p>
         </ion-label>
       </ion-item>
 
-      @if (user.segmentationUnit && user.segmentationUnit.segDescription )  {
+      @if (user()!.segmentationUnit && user()!.segmentationUnit.segDescription )  {
         <ion-item lines="none">
           <ion-label>
             <strong>Segmentacion:</strong>
-            <p>{{ user.segmentationUnit.segDescription | titlecase }}</p>
+            <p>{{ user()!.segmentationUnit.segDescription | titlecase }}</p>
           </ion-label>
         </ion-item>
       }
@@ -24,17 +25,18 @@
       <ion-item lines="none">
         <ion-label>
           <strong>Area:</strong>
-          <p>{{ user.area | titlecase }}</p>
+          <p>{{ user()!.area | titlecase }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none">
         <ion-label>
           <strong>Puesto:</strong>
-          <p>{{ user.workstation| titlecase }}</p>
+          <p>{{ user()!.workstation| titlecase }}</p>
         </ion-label>
       </ion-item>
 
     </form>
+    }
   </div>
 </div>

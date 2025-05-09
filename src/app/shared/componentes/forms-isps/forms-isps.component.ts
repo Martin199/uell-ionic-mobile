@@ -195,7 +195,6 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
   finish(data: any) {
     this.ispsService.patchIPSContent(this.user.id, data).subscribe(() => {
       // this.toastMessage=this.translatesISPS.thanks
-      this.isToastOpen=true;
       this.utilsService.modalCtrl.dismiss({ updated: true });
     });
     (err: Error) => {
@@ -277,7 +276,6 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
     this.ispsService.postIPSContent(this.user.id, data).subscribe((data) => {
       this.dataIsps = data;
       // this.toastMessage='Respuestas isps actualizados exitosamente.';
-      this.isToastOpen=true;
     });
     (err: Error) => {
       console.error(err, 'Error al cargar respuestas isps');
