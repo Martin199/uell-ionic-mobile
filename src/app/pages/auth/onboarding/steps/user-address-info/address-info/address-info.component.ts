@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, output } from '@angular/core';
+import { Component, computed, inject, OnInit, output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
 import { UserStateService } from 'src/app/core/state/user-state.service';
@@ -23,7 +23,7 @@ export class AddressInfoComponent  implements OnInit {
   
   addressInfo = output<{data: IAddressInfo; isValid: boolean}>();
   user! : User ;
-  tenantParameters: TenantParameters | null = null;
+  tenantParameters = computed(() => this.userState.tenantParameters());
   provincesResponse: IStatesResponse[] = [];
   localitiesResponse: IlocalitiesResponse[] = [];
   //TODO: cambiar default luego de hacer las pruebas
@@ -42,13 +42,7 @@ export class AddressInfoComponent  implements OnInit {
     observation: new FormControl('', { validators: [Validators.maxLength(250)] }),
   });
 
-  constructor() {
-    this.tenantParameters  =  this.userState.tenantParameters();
-    if (!this.tenantParameters) {
-      console.error('No se puede datos de tenantparameters');
-      return;
-    }
-   }
+  constructor() { }
 
   ngOnInit() {
     this.setData();
@@ -59,7 +53,7 @@ export class AddressInfoComponent  implements OnInit {
 
   setData() {
     this.user = this.utilsService.getUser();
-    const countryEnum = this.utilsService.findCountryEnum(this.tenantParameters?.country ?? countryENUM.ARGENTINA);
+    const countryEnum = this.utilsService.findCountryEnum(this.tenantParameters()?.country ?? countryENUM.ARGENTINA);
     this.country = countryEnum;
     this.setCountryValidation(this.country);
   }

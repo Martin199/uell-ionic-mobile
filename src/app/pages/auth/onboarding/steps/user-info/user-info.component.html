@@ -1,6 +1,6 @@
 <div class="ion-padding">
   <div class="info-container">
-    @if(user){
+    @if(user()){
     <form [formGroup]="userInfoForm">
 
       <ion-label class="title-label">¿Estos son tus datos?</ion-label>
@@ -8,28 +8,28 @@
       <ion-item lines="none">
         <ion-label>
           <strong>Nombre:</strong>
-          <p>{{ user['name'] | titlecase }}</p>
+          <p>{{ user()!['name'] | titlecase }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none">
         <ion-label>
           <strong>Apellido:</strong>
-          <p>{{ user['surname'] | titlecase }}</p>
+          <p>{{ user()!['surname'] | titlecase }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none">
         <ion-label>
           <strong>Tipo de documento:</strong>
-          <p>{{ user['documentType'] }}</p>
+          <p>{{ user()!['documentType'] }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none">
         <ion-label>
           <strong>Nro de documento:</strong>
-          <p>{{ user['documentNumber'] }}</p>
+          <p>{{ user()!['documentNumber'] }}</p>
         </ion-label>
       </ion-item>
 

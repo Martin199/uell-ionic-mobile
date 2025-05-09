@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, inject, output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, computed, inject, output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/services/storage.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
@@ -13,6 +13,7 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 export class UserInfoComponent implements OnInit {
   storageService = inject(StorageService) 
   private userState = inject(UserStateService);
+  user = computed(() => this.userState.userData());
   @Output() contactInfo = new EventEmitter<{ data: any }>();
 
   userInfoForm = new FormGroup({
@@ -21,18 +22,13 @@ export class UserInfoComponent implements OnInit {
 
   isOpen = false;
   displayDate: string = '';  
-  user: User | null = null;
+  // user: User | null = null;
   returnInfo = output<any>();
 
   ngOnInit() {
-    this.user = this.userState.userData();    
-    if (!this.user) {
-      console.error('No se puede obtener el id del usuario');
-      return;
-    }
-       
-    if (this.user?.bornDate) {
-      const formattedDate = moment(this.user.bornDate).format('DD/MM/YYYY');
+
+    if (this.user()?.bornDate) {
+      const formattedDate = moment(this.user()?.bornDate).format('DD/MM/YYYY');
       this.userInfoForm.patchValue({ birthDate: formattedDate });
       this.emitBirthDate(formattedDate);
       this.updateDisplayDate(formattedDate);
