@@ -5,7 +5,6 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 import { SharedModule } from '../../shared.module';
 import { countryENUM } from '../../constant/country-constants';
-import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { UtilsService } from 'src/app/services/utils.service';
 import { TenantParametersResponse } from 'src/app/core/interfaces/tenantParameters';
 
@@ -28,7 +27,6 @@ export class AddressComponent {
   userService = inject(UserService);
   utilsService = inject (UtilsService);
   
-  user! : User ;
   tenantParameters: TenantParametersResponse | null = null;
   country: countryENUM | string = countryENUM.ARGENTINA;
 
@@ -57,7 +55,6 @@ export class AddressComponent {
   setData() {
     this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
     this.country = this.tenantParameters!.tenantParameters.country ? this.tenantParameters!.tenantParameters.country : countryENUM.OTHER;
-    this.user = this.utilsService.getUser();
     this.selectCountryAddressForm();
   }
 
