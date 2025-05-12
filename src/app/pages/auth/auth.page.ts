@@ -109,6 +109,7 @@ export class AuthPage {
 
               if (!this.hasMultipleTenants) {
                 this.userState.setTenant(user.tenant[0]);
+                this.storageService.setLocalStorage('tenant', user.tenant[0]);
               }
             }),
             switchMap((user) => {
