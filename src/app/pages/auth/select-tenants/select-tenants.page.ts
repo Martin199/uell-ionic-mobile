@@ -47,8 +47,9 @@ export class SelectTenantsPage implements OnInit {
 
     const loading = await this.utilsService.loading();
     await loading.present();
-    this.userService.getTenantParameters().subscribe((res: any) => {
+    this.userService.getTenantParameters().subscribe(async (res: any) => {
       this.storageService.setSessionStorage('tenantParameters', res);
+      await this.storageService.setLocalStorage('tenant', res);
       const user: any = this.storageService.getSessionStorage('user');
       this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
         if (user.onboarded) {
@@ -56,6 +57,7 @@ export class SelectTenantsPage implements OnInit {
         } else {
           if (res.length > 0) {
             this.storageService.setSessionStorage('termsAndConditions', res);
+            this.storageService.setLocalStorage('tenant', res);
             this.utilsService.navCtrl.navigateRoot(['auth/term-and-conditions']);
           } else {
             this.utilsService.navCtrl.navigateRoot(['auth/onboarding']);
