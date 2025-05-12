@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -10,11 +11,13 @@ import { StorageService } from 'src/app/services/storage.service';
 export class UserEmploymentInfoComponent  implements OnInit {
 
    storageService = inject(StorageService) 
+   private userState = inject(UserStateService);
     isOpen = false;
     displayDate: string = '';  
-    user: User = this.storageService.getSessionStorage<User>('user')!;
+    // user: User = this.storageService.getSessionStorage<User>('user')!;
+    user = computed(() => this.userState.userData());
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     console.log(this.user);

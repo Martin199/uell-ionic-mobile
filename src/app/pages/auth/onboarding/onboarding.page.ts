@@ -12,9 +12,10 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
-import { firstValueFrom, Subject, takeUntil } from 'rxjs';
+import { firstValueFrom, of, Subject, takeUntil } from 'rxjs';
 import { ModalMailRegisteredComponent } from 'src/app/shared/componentes/modal-mail-registered/modal-mail-registered.component';
 import { register } from 'swiper/element/bundle';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 register();
 
 @Component({
@@ -42,6 +43,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   profilePicture: ImageClass | null = null;
   adressRespons!: AdressResponse;
   user: UserResponseDTO;
+  userId : number | null = null;
   medicalFormData!: MedicalFormData;
   medicalFormDataTwo!: MedicalFormDataTwo;
   modalController = inject(ModalController);
@@ -55,6 +57,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   progress: number = 0.125;
   totalSteps: number = 8;
   skipClinicalHistory: boolean = false;
+  private userState = inject(UserStateService);
 
   private destroy$ = new Subject<void>();
 
@@ -65,7 +68,18 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getDataUser();
+    this.userId = this.userState.userId();
+    if (!this.userId) {
+      console.error('No se puede obtener el id del usuario');
+      return;
+    }
+    this.getDataUser(this.userId);
+
+    this.tenantParameters = this.userState.tenantParameters();
+    if (!this.tenantParameters) {
+      console.error('No se puede datos de tenantparameters');
+      return;
+    }
   }
 
   ngOnDestroy() {
@@ -82,8 +96,8 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  private getDataUser() {
-    this.userService.getOnBoarding(this.user.id).subscribe(
+  private getDataUser(userId: number) {
+    this.userService.getOnBoarding(userId).subscribe(
       (res: any) => {
         this.adressUser = res.address[0];
         this.setDataUser(res);
@@ -117,8 +131,8 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   }
 
   validCLinicalHistory() {
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
-    if (!this.tenantParameters.tenantParameters.activeModules.find((x: any) => x === 'hc_onboarding')) {
+
+    if (!this.tenantParameters.activeModules.find((x: any) => x === 'hc_onboarding')) {
       this.skipClinicalHistory = true;
     }
   }
@@ -156,13 +170,11 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
     }
     if (this.step === 8) {
       this.sendCompletenessMedical();
-      this.tenantParameters =
-        this.storageService.getSessionStorage('tenantParameters');
       if (
-        this.tenantParameters.tenantParameters.activeModules.find(
+        this.tenantParameters.activeModules.find(
           (x: any) => x === 'isps'
         ) &&
-        this.tenantParameters.tenantParameters.excludeISPSFromOnboarding !==
+        this.tenantParameters.excludeISPSFromOnboarding !==
           'true'
       ) {
         this.goIsps();
@@ -176,7 +188,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   async usedMail(value: string): Promise<boolean | null> {
     this.destroy$.next();
     try {
-      const res: any = await firstValueFrom(this.userService.getUsedMail(this.user.id, value).pipe(
+      const res: any = await firstValueFrom(this.userService.getUsedMail(this.userId!, value).pipe(
         takeUntil(this.destroy$)
       ));
       if (res === true) {
@@ -338,7 +350,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
         surgeriesDescription: bodyTwo.surgeriesDescription ?? null,
       },
     };
-    this.userService.postMedicalDiseases(this.user.id, data).subscribe(
+    this.userService.postMedicalDiseases(this.userId!, data).subscribe(
       () => {},
       (error) => {
         console.error(error);
@@ -352,7 +364,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
 
   sendCompletenessMedical() {
     this.userService
-      .postCompletenessMedicalInformation(this.user.id, this.completenessData)
+      .postCompletenessMedicalInformation(this.userId!, this.completenessData)
       .subscribe(() => {});
   }
 
@@ -373,7 +385,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
       try {
         const photoResponse = await firstValueFrom(
           this.userService.postB64Picture({
-            fileName: `profile_${this.user.id}.${this.profilePicture.format}`,
+            fileName: `profile_${this.userId}.${this.profilePicture.format}`,
             fileContent: `data:image/${this.profilePicture.format};base64,${this.profilePicture.base64String}`,
           })
         );
@@ -401,6 +413,6 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
 
   public async postOnboarding() {
     const request = await this.buildPostRequest();
-    this.userService.postOnBoarding(this.user.id, request).subscribe(() => {});
+    this.userService.postOnBoarding(this.userId!, request).subscribe(() => {});
   }
 }

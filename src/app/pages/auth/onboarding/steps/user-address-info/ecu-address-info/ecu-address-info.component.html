@@ -1,92 +1,94 @@
 <div>
-  <form class="form" [formGroup]="addressForm">
-    <div class="titulo">
-      <p>{{ tenantParameters.tenantParameters.localization.onboarding.adress }}</p>
-    </div>
-    <div class="form-group">
-        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.street }}</p>
-        <app-custom-input  [control]="addressForm.controls['Calle']" [maxLength]="255"></app-custom-input>
-        <span *ngIf="addressForm.controls['Calle'].errors?.['required']"
-              class="form-error-msg">
-              {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
-        </span>
-    </div>
-    <div class="form-group d-flex">
-        <div class="form-group col-md-3 pl-0">
-            <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.number }}</p>
-            <app-custom-input  [control]="addressForm.controls['Numero']" [maxLength]="50"></app-custom-input>
-            <span *ngIf="addressForm.controls['Numero'].errors?.['required']"
-                  class="form-error-msg">
-                  {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
-            </span>
-            <span *ngIf="addressForm.controls['Numero'].hasError('pattern')"
-                  class="form-error-msg">
-                  {{ tenantParameters.tenantParameters.localization.onboarding['only-numbers'] }}
-            </span>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-3">
-              <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.floor }}</p>
-              <app-custom-input  [control]="addressForm.controls['Piso']"></app-custom-input>
+  @if(tenantParameters()){
+    <form class="form" [formGroup]="addressForm">
+      <div class="titulo">
+        <p>{{ tenantParameters()!.localization.onboarding['adress'] }}</p>
+      </div>
+      <div class="form-group">
+          <p class="label">{{ tenantParameters()!.localization.onboarding['street'] }}</p>
+          <app-custom-input  [control]="addressForm.controls['Calle']" [maxLength]="255"></app-custom-input>
+          <span *ngIf="addressForm.controls['Calle'].errors?.['required']"
+                class="form-error-msg">
+                {{ tenantParameters()!.localization.onboarding['required-field'] }}
+          </span>
+      </div>
+      <div class="form-group d-flex">
+          <div class="form-group col-md-3 pl-0">
+              <p class="label">{{ tenantParameters()!.localization.onboarding['number'] }}</p>
+              <app-custom-input  [control]="addressForm.controls['Numero']" [maxLength]="50"></app-custom-input>
+              <span *ngIf="addressForm.controls['Numero'].errors?.['required']"
+                    class="form-error-msg">
+                    {{ tenantParameters()!.localization.onboarding['required-field'] }}
+              </span>
+              <span *ngIf="addressForm.controls['Numero'].hasError('pattern')"
+                    class="form-error-msg">
+                    {{ tenantParameters()!.localization.onboarding['only-numbers'] }}
+              </span>
           </div>
-          <div class="form-group col-md-3">
-              <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.dept }}</p>
-              <app-custom-input  [control]="addressForm.controls['Depto']"></app-custom-input>
+          <div class="row">
+            <div class="form-group col-md-3">
+                <p class="label">{{ tenantParameters()!.localization.onboarding['floor'] }}</p>
+                <app-custom-input  [control]="addressForm.controls['Piso']"></app-custom-input>
+            </div>
+            <div class="form-group col-md-3">
+                <p class="label">{{ tenantParameters()!.localization.onboarding['dept'] }}</p>
+                <app-custom-input  [control]="addressForm.controls['Depto']"></app-custom-input>
+            </div>
+            <div class="form-group col-md-3 pr-0">
+                <p class="label">{{ tenantParameters()!.localization.onboarding['zip-code'] }}</p>
+                <app-custom-input  [control]="addressForm.controls['codigoPostal']" [maxLength]="6"></app-custom-input>
+                  <span *ngIf="addressForm.controls['codigoPostal'].errors?.['required']"
+                          class="form-error-msg">
+                          {{ tenantParameters()!.localization.onboarding['required-field'] }}
+                  </span>
+                  <span *ngIf="addressForm.controls['codigoPostal'].errors?.['maxlength'] && !addressForm.controls['codigoPostal'].hasError('pattern') "
+                          class="form-error-msg">
+                          {{ tenantParameters()!.localization.onboarding['max'] }}
+                  </span>
+                  <span *ngIf="addressForm.controls['codigoPostal'].errors?.['minlength'] && !addressForm.controls['codigoPostal'].hasError('pattern') "
+                          class="form-error-msg">
+                          {{ tenantParameters()!.localization.onboarding['min'] }}
+                  </span>
+                  <span *ngIf="addressForm.controls['codigoPostal'].hasError('pattern')"
+                          class="form-error-msg">
+                          {{ tenantParameters()!.localization.onboarding['only-numbers'] }}
+                  </span>
+            </div>
           </div>
-          <div class="form-group col-md-3 pr-0">
-              <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding['zip-code'] }}</p>
-              <app-custom-input  [control]="addressForm.controls['codigoPostal']" [maxLength]="6"></app-custom-input>
-                <span *ngIf="addressForm.controls['codigoPostal'].errors?.['required']"
-                        class="form-error-msg">
-                        {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
-                </span>
-                <span *ngIf="addressForm.controls['codigoPostal'].errors?.['maxlength'] && !addressForm.controls['codigoPostal'].hasError('pattern') "
-                        class="form-error-msg">
-                        {{ tenantParameters.tenantParameters.localization.onboarding.max }}
-                </span>
-                <span *ngIf="addressForm.controls['codigoPostal'].errors?.['minlength'] && !addressForm.controls['codigoPostal'].hasError('pattern') "
-                        class="form-error-msg">
-                        {{ tenantParameters.tenantParameters.localization.onboarding.min }}
-                </span>
-                <span *ngIf="addressForm.controls['codigoPostal'].hasError('pattern')"
-                        class="form-error-msg">
-                        {{ tenantParameters.tenantParameters.localization.onboarding['only-numbers'] }}
-                </span>
-          </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.province }}</p>
-            <ion-list>
-              <ion-item>
-                <ion-select aria-label="Provincia" interface="action-sheet" placeholder="Seleccione provincia" formControlName="Provincia">
-                  <ion-select-option *ngFor="let prov of provincias" [value]="prov">{{prov.name}}</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
-        <span *ngIf="addressForm.controls['Provincia'].errors?.['required']"
-              class="form-error-msg">
-              {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
-        </span>
-    </div>
-    <div class="form-group">
-        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.locality }}</p>
-            <ion-list>
-              <ion-item>
-                <ion-select aria-label="Localidades" interface="action-sheet" placeholder="Seleccione localidad" formControlName="Localidad">
-                  <ion-select-option *ngFor="let loc of localidades" [value]="loc">{{loc.name}}</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
-        <span *ngIf="addressForm.controls['Localidad'].errors?.['required']"
-              class="form-error-msg">
-              {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
-        </span>
-    </div>
-    <div class="form-group">
-        <p class="label">{{ tenantParameters.tenantParameters.localization.onboarding.observations }}</p>
-        <app-custom-input  [control]="addressForm.controls['observation']">
-        </app-custom-input>
-    </div>
-  </form>
+      </div>
+      <div class="form-group">
+          <p class="label">{{ tenantParameters()!.localization.onboarding['province'] }}</p>
+              <ion-list>
+                <ion-item>
+                  <ion-select aria-label="Provincia" interface="action-sheet" placeholder="Seleccione provincia" formControlName="Provincia">
+                    <ion-select-option *ngFor="let prov of provincias" [value]="prov">{{prov.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
+          <span *ngIf="addressForm.controls['Provincia'].errors?.['required']"
+                class="form-error-msg">
+                {{ tenantParameters()!.localization.onboarding['required-field'] }}
+          </span>
+      </div>
+      <div class="form-group">
+          <p class="label">{{ tenantParameters()!.localization.onboarding['locality'] }}</p>
+              <ion-list>
+                <ion-item>
+                  <ion-select aria-label="Localidades" interface="action-sheet" placeholder="Seleccione localidad" formControlName="Localidad">
+                    <ion-select-option *ngFor="let loc of localidades" [value]="loc">{{loc.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
+          <span *ngIf="addressForm.controls['Localidad'].errors?.['required']"
+                class="form-error-msg">
+                {{ tenantParameters()!.localization.onboarding['required-field'] }}
+          </span>
+      </div>
+      <div class="form-group">
+          <p class="label">{{ tenantParameters()!.localization.onboarding['observations'] }}</p>
+          <app-custom-input  [control]="addressForm.controls['observation']">
+          </app-custom-input>
+      </div>
+    </form>
+  }
 </div>
