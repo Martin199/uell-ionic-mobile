@@ -63,6 +63,7 @@
     "@ionic/angular": "^7.8.6",
     "@ionic/pwa-elements": "^3.3.0",
     "@ionic/storage-angular": "^4.0.0",
+    "@justinribeiro/lite-youtube": "^1.8.1",
     "amazon-cognito-identity-js": "^6.3.12",
     "ionicons": "^7.0.0",
     "moment": "^2.30.1",

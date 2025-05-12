@@ -12,11 +12,16 @@ export class RecommendedWellnessPortalComponent {
   @Input() subTitle: string = '';
   @Input() data!: ICarouselWellnessPortal;
   @Output() clickEvent = new EventEmitter<number>();
+  loading: boolean = false;
 
   constructor() { }
 
   redirectToPost(idPost: number) {
     this.clickEvent.emit(idPost);
+  }
+
+  loadingfinish() {
+    this.loading = true;
   }
 
 }

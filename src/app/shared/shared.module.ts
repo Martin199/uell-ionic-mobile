@@ -47,7 +47,6 @@ import { ModalMailRegisteredComponent } from './componentes/modal-mail-registere
     FormIspsStepThreeComponent,
     FormIspsStepFourComponent,
     SearchbarAnimationComponent,
-    UellMultimediaComponent,
     ModalSuggestAddressComponent,
     ModalMedicalRecordComponent,
     ModalMentalStatusComponent,

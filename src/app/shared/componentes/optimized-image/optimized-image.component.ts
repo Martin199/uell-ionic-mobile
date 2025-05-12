@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FilesService } from 'src/app/services/files.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class OptimizedImageComponent  implements OnInit {
   @Input() borderRadius: boolean = false;
   @Input() height130px: boolean = false;
   @Input() url: string = '';
+  @Output() loading = new EventEmitter<void>();
 
   constructor() { }
 
@@ -35,7 +36,9 @@ export class OptimizedImageComponent  implements OnInit {
           console.error(err);
           this.imgSrc ='../../../../assets/imgs/Uell_Img.jpg';
         },
-        complete: () => {},
+        complete: () => {
+          this.loading.emit();
+        },
       });
     }
   }
