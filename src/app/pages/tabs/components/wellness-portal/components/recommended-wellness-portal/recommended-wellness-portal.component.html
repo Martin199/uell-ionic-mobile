@@ -1,7 +1,7 @@
 @if (data && data.id) {
-  <div class="gradient-container" (click)="redirectToPost(data.id)" style="width: 100%;">
+  <div class="gradient-container" (click)="redirectToPost(data.id)">
     @if (data.img && !data.multimedia) {
-      <app-optimized-image [borderRadius]="true"  [url]="data.img" (loading)="loadingfinish()"></app-optimized-image>
+      <app-optimized-image [borderRadius]="true" [height250px]="true"  [url]="data.img" (loading)="loadingfinish()"></app-optimized-image>
     }
     @if (data.multimedia) {
       <app-uell-multimedia [url]="data.multimedia" [borderRadius]="true" (loading)="loadingfinish()"></app-uell-multimedia>
