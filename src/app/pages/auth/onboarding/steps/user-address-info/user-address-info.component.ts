@@ -1,8 +1,9 @@
 import { Component, output } from '@angular/core';
 @Component({
-  selector: 'app-user-address-info',
-  templateUrl: './user-address-info.component.html',
-  styleUrls: ['./user-address-info.component.scss'],
+    selector: 'app-user-address-info',
+    templateUrl: './user-address-info.component.html',
+    styleUrls: ['./user-address-info.component.scss'],
+    standalone: false
 })
 export class UserAddressInfoComponent {
 

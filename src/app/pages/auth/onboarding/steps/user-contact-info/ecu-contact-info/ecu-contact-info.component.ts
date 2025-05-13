@@ -5,9 +5,10 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-ecu-contact-info',
-  templateUrl: './ecu-contact-info.component.html',
-  styleUrls: ['./ecu-contact-info.component.scss'],
+    selector: 'app-ecu-contact-info',
+    templateUrl: './ecu-contact-info.component.html',
+    styleUrls: ['./ecu-contact-info.component.scss'],
+    standalone: false
 })
 export class ECUContactInfoComponent  implements OnInit {
 

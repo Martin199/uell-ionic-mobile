@@ -3,9 +3,10 @@ import { interval } from 'rxjs';
 import { takeWhile, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-isps-circle',
-  templateUrl: './isps-circle.component.html',
-  styleUrls: ['./isps-circle.component.scss']
+    selector: 'app-isps-circle',
+    templateUrl: './isps-circle.component.html',
+    styleUrls: ['./isps-circle.component.scss'],
+    standalone: false
 })
 export class IspsCircleComponent implements OnChanges, OnInit {
 

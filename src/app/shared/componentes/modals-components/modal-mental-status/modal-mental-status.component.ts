@@ -11,9 +11,10 @@ import {
 } from 'src/app/shared/interface/mental-status.interfaces';
 
 @Component({
-  selector: 'app-modal-mental-status',
-  templateUrl: './modal-mental-status.component.html',
-  styleUrls: ['./modal-mental-status.component.scss'],
+    selector: 'app-modal-mental-status',
+    templateUrl: './modal-mental-status.component.html',
+    styleUrls: ['./modal-mental-status.component.scss'],
+    standalone: false
 })
 export class ModalMentalStatusComponent {
   private mentalStatusService = inject(MentalStatusService);

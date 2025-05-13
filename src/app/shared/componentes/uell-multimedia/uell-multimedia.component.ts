@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-uell-multimedia',
-  templateUrl: './uell-multimedia.component.html',
-  styleUrls: ['./uell-multimedia.component.scss']
+    selector: 'app-uell-multimedia',
+    templateUrl: './uell-multimedia.component.html',
+    styleUrls: ['./uell-multimedia.component.scss'],
+    standalone: false
 })
 export class UellMultimediaComponent {
 

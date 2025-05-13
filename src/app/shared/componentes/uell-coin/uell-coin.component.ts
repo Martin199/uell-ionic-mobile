@@ -2,9 +2,10 @@ import { Component, inject } from '@angular/core';
 import { UellCoinService } from 'src/app/services/uell-coin.service';
 
 @Component({
-  selector: 'app-uell-coin',
-  templateUrl: './uell-coin.component.html',
-  styleUrls: ['./uell-coin.component.scss'],
+    selector: 'app-uell-coin',
+    templateUrl: './uell-coin.component.html',
+    styleUrls: ['./uell-coin.component.scss'],
+    standalone: false
 })
 export class UellCoinComponent {
   uellCoinService = inject(UellCoinService);

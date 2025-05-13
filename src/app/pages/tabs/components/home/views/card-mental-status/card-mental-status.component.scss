@@ -1,4 +1,4 @@
-@import 'src/theme/colors';
+@use '../../../../../../../theme/colors.scss';
 
 .header {
   display: flex;
@@ -6,7 +6,7 @@
   gap: 0.75rem;
   padding: 1rem 1rem 0.75rem 1rem;
   .title {
-    color: $neutral-grey-dark;
+    color: colors.$neutral-grey-dark;
     font-family: 'Inter';
     font-size: 18px;
     font-style: normal;
@@ -19,7 +19,7 @@
   justify-content: space-between;
   padding: 0.75rem 1rem 1.25rem 1rem;
   .title {
-    color: $primary-uell;
+    color: colors.$primary-uell;
     font-family: 'Inter';
     font-size: 24px;
     font-style: normal;
@@ -45,13 +45,13 @@
   }
 }
 .footer {
-  border-top: 1px solid $neutral-grey-light;
+  border-top: 1px solid colors.$neutral-grey-light;
   display: flex;
   justify-content: center;
   padding: 1rem 0 1.5rem 0;
   margin: 0 1rem;
   .btn-clear {
-    color: $neutral-grey-medium;
+    color: colors.$neutral-grey-medium;
     font-family: 'Inter';
     font-size: 16px;
     font-style: normal;
@@ -67,7 +67,7 @@
     .btn-outline {
       flex: 1;
       max-width: calc(50% - 0.5rem);
-      color: $primary-uell;
+      color: colors.$primary-uell;
       font-family: 'Inter';
       font-size: 16px;
       font-style: normal;

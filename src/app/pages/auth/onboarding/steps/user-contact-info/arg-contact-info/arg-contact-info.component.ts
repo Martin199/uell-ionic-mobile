@@ -5,9 +5,10 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-arg-contact-info',
-  templateUrl: './arg-contact-info.component.html',
-  styleUrls: ['./arg-contact-info.component.scss'],
+    selector: 'app-arg-contact-info',
+    templateUrl: './arg-contact-info.component.html',
+    styleUrls: ['./arg-contact-info.component.scss'],
+    standalone: false
 })
 export class ARGContactInfoComponent  implements OnInit {
 

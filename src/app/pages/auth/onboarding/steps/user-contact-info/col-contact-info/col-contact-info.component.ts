@@ -5,9 +5,10 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-col-contact-info',
-  templateUrl: './col-contact-info.component.html',
-  styleUrls: ['./col-contact-info.component.scss'],
+    selector: 'app-col-contact-info',
+    templateUrl: './col-contact-info.component.html',
+    styleUrls: ['./col-contact-info.component.scss'],
+    standalone: false
 })
 export class COLContactInfoComponent  implements OnInit {
 

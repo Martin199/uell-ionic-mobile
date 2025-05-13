@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICarouselWellnessPortal } from 'src/app/pages/tabs/interfaces/wellness-portal-interfaces';
 
 @Component({
-  selector: 'app-recommended-wellness-portal',
-  templateUrl: './recommended-wellness-portal.component.html',
-  styleUrls: ['./recommended-wellness-portal.component.scss'],
+    selector: 'app-recommended-wellness-portal',
+    templateUrl: './recommended-wellness-portal.component.html',
+    styleUrls: ['./recommended-wellness-portal.component.scss'],
+    standalone: false
 })
 export class RecommendedWellnessPortalComponent {
 

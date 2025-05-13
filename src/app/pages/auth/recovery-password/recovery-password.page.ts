@@ -7,47 +7,48 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { ErrorMessagesUtil } from '../utils/getErrorMessage';
 
 @Component({
-  selector: 'app-recovery-password',
-  templateUrl: './recovery-password.page.html',
-  styleUrls: ['./recovery-password.page.scss'],
+    selector: 'app-recovery-password',
+    templateUrl: './recovery-password.page.html',
+    styleUrls: ['./recovery-password.page.scss'],
+    standalone: false
 })
-export class RecoveryPasswordPage  {
+export class RecoveryPasswordPage {
 
-	error: string = '';
-  login = inject (LoginService)
-  auth = inject(CognitoService);
-  utilsService = inject(UtilsService);
+    error: string = '';
+    login = inject(LoginService)
+    auth = inject(CognitoService);
+    utilsService = inject(UtilsService);
 
-  forgotForm = new FormGroup({
-    username: new FormControl('', [Validators.minLength(8), Validators.maxLength(12), Validators.required]),
-  })
+    forgotForm = new FormGroup({
+        username: new FormControl('', [Validators.minLength(8), Validators.maxLength(12), Validators.required]),
+    })
 
-  constructor() { }
+    constructor() { }
 
-  onSubmitForgotForm() {
+    onSubmitForgotForm() {
 
-    this.error = '';
-    const userCredentials: IUserCredentials = {
-      username: this.forgotForm.value.username!.trim(),
-      password: ''
-    };
-    this.login.setUserCredentialsObservable = userCredentials;
-    this.auth.recoverPassword(userCredentials).then((res: ICodeDeliveryDetails) => {
-      this.navToSecurityCode(res);
-      console.log('envio de recovery exito')
-    }).catch((err: any) => {
-      this.error = ErrorMessagesUtil.getErrorMessage(err.code); 
-    });
-  }
+        this.error = '';
+        const userCredentials: IUserCredentials = {
+            username: this.forgotForm.value.username!.trim(),
+            password: ''
+        };
+        this.login.setUserCredentialsObservable = userCredentials;
+        this.auth.recoverPassword(userCredentials).then((res: ICodeDeliveryDetails) => {
+            this.navToSecurityCode(res);
+            console.log('envio de recovery exito')
+        }).catch((err: any) => {
+            this.error = ErrorMessagesUtil.getErrorMessage(err.code);
+        });
+    }
 
-  navToSecurityCode(res: ICodeDeliveryDetails) {
-    this.login.setRecoverPasswordDataObservable = res;
-    this.utilsService.navCtrl.navigateRoot(['/recovery-password/security-code']);
-  }
-  
-  navToLogin() {
-    this.utilsService.navCtrl.navigateRoot(['auth']);
-  }
+    navToSecurityCode(res: ICodeDeliveryDetails) {
+        this.login.setRecoverPasswordDataObservable = res;
+        this.utilsService.navCtrl.navigateRoot(['/recovery-password/security-code']);
+    }
+
+    navToLogin() {
+        this.utilsService.navCtrl.navigateRoot(['auth']);
+    }
 
 
 }

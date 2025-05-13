@@ -3,11 +3,10 @@ import { Component, inject, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-multimedia-iframe',
-  templateUrl: './multimedia-iframe.component.html',
-  styleUrls: ['./multimedia-iframe.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
+    selector: 'app-multimedia-iframe',
+    templateUrl: './multimedia-iframe.component.html',
+    styleUrls: ['./multimedia-iframe.component.scss'],
+    imports: [CommonModule]
 })
 export class MultimediaIframeComponent {
   @Input() url: string = '';

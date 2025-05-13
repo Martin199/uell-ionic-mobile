@@ -4,9 +4,10 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-per-contact-info',
-  templateUrl: './per-contact-info.component.html',
-  styleUrls: ['./per-contact-info.component.scss'],
+    selector: 'app-per-contact-info',
+    templateUrl: './per-contact-info.component.html',
+    styleUrls: ['./per-contact-info.component.scss'],
+    standalone: false
 })
 export class PERContactInfoComponent  implements OnInit {
 
