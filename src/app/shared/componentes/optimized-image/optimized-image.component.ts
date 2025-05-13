@@ -13,7 +13,7 @@ export class OptimizedImageComponent  implements OnInit {
 
   @Input() borderRadius: boolean = false;
   @Input() height130px: boolean = false;
-  @Input() height250px: boolean = false;
+  @Input() height220px: boolean = false;
   @Input() url: string = '';
   @Output() loading = new EventEmitter<void>();
 
