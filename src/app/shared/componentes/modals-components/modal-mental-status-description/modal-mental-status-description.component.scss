@@ -1,4 +1,4 @@
-@import 'src/theme/colors';
+@use 'src/theme/colors' as color;
 ion-content {
   --background: transparent;
   background: transparent;
@@ -35,7 +35,7 @@ ion-content {
   margin: auto;
   padding-top: 2.5rem;
   padding-bottom: 2rem;
-  color: $neutral-grey-dark;
+  color: color.$neutral-grey-dark;
   text-align: center;
   font-family: "Red Hat Display";
   font-size: 22px;
@@ -49,7 +49,7 @@ ion-content {
   justify-content: center;
   align-items: center;
   gap: 0.75rem;
-  border: 1px solid $primary-uell;
+  border: 1px solid color.$primary-uell;
   padding: 1rem;
   margin-bottom: 2rem;
   border-radius: 20px;
@@ -71,12 +71,12 @@ ion-content {
     align-items: center;
     gap: 8px;
     border-radius: 8px;
-    border: 1px solid $primary-uell;
-    background: $primary-uell-selected;
+    border: 1px solid color.$primary-uell;
+    background: color.$primary-uell-selected;
     transition: background-color 0.3s ease;
     p {
       margin: 0px;
-      color: $neutral-grey-dark;
+      color: color.$neutral-grey-dark;
       font-family: "Red Hat Display";
       font-size: 14px;
       font-style: normal;
@@ -94,6 +94,6 @@ ion-content {
   ion-spinner {
     width: 48px;
     height: 48px;
-    color: $primary-uell;
+    color: color.$primary-uell;
   }
 }
