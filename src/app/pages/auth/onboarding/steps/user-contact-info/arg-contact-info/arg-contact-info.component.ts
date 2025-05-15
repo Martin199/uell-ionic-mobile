@@ -1,18 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-arg-contact-info',
-  templateUrl: './arg-contact-info.component.html',
-  styleUrls: ['./arg-contact-info.component.scss'],
+    selector: 'app-arg-contact-info',
+    templateUrl: './arg-contact-info.component.html',
+    styleUrls: ['./arg-contact-info.component.scss'],
+    standalone: false
 })
 export class ARGContactInfoComponent  implements OnInit {
 
-  tenantParameters : any;
   list: any;
   fb = inject(FormBuilder);
   storageService = inject(StorageService);
+  userState = inject(UserStateService);
+  tenantParameters = computed(() => this.userState.tenantParameters());
 
   personalForm = new FormGroup({
     countryCode: new FormControl(+54, { validators: [Validators.required, Validators.minLength(3)] }),
@@ -24,7 +28,6 @@ export class ARGContactInfoComponent  implements OnInit {
 
   constructor() { 
 
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
 
     // const argentinaPhone = PHONE_CONSTANTS.phone.country.ARGENTINA;
   }

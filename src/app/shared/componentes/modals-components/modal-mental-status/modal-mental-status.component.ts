@@ -1,6 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
-import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import {
   IContextStatus,
@@ -11,20 +11,19 @@ import {
 } from 'src/app/shared/interface/mental-status.interfaces';
 
 @Component({
-  selector: 'app-modal-mental-status',
-  templateUrl: './modal-mental-status.component.html',
-  styleUrls: ['./modal-mental-status.component.scss'],
+    selector: 'app-modal-mental-status',
+    templateUrl: './modal-mental-status.component.html',
+    styleUrls: ['./modal-mental-status.component.scss'],
+    standalone: false
 })
 export class ModalMentalStatusComponent {
   private mentalStatusService = inject(MentalStatusService);
-  private userService = inject(UserService);
   utilsService = inject(UtilsService);
+  private userState = inject(UserStateService);
 
-  private _userInfo = this.userService.getUser();
+  private userData = computed(() => this.userState.userData());
   currentStep = signal<number>(1);
-  titleStep = signal<string>(
-    `¿Cómo te sientes hoy ${this._userInfo.name ? this._userInfo.name.split(' ')[0] : ''}?`
-  );
+  titleStep: string = '';
   subtitleStep = signal<string>(`Paso ${this.currentStep()} de 3`);
   imgPatch = signal<string>('');
   imgDescription = signal<string>('');
@@ -45,7 +44,15 @@ export class ModalMentalStatusComponent {
   emotionIdFilter = signal<number[]>([]);
 
   constructor() {
-    this.getMentalStatus();
+    effect(() => {
+      const userData = this.userData();
+      if (!userData) {
+        console.error('ModalMentalStatusComponent: No se puede obtener los datos del usuario');
+        return;
+      }
+      this.titleStep = `¿Cómo te sientes hoy ${userData.name ? userData.name.split(' ')[0] : ''}?`;
+      this.getMentalStatus()
+    });
   }
 
   getMentalStatus() {
@@ -119,7 +126,12 @@ export class ModalMentalStatusComponent {
 
   getTitle() {
     if (this.currentStep() === 1) {
-      return `¿Cómo te sientes hoy ${this._userInfo.name ? this._userInfo.name.split(' ')[0] : ''}?`
+      const userData = this.userData();
+      if (!userData) {
+        console.error('getTitle: No se puede obtener los datos del usuario');
+        return '';
+      }
+      return `¿Cómo te sientes hoy ${userData.name ? userData.name.split(' ')[0] : ''}?`;
     } else if (this.currentStep() === 2) {
       this.gradientStyle = '#fff';
       return '¿Qué emociones sientes en este momento?';
@@ -164,8 +176,13 @@ export class ModalMentalStatusComponent {
   }
 
   postMentalStatus() {
+    const userData = this.userData();
+    if (!userData) {
+      console.error('postMentalStatus: No se puede obtener los datos del usuario');
+      return;
+    }
     this.mentalStatusService
-      .postMentalStatus(this._userInfo.id, this.mentalStatusPayload)
+      .postMentalStatus(userData.id, this.mentalStatusPayload)
       .subscribe({
         next: () => {
           this.closeModal(true);
@@ -187,7 +204,7 @@ export class ModalMentalStatusComponent {
     } else {
       this.currentStep.set(this.currentStep() + 1);
       this.subtitleStep.set(`Paso ${this.currentStep()} de 3`);
-      this.titleStep.set(this.getTitle());
+      this.titleStep = this.getTitle();
     }
   }
 
@@ -195,7 +212,7 @@ export class ModalMentalStatusComponent {
     if (this.currentStep() > 1) {
       this.currentStep.set(this.currentStep() - 1);
       this.subtitleStep.set(`Paso ${this.currentStep()} de 3`);
-      this.titleStep.set(this.getTitle());
+      this.titleStep = this.getTitle();
     }
   }
 

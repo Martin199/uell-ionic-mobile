@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-uell-multimedia',
-  templateUrl: './uell-multimedia.component.html',
-  styleUrls: ['./uell-multimedia.component.scss'],
+    selector: 'app-uell-multimedia',
+    templateUrl: './uell-multimedia.component.html',
+    styleUrls: ['./uell-multimedia.component.scss'],
+    standalone: false
 })
 export class UellMultimediaComponent implements OnInit {
   @Input() url: string = '';

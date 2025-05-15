@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { IonContent } from "@ionic/angular/standalone";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ProfilePageRoutingModule,
-    SharedModule
-  ],
-  declarations: [ProfilePage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ProfilePageRoutingModule,
+        SharedModule,
+        IonContent
+    ],
+    declarations: [ProfilePage]
 })
-export class ProfilePageModule {}
+export class ProfilePageModule { }

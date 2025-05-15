@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'https://apistage.uell.newton-development.com/',
-  version: '0.1',
+  version: '1.2',
   env: 'stage',
   httpTimeout: 60000,
   apiVersion: 'v2',

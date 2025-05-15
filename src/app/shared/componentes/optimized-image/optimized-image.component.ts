@@ -3,11 +3,10 @@ import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular
 import { FilesService } from 'src/app/services/files.service';
 
 @Component({
-  selector: 'app-optimized-image',
-  templateUrl: './optimized-image.component.html',
-  styleUrls: ['./optimized-image.component.scss'],
-  standalone: true,
-  imports: [ CommonModule ],
+    selector: 'app-optimized-image',
+    templateUrl: './optimized-image.component.html',
+    styleUrls: ['./optimized-image.component.scss'],
+    imports: [CommonModule]
 })
 export class OptimizedImageComponent  implements OnInit {
 

@@ -15,7 +15,6 @@ export class StorageService {
 
   saveToken() {
     const token = sessionStorage.getItem('accessToken');
-    sessionStorage.removeItem('token');
     this.setSessionStorage('accessToken', token);
   }
 
@@ -80,7 +79,8 @@ export class StorageService {
   // metodos para session storage
   async setSessionStorage(key: string, value: any): Promise<void> {
     await this.waitForInitialization();
-    const valueString =  typeof value === 'string' ? value : JSON.stringify(value);
+    const valueString =
+      typeof value === 'string' ? value : JSON.stringify(value);
     sessionStorage.setItem(key, valueString);
 
     if (this._storage) {
@@ -110,5 +110,10 @@ export class StorageService {
         await this._storage.remove(key);
       }
     }
+  }
+
+  clearStorage(): void {
+    this.clearLocalStorage();
+    this.clearSessionStorage();
   }
 }

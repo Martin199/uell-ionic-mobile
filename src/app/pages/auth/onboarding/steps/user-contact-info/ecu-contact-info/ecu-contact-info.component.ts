@@ -1,18 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-ecu-contact-info',
-  templateUrl: './ecu-contact-info.component.html',
-  styleUrls: ['./ecu-contact-info.component.scss'],
+    selector: 'app-ecu-contact-info',
+    templateUrl: './ecu-contact-info.component.html',
+    styleUrls: ['./ecu-contact-info.component.scss'],
+    standalone: false
 })
 export class ECUContactInfoComponent  implements OnInit {
 
- tenantParameters : any;
   list: any;
   fb = inject(FormBuilder);
   storageService = inject(StorageService);
+  userState = inject(UserStateService);
+  tenantParameters = computed(() => this.userState.tenantParameters());
 
   personalForm = new FormGroup({
     countryCode: new FormControl(+593, { validators: [Validators.required, Validators.minLength(3)] }),
@@ -23,8 +27,6 @@ export class ECUContactInfoComponent  implements OnInit {
   
 
   constructor() { 
-
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
 
     // const argentinaPhone = PHONE_CONSTANTS.phone.country.ARGENTINA;
   }

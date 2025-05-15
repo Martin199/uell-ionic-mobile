@@ -1,4 +1,4 @@
-@import 'src/theme/colors';
+@use '../../../../theme/colors.scss';
 
 ion-content {
   --background: transparent;
@@ -17,14 +17,14 @@ ion-content {
     align-items: center;
     gap: 8px;
     border-radius: 8px;
-    border: 1px solid $neutral-grey-light;
-    background: $background-white-80;
+    border: 1px solid colors.$neutral-grey-light;
+    background: colors.$background-white-80;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
     p {
       margin: 0px;
-      color: $neutral-grey-dark;
+      color: colors.$neutral-grey-dark;
       font-family: "Red Hat Display";
       font-size: 14px;
       font-style: normal;
@@ -33,14 +33,14 @@ ion-content {
     }
 
     &.selected {
-      background-color: $primary-uell-selected;
-      border-color: $primary-uell;
+      background-color: colors.$primary-uell-selected;
+      border-color: colors.$primary-uell;
     }
   }
 
   .show-more {
     margin: auto;
-    color: $primary-uell;
+    color: colors.$primary-uell;
     font-family: 'Inter';
     font-size: 16px;
     font-style: normal;
