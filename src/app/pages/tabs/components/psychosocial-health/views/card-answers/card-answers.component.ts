@@ -6,6 +6,7 @@ import { ISPSService } from 'src/app/services/isps.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ANSWERS_LIST, EXTRA_ANSWERS_LIST } from '../../constants/answersList';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 
 @Component({
     selector: 'app-card-answers',
@@ -33,16 +34,22 @@ export class CardAnswersComponent implements OnInit {
     ispsQuestions: any;
     desplegable: boolean = false
     translatesISPS!: any;
-    user: User;
     answersList = ANSWERS_LIST;
     extraAnswersList = EXTRA_ANSWERS_LIST;
+    userId: number | null = null;
 
     utilsService = inject(UtilsService);
     ispsService = inject(ISPSService);
     storageService = inject(StorageService)
+    private userState = inject(UserStateService);
 
     constructor() {
-        this.user = this.storageService.getSessionStorage<User>('user')!;
+        // this.user = this.storageService.getSessionStorage<User>('user')!;
+        this.userId = this.userState.userId();
+        if (!this.userId) {
+            console.error('No se puede obtener el id del usuario');
+            return;
+        }
     }
 
     ngOnInit() {
@@ -55,7 +62,7 @@ export class CardAnswersComponent implements OnInit {
     }
 
     getAnswers() {
-        this.ispsService.getIspsAnswers(this.user.id).subscribe((data) => {
+        this.ispsService.getIspsAnswers(this.userId!).subscribe((data) => {
             this.ispsAnswers = data
         })
     }
