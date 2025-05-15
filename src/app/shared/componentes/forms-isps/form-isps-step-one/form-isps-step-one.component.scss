@@ -94,5 +94,10 @@ ion-item-group{
     }
 }
 
+::ng-deep .radio-group-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
 
 
