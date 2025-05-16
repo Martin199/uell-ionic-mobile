@@ -147,7 +147,8 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
                 if (canContinue || canContinue == null) {
                     return;
                 } else {
-                    this.nextSlide();
+                    this.step++;
+                    this.swiperContainer.nativeElement.swiper.slideNext();
                 }
             }
             if (this.step === 3) {
