@@ -1,7 +1,7 @@
 import { Component, input, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { addIcons } from "ionicons";
-import { eyeOutline, eyeOffOutline } from "ionicons/icons";
+import * as allIonicons from 'ionicons/icons';
 
 @Component({
     selector: 'app-custom-input',
@@ -24,7 +24,7 @@ export class CustomInputComponent implements OnInit {
     hide: boolean = true;
 
     constructor() {
-        addIcons({ eyeOutline, eyeOffOutline });
+        addIcons(allIonicons as Record<string, string>);
     }
 
     ngOnInit() {
