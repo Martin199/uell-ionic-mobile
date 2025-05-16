@@ -1,20 +1,22 @@
 @if (data && data.id) {
-  <div class="gradient-container" (click)="redirectToPost(data.id)" style="width: 100%;">
+  <div class="gradient-container" (click)="redirectToPost(data.id)">
     @if (data.img && !data.multimedia) {
-      <app-optimized-image [borderRadius]="true"  [url]="data.img"></app-optimized-image>
+      <app-optimized-image [borderRadius]="true" [height220px]="true"  [url]="data.img" (loading)="loadingfinish()"></app-optimized-image>
     }
     @if (data.multimedia) {
-      <app-multimedia-iframe [borderRadius]="true" [url]="data.multimedia" [height150px]="true"></app-multimedia-iframe>
+      <app-uell-multimedia [url]="data.multimedia" [borderRadius]="true" (loading)="loadingfinish()"></app-uell-multimedia>
     }
-    <div class="card-footer">
-      <div class="gradient">
-        @if (data.title) {
-          <p class="img-title">{{data.title}}</p>
-        }
-        @if (data.subtitle) {
-          <p class="img-subtitle">{{data.subtitle}}</p>
-        }
+    @if (loading) {
+      <div class="card-footer">
+        <div class="gradient">
+          @if (data.title) {
+            <p class="img-title">{{data.title}}</p>
+          }
+          @if (data.subtitle) {
+            <p class="img-subtitle">{{data.subtitle}}</p>
+          }
+        </div>
       </div>
-    </div>
+    }
   </div>
 }

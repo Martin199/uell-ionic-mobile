@@ -1,47 +1,50 @@
+// src/app/core/interceptors/auth.interceptor.ts
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-
-import { switchMap, catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { CognitoService } from '../services/cognito.service';
+import { UserStateService } from '../state/user-state.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const cognitoService = inject(CognitoService);
-  const token = sessionStorage.getItem('accessToken');
- const tenant = sessionStorage.getItem('tenant');
- // Validar si tenant tiene un valor antes de parsear name_tenant
- const name_tenant = tenant ? JSON.parse(tenant) : null;
-  const clonedRequest = token
-    ? req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-          Tenant: name_tenant?.name ?? 'uell',
-        },
-      })
-    : req;
+  const cognito   = inject(CognitoService);
+  const userState = inject(UserStateService);
 
-  return next(clonedRequest).pipe(
-    catchError((error) => {
-      if (error.status === 401) {
-        return cognitoService.refreshToken().pipe(
-          switchMap((newToken) => {
-            const retryRequest = req.clone({
-              setHeaders: {
-                Authorization: `Bearer ${newToken}`,
-                'Content-Type': 'application/json',
-                Tenant: name_tenant?.name ?? 'uell',
-              },
-            });
-            return next(retryRequest);
-          }),
-          catchError((refreshError) => {
-            cognitoService.logout();
-            return throwError(() => refreshError);
-          })
-        );
+  const buildHeaders = (tok: string) => {
+    const tenantName =
+      userState.tenant()?.name ??
+      (userState.tenant() as unknown as string) ??
+      'uell';
+
+    return {
+      Authorization: `Bearer ${tok}`,
+      'Content-Type': 'application/json',
+      Tenant: tenantName
+    } as { [k: string]: string };
+  };
+
+  const token =
+    localStorage.getItem('idToken') ??
+    localStorage.getItem('accessToken') ??
+    sessionStorage.getItem('accessToken');
+
+  const authReq = token ? req.clone({ setHeaders: buildHeaders(token) }) : req;
+
+  return next(authReq).pipe(
+    catchError(err => {
+      if (![0, 401, 403].includes(err.status)) {
+        return throwError(() => err);
       }
-      return throwError(() => error);
+
+      return cognito.refreshToken().pipe(
+        switchMap(newTok =>
+          next(req.clone({ setHeaders: buildHeaders(newTok) }))
+        ),
+        catchError(refreshErr => {
+          cognito.logout();
+          return throwError(() => refreshErr);
+        })
+      );
     })
   );
 };

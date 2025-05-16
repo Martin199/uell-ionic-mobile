@@ -1,4 +1,5 @@
-@import 'src/theme/colors';
+// @import 'src/theme/colors';
+@use '../../../../../theme/colors.scss';
 
 .container {
   display: flex;

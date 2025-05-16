@@ -1,13 +1,13 @@
 import { DeviceId } from "@capacitor/device";
 
 export interface ISession {
-    userId: number;
-    deviceId: string;
-    active: boolean;
-    tokenFirebase: string | undefined;
-    appName: string;
-    platform: string;
-  }
+  userId: number;
+  deviceId: string;
+  active: boolean;
+  tokenFirebase: string | undefined | null;
+  appName: string;
+  platform: string;
+}
 
   export interface Device {
     userId: string;

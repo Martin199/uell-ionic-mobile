@@ -7,31 +7,36 @@ import { User } from '../../../interfaces/user-interfaces';
 import { PortalService } from 'src/app/services/portal.service';
 import { ISPSScore } from 'src/app/pages/tabs/interfaces/isps';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HomeService {
-  user!: User;
   ispsScore!: ISPSScore;
   storageService = inject(StorageService);
   ispsService = inject(ISPSService);
   portalService = inject(PortalService);
   http = inject(HttpClient);
   mentalStatusService = inject(MentalStatusService);
+  private userState = inject(UserStateService);
 
   currentDate: Date = new Date();
   currentYear: number;
   currentMonth: number;
 
   constructor() {
-
+    
     this.currentYear = this.currentDate.getFullYear();
     this.currentMonth = this.currentDate.getMonth() + 1;
   }
 
   callModuleMethod(moduleName: string): Observable<any> {
-    this.user = this.storageService.getSessionStorage<User>('user')!;
+    const userId = this.userState.userId();
+    if (!userId) {
+      console.error('No se puede obtener el id del usuario');
+      return of(null);
+    }
     const generalParameters: any =
       this.storageService.getSessionStorage('tenantParameters');
     const modulesActive = generalParameters.tenantParameters.activeModules.find(
@@ -39,8 +44,7 @@ export class HomeService {
     );
     switch (modulesActive) {
       case 'isps':
-        console.log(this.user)
-        return this.ispsService.getISPSScore(this.user.id);
+        return this.ispsService.getISPSScore(userId);
       case 'wellness':
         return this.portalService.getLastPostPortal();
       // case 'hc_onboarding':
@@ -48,7 +52,7 @@ export class HomeService {
       // case 'hc_user':
       //   return this.http.delete(endpoint);
       case 'emotional':
-        return this.mentalStatusService.getMentalStatus(this.user.id);
+        return this.mentalStatusService.getMentalStatus(userId);
       // case 'emotion_map':
       //   return this.mentalStatusService.getEmotionalMap( this.user.id, this.currentYear, this.currentMonth);
       // case 'profile':

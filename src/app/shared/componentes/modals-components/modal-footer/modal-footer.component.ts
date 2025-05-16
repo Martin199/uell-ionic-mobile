@@ -1,25 +1,26 @@
 import { Component, input, output } from '@angular/core';
 
 @Component({
-  selector: 'app-modal-footer',
-  templateUrl: './modal-footer.component.html',
-  styleUrls: ['./modal-footer.component.scss'],
+    selector: 'app-modal-footer',
+    templateUrl: './modal-footer.component.html',
+    styleUrls: ['./modal-footer.component.scss'],
+    standalone: false
 })
 export class ModalFooterComponent {
 
-  btnFill = input<string>();
-  btnPrimary = input<string>();
-  onlytBtn = input<string>();
-  btnFillDisabled = input<boolean>(false);
-  btnPrimaryDisabled = input<boolean>(false);
-  onlytBtnDisabled = input<boolean>(false);
-  primaryColor = input<boolean>(true);
-  clickModalEvent = output<string>();
+    btnFill = input<string>();
+    btnPrimary = input<string>();
+    onlytBtn = input<string>();
+    btnFillDisabled = input<boolean>(false);
+    btnPrimaryDisabled = input<boolean>(false);
+    onlytBtnDisabled = input<boolean>(false);
+    primaryColor = input<boolean>(true);
+    clickModalEvent = output<string>();
 
-  constructor() {}
+    constructor() { }
 
-  clickBtnEvent(event: string) {
-    this.clickModalEvent.emit(event);
-  }
+    clickBtnEvent(event: string) {
+        this.clickModalEvent.emit(event);
+    }
 
 }

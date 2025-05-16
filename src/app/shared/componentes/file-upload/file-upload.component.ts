@@ -5,23 +5,22 @@ import {
   Input,
   OnInit,
   Output,
-  output,
 } from '@angular/core';
 import { Camera } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem } from '@capacitor/filesystem';
-import { IonicModule } from '@ionic/angular';
-
 import { CameraService } from 'src/app/services/camera.service';
 import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
-import { UserService } from 'src/app/services/user.service';
+import { addIcons } from 'ionicons';
+import { cloudUploadOutline } from 'ionicons/icons';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
   standalone: true,
-  imports: [IonicModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FileUploadComponent implements OnInit {
   @Input() title: string = 'Cargue un archivo';
@@ -66,4 +65,8 @@ export class FileUploadComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  constructor() {
+    addIcons({ cloudUploadOutline });
+  }
 }

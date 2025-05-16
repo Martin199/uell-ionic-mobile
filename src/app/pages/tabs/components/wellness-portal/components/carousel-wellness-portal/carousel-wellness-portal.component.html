@@ -12,7 +12,9 @@
               <app-optimized-image [borderRadius]="true" [url]="item.img" [height150px]="true"></app-optimized-image>
             }
             @if (item.multimedia) {
-              <app-multimedia-iframe [borderRadius]="true" [url]="item.multimedia" [height150px]="true"></app-multimedia-iframe>
+              <div style="width: 300px">
+                <app-uell-multimedia [url]="item.multimedia" [borderRadius]="true"></app-uell-multimedia>
+              </div>
             }
           </div>
           <p class="post-title" (click)="redirectToPost(item.id)">{{item.title}}</p>

@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.uell.ionic.mobile',
   appName: 'uell',
-  webDir: 'www',
+  webDir: 'www/browser',
   plugins: {
     SplashScreen: {
       launchShowDuration: 0,

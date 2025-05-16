@@ -1,4 +1,4 @@
-@import 'src/theme/colors';
+@use '../../../../theme/colors.scss' as color;
 
 .header {
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
   text-align: center;
   .title {
-    color: $neutral-grey-medium;
+    color: color.$neutral-grey-medium;
     text-align: center;
     font-family: 'Inter';
     font-size: 18px;
@@ -83,6 +83,6 @@
   ion-spinner {
     width: 48px;
     height: 48px;
-    color: $primary-uell;
+    color: color.$primary-uell;
   }
 }

@@ -75,3 +75,7 @@ form {
 		padding-left: 3px;
 	}
 }
+
+ion-radio::part(label) {
+  -webkit-margin-start: 5px !important;
+}

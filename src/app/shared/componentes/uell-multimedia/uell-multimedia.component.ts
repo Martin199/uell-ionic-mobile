@@ -1,26 +1,28 @@
-import { Component, Input } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-uell-multimedia',
-  templateUrl: './uell-multimedia.component.html',
-  styleUrls: ['./uell-multimedia.component.scss']
+    selector: 'app-uell-multimedia',
+    templateUrl: './uell-multimedia.component.html',
+    styleUrls: ['./uell-multimedia.component.scss'],
+    standalone: false
 })
-export class UellMultimediaComponent {
+export class UellMultimediaComponent implements OnInit {
+  @Input() url: string = '';
+  @Input() borderRadius: boolean = false;
+  @Output() loading = new EventEmitter<void>();
+  videoId: string = '';
 
-  @Input() url: string = ''
-  isPlaying: boolean = false;
-  sanitizedUrl?: SafeResourceUrl;
+  constructor() {}
 
-  constructor(private sanitizer: DomSanitizer) { }
-
-  playVideo() {
-    const videoUrl = `${this.url}?autoplay=1`;
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
-    this.isPlaying = true;
+  ngOnInit(): void {
+    this.videoId = this.getYoutubeVideoId(this.url);
+    this.loading.emit();
   }
 
-  getYouTubeThumbnail(url: string): string { const videoId = url.split('embed/')[1]; return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }
-
-
+  getYoutubeVideoId(url: string): string {
+    const regex =
+      /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : '';
+  }
 }

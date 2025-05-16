@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-isps-result',
-  templateUrl: './isps-result.component.html',
-  styleUrls: ['./isps-result.component.scss'],
+    selector: 'app-isps-result',
+    templateUrl: './isps-result.component.html',
+    styleUrls: ['./isps-result.component.scss'],
+    standalone: false
 })
 export class IspsResultComponent {
   @Input() emocionalDimension: any;

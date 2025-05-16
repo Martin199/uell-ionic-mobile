@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiBaseUrl: 'https://uellapidev.newton-development.com/',
   env: 'dev',
-  version: '0.1',
+  version: '1.1',
   httpTimeout: 60000,
   apiVersion: 'v2',
   maxImageSize: 1024 * 1024 * 5, // 5MB
