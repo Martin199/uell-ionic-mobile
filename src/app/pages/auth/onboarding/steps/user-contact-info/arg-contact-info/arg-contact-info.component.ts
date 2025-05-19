@@ -1,6 +1,5 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -10,7 +9,7 @@ import { StorageService } from 'src/app/services/storage.service';
     styleUrls: ['./arg-contact-info.component.scss'],
     standalone: false
 })
-export class ARGContactInfoComponent  implements OnInit {
+export class ARGContactInfoComponent {
 
   list: any;
   fb = inject(FormBuilder);
@@ -32,9 +31,6 @@ export class ARGContactInfoComponent  implements OnInit {
     // const argentinaPhone = PHONE_CONSTANTS.phone.country.ARGENTINA;
   }
 
-  ngOnInit() {
-    console.log('arg contact info');
-  }
     
 
 }

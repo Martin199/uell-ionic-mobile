@@ -39,14 +39,14 @@ input[type=number]::-webkit-inner-spin-button {
 }
 .col.area-code{
   min-width: 103px;
+  max-width: 30%;
+  padding: 0px 15px 0px 0px;
   label{
     width: 128%;
     @media (max-width: 360px) {
       width: 175%;
     }
   }
-  max-width: 30%;
-  padding: 0px 15px 0px 0px;
   @media (max-width: 576px) {
     max-width: 100%;
   }

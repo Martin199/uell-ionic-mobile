@@ -42,10 +42,7 @@ export class CardPsicosocialComponent implements OnInit, OnChanges {
 
     constructor() {
         this.tenantParameters =
-            this.storageService.getSessionStorage('tenantParameters');
-
-        console.log(this.tenantParameters, 'tenantParameters');
-
+          this.storageService.getSessionStorage('tenantParameters');
         if (this.tenantParameters.tenantParameters.gestorWillContactYou) {
             const gestorWillContactYou =
                 this.tenantParameters.tenantParameters.gestorWillContactYou;
@@ -145,8 +142,7 @@ export class CardPsicosocialComponent implements OnInit, OnChanges {
 
         const { data } = await modal.onDidDismiss();
         if (data?.updated) {
-            console.log('ejecuto getISPSScore');
-            this.refreshISPS();
+          this.refreshISPS();
         }
     }
 

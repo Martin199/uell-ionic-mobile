@@ -76,8 +76,7 @@ export class AuthPage {
     async submit() {
         this.formAuth.markAllAsTouched();
         if (this.formAuth.invalid) {
-            console.log('Formulario inválido');
-            return;
+          return;
         }
 
         const { cuil, password } = this.formAuth.value;
@@ -142,11 +141,9 @@ export class AuthPage {
                             user,
                         }) => {
                             this.storageService.setSessionStorage(
-                                'tenantParameters',
-                                tenantParameters
+                              'tenantParameters',
+                              tenantParameters
                             );
-                            console.log('getUserTenants:', userTenants);
-                            console.log('getAllSegmentation:', allSegmentation);
                             this.trackingService.trackingUser(user.id.toString(), 'LOGIN').subscribe()
 
                             if (this.hasMultipleTenants) {

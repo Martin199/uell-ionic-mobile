@@ -34,7 +34,6 @@ export class TermAndConditionsPage implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.storageService.getSessionStorage('termsAndConditions'));
         this.termAndCondition = this.storageService.getSessionStorage('termsAndConditions')
 
     }
@@ -44,7 +43,6 @@ export class TermAndConditionsPage implements OnInit {
     }
 
     submit() {
-        console.log(this.formTermCondition.value);
         const user: any = this.storageService.getSessionStorage('user');
         this.userService.postTermsAndConditions(user?.id).subscribe((res: any) => {
             if (!user.onboarded) {

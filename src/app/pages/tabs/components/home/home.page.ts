@@ -35,7 +35,6 @@ export class HomePage implements OnInit {
         if (this.tenantParameters?.tenantParameters.gestorWillContactYou) {
             const gestorWillContactYou =
                 this.tenantParameters.tenantParameters.gestorWillContactYou;
-            console.log(gestorWillContactYou, ' gestor');
             gestorWillContactYou === 'true'
                 ? localStorage.setItem('gestorWillContactYou', 'true')
                 : gestorWillContactYou === 'false'
@@ -50,7 +49,6 @@ export class HomePage implements OnInit {
         this.homeService.callAllMethodsForModule().subscribe({
             next: (results) => {
                 this.moduleResults = results;
-                console.log('Resultados de los módulos:', this.moduleResults);
 
                 // Filtrar por modulo
                 const ispsModule = this.moduleResults.find(

@@ -40,7 +40,6 @@ export class ARGAddressInfoComponent implements OnInit {
     ngOnInit() {
         this.getProvincias();
         this.provinciasChanges();
-        console.log('user address info arg')
     }
 
     private getProvincias() {

@@ -75,7 +75,6 @@ export class MentalStatusService {
         moodRecordId: number,
         description: string
     ): Observable<IMentalStatusResponse> {
-        console.log(description);
         const url: string = `${environment.apiBaseUrl}${environment.apiVersion}/wellness/mental-status/getByUserMoodRecordId?userMoodRecordId=${moodRecordId}&description=${description}`;
         return this.httpClientService.get<IMentalStatusResponse>(url);
     }
