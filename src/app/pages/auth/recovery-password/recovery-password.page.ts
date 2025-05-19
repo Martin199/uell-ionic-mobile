@@ -35,7 +35,6 @@ export class RecoveryPasswordPage {
         this.login.setUserCredentialsObservable = userCredentials;
         this.auth.recoverPassword(userCredentials).then((res: ICodeDeliveryDetails) => {
             this.navToSecurityCode(res);
-            console.log('envio de recovery exito')
         }).catch((err: any) => {
             this.error = ErrorMessagesUtil.getErrorMessage(err.code);
         });

@@ -130,7 +130,7 @@ export class CreateNewPasswordComponent implements OnInit {
             this.counter = 90;
             this.initCounter();
         }).catch((err) => {
-            console.log(err);
+            console.error(err);
         });
     }
 

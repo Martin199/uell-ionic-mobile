@@ -9,7 +9,7 @@ import { StorageService } from 'src/app/services/storage.service';
     styleUrls: ['./per-contact-info.component.scss'],
     standalone: false
 })
-export class PERContactInfoComponent  implements OnInit {
+export class PERContactInfoComponent {
 
   list: any;
   fb = inject(FormBuilder);
@@ -23,14 +23,4 @@ export class PERContactInfoComponent  implements OnInit {
     phoneNumber: new FormControl('', { validators: [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(8)] }),
     email: new FormControl('', { validators: [Validators.required ,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$')] }),
   });
-  
-
-  constructor() { 
-
-    // const argentinaPhone = PHONE_CONSTANTS.phone.country.ARGENTINA;
-  }
-
-  ngOnInit() {
-    console.log('arg contact info');
-  }
 }
