@@ -228,3 +228,44 @@ ion-card{
     color: white;
   }
 }
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.value-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #383E52;
+    z-index: 2;
+}
+
+.secondary-number-container {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.circle-container{
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.progress{
+  font-size: 17px;
+  font-weight: bold;
+}
+
+round-progress{
+  width: 50% !important;
+  height: 50% !important;
+}

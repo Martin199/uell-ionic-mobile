@@ -9,6 +9,7 @@ import { CardWellnessPortalComponent } from './views/card-wellness-portal/card-w
 import { CardMentalStatusComponent } from './views/card-mental-status/card-mental-status.component';
 import { CardEmotionsMapComponent } from './views/card-emotions-map/card-emotions-map.component';
 import { IonContent, IonCard, IonCardContent, IonImg, IonLabel, IonSpinner, IonButton, IonIcon, IonProgressBar } from "@ionic/angular/standalone";
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { IonContent, IonCard, IonCardContent, IonImg, IonLabel, IonSpinner, IonB
         IonCardContent,
         IonIcon,
         IonLabel,
-        IonButton
+        IonButton,
+        RoundProgressModule
     ],
     declarations: [
         HomePage,
