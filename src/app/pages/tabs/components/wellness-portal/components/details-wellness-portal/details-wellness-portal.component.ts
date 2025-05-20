@@ -17,6 +17,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { WellnessPortalService } from 'src/app/services/wellness-portal.service';
 import { addIcons } from "ionicons";
 import { arrowBackSharp } from "ionicons/icons";
+import { Filesystem, Directory } from '@capacitor/filesystem';
 
 @Component({
     selector: 'app-details-wellness-portal',
@@ -93,27 +94,23 @@ export class DetailsWellnessPortalComponent {
                 complete: () => { },
             });
     }
+
     public openAsLink(url: string) {
         this.filesService.downloadFile(url).subscribe(
-            (res: string) => {
-                const extensionFile = url.substr(url.lastIndexOf('.') + 1);
-                if (
-                    extensionFile !== undefined &&
-                    extensionFile.toLowerCase() === 'pdf'
-                ) {
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = `${res}`;
-                    downloadLink.download = `uell-adjunto-${moment().unix()}.pdf`;
-                    downloadLink.click();
-                } else {
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = res;
-                    downloadLink.download = `uell-adjunto-${moment().unix()}${extensionFile.toLowerCase()}`;
-                    downloadLink.click();
-                }
+            async (res: string) => {
+                const extensionFile = url.split('.').pop()?.toLowerCase() || 'pdf';
+                const fileName = `uell-adjunto-${Date.now()}.${extensionFile}`;
+
+                await Filesystem.writeFile({
+                    path: fileName,
+                    data: res, 
+                    directory: Directory.Documents,
+                });
+
+                this.utilsService.getToastMessage('bottom', 2000, 'Documento descargado correctamente')
             },
-            (err: any) => {
-                console.error(err);
+            (err) => {
+                this.utilsService.getToastMessage('bottom', 2000, 'Error al descargar el documento');
             }
         );
     }
