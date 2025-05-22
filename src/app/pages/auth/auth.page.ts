@@ -59,6 +59,7 @@ export class AuthPage {
   version = environment?.version;
   env = environment?.env;
   private readonly sessionService = inject(SessionServiceService);
+  supportEmail = 'soporte@uell.ai'
 
   userDTO!: UserResponseDTO;
   hasMultipleTenants!: boolean;
@@ -233,5 +234,9 @@ export class AuthPage {
 
   forgotPassword() {
     this.utilsService.navCtrl.navigateRoot(['/recovery-password']);
+  }
+
+  contactSupport() {
+	  window.location.href = `mailto:${this.supportEmail}`;
   }
 }
