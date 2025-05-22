@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { SplashScreen } from '@capacitor/splash-screen';
-import { StatusBar } from '@capacitor/status-bar';
 import {
     ActionPerformed,
     PushNotificationSchema,
@@ -31,7 +30,6 @@ export class AppComponent {
         this.initializeApp();
         if (Capacitor.isNativePlatform()) {
             this.initPush();
-            StatusBar.setOverlaysWebView({ overlay: false });
         }
     }
 
