@@ -1,5 +1,5 @@
 import type { CapacitorConfig } from '@capacitor/cli';
-
+/// <reference types="@mindly/capacitor-android-edge-to-edge-support" />
 const config: CapacitorConfig = {
   appId: 'com.uell.ionic.mobile',
   appName: 'uell',
@@ -23,7 +23,7 @@ const config: CapacitorConfig = {
     StatusBar: {
       overlaysWebView: false,
       style: 'DARK',
-      backgroundColor: '#ffffffff',
+      backgroundColor: '#000000',
     },
     EdgeToEdge: {
       backgroundColor: '#ffffff',
