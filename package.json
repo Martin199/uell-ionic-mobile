@@ -37,6 +37,9 @@
     "prepare:firebase:dev": "node scripts/prepare-firebase.js dev",
     "prepare:firebase:prod": "node scripts/prepare-firebase.js prod"
   },
+  "prettier": {
+    "printWidth": 100
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.2.10",

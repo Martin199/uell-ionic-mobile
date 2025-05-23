@@ -88,10 +88,9 @@ export class HeaderComponent implements OnInit {
         this.utilServices.showConfirmation(
             'Cerrar sesión',
             '¿Estás seguro de que deseas cerrar sesión?',
-            async () => {
-                await this.mentalStatusService.clearEmotionalCache();
-                await this.storageService.clearSessionStorage();
-                await localStorage.clear()
+            () => {
+                this.mentalStatusService.clearEmotionalCache();
+                this.storageService.clearStorage();
                 this.utilServices.navCtrl.navigateRoot(['/auth']);
                 this.userState.logout();
             }
