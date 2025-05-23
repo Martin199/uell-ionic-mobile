@@ -10,15 +10,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const cognito = inject(CognitoService);
   const userState = inject(UserStateService);
 
-  const buildHeaders = (tok: string) => {
-    const tenantName = userState.tenant()?.name ?? 'uell';
+  const tenantName = userState.tenant()?.name ?? 'uell';
 
-    return {
-      Authorization: `Bearer ${tok}`,
-      'Content-Type': 'application/json',
-      Tenant: tenantName,
-    } as { [k: string]: string };
-  };
+  const buildHeaders = (tok: string) => ({
+    Authorization: `Bearer ${tok}`,
+    'Content-Type': 'application/json',
+    Tenant: tenantName ?? 'uell',
+  });
 
   const token =
     localStorage.getItem('idToken') ??
@@ -34,9 +32,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       }
       return cognito.refreshToken().pipe(
         tap((newTok) => userState.refreshToken(newTok)),
-        switchMap((newTok) =>
-          next(req.clone({ setHeaders: buildHeaders(newTok) }))
-        ),
+        switchMap((newTok) => next(req.clone({ setHeaders: buildHeaders(newTok) }))),
         catchError((refreshErr) => {
           cognito.logout();
           return throwError(() => refreshErr);
