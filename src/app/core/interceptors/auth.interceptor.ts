@@ -34,7 +34,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         tap((newTok) => userState.refreshToken(newTok)),
         switchMap((newTok) => next(req.clone({ setHeaders: buildHeaders(newTok) }))),
         catchError((refreshErr) => {
-          cognito.logout();
           return throwError(() => refreshErr);
         })
       );

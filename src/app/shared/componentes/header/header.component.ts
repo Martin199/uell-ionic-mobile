@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular/standalone';
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
+import { CognitoService } from 'src/app/core/services/cognito.service';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { FilesService } from 'src/app/services/files.service';
 import { MentalStatusService } from 'src/app/services/mental-status.service';
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
     fileService = inject(FilesService);
     mentalStatusService = inject(MentalStatusService);
     private userState = inject(UserStateService);
+    private cognito = inject(CognitoService);
 
     constructor() { }
 
@@ -93,6 +95,7 @@ export class HeaderComponent implements OnInit {
                 this.storageService.clearStorage();
                 this.utilServices.navCtrl.navigateRoot(['/auth']);
                 this.userState.logout();
+                this.cognito.logout();
             }
         );
     }
