@@ -53,4 +53,11 @@ swiper-slide {
   width: 100%;
   height: fit-content;
 }
+
+.button-container {
+  display: flex;
+  justify-content: end;
+  gap: 6px;
+  margin-right: 10px;
+}
   
