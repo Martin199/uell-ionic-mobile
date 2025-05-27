@@ -7,6 +7,7 @@ import { UserResponseDTO } from '../core/interfaces/user';
 import { ImageUpload } from './interfaces/camera.interfaces';
 import { UserStateService } from '../core/state/user-state.service';
 import { TenantParametersResponse } from '../core/interfaces/tenantParameters';
+import { InitialClinicalData, MedicalHistoryDiseases, OnBoardingRequest } from '../pages/auth/onboarding/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -105,14 +106,14 @@ export class UserService {
     );
   }
 
-  postMedicalDiseases(userId: number, body: any) {
+  postMedicalDiseases(userId: number, body: MedicalHistoryDiseases) {
     return this.http.post(
       `${environment.apiBaseUrl}${environment.apiVersion}/medical-history/${userId}`,
       body
     );
   }
 
-  postCompletenessMedicalInformation(userId: number, body: any) {
+  postCompletenessMedicalInformation(userId: number, body: InitialClinicalData) {
     return this.http.post(
       `${environment.apiBaseUrl}${environment.apiVersion}/medical-history/completeness/${userId}`,
       body
@@ -134,7 +135,7 @@ export class UserService {
     );
   }
 
-  postOnBoarding(id: number, body: any) {
+  postOnBoarding(id: number, body: OnBoardingRequest) {
     return this.http.patch(
       `${environment.apiBaseUrl}${environment.apiVersion}/users/${id}`,
       body
