@@ -148,3 +148,29 @@ export interface PersonalData {
 	fechaDeNacimento: string;
 	estadoCivil: string;
 }
+export interface MedicalHistoryDiseases {
+    medicalHistoryDiseases: MedicalHistoryDiseasesClass;
+}
+
+export interface MedicalHistoryDiseasesClass {
+    isHypertensive:             boolean;
+    hasDiabetes:                string;
+    respiratory:                boolean;
+    cardiovascular:             boolean;
+    neurologic:                 boolean;
+    metabolic:                  boolean;
+    psychiatric:                boolean;
+    onchologic:                 boolean;
+    onchologicRespiratory:      boolean | null;
+    onchologicGinecological:    boolean | null;
+    onchologicNephrourological: boolean | null;
+    onchologicGastrointestinal: boolean | null;
+    onchologicEndocrinal:       boolean | null;
+    onchologicNeurological:     boolean | null;
+    gastrointestinal:           boolean;
+    spine:                      boolean;
+    endocrinological:           boolean;
+    infectious:                 boolean;
+    surgeries:                  boolean | null;
+    surgeriesDescription:       boolean | null;
+}

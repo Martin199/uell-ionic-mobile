@@ -415,6 +415,10 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
 
     public async postOnboarding() {
         const request = await this.buildPostRequest();
-        this.userService.postOnBoarding(this.userId!, request).subscribe(() => { });
+        this.userService.postOnBoarding(this.userId!, request).subscribe(() => {
+          const userData = this.userState.userData();
+          userData!.onboarded = true;
+          this.userState.setUser(userData);
+        });
     }
 }

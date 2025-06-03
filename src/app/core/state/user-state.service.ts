@@ -20,7 +20,7 @@ export class UserStateService {
   };
   private state = signal<UserState>(this.stateNull);
 
-  readonly isAuthenticated = computed(() => this.state().isAuthenticated);
+  readonly isAuthenticated = computed(() => (this.state().token ? true : false));
   readonly userData = computed(() => this.state().userData);
   readonly userId = computed(() => this.state().userData?.id || null);
   readonly isLoading = computed(() => this.state().isLoading);
@@ -32,13 +32,7 @@ export class UserStateService {
   readonly fcmToken = computed(() => this.state().fcmToken);
   // TODO Implementacion de appReady en appComponent para redireccion
   readonly appReady = computed(() => {
-    if (
-      this.userData() &&
-      this.tenant() &&
-      this.tenantParameters() &&
-      this.token()
-    )
-      return true;
+    if (this.userData() && this.tenant() && this.tenantParameters() && this.token()) return true;
     return false;
   });
 
@@ -80,7 +74,6 @@ export class UserStateService {
   setUser(userData: UserState['userData']) {
     this.state.update((state) => ({
       ...state,
-      isAuthenticated: !!userData,
       userData,
       isLoading: false,
       error: null,
@@ -96,7 +89,16 @@ export class UserStateService {
   }
 
   setToken() {
-    const token: UserState['token'] = sessionStorage.getItem('accessToken');
+    const accToken: UserState['token'] = sessionStorage.getItem('accessToken');
+    const idToken: UserState['token'] = localStorage.getItem('idToken');
+    const token = accToken ?? idToken;
+    this.state.update((state) => ({
+      ...state,
+      token,
+    }));
+  }
+
+  refreshToken(token: string) {
     this.state.update((state) => ({
       ...state,
       token,
@@ -134,9 +136,7 @@ export class UserStateService {
 
   // Try to recover the state from the storage
   private tryRestoreState() {
-    const savedData: UserState | null =
-      this.storageService.getLocalStorage('userState');
-    console.log('user state tryrestore', savedData);
+    const savedData: UserState | null = this.storageService.getLocalStorage('userState');
     if (savedData) {
       try {
         this.state.set({

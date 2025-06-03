@@ -43,11 +43,13 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-buttons slot="end" class="ion-padding-end">
+    <!-- <ion-buttons slot="end" class="ion-padding-end"> -->
+      <div class="button-container">
       @if(step!==0){
-        <ion-button shape="round" class="ion-margin-end footer-btn-back" (click)="prevSlide()">Volver</ion-button>
+        <ion-button shape="round" class="footer-btn-back" (click)="prevSlide()">Volver</ion-button>
       }
       <ion-button expand="block" shape="round" type="submit" class="submit-btn" (click)="nextSlide()" [disabled]="disabledNextButton()">Siguiente</ion-button>
-    </ion-buttons>
+    </div>
+    <!-- </ion-buttons> -->
   </ion-toolbar>
 </ion-footer>
