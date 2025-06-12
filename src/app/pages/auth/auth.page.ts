@@ -42,22 +42,43 @@ import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
     standalone: false
 })
 export class AuthPage {
-    @ViewChild('userContainer', { static: true }) userContainer!: ElementRef;
-    @ViewChild('passwordContainer', { static: true })
-    passwordContainer!: ElementRef;
-    @ViewChild('buttonContainer', { static: true }) buttonContainer!: ElementRef;
+  @ViewChild('userContainer', { static: true }) userContainer!: ElementRef;
+  @ViewChild('passwordContainer', { static: true })
+  passwordContainer!: ElementRef;
+  @ViewChild('buttonContainer', { static: true }) buttonContainer!: ElementRef;
 
-    formAuth = new FormGroup({
-        cuil: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required]),
-    });
+  formAuth = new FormGroup({
+    cuil: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+  });
 
-    animationCtrl = inject(AnimationController);
-    cognitoService = inject(CognitoService);
-    userService = inject(UserService);
-    utilsService = inject(UtilsService);
-    storageService = inject(StorageService);
-    trackingService = inject(TrackingService)
+  animationCtrl = inject(AnimationController);
+  cognitoService = inject(CognitoService);
+  userService = inject(UserService);
+  utilsService = inject(UtilsService);
+  storageService = inject(StorageService);
+  trackingService = inject(TrackingService)
+
+  version = environment?.version;
+  env = environment?.env;
+  private readonly sessionService = inject(SessionServiceService);
+  supportEmail = 'soporte@uell.ai'
+
+  userDTO!: UserResponseDTO;
+  hasMultipleTenants!: boolean;
+
+  constructor() {}
+
+  ngAfterViewInit() {
+    this.animateElements();
+  }
+
+  async submit() {
+    this.formAuth.markAllAsTouched();
+    if (this.formAuth.invalid) {
+      console.log('Formulario inválido');
+      return;
+    }
 
     version = environment?.version;
     env = environment?.env;
@@ -227,4 +248,58 @@ export class AuthPage {
     forgotPassword() {
         this.utilsService.navCtrl.navigateRoot(['/recovery-password']);
     }
+  }
+
+  termsAndConditions(user: UserResponseDTO) {
+    this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
+      if (res.length > 0) {
+        this.storageService.setSessionStorage('termsAndConditions', res);
+        this.utilsService.navCtrl.navigateRoot(['/auth/term-and-conditions']);
+      } else {
+        this.storageService.setSessionStorage(
+          'tenant',
+          JSON.stringify(user.tenant[0])
+        );
+        if (!this.userDTO.onboarded) {
+          this.utilsService.navCtrl.navigateRoot(['/auth/onboarding']);
+        } else {
+          this.utilsService.navCtrl.navigateRoot(['tabs/home']);
+        }
+      }
+    });
+  }
+
+  animateElements() {
+    // Animación para el contenedor de usuario
+    const userAnimation = this.animationCtrl
+      .create()
+      .addElement(this.userContainer.nativeElement)
+      .duration(500)
+      .delay(200)
+      .easing('ease-out')
+      .fromTo('opacity', '0', '1')
+      .fromTo('transform', 'translateY(-50px)', 'translateY(0)');
+
+    // Animación para el contenedor de contraseña
+    const passwordAnimation = this.animationCtrl
+      .create()
+      .addElement(this.passwordContainer.nativeElement)
+      .duration(500)
+      .delay(400)
+      .easing('ease-out')
+      .fromTo('opacity', '0', '1')
+      .fromTo('transform', 'translateY(-50px)', 'translateY(0)');
+
+    // Reproduce las animaciones en secuencia
+    userAnimation.play();
+    passwordAnimation.play();
+  }
+
+  forgotPassword() {
+    this.utilsService.navCtrl.navigateRoot(['/recovery-password']);
+  }
+
+  contactSupport() {
+	  window.location.href = `mailto:${this.supportEmail}`;
+  }
 }

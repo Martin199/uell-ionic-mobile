@@ -38,6 +38,10 @@
         
       </form>
     </div>
+    <div class="support">
+      <p>¿Necesitas ayuda?</p>
+      <span (click)="contactSupport()">{{supportEmail}}</span>
+    </div>
     @if(version && env){
       <p style="align-items: flex-end;">v{{version}}
         @if (env !== 'prod') {-{{env}}}

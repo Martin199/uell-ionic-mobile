@@ -104,3 +104,19 @@ letter-spacing: 0.048px;
 .logo{
   margin-top: 6rem;
 }
+
+.support{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Inter !important;
+  font-size: 12px;
+  p{
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+  span{
+    color: #1da4b1;
+    font-weight: 600;
+  }
+}
