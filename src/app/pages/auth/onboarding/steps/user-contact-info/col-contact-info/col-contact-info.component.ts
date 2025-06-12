@@ -1,18 +1,21 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-col-contact-info',
-  templateUrl: './col-contact-info.component.html',
-  styleUrls: ['./col-contact-info.component.scss'],
+    selector: 'app-col-contact-info',
+    templateUrl: './col-contact-info.component.html',
+    styleUrls: ['./col-contact-info.component.scss'],
+    standalone: false
 })
-export class COLContactInfoComponent  implements OnInit {
+export class COLContactInfoComponent  {
 
- tenantParameters : any;
   list: any;
   fb = inject(FormBuilder);
   storageService = inject(StorageService);
+  userState = inject(UserStateService);
+  tenantParameters = computed(() => this.userState.tenantParameters());
 
   personalForm = new FormGroup({
     countryCode: new FormControl(+57, { validators: [Validators.required, Validators.minLength(3)] }),
@@ -24,12 +27,7 @@ export class COLContactInfoComponent  implements OnInit {
 
   constructor() { 
 
-    this.tenantParameters = this.storageService.getSessionStorage('tenantParameters');
 
     // const argentinaPhone = PHONE_CONSTANTS.phone.country.ARGENTINA;
-  }
-
-  ngOnInit() {
-    console.log('arg contact info');
   }
 }

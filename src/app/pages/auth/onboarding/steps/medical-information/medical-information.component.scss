@@ -29,3 +29,12 @@
     gap: 15px;
     /* Espacio entre los radios */
 }
+
+ion-radio::part(label) {
+  margin-inline-end: 6px !important; 
+}
+
+::ng-deep .radio-group-wrapper{
+    display: flex;
+    gap: 7px;
+}

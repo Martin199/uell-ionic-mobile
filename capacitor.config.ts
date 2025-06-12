@@ -1,9 +1,10 @@
 import type { CapacitorConfig } from '@capacitor/cli';
-
+import { StatusBar, Style } from '@capacitor/status-bar';
+/// <reference types="@mindly/capacitor-android-edge-to-edge-support" />
 const config: CapacitorConfig = {
   appId: 'com.uell.ionic.mobile',
   appName: 'uell',
-  webDir: 'www',
+  webDir: 'www/browser',
   plugins: {
     SplashScreen: {
       launchShowDuration: 0,
@@ -19,6 +20,15 @@ const config: CapacitorConfig = {
       splashImmersive: false,
       layoutName: 'launch_screen',
       useDialog: false,
+    },
+    StatusBar: {
+      overlaysWebView: true,
+      style: Style.Dark,
+      backgroundColor: '#1DA4B1',
+    },
+    EdgeToEdge: {
+      // backgroundColor: '#00000000',
+      backgroundColor: '#1DA4B1',
     },
   },
 };

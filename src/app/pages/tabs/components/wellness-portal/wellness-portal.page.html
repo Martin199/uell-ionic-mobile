@@ -28,14 +28,14 @@
       @if (dataMostLiked && dataMostLiked.length > 0) {
         <app-carousel-wellness-portal [title]="'Favoritos de la comunidad'" (clickEvent)="redirectToPost($event)" [data]="dataMostLiked"></app-carousel-wellness-portal>
       }
-      @if (dataBienestarFisico && dataBienestarFisico.length > 0) {
-        <app-carousel-wellness-portal [title]="'Bienestar físico'" (clickEvent)="redirectToPost($event)" [data]="dataBienestarFisico"></app-carousel-wellness-portal>
+      @if (dataSaludMental && dataSaludMental.length > 0) {
+        <app-carousel-wellness-portal [title]="'Salud mental'" (clickEvent)="redirectToPost($event)" [data]="dataSaludMental"></app-carousel-wellness-portal>
       }
       @if (dataGestionEmocional && dataGestionEmocional.length > 0) {
         <app-carousel-wellness-portal [title]="'Gestión emocional'" (clickEvent)="redirectToPost($event)" [data]="dataGestionEmocional"></app-carousel-wellness-portal>
       }
-      @if (dataSaludMental && dataSaludMental.length > 0) {
-        <app-carousel-wellness-portal [title]="'Salud mental'" (clickEvent)="redirectToPost($event)" [data]="dataSaludMental"></app-carousel-wellness-portal>
+      @if (dataBienestarFisico && dataBienestarFisico.length > 0) {
+        <app-carousel-wellness-portal [title]="'Bienestar físico'" (clickEvent)="redirectToPost($event)" [data]="dataBienestarFisico"></app-carousel-wellness-portal>
       }
     </div>
   </div>

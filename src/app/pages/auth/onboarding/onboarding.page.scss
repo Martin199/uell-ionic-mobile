@@ -1,4 +1,4 @@
-@import './../../../../global.scss';
+@use './../../../../global.scss';
 
 .logo-thumbnail{
     width: 100px;
@@ -36,21 +36,28 @@
 }
 
 ion-progress-bar {
-    --progress-background: #1da4b1;
-  }
+  --progress-background: #1da4b1;
+}
 
 .swiper-container {
     width: 100%;
-    height: 100%;
+    height: fit-content;
   }
   
-  .swiper-wrapper {
-    display: flex;
-  }
+.swiper-wrapper {
+  display: flex;
+}
   
-  .swiper-slide {
-    flex-shrink: 0;
-    width: 100%;
-    height: 100%;
-  }
+swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: fit-content;
+}
+
+.button-container {
+  display: flex;
+  justify-content: end;
+  gap: 6px;
+  margin-right: 10px;
+}
   

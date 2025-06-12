@@ -1,4 +1,4 @@
-@import 'src/theme/colors';
+@use '../../../../theme/colors.scss';
 
 ion-content {
   --background: transparent;
@@ -19,7 +19,7 @@ ion-content {
   margin: auto;
   padding-top: 2.5rem;
   padding-bottom: 5rem;
-  color: $neutral-grey-dark;
+  color: colors.$neutral-grey-dark;
   text-align: center;
   font-family: "Red Hat Display";
   font-size: 22px;

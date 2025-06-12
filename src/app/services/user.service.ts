@@ -1,16 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { EmotionalResponse } from '../shared/interface/mental-status.interfaces';
 import { UserResponseDTO } from '../core/interfaces/user';
 import { ImageUpload } from './interfaces/camera.interfaces';
+import { UserStateService } from '../core/state/user-state.service';
+import { TenantParametersResponse } from '../core/interfaces/tenantParameters';
+import { InitialClinicalData, MedicalHistoryDiseases, OnBoardingRequest } from '../pages/auth/onboarding/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private readonly userSubject = new BehaviorSubject<any>(null);
+  private userState = inject(UserStateService);
   user$ = this.userSubject.asObservable();
 
   http = inject(HttpClient);
@@ -34,6 +38,8 @@ export class UserService {
   getMe() {
     return this.http.get<UserResponseDTO>(
       `${environment.apiBaseUrl}${environment.apiVersion}/users/me`
+    ).pipe(
+      tap((user: UserResponseDTO) => this.userState.setUser(user))
     );
   }
 
@@ -55,9 +61,17 @@ export class UserService {
   }
 
   getTenantParameters() {
-    return this.http.get(
-      `${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`
-    );
+    return this.http
+      .get<TenantParametersResponse>(
+        `${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`
+      )
+      .pipe(
+        tap((tenantParamResponse) => {
+          this.userState.setTenantParameters(
+            tenantParamResponse.tenantParameters
+          );
+        })
+      );
   }
 
   termsAndConditions(userId: number) {
@@ -92,14 +106,14 @@ export class UserService {
     );
   }
 
-  postMedicalDiseases(userId: number, body: any) {
+  postMedicalDiseases(userId: number, body: MedicalHistoryDiseases) {
     return this.http.post(
       `${environment.apiBaseUrl}${environment.apiVersion}/medical-history/${userId}`,
       body
     );
   }
 
-  postCompletenessMedicalInformation(userId: number, body: any) {
+  postCompletenessMedicalInformation(userId: number, body: InitialClinicalData) {
     return this.http.post(
       `${environment.apiBaseUrl}${environment.apiVersion}/medical-history/completeness/${userId}`,
       body
@@ -121,7 +135,7 @@ export class UserService {
     );
   }
 
-  postOnBoarding(id: number, body: any) {
+  postOnBoarding(id: number, body: OnBoardingRequest) {
     return this.http.patch(
       `${environment.apiBaseUrl}${environment.apiVersion}/users/${id}`,
       body
