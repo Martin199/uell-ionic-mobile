@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { AnimationController } from '@ionic/angular/standalone';
@@ -9,12 +9,14 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UserResponseDTO } from 'src/app/core/interfaces/user';
 import { SessionServiceService } from 'src/app/services/session-service.service';
 import { PushNotifications } from '@capacitor/push-notifications';
-import { EMPTY, forkJoin, map, switchMap, tap } from 'rxjs';
+import { forkJoin, map, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Capacitor } from '@capacitor/core';
 import { TrackingService } from 'src/app/services/tracking.service';
 import { UserStateService } from 'src/app/core/state/user-state.service';
-import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
+
  
 @Component({
   selector: 'app-auth',
@@ -38,7 +40,7 @@ import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
   ],
   standalone: false,
 })
-export class AuthPage {
+export class AuthPage implements OnInit{
   @ViewChild('userContainer', { static: true }) userContainer!: ElementRef;
   @ViewChild('passwordContainer', { static: true })
   passwordContainer!: ElementRef;
@@ -64,7 +66,15 @@ export class AuthPage {
  
   userDTO!: UserResponseDTO;
   hasMultipleTenants!: boolean;
- 
+   ngOnInit(): void {
+    this.statusBarColor();
+  }
+
+  statusBarColor() {
+    StatusBar.setBackgroundColor({ color: '#ffffff' });
+    EdgeToEdge.setBackgroundColor({ color: '#ffffff' });
+    StatusBar.setStyle({ style: Style.Light });
+  }
   async submit() {
     this.formAuth.markAllAsTouched();
     if (this.formAuth.invalid) {
