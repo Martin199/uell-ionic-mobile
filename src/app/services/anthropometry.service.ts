@@ -32,24 +32,14 @@ export class AnthropometryService {
   }
 
   getLast(userId: string) {
-    // const url = `${environment.apiVersion}/bodymeasurement/getlast/${userId}`;
-    // return this.apiUtilsService.getDataContent(url);
-
-    
     return this.httpClientService.get(`${environment.apiBaseUrl}${environment.apiVersion}/bodymeasurement/getlast/${userId}`);
   }
 
   getAll(userId: string) {
-    // const url = `${environment.apiVersion}/bodymeasurement/getall/${userId}`;
-    // return this.apiUtilsService.getDataContent(url);
-
     return this.httpClientService.get(`${environment.apiBaseUrl}${environment.apiVersion}/bodymeasurement/getall/${userId}`);
   }
 
   postAnthropometry(body: any) {
-    // const url = `${environment.apiVersion}/bodymeasurement`;
-    // return this.apiUtilsService.postDataContent(url, body);
-
-    return this.httpClientService.get(`${environment.apiBaseUrl}${environment.apiVersion}/bodymeasurement`);
+    return this.httpClientService.post(`${environment.apiBaseUrl}${environment.apiVersion}/bodymeasurement`,body);
   }
 }

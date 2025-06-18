@@ -133,4 +133,30 @@ export class UtilsService {
         this.navCtrl.navigateRoot([path]);
     }
 
+    async presentModal(component: any, css?: string, data?: any, backdropDismiss?: boolean) {
+        const modal = await this.modalCtrl.create({
+        showBackdrop: true,
+        backdropDismiss: backdropDismiss,
+        cssClass: css,
+        component: component,
+        componentProps: data
+        });
+        await modal.present();
+
+        return new Promise((resolve, reject) => {
+        if (!component || !css) {
+            reject('Component or CSS class is not defined');
+            return; 
+        }
+
+        modal.onDidDismiss().then(data => {
+            resolve(data);
+        });
+        })
+    }
+
+    async closeModal(data? : any) {
+        await this.modalCtrl.dismiss(data);
+    }
+
 }

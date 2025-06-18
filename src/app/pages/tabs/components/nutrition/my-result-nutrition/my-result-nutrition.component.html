@@ -13,7 +13,7 @@
           @if(resultNutrition){
             <div class="circle-container">
               <div class="progress-text">
-                <span class="progress">{{!resultNutrition ? sessionlastPlan?.totalScore : resultNutrition?.totalScore || 0}}</span>
+                <span class="progress">{{!resultNutrition ? sessionlastPlan?.totalScore : resultNutrition.totalScore || 0}}</span>
                 <span class="progress">/</span>
                 <span class="secondary-number-container">100</span>
               </div>  
@@ -55,7 +55,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scoreHidratacion : resultNutrition?.scoreHidratacion) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scoreHidratacion : resultNutrition.scoreHidratacion) ?? 0,
                       'scoreHidratacion'
                     )
                   "
@@ -66,7 +66,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scoreVerduras : resultNutrition?.scoreVerduras) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scoreVerduras : resultNutrition.scoreVerduras) ?? 0,
                       'scoreVerduras'
                     )
                   "
@@ -77,7 +77,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scoreFrutas : resultNutrition?.scoreFrutas) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scoreFrutas : resultNutrition.scoreFrutas) ?? 0,
                       'scoreFrutas'
                     )
                   "
@@ -88,7 +88,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scoreHidratos : resultNutrition?.scoreHidratos) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scoreHidratos : resultNutrition.scoreHidratos) ?? 0,
                       'scoreHidratos'
                     )
                   "
@@ -99,7 +99,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scoreSal : resultNutrition?.scoreSal) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scoreSal : resultNutrition.scoreSal) ?? 0,
                       'scoreSal'
                     )
                   "
@@ -110,7 +110,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scoreAzucar : resultNutrition?.scoreAzucar) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scoreAzucar : resultNutrition.scoreAzucar) ?? 0,
                       'scoreAzucar'
                     )
                   "
@@ -124,7 +124,7 @@
                     <ion-img
                       [src]="
                         getRresultReferentIcon(
-                          (!resultNutrition ? sessionlastPlan?.scoreOrigenAnimal : resultNutrition?.scoreOrigenAnimal) ?? 0,
+                          (!resultNutrition ? sessionlastPlan?.scoreOrigenAnimal : resultNutrition.scoreOrigenAnimal) ?? 0,
                           'scoreOrigenAnimal'
                         )
                       "
@@ -136,7 +136,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scoreDerivados : resultNutrition?.scoreDerivados) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scoreDerivados : resultNutrition.scoreDerivados) ?? 0,
                       'scoreDerivados'
                     )
                   "
@@ -147,7 +147,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scoreUltraprocesados : resultNutrition?.scoreUltraprocesados) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scoreUltraprocesados : resultNutrition.scoreUltraprocesados) ?? 0,
                       'scoreUltraprocesados'
                     )
                   "
@@ -158,7 +158,7 @@
                 <ion-img
                   [src]="
                     getRresultReferentIcon(
-                      (!resultNutrition ? sessionlastPlan?.scorePreparacionDeComidas : resultNutrition?.scorePreparacionDeComidas) ?? 0,
+                      (!resultNutrition ? sessionlastPlan?.scorePreparacionDeComidas : resultNutrition.scorePreparacionDeComidas) ?? 0,
                       'scorePreparacionDeComidas'
                     )
                   "

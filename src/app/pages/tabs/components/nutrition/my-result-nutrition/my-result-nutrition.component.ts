@@ -1,17 +1,26 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
 import { donutText, donutTextDescription } from 'src/app/shared/constant/text-constats';
 import { MyResultInformation, resultDemo, ResultPlanDTO } from './results.interface';
 import { Utils } from '../../home/utils/utils';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { NutritionService } from 'src/app/services/nutrition.service';
-import { UtilsService } from 'src/app/services/utils.service';
-import { SessionServiceService } from '../../../../../services/session-service.service';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { AnthropometryDetailComponent } from '../anthropometry-detail/anthropometry-detail.component';
 
 @Component({
   selector: 'app-my-result-nutrition',
   templateUrl: './my-result-nutrition.component.html',
   styleUrls: ['./my-result-nutrition.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+    RoundProgressModule,
+    AnthropometryDetailComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MyResultNutritionComponent  implements OnInit {
 
@@ -56,6 +65,7 @@ export class MyResultNutritionComponent  implements OnInit {
   }
 
   goToQuestionnaire() {
+    // TODO! PENDIENTE AGREGAR CUESTIONARIO
     // this.modalServices.presentModal(ModalFeedingComponent, 'modal-training', null, false).then();
   }
 

@@ -14,8 +14,6 @@ export class NutritionService {
   constructor() { }
 
   getLastResultd(id: number) : Observable<ResultPlanDTO[]> {
-    // return this.httpClientService.get(`${environment.apiBaseUrl}/nutrition-plan/getNutQuestionaryByUserId/${this._user.entity.currentId}?GET=LAST`);
-
     return this.httpClientService.get(`${environment.apiBaseUrl}${environment.apiVersion}/nutrition-plan/getNutQuestionaryByUserId/${id}?GET=LAST`);
   }
 }

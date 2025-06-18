@@ -5,32 +5,48 @@
             <ion-label class="sub-label">
                 Altura
             </ion-label>
-            <ion-label class="value-label" *ngIf="lastAnthropometry?.height; else elseBlock">
-                {{ lastAnthropometry?.height }} cm
-            </ion-label>
+            @if(lastAnthropometry?.height){
+                <ion-label class="value-label">
+                    {{ lastAnthropometry?.height }} cm
+                </ion-label>
+            } @else{
+                <ng-template #elseBlock>
+                    <ion-label>-</ion-label>
+                </ng-template>
+            }
         </div>
     
         <div class="input-wrapper pt-24">
             <ion-label class="sub-label">
                 Peso
             </ion-label>
-            <ion-label class="value-label" *ngIf="lastAnthropometry?.weight; else elseBlock">
-                {{ lastAnthropometry?.weight }} kg
-            </ion-label>
+            @if(lastAnthropometry?.weight){
+                <ion-label class="value-label">
+                    {{ lastAnthropometry?.weight }} kg
+                </ion-label>
+            } @else{
+                <ng-template #elseBlock>
+                    <ion-label>-</ion-label>
+                </ng-template>
+            }
         </div>
     
         <div class="input-wrapper pt-24 pb-16">
             <ion-label class="sub-label">
                 Circunferencia de cintura
             </ion-label>
-            <ion-label class="value-label" *ngIf="lastAnthropometry?.abdominalCircumference; else elseBlock">
-                {{ lastAnthropometry?.abdominalCircumference }} cm
-            </ion-label>
+            @if(lastAnthropometry?.abdominalCircumference){
+                <ion-label class="value-label">
+                    {{ lastAnthropometry?.abdominalCircumference }} cm
+                </ion-label>
+            }@else{
+                <ng-template #elseBlock>
+                    <ion-label>-</ion-label>
+                </ng-template>
+            }
         </div> 
     
-        <ng-template #elseBlock>
-            <ion-label>-</ion-label>
-        </ng-template>
+
 
         <ion-button (click)="goEdit()" expand="block" fill="clear" shape="round" [disabled]="validateSetValue()">
             <ion-icon class="icon" src="/assets/nutrition/edit.svg"></ion-icon>

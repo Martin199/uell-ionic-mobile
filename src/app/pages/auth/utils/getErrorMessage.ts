@@ -11,7 +11,7 @@ export class ErrorMessagesUtil {
             'Primero tenés que ingresar con tu usuario y clave temporaria, enviada en el email de bienvenida.';
         case 'InvalidPasswordException':
           return 'Debes primero iniciar sesión con la clave temporaria enviada por el Administrador de Uell, para validar tu correo electrónico. ' +
-            'Si no dispones de ella por favor solicitar nuevamente invitación a soporte@uell.com.ar';
+            'Si no dispones de ella por favor solicitar nuevamente invitación a soporte@uell.ai';
         default:
           return 'Ocurrió un error inesperado, intente nuevamente.';
       }

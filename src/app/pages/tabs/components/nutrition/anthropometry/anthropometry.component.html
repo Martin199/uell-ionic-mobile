@@ -1,0 +1,151 @@
+
+<div>
+    <div class="exit">
+        <ion-icon (click)="closeModalWithData()" src="assets/icons/icon-close.svg">
+            &times;
+        </ion-icon>
+    </div>
+    <ion-label class="label pl-24">Antropometría</ion-label>
+    <p class="title pl-24">Actualizar datos</p>
+    <form [formGroup]="anthropometryForm">
+        <div class="input-wrapper ion-padding">
+            <ion-label class="sub-label input-label">
+                Altura
+            </ion-label>
+            <div class="custom-input-container">
+                <ion-input
+                    pattern="[0-9.]*"
+                    class="custom-input" 
+                    [maxlength]="3"
+                    (keydown)="heightControlInput($event)"
+                    formControlName="height" 
+                    required>
+                </ion-input>
+                <ion-label class="placeholder-right">
+                    cm
+                </ion-label>
+            </div>
+            @if((anthropometryForm.get('height')?.dirty ||
+                        anthropometryForm.get('height')?.touched) &&
+                        anthropometryForm.get('height')?.errors && 
+                        (anthropometryForm.get('height')?.errors?.['min'] || 
+                        anthropometryForm.get('height')?.errors?.['max']) && 
+                        !anthropometryForm.get('height')?.valid){
+                <div class="ml-10 sub-label danger">
+                  La altura en centímetros debe ser mayor a 1 y menor a 250.
+                </div>
+            }
+
+            <ion-label class="ml-10 sub-label">
+                Ingresá tu altura en centímetros.
+            </ion-label>
+        </div>
+
+        <div class="ion-padding">
+            <div class="d-flex">
+                <ion-label class="sub-label input-label">
+                    Peso
+                </ion-label>
+                <ion-icon 
+                    class="icon-right" 
+                    src="assets/icons/info.svg"
+                    (click)="openModal('weight')">
+                </ion-icon>
+            </div>
+            <div class="custom-input-container">
+                <ion-input
+                    pattern="[0-9.]*"
+                    class="custom-input" 
+                    [maxlength]="5"
+                    (keydown)="weightControlInput($event)" 
+                    formControlName="weight" 
+                    required>
+                </ion-input>
+                <ion-label class="placeholder-right">
+                    kg
+                </ion-label>
+            </div>
+            @if( (anthropometryForm.get('weight')?.dirty ||
+                  anthropometryForm.get('weight')?.touched) &&
+                  anthropometryForm.get('weight')?.errors && 
+                  (anthropometryForm.get('weight')?.errors?.['min'] || 
+                  anthropometryForm.get('weight')?.errors?.['max'] ||
+                  anthropometryForm.get('weight')?.errors?.['pattern']) && 
+                  !anthropometryForm.get('weight')?.valid){
+                <div class="ml-10 sub-label danger" >
+                  El peso en kilogramos debe ser mayor a 10 y menor a 300.
+                </div>
+            }
+
+            <ion-label class="ml-10 sub-label">
+                Ingresá tu peso en kilogramos.
+            </ion-label>
+        </div>
+
+        <div class="input-wrapper ion-padding">
+            <div class="d-flex">
+                <ion-label class="sub-label input-label">
+                    Circunferencia de cintura
+                </ion-label>
+                <ion-icon 
+                    class="icon-right"
+                    src="assets/icons/info.svg"
+                    (click)="openModal('waist')">
+                </ion-icon>
+            </div>
+            <div class="custom-input-container">
+                <ion-input
+                    pattern="[0-9.]*"
+                    class="custom-input" 
+                    [maxlength]="3"
+                    (keydown)="waistControlInput($event)"
+                    formControlName="waist" 
+                    required>
+                </ion-input>
+                <ion-label class="placeholder-right">
+                    cm
+                </ion-label>
+            </div>
+            <ion-label class="ml-10 sub-label">
+                Ingresá la medida en centímetros.
+            </ion-label>
+        </div>  
+    </form>
+
+    <ion-footer class="ion-no-border" >
+        <ion-toolbar class="ion-padding toolbar-center ion-text-center">
+            <ion-button  class="save-button" (click)="postAnthropometry()" [disabled]="!anthropometryForm.valid" fill="solid" shape="round"> 
+                <ion-label >Guardar</ion-label>
+            </ion-button>
+        </ion-toolbar>
+    </ion-footer>
+</div>
+
+<ion-popover class="pop" #popover [isOpen]="modalVisible" side="top" alignment="end" (didDismiss)="modalVisible = false">
+    <ng-template>
+      <ion-header>
+        <div class="d-flex">
+            <ion-label class="ml-10 sub-label">
+                Recomendaciones
+            </ion-label>
+            <ion-buttons slot="end">
+                <ion-button class="label" (click)="closeModal()">
+                    &times;
+                </ion-button>
+            </ion-buttons>
+        </div>
+        <div class="custom-title">
+            {{ modalTitle1 }}
+        </div>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <p class="description">
+          {{ modalText1 }}
+        </p>
+        <p class="description">
+          {{ modalText2 }}
+        </p>
+      </ion-content>
+    </ng-template>
+</ion-popover>
+  

@@ -1,16 +1,24 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
-import moment from 'moment';
 import { firstValueFrom } from 'rxjs';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { AnthropometryService } from 'src/app/services/anthropometry.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { addDays, isAfter, isEqual } from 'date-fns';
+import { AnthropometryComponent } from '../anthropometry/anthropometry.component';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-anthropometry-detail',
   templateUrl: './anthropometry-detail.component.html',
   styleUrls: ['./anthropometry-detail.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [
+    FormsModule,
+    IonicModule
+  ]
 })
 export class AnthropometryDetailComponent  implements OnInit {
 
@@ -47,22 +55,6 @@ export class AnthropometryDetailComponent  implements OnInit {
     })
   }
 
-  // getAnthropometryDetail(): void {
-  //   this.anthropometryService.getLast(this.userId!.toString()).subscribe((resp: any) => {
-  //     const keys = Object.keys(resp).filter(key => resp[key] !== null);
-  //     if (keys.length === 1 && keys[0] === 'completenessPercentage') {
-  //       resp = null;
-  //     }
-  //     if (!resp || resp?.error?.message) {
-  //       this.anthropometryService.setAnthropometryStatus = false;
-  //     } else {
-  //       this.anthropometryService.setAnthropometryStatus = true;
-  //       this.lastAnthropometry = resp;
-  //       this.checkValidity();
-  //     }
-  //   });
-  // }
-
   async getAnthropometryDetail(): Promise<void> {
   try {
     let resp: any = await firstValueFrom(
@@ -88,9 +80,11 @@ export class AnthropometryDetailComponent  implements OnInit {
 }
 
   botonHabilitado(): boolean {
-    const lastCreated = moment(this.lastAnthropometry?.created);
-    this.dateCreated = lastCreated.clone().add(30, 'days');
-    return moment() >= this.dateCreated;
+    const created = this.lastAnthropometry?.created ? new Date(this.lastAnthropometry.created) : null;
+    if (!created) return false;
+
+    this.dateCreated = addDays(created, 30);
+    return isAfter(new Date(), this.dateCreated) || isEqual(new Date(), this.dateCreated);
   }
 
 
@@ -133,19 +127,23 @@ export class AnthropometryDetailComponent  implements OnInit {
     }
   }
 
-  goEdit() {
-    this.modalController.create({
-      component: AnthropometryDetailComponent,
-      cssClass: 'modal-training'
-    }).then((resp: any) => {
-      if (resp?.data) {
-        this.lastAnthropometry.weight = resp.data.weight
-        this.lastAnthropometry.height = resp.data.height
-        this.lastAnthropometry.abdominalCircumference = resp.data.abdominalCircumference
-        this.bodyStatus.emit({height: this.lastAnthropometry.height, weight: this.lastAnthropometry.weight })
-        this.checkAnthropometryData();
-      }
-    })
+  async goEdit() {
+    const modal = await this.modalController.create({
+        component: AnthropometryComponent,
+        cssClass: 'custom-modal-class',
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      this.lastAnthropometry.weight = data.weight;
+      this.lastAnthropometry.height = data.height;
+      this.lastAnthropometry.abdominalCircumference = data.abdominalCircumference;
+      this.bodyStatus.emit({
+        height: this.lastAnthropometry.height, 
+        weight: this.lastAnthropometry.weight 
+      });
+      this.checkAnthropometryData();
+    }    
   }
 
   checkAnthropometryData() {
