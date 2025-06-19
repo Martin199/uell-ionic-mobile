@@ -28,3 +28,12 @@ ion-tab-bar {
     }
   }
 }
+
+ion-tab-button.tab--disabled,
+ion-tab-button[disabled] {
+  --color:            var(--ion-color-medium-shade);
+  --color-selected:   var(--ion-color-medium-shade);
+  pointer-events: none;
+  opacity: 0.6;
+}
+

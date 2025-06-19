@@ -5,13 +5,20 @@
         <ion-icon name="home"></ion-icon>
         <ion-label>Inicio</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="psychosocial-health">
-        <ion-img src="../../../assets/tabs/psychology-icon-tab.svg" class="nutrition-icon"></ion-img>
+      <ion-tab-button
+        tab="psychosocial-health"
+        [disabled]="!hasIsps"
+        [class.tab--disabled]="!hasIsps">
+        <ion-img src="../../../assets/tabs/psychology-icon-tab.svg"
+                 class="nutrition-icon"></ion-img>
         <ion-label>Mi bienestar</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="wellness-portal">
+      <ion-tab-button
+        tab="wellness-portal"
+        [disabled]="!hasWellnessBlog"
+        [class.tab--disabled]="!hasWellnessBlog">
         <ion-icon name="person-outline"></ion-icon>
-        <ion-label>Contenido</ion-label>
+        <ion-label>Mi Contenido</ion-label>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>

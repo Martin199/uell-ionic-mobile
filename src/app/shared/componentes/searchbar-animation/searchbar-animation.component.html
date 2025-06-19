@@ -1,6 +1,6 @@
 <div class="container">
   @if (viewInput || alwaysActive) {
-    <input [(ngModel)]="searchValue" [ngClass]="viewSearchResults ? 'input-results' : viewInput || alwaysActive ? 'input-on' : viewSearchResults ? 'input-results' : 'input-off'" type="text" [placeholder]="placeholder" [@inputAnimation]="viewInput" (ngModelChange)="openSearchResults($event)" autofocus>
+    <input [(ngModel)]="searchValue" [ngClass]="viewSearchResults ? 'input-results' : viewInput || alwaysActive ? 'input-on' : viewSearchResults ? 'input-results' : 'input-off'" type="text" [placeholder]="placeholder" [@inputAnimation]="viewInput" (ngModelChange)="openSearchResults($event)">
   }
   <button [ngClass]=" viewSearchResults ? 'btn-results' : viewInput || alwaysActive ? 'btn-on' : 'btn-off'" (click)="alwaysActive ? null : toogleView()" [@inputAnimation]="viewInput"><img src="assets/icons/search.svg" alt=""></button>
   @if (viewSearchResults) {
