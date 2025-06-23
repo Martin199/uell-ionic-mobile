@@ -13,14 +13,7 @@
       <div class="card-rrhh__content-flex-row">
         <div class="isps-description">
           @if(ispsData){
-            <div class="circle-container">
-              <div class="progress-text">
-                <span class="progress">{{(ispsData && ispsData.score) || 0}}</span>
-                <span class="progress">/</span>
-                <span class="secondary-number-container">100</span>
-              </div>  
-              <round-progress [current]="(ispsData && ispsData.score) || 0" [max]="100" [rounded]="true" [color]="getColorScore()" [stroke]="20"/>
-            </div>
+            <app-circle-progress [progress]="ispsData.score" [module]="'isps'"></app-circle-progress>
           }
 
           @if( score === false  ){

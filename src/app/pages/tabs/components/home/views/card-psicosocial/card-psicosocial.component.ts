@@ -185,18 +185,4 @@ export class CardPsicosocialComponent implements OnInit, OnChanges {
         window.open('https://turnito.app/p/uell-bienestar', '_blank');
     }
 
-    getColorScore() {
-        if (this.ispsData.score < 16) {
-            return '#63e4a7';
-        } else if (this.ispsData.score >= 16 && this.ispsData.score <= 30) {
-            return '#b982de';
-        } else if (this.ispsData.score > 30 && this.ispsData.score <= 60) {
-            return '#fcd885';
-        } else if (this.ispsData.score > 60) {
-            return '#ec6666';
-        } else {
-            return '#F2F6FA';
-        }
-    } 
-
 }

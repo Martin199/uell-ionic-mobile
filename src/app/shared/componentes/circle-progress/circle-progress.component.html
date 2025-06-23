@@ -1,0 +1,8 @@
+<div class="circle-container">
+  <div class="progress-text">
+    <span class="progress">{{(progress) || 0}}</span>
+    <span class="progress">/</span>
+    <span class="secondary-number-container">100</span>
+  </div>  
+  <round-progress [current]="(progress) || 0" [max]="100" [rounded]="true" [color]="getColorScore()" [stroke]="20"/>
+</div>
