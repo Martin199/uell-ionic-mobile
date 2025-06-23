@@ -67,6 +67,7 @@ export class DetailsWellnessPortalComponent {
             .pipe(
                 switchMap((resp: IWellnessPortalPost) => {
                     this.post = resp;
+                    this.buildSafeUrls(); 
                     this.likes = resp.likes ? resp.likes : 0;
                     this.dislikes = resp.dislikes ? resp.dislikes : 0;
                     this.views = resp.views ? resp.views : 0;
@@ -123,6 +124,13 @@ export class DetailsWellnessPortalComponent {
         return this.safeSpotifyUrl =
         this.sanitizer.bypassSecurityTrustResourceUrl(spotifyUrl);
     }
+
+    private buildSafeUrls(): void {
+        if (this.post.spotifyUrl) {    
+          this.safeSpotifyUrl = this.sanitizer
+            .bypassSecurityTrustResourceUrl(this.post.spotifyUrl);
+        }
+      }
 
     onScroll(event: any) {
         if (!this.firstBottom) return;
