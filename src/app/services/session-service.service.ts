@@ -31,7 +31,7 @@ export class SessionServiceService {
     const deviceId = await Device.getId();
     const userId = this.userState.userId();
     const plataform = (await Device.getInfo()).platform;
-    const fcmToken = this.userState.token();
+    const fcmToken = this.userState.fcmToken();
 
     if (!(deviceId && userId && plataform && fcmToken)) {
       console.error('Missing data to set session for push notifications');

@@ -23,12 +23,10 @@ const config: CapacitorConfig = {
     },
     StatusBar: {
       overlaysWebView: true,
-      style: Style.Dark,
-      backgroundColor: '#1DA4B1',
+      backgroundColor: '#ffffff',
     },
     EdgeToEdge: {
-      // backgroundColor: '#00000000',
-      backgroundColor: '#1DA4B1',
+      backgroundColor: '#ffffff',
     },
   },
 };

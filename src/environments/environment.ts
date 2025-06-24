@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiBaseUrl: 'https://dev-api.eks.development.uell.ai/',
   env: 'dev',
-  version: '1.1',
+  version: '1.2',
   httpTimeout: 60000,
   apiVersion: 'v2',
   maxImageSize: 1024 * 1024 * 5, // 5MB

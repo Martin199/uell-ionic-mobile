@@ -18,6 +18,7 @@ import { WellnessPortalService } from 'src/app/services/wellness-portal.service'
 import { addIcons } from "ionicons";
 import { arrowBackSharp } from "ionicons/icons";
 import { Filesystem, Directory } from '@capacitor/filesystem';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-details-wellness-portal',
@@ -40,6 +41,8 @@ export class DetailsWellnessPortalComponent {
     firstBottom: boolean = true;
     initNgAfterViewInit: any;
     readAlertTimeout: any;
+    safeSpotifyUrl!: SafeResourceUrl;
+
 
     constructor() {
         const id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -54,6 +57,7 @@ export class DetailsWellnessPortalComponent {
     filesService = inject(FilesService);
     storageService = inject(StorageService);
     userService = inject(UserService);
+    sanitizer = inject(DomSanitizer);
 
     async getPostById() {
         const loading = await this.utilsService.loading();
@@ -63,6 +67,7 @@ export class DetailsWellnessPortalComponent {
             .pipe(
                 switchMap((resp: IWellnessPortalPost) => {
                     this.post = resp;
+                    this.buildSafeUrls(); 
                     this.likes = resp.likes ? resp.likes : 0;
                     this.dislikes = resp.dislikes ? resp.dislikes : 0;
                     this.views = resp.views ? resp.views : 0;
@@ -114,6 +119,18 @@ export class DetailsWellnessPortalComponent {
             }
         );
     }
+
+    public openSpotify(spotifyUrl: any){
+        return this.safeSpotifyUrl =
+        this.sanitizer.bypassSecurityTrustResourceUrl(spotifyUrl);
+    }
+
+    private buildSafeUrls(): void {
+        if (this.post.spotifyUrl) {    
+          this.safeSpotifyUrl = this.sanitizer
+            .bypassSecurityTrustResourceUrl(this.post.spotifyUrl);
+        }
+      }
 
     onScroll(event: any) {
         if (!this.firstBottom) return;

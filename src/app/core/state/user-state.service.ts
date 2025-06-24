@@ -28,6 +28,7 @@ export class UserStateService {
   readonly tenant = computed(() => this.state().tenant || null);
   readonly tenantConfig = computed(() => this.state().tenantConfig);
   readonly tenantParameters = computed(() => this.state().tenantParameters);
+  readonly activeModules = computed(() => this.state().tenantParameters?.activeModules);
   readonly token = computed(() => this.state().token);
   readonly fcmToken = computed(() => this.state().fcmToken);
   // TODO Implementacion de appReady en appComponent para redireccion
