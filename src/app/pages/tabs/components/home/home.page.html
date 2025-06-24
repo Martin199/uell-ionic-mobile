@@ -6,7 +6,7 @@
       @if (emotionalModule) {
             <app-card-emotions-map [emotionMapData]="emotionMapData"></app-card-emotions-map>
       }
-      @if(ispsData){
+      @if(ispsData && wellnessData){
             <app-card-psicosocial [ispsData]="ispsData"></app-card-psicosocial>
       }
       @if(wellnessData){

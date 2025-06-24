@@ -51,14 +51,14 @@
       </div>
       @if (post.spotifyUrl!) {
         <div class="d-flex w-100 container-action-buttons">
-            <iframe style="border-radius:12px" [src]="post.spotifyUrl" width="100%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="margin-bottom: 1rem;"></iframe>
+            <iframe style="border-radius:12px" [src]="safeSpotifyUrl" width="100%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="margin-bottom: 1rem;"></iframe>
         </div>
       }
       <div class="d-flex-col w-100 post" style="padding-bottom: 40px;">
         <div class="w-100">
-            <p class="subtitle">
+            <ion-label  class="subtitle">
                 {{ post.subtitle }}
-            </p>
+            </ion-label>
         </div>
         <div #postBody class="w-100" [innerHTML]="post.body!"></div>
         @if (post.attachments.length > 0) {
