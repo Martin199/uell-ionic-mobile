@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://apiqa.uell.newton-development.com/',
+  apiBaseUrl: 'https://qa-api.eks.development.uell.ai/',
   env: 'qa',
   version: '0.1',
   httpTimeout: 60000,

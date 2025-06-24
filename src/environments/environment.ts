@@ -4,15 +4,15 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://uellapidev.newton-development.com/',
+  apiBaseUrl: 'https://dev-api.eks.development.uell.ai/',
   env: 'dev',
   version: '1.1',
   httpTimeout: 60000,
   apiVersion: 'v2',
   maxImageSize: 1024 * 1024 * 5, // 5MB
   aws: {
-    clientId: '6msv5nde08td7pv7r0q90fulh6',
-    userPoolId: 'us-east-1_pJB4tmUgT',
+    clientId: '3i1h3ij8gn0k6fnr2qlrcj9g7g',
+    userPoolId: 'us-east-1_mzC2U2zzh',
   },
   cognito: {
     userPoolId: 'us-east-1_2QXHj8Dwv',
