@@ -1,11 +1,6 @@
 import { Component, Input, input, OnInit } from '@angular/core';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
-import {
-  ispsCircleColors,
-  ispsCircleRanges,
-  nutritionCircleColors,
-  nutritionCircleRanges,
-} from './circle-progress.contants';
+import { CIRCLE_THEMES, CircleTheme } from './circle-progress.contants';
 
 @Component({
   selector: 'app-circle-progress',
@@ -18,34 +13,19 @@ export class CircleProgressComponent {
 
   @Input() progress: number = 0;
   @Input() module: string = '';
+  fallbackColor = '#F2F6FA';
 
+  //! Para usar este componente, se debe declarar los colores, rangos y el nombre del módulo en el archivo circle-progress.constants.ts
   constructor() { }
 
+  getColorScore(): string {
+    const theme: CircleTheme | undefined = CIRCLE_THEMES[this.module.toLowerCase()];
+    if (!theme) return this.fallbackColor;
 
-  getColorScore() {
-      let colors: string[] = [];
-      let ranges: number[] = [];
-
-      // Elegimos colores y rangos según el módulo
-      switch (this.module.toLowerCase()) {
-        case 'isps':
-          colors = ispsCircleColors;
-          ranges = ispsCircleRanges;
-          break;
-        case 'nutrition':
-          colors = nutritionCircleColors;
-          ranges = nutritionCircleRanges;
-          break;
-        default:
-          return '#F2F6FA'; // Color por defecto si el módulo no está definido
-      }
-
-      const index = ranges.findIndex(range => this.progress <= range);
-      return colors[index !== -1 ? index : colors.length - 1];
-
-  } 
+    const index = theme.ranges.findIndex((range:number) => this.progress <= range);
+    return theme.colors[index !== -1 ? index : theme.colors.length - 1];
+  }
   
-
   hexToRGBA(hex: string, alpha: number): string {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
