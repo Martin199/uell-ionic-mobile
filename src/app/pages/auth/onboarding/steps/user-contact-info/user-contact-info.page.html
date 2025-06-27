@@ -53,6 +53,7 @@
               [control]="contactInfoForm.controls['areaCode']"
               label="Código de área"
               placeholder="Código de área"
+              [immediateValidation]="true"
             ></app-custom-input>
           </div>
         }
@@ -63,6 +64,7 @@
         [maxLength]="15"
         label="Teléfono"
         placeholder="Teléfono"
+        [immediateValidation]="true"
       ></app-custom-input>
   
     </form>
