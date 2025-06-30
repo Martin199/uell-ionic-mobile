@@ -40,28 +40,14 @@ export class MyResultNutritionComponent  implements OnInit {
   iconYellow = 'assets/nutrition/results/like-yellow.svg';
   iconOrange = 'assets/nutrition/results/dislike-orange.svg';
   iconRed = 'assets/nutrition/results/dislike-red.svg';
-  userId: number | null = null;
-
-  private userState = inject(UserStateService);
-  private nutritionServices = inject(NutritionService);
 
   constructor() { }
 
   ngOnInit() {
-      this.userId = this.userState.userId();
-      if (!this.userId) {
-          console.error('No se puede obtener el id del usuario');
-          return;
-      }
-      
-      this.nutritionServices.getLastResultd(this.userId).subscribe((resp: ResultPlanDTO[]) => {
-      this.resultNutrition = resp[0];
-      this.umbralDescription = Utils.returnUmbralNutrition(this.resultNutrition.totalScore!);
-      sessionStorage.removeItem('lastResultdPlan');
-      sessionStorage.setItem('lastResultdPlan', String(resp[0].created));
+      this.resultNutrition = sessionStorage.getItem('resultNutrition') ? JSON.parse(sessionStorage.getItem('resultNutrition')!) : undefined;
+      this.umbralDescription = Utils.returnUmbralNutrition(this.resultNutrition!.totalScore!);
       const lastPlan = sessionStorage.getItem('lastResultdPlan');
       this.createdValidator = Utils.addDaysValidator(lastPlan, 45);
-    });
   }
 
   goToQuestionnaire() {
