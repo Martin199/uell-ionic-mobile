@@ -31,6 +31,17 @@ export class UserContactInfoPage implements OnDestroy {
     isOpen = false;
     enableAreaCode = false;
 
+    private areaCodeValidator = (control: AbstractControl): ValidationErrors | null => 
+        !control.value ? null : 
+        (control.value.startsWith('9') || control.value.startsWith('0')) ? 
+        { invalidAreaCodeStart: true } : null;
+
+    private phoneNumberValidator = (control: AbstractControl): ValidationErrors | null => 
+        !control.value ? null : 
+        (control.value.startsWith('15') || control.value.startsWith('0')) ? 
+        { invalidPhoneNumberStart: true } : null;
+
+
     contactInfoForm = this.fb.group({
         email: new FormControl('', [Validators.required, Validators.email]),
         countryCode: new FormControl('', Validators.required),
@@ -39,10 +50,12 @@ export class UserContactInfoPage implements OnDestroy {
             Validators.minLength(2),
             Validators.maxLength(4),
             Validators.pattern(/^[0-9]+$/),
+            this.areaCodeValidator  
         ]),
         phoneNumber: new FormControl('', [
             Validators.required,
             Validators.pattern(/^[0-9]+$/),
+            this.phoneNumberValidator
         ]),
     });
 
@@ -96,6 +109,20 @@ export class UserContactInfoPage implements OnDestroy {
         this.enableAreaCode = country.country === countryENUM.ARGENTINA || country.country === countryENUM.ECUADOR;
         this.contactInfoForm.clearValidators();
 
+        const areaCodeValidators = [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(4),
+            Validators.pattern(/^[0-9]+$/),
+            this.areaCodeValidator
+        ];
+
+        const phoneNumberValidators = [
+            Validators.required,
+            Validators.pattern(/^[0-9]+$/),
+            this.phoneNumberValidator
+        ];
+
         switch (country.country) {
             case countryENUM.ARGENTINA:
                 this.enabledAreaCode();
@@ -127,6 +154,14 @@ export class UserContactInfoPage implements OnDestroy {
 
             default:
                 break;
+        }
+
+        this.contactInfoForm.get('phoneNumber')?.setValidators(phoneNumberValidators);
+        this.contactInfoForm.get('phoneNumber')?.updateValueAndValidity();
+        
+        if (this.enableAreaCode) {
+            this.contactInfoForm.get('areaCode')?.setValidators(areaCodeValidators);
+            this.contactInfoForm.get('areaCode')?.updateValueAndValidity();
         }
 
         this.contactInfoForm.updateValueAndValidity();

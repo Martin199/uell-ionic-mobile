@@ -3,14 +3,14 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StagesService } from '../services/stages.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-modal-feeding',
   templateUrl: './modal-feeding.component.html',
   styleUrls: ['./modal-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgClass],
+  imports: [SharedModule, NgClass, NgIf],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ModalFeedingComponent  implements OnInit {
