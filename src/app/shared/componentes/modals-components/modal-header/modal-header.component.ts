@@ -24,7 +24,9 @@ export class ModalHeaderComponent {
     closeModalEvent = output<string>();
     backModalEvent = output();
 
-    constructor() { }
+    constructor() {
+        debugger
+     }
 
     dissmisModal() {
         this.closeModalEvent.emit('dissmis');

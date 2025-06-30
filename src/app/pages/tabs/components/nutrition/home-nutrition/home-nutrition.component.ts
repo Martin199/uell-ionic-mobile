@@ -1,8 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NutritionCardComponent } from '../shared/nutrition-card/nutrition-card.component';
 import { NutritionCard } from '../shared/nutrition-card/nutrition-card.interface';
 import { cardHome } from 'src/app/shared/constant/cards-test';
 import { UtilsService } from 'src/app/services/utils.service';
+import { ModalFeedingComponent } from '../components/modal-feeding/modal-feeding.component';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-home-nutrition',
@@ -10,8 +12,9 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./home-nutrition.component.scss'],
   standalone: true,
   imports: [
-    NutritionCardComponent
-  ]
+    NutritionCardComponent, 
+    IonicModule,
+  ],
 })
 export class HomeNutritionComponent {
 
@@ -25,5 +28,8 @@ export class HomeNutritionComponent {
     this.utilsService.goTo(`tabs/nutrition${navigateTo}`);
   }
 
+  openModal() {
+    this.utilsService.presentModal(ModalFeedingComponent);
+  }
 }
 

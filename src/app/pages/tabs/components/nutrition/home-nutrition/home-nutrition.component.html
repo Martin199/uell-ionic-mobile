@@ -1,3 +1,5 @@
 @for(item of cardArray; track item) {
   <app-nutrition-card [nutritionCard]="item" class="nutritionCard" (click)="navigateTo(item.navigateTo!)"></app-nutrition-card>
 }
+
+<ion-button (click)="openModal()">Open Modal</ion-button>
