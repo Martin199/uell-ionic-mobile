@@ -6,17 +6,20 @@ import Swiper from 'swiper';
 import { StagesService } from '../services/stages.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { StepOneFeedingComponent } from './components/step-one-feeding/step-one-feeding.component';
+import { IonContent } from '@ionic/angular';
+import { StepTwoFeedingComponent } from './components/step-two-feeding/step-two-feeding.component';
 
 @Component({
   selector: 'app-stages-feeding',
   templateUrl: './stages-feeding.component.html',
   styleUrls: ['./stages-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, StepOneFeedingComponent],
+  imports: [SharedModule, NgIf ,StepOneFeedingComponent, StepTwoFeedingComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StagesFeedingComponent  implements OnInit, AfterViewInit {
   @ViewChild('swiperEx') swiperEx?: ElementRef<{ swiper: Swiper }>;
+  @ViewChild(IonContent) content!: IonContent;
 
   step: number = 1;
   stepIsValid: boolean = false;
@@ -56,6 +59,10 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {}
+
+  scrollToTop() {
+    //this.content.scrollToTop(0);
+  }
 
   nextSlide() {
     if (this.swiperEx && this.swiperEx.nativeElement.swiper) {
@@ -180,6 +187,14 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
       default:
         break;
     }
+
+    console.log('step1', this.step1);
+    console.log('step2', this.step2);
+    console.log('step3', this.step3);
+    console.log('step4', this.step4);
+    console.log('step5', this.step5);
+    console.log('step6', this.step6);
+    console.log('step7', this.step7);
 
     this.finalObj = Object.assign({}, this.step1, this.step2, this.step3, this.step4, this.step5, this.step6, this.step7, this.step8, this.step9, this.step10);
 

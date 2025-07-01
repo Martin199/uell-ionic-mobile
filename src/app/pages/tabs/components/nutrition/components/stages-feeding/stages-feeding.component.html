@@ -6,10 +6,10 @@
   </div>
   <swiper-container #swiperEx [loop]="false" (slideChangeTransitionEnd)="swiperSlideChanged()">
     <swiper-slide>
-      <app-step-one-feeding  (firstStepReturn)="firstStepReturn($event, 1)" [currentSlide]="step"></app-step-one-feeding>
+      <app-step-one-feeding (firstStepReturn)="firstStepReturn($event, 1)" [currentSlide]="step"></app-step-one-feeding>
     </swiper-slide>
     <swiper-slide>
-      <app-step-two-feeding></app-step-two-feeding>
+      <app-step-two-feeding (firstStepReturn)="firstStepReturn($event, 2)" [currentSlide]="step"></app-step-two-feeding>
     </swiper-slide>
   </swiper-container>
 
