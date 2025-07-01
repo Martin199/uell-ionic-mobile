@@ -11,11 +11,14 @@
     <swiper-slide>
       <app-step-two-feeding (firstStepReturn)="firstStepReturn($event, 2)" [currentSlide]="step"></app-step-two-feeding>
     </swiper-slide>
+    <swiper-slide>
+      <app-step-three-feeding (firstStepReturn)="firstStepReturn($event, 3)" [currentSlide]="step"></app-step-three-feeding>
+    </swiper-slide>
   </swiper-container>
 
   <ion-row class="ion-justify-content-end ion-padding">
     <ion-col size="auto" class="buttons-container">
-      <ion-button class="save-button" (click)="prevSlide()" fill="solid" color="primary" shape="round" *ngIf="step > 1"> Anterior </ion-button>
+      <ion-button class="save-button footer-btn-back" (click)="prevSlide()" fill="solid" shape="round" *ngIf="step > 1"> Anterior </ion-button>
       <ion-button
         expand="block" type="submit" class="submit-btn"
         [disabled]="!stepIsValid"

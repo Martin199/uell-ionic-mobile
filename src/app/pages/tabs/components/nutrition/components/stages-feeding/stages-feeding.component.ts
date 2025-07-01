@@ -8,13 +8,14 @@ import { StorageService } from 'src/app/services/storage.service';
 import { StepOneFeedingComponent } from './components/step-one-feeding/step-one-feeding.component';
 import { IonContent } from '@ionic/angular';
 import { StepTwoFeedingComponent } from './components/step-two-feeding/step-two-feeding.component';
+import { StepThreeFeedingComponent } from './components/step-three-feeding/step-three-feeding.component';
 
 @Component({
   selector: 'app-stages-feeding',
   templateUrl: './stages-feeding.component.html',
   styleUrls: ['./stages-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf ,StepOneFeedingComponent, StepTwoFeedingComponent],
+  imports: [SharedModule, NgIf ,StepOneFeedingComponent, StepTwoFeedingComponent, StepThreeFeedingComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StagesFeedingComponent  implements OnInit, AfterViewInit {

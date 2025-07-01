@@ -19,7 +19,6 @@ export class StepTwoFeedingComponent  implements OnInit {
 
   @Output() firstStepReturn = new EventEmitter();
   @Input() set currentSlide(value: number) {
-    debugger
     this.step = value ? value : 2;
   }
   step = 0;
