@@ -4,6 +4,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { StagesService } from '../services/stages.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { NgClass, NgIf } from '@angular/common';
+import { StagesFeedingComponent } from '../stages-feeding/stages-feeding.component';
+import { IonCard } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal-feeding',
@@ -51,7 +53,7 @@ export class ModalFeedingComponent  implements OnInit {
   }
 
   goTo(url: string){
-    this.utilsService.router.navigateByUrl(`/newton/wellness/nutrition/${url}`);
+    this.utilsService.presentModal(StagesFeedingComponent);
     this.utilsService.closeModal()
   }
 

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NutritionPage } from './nutrition.page';
 import { MyResultNutritionComponent } from './my-result-nutrition/my-result-nutrition.component';
 import { HomeNutritionComponent } from './home-nutrition/home-nutrition.component';
+import { StagesFeedingComponent } from './components/stages-feeding/stages-feeding.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'my-results',
         component: MyResultNutritionComponent
+      },
+      {
+        path: 'steps-feeding',
+        component: StagesFeedingComponent
       }
     ]
   }

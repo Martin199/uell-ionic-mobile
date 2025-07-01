@@ -1,3 +1,32 @@
-<p>
-  stages-feeding works!
-</p>
+<app-modal-header  [closeModal]="true"></app-modal-header>
+<ion-content>
+  <div class="top-header">
+    <ion-label class="step">Paso {{ step }} de 10</ion-label>
+    <ion-label class="title-step">{{_stepDescription}}</ion-label>
+  </div>
+  <swiper-container #swiperEx [loop]="false" (slideChangeTransitionEnd)="swiperSlideChanged()">
+    <swiper-slide>
+      <app-step-one-feeding></app-step-one-feeding>
+    </swiper-slide>
+    <swiper-slide>
+      <app-step-two-feeding></app-step-two-feeding>
+    </swiper-slide>
+  </swiper-container>
+
+  <ion-row class="ion-justify-content-end ion-padding">
+    <ion-col size="auto" class="buttons-container">
+      <ion-button class="save-button" (click)="prevSlide()" fill="solid" color="primary" shape="round" *ngIf="step > 1"> Anterior </ion-button>
+      <ion-button
+        expand="block" type="submit" class="submit-btn"
+        [disabled]="!stepIsValid"
+        (click)="nextSlide()"
+        fill="solid"
+        shape="round"
+      >
+        {{ step === 10 ? "Finalizar" : "Siguiente"}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
+
