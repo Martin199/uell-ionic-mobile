@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnInit, Output, computed, inject, output } fro
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/services/storage.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
-import moment from 'moment';
 import { UserStateService } from 'src/app/core/state/user-state.service';
+import { parse, format, isValid  } from 'date-fns';
 
 @Component({
     selector: 'app-user-info',
@@ -28,7 +28,7 @@ export class UserInfoComponent implements OnInit {
 
     ngOnInit() {
         if (this.user()?.bornDate) {
-            const formattedDate = moment(this.user()?.bornDate).format('DD/MM/YYYY');
+            const formattedDate = this.user()?.bornDate ? format(new Date(this.user()!.bornDate), 'dd/MM/yyyy') : '';
             this.userInfoForm.patchValue({ birthDate: formattedDate });
             this.emitBirthDate(formattedDate);
             this.updateDisplayDate(formattedDate);
@@ -40,9 +40,7 @@ export class UserInfoComponent implements OnInit {
     }
 
     emitBirthDate(date: any) {
-        const formattedDate = moment(date, ['DD/MM/YYYY', 'YYYY-MM-DD']).format(
-            'YYYY-MM-DD'
-        );
+        const formattedDate = format(isValid(parse(date, 'dd/MM/yyyy', new Date())) ? parse(date, 'dd/MM/yyyy', new Date()) : parse(date, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd');
         this.contactInfo.emit({ data: formattedDate });
     }
 
@@ -58,13 +56,13 @@ export class UserInfoComponent implements OnInit {
         const selectedDate = event.detail.value;
 
         if (selectedDate) {
-            const formattedDate = moment(selectedDate).format('DD/MM/YYYY');
+            const formattedDate = format(new Date(selectedDate), 'dd/MM/yyyy');
 
             this.userInfoForm.get('birthDate')?.setValue(selectedDate);
 
             this.displayDate = formattedDate;
         }
-
+        this.emitBirthDate(this.displayDate);
         this.closeDatePicker();
     }
 

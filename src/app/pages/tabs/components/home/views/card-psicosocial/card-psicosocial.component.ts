@@ -3,13 +3,13 @@ import { ISPSScore, ManagerResponse } from 'src/app/pages/tabs/interfaces/isps';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { ISPSService } from 'src/app/services/isps.service';
 import { StorageService } from 'src/app/services/storage.service';
-import moment from 'moment';
 import { Utils } from 'src/app/pages/tabs/components/home/utils/utils';
 import { UserService } from 'src/app/services/user.service';
 import { ModalDescriptionComponent } from 'src/app/shared/componentes/modal-description/modal-description.component';
 import { ModalController } from '@ionic/angular/standalone';
 import { FormsIspsComponent } from 'src/app/shared/componentes/forms-isps/forms-isps.component';
 import { UtilsService } from 'src/app/services/utils.service';
+import { addDays, isAfter, isEqual } from 'date-fns';
 
 @Component({
     selector: 'app-card-psicosocial',
@@ -108,10 +108,8 @@ export class CardPsicosocialComponent implements OnInit, OnChanges {
 
     calculateDate() {
         if (this.ispsData.updated) {
-            const isIspValid = moment(this.ispsData.updated)
-                .add(45, 'days')
-                .format('YYYY-MM-DD');
-            return moment().isSameOrAfter(isIspValid);
+            const ispDate = addDays(new Date(this.ispsData.updated), 45);
+            return isAfter(new Date(), ispDate) || isEqual(new Date(), ispDate);
         }
         return false;
     }

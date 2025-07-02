@@ -1,7 +1,6 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonContent } from '@ionic/angular/standalone';
-import moment from 'moment';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
