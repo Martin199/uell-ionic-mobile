@@ -9,13 +9,17 @@ import { StepOneFeedingComponent } from './components/step-one-feeding/step-one-
 import { IonContent } from '@ionic/angular';
 import { StepTwoFeedingComponent } from './components/step-two-feeding/step-two-feeding.component';
 import { StepThreeFeedingComponent } from './components/step-three-feeding/step-three-feeding.component';
+import { StepFourFeedingComponent } from './components/step-four-feeding/step-four-feeding.component';
+import { StepFiveFeedingComponent } from './components/step-five-feeding/step-five-feeding.component';
+import { StepSixFeedingComponent } from './components/step-six-feeding/step-six-feeding.component';
+import { StepSevenFeedingComponent } from './components/step-seven-feeding/step-seven-feeding.component';
 
 @Component({
   selector: 'app-stages-feeding',
   templateUrl: './stages-feeding.component.html',
   styleUrls: ['./stages-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf ,StepOneFeedingComponent, StepTwoFeedingComponent, StepThreeFeedingComponent],
+  imports: [SharedModule, NgIf ,StepOneFeedingComponent, StepTwoFeedingComponent, StepThreeFeedingComponent, StepFourFeedingComponent, StepFiveFeedingComponent, StepSixFeedingComponent, StepSevenFeedingComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StagesFeedingComponent  implements OnInit, AfterViewInit {

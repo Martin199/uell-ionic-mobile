@@ -14,9 +14,21 @@
     <swiper-slide>
       <app-step-three-feeding (firstStepReturn)="firstStepReturn($event, 3)" [currentSlide]="step"></app-step-three-feeding>
     </swiper-slide>
+    <swiper-slide>
+      <app-step-four-feeding (firstStepReturn)="firstStepReturn($event, 4)" [currentSlide]="step"></app-step-four-feeding>
+    </swiper-slide>
+    <swiper-slide>
+      <app-step-five-feeding (firstStepReturn)="firstStepReturn($event, 5)" [currentSlide]="step"></app-step-five-feeding>
+    </swiper-slide>
+    <swiper-slide>
+      <app-step-six-feeding (firstStepReturn)="firstStepReturn($event, 6)" [currentSlide]="step"></app-step-six-feeding>
+    </swiper-slide>
+    <swiper-slide>
+      <app-step-seven-feeding (firstStepReturn)="firstStepReturn($event, 7)" [currentSlide]="step"></app-step-seven-feeding>
+    </swiper-slide>
   </swiper-container>
 
-  <ion-row class="ion-justify-content-end ion-padding">
+  <ion-row class="ion-justify-content-end ion-align-items-center ion-padding">
     <ion-col size="auto" class="buttons-container">
       <ion-button class="save-button footer-btn-back" (click)="prevSlide()" fill="solid" shape="round" *ngIf="step > 1"> Anterior </ion-button>
       <ion-button

@@ -41,6 +41,9 @@ ion-content{
 
 .buttons-container{
     margin-bottom: 45px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 swiper-slide {
