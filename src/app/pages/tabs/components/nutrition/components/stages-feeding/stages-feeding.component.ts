@@ -1,25 +1,29 @@
 import { NgIf } from '@angular/common';
-import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import Swiper from 'swiper';
 import { StagesService } from '../services/stages.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { StepOneFeedingComponent } from './components/step-one-feeding/step-one-feeding.component';
-import { IonContent } from '@ionic/angular';
+import { IonContent, ModalController } from '@ionic/angular/standalone';
 import { StepTwoFeedingComponent } from './components/step-two-feeding/step-two-feeding.component';
 import { StepThreeFeedingComponent } from './components/step-three-feeding/step-three-feeding.component';
 import { StepFourFeedingComponent } from './components/step-four-feeding/step-four-feeding.component';
 import { StepFiveFeedingComponent } from './components/step-five-feeding/step-five-feeding.component';
 import { StepSixFeedingComponent } from './components/step-six-feeding/step-six-feeding.component';
 import { StepSevenFeedingComponent } from './components/step-seven-feeding/step-seven-feeding.component';
+import { StepEightFeedingComponent } from './components/step-eight-feeding/step-eight-feeding.component';
+import { StepNineFeedingComponent } from './components/step-nine-feeding/step-nine-feeding.component';
+import { StepTenFeedingComponent } from './components/step-ten-feeding/step-ten-feeding.component';
 
 @Component({
   selector: 'app-stages-feeding',
   templateUrl: './stages-feeding.component.html',
   styleUrls: ['./stages-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf ,StepOneFeedingComponent, StepTwoFeedingComponent, StepThreeFeedingComponent, StepFourFeedingComponent, StepFiveFeedingComponent, StepSixFeedingComponent, StepSevenFeedingComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [SharedModule, NgIf ,StepOneFeedingComponent, StepTwoFeedingComponent, StepThreeFeedingComponent, StepFourFeedingComponent, StepFiveFeedingComponent, StepSixFeedingComponent, StepSevenFeedingComponent,StepEightFeedingComponent, StepNineFeedingComponent, StepTenFeedingComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StagesFeedingComponent  implements OnInit, AfterViewInit {
@@ -45,7 +49,14 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
   utilsService = inject(UtilsService)
   stagesService = inject(StagesService)
   storageService = inject(StorageService)
+  modalCtrl = inject(ModalController)
   constructor() { }
+
+  // Método de prueba para cerrar el modal manualmente
+  testCloseModal() {
+    console.log('Cerrando modal de prueba...');
+    this.modalCtrl.dismiss({ completed: true, data: { test: 'data' } });
+  }
 
   ngAfterViewInit(): void {
     if (this.swiperEx && this.swiperEx.nativeElement.swiper) {
@@ -101,6 +112,8 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
   }
 
   firstStepReturn(event: any, number: number) {
+    console.log(`firstStepReturn llamado - paso ${number} con evento:`, event);
+    
     if (event !== null) {
       this.stepValues(event, number);
       this.stepIsValid = true
@@ -158,6 +171,8 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
   }
 
   stepValues(value: any, number: number) {
+    console.log(`Ejecutando stepValues - paso ${number} con valor:`, value);
+    
     switch (number) {
       case 1:
         this.step1 = value
@@ -206,6 +221,7 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
     if (this.step1 && this.step2 && this.step3 && this.step4 && this.step5 &&
       this.step6 && this.step7 && this.step8 && this.step9 && this.step10) {
      sessionStorage.setItem('stepFeeding', JSON.stringify(this.finalObj))
+     this.modalCtrl.dismiss({ completed: true, data: this.finalObj });
 
     }
 

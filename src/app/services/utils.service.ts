@@ -145,8 +145,8 @@ export class UtilsService {
         await modal.present();
 
         return new Promise((resolve, reject) => {
-        if (!component || !css) {
-            reject('Component or CSS class is not defined');
+        if (!component) {
+            reject('Component is not defined');
             return; 
         }
 

@@ -1,3 +1,27 @@
-<p>
-  stages-preference works!
-</p>
+<ion-content>
+  <div class="top-header">
+    <ion-label class="step">Paso {{ step }} de 5</ion-label>
+    <ion-label class="title-step">{{_stepDescription}}</ion-label>
+  </div>
+    <swiper-container #swiperEx [loop]="false" (slideChangeTransitionEnd)="swiperSlideChanged()">
+      <swiper-slide>
+        <app-step-one-preference (firstStepReturn)="firstStepReturn($event, 1)" [currentSlide]="step"></app-step-one-preference>
+      </swiper-slide>
+
+    </swiper-container>
+  
+    <ion-row class="ion-justify-content-end ion-padding">
+      <ion-col size="auto" class="buttons-container">
+        <ion-button class="save-button" (click)="prevSlide()" fill="solid" color="primary" shape="round" *ngIf="step > 1"> Anterior </ion-button>
+        <ion-button
+          class="submit-btn save-button"
+          [disabled]="!stepIsValid"
+          (click)="nextSlide()"
+          fill="solid"
+          shape="round"
+        >
+          {{step === 5 ? 'Finalizar' : 'Siguiente'}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-content>

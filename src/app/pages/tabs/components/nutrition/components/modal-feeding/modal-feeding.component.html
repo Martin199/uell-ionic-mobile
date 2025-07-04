@@ -24,8 +24,8 @@
       </div>
   </div>
 
-    <div class="card" [ngClass]="{'hasSelect': stepPreference}" [class.disabled]="!stepFeeding">
-        <div class="layout" (click)="goTo('steps-preference')">
+    <div class="card" [ngClass]="{'hasSelect': stepPreference}" >
+        <div class="layout" (click)="goToPreference('steps-preference')">
             <div>
                 <div class="content-card-icon">
                     <ion-label class="title-card">Etapa 2 <ion-label *ngIf="stepPreference">- Completada</ion-label> </ion-label>

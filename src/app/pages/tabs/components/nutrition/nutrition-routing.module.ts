@@ -5,6 +5,7 @@ import { NutritionPage } from './nutrition.page';
 import { MyResultNutritionComponent } from './my-result-nutrition/my-result-nutrition.component';
 import { HomeNutritionComponent } from './home-nutrition/home-nutrition.component';
 import { StagesFeedingComponent } from './components/stages-feeding/stages-feeding.component';
+import { StagesPreferenceComponent } from './components/stages-preference/stages-preference.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'steps-feeding',
         component: StagesFeedingComponent
+      },
+      {
+        path: 'steps-preference',
+        component: StagesPreferenceComponent
       }
     ]
   }
