@@ -5,7 +5,16 @@ import { Utils } from '../../home/utils/utils';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { NutritionService } from 'src/app/services/nutrition.service';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCard,
+  IonImg,
+  IonLabel,
+  IonButton,
+} from '@ionic/angular/standalone';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { AnthropometryDetailComponent } from '../anthropometry-detail/anthropometry-detail.component';
 
@@ -16,7 +25,14 @@ import { AnthropometryDetailComponent } from '../anthropometry-detail/anthropome
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonCard,
+    IonImg,
+    IonLabel,
+    IonButton,
     RoundProgressModule,
     AnthropometryDetailComponent
   ],

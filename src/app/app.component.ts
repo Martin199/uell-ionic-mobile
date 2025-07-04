@@ -6,12 +6,11 @@ import {
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
-import { SessionServiceService } from './services/session-service.service';
 import { Capacitor } from '@capacitor/core';
-import { StorageService } from './services/storage.service';
 import { UtilsService } from './services/utils.service';
 import { UserStateService } from './core/state/user-state.service';
-import { UserResponseDTO } from './core/interfaces/user';
+import { addIcons } from 'ionicons';
+import { arrowBackOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -20,18 +19,17 @@ import { UserResponseDTO } from './core/interfaces/user';
   standalone: false,
 })
 export class AppComponent {
-    private sessionService = inject(SessionServiceService);
-    private storageService = inject(StorageService);
-    private userStateService = inject(UserStateService);
-    private utilsService = inject(UtilsService);
+  private userStateService = inject(UserStateService);
+  private utilsService = inject(UtilsService);
 
-    constructor() {
-        this.showSplash();
-        this.initializeApp();
-        if (Capacitor.isNativePlatform()) {
-            this.initPush();
-        }
+  constructor() {
+    this.showSplash();
+    this.initializeApp();
+    if (Capacitor.isNativePlatform()) {
+      this.initPush();
     }
+    addIcons({ arrowBackOutline });
+  }
 
   async initializeApp() {
     // TODO: Buscar terminos y condiciones
@@ -42,7 +40,13 @@ export class AppComponent {
         this.utilsService.navCtrl.navigateRoot(['auth']);
         return;
       }
-      this.utilsService.navCtrl.navigateRoot(['tabs/home']);
+
+      const currentUrl = window.location.pathname;
+      const isOnValidRoute = currentUrl.includes('/tabs/') && currentUrl !== '/tabs';
+
+      if (!isOnValidRoute) {
+        this.utilsService.navCtrl.navigateRoot(['tabs/home']);
+      }
     }
   }
 
