@@ -36,7 +36,7 @@ export class RecoveryPasswordPage {
         this.auth.recoverPassword(userCredentials).then((res: ICodeDeliveryDetails) => {
             this.navToSecurityCode(res);
         }).catch((err: any) => {
-            this.error = ErrorMessagesUtil.getErrorMessage(err.code);
+            this.navToSecurityCode(err);
         });
     }
 
