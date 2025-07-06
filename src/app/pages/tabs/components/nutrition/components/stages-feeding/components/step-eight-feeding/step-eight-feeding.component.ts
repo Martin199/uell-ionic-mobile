@@ -61,7 +61,7 @@ export class StepEightFeedingComponent  implements OnInit {
         break;
     }
 
-    const step1 = {
+    const step1: any = {
       firstQuestionStep8: firstQuestion,
       secondQuestionStep8: secondQuestion,
       thirdQuestionStep8: thirdQuestion,

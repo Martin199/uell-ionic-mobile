@@ -118,7 +118,7 @@ export class StepTenFeedingComponent  implements OnInit {
     } else if (hasCookiesPuddingsButterBakery) {
       return "COOKIES_PUDDINGS_BUTTER_BAKERY";
     } else {
-      return undefined;
+      return null;
     }
   }
 }

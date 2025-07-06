@@ -84,9 +84,11 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
     if (this.swiperEx && this.swiperEx.nativeElement.swiper) {
 
       if (this.step === 10) {
+        this.modalCtrl.dismiss({ completed: true, data: this.finalObj });
         if( JSON.parse(this.storageService.getSessionStorage('stepPreference') || 'null')){
           this.stepPreference = true
-        } 
+         
+    } 
         
         //this.stepPreference ? this.openModalCreditPoint() : this.modalServices.presentModal(ModalFeedingComponent, 'modal-training',{ feddingInfo: this.finalObj },null).then(() => { });
 
@@ -221,7 +223,7 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
     if (this.step1 && this.step2 && this.step3 && this.step4 && this.step5 &&
       this.step6 && this.step7 && this.step8 && this.step9 && this.step10) {
      sessionStorage.setItem('stepFeeding', JSON.stringify(this.finalObj))
-     this.modalCtrl.dismiss({ completed: true, data: this.finalObj });
+     //this.modalCtrl.dismiss({ completed: true, data: this.finalObj });
 
     }
 

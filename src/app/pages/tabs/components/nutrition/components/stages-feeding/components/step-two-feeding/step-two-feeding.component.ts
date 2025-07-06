@@ -65,7 +65,7 @@ export class StepTwoFeedingComponent  implements OnInit {
         break;
     }
 
-    const step1 = {
+    const step1: any = {
       firstQuestionStep2: firstQuestion,
       secondQuestionStep2: secondQuestion,
       thirdQuestionStep2: thirdQuestion,
@@ -75,8 +75,8 @@ export class StepTwoFeedingComponent  implements OnInit {
     if (step1.firstQuestionStep2 === "TRUE" && step1.secondQuestionStep2 !== undefined && step1.thirdQuestionStep2 !== undefined) {
       this.firstStepReturn.emit(step1)
     } else if(step1.firstQuestionStep2 !== "TRUE") {
-      step1.secondQuestionStep2 = '';
-      step1.thirdQuestionStep2 = '';
+      step1.secondQuestionStep2 = null;
+      step1.thirdQuestionStep2 = null;
       this.firstStepReturn.emit(step1)
     } else {
       this.firstStepReturn.emit(null)

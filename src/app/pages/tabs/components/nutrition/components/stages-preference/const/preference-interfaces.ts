@@ -19,6 +19,7 @@ export interface RestrictionsList {
     id?:          number;
     description?: string;
     section?:     Section;
+    descriptionFe?: string;
 }
 
 export enum Section {

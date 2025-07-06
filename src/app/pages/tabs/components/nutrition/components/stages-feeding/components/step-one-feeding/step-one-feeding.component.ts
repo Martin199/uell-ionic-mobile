@@ -70,7 +70,7 @@ export class StepOneFeedingComponent  implements OnInit {
         break;
     }
 
-    const step1 = {
+    const step1: any = {
       firstQuestionStep1: firstQuestion,
       secondQuestionStep1: secondQuestion,
       thirdQuestionStep1: thirdQuestion,
@@ -80,8 +80,8 @@ export class StepOneFeedingComponent  implements OnInit {
     if (step1.firstQuestionStep1 === "TRUE" && step1.secondQuestionStep1 !== undefined && step1.thirdQuestionStep1 !== undefined) {
       this.firstStepReturn.emit(step1)
     } else if(step1.firstQuestionStep1 !== "TRUE") {
-      step1.secondQuestionStep1 = '';
-      step1.thirdQuestionStep1 = '';
+      step1.secondQuestionStep1 = null;
+      step1.thirdQuestionStep1 = null;
       this.firstStepReturn.emit(step1)
     } else {
       this.firstStepReturn.emit(null)

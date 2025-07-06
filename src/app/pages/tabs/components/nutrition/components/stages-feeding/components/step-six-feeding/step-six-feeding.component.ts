@@ -64,7 +64,7 @@ export class StepSixFeedingComponent  implements OnInit {
         break;
     }
 
-    const step1 = {
+    const step1: any = {
       firstQuestionStep6: firstQuestion,
       secondQuestionStep6: secondQuestion,
       thirdQuestionStep6: thirdQuestion,
@@ -73,7 +73,7 @@ export class StepSixFeedingComponent  implements OnInit {
 
  
     if((step1.secondQuestionStep6 !== "TRUE" && step1.secondQuestionStep6 !== undefined) && step1.firstQuestionStep6 !== undefined) {
-      step1.thirdQuestionStep6 = '';
+      step1.thirdQuestionStep6 = null;
       this.firstStepReturn.emit(step1)
     } else if(step1.thirdQuestionStep6 && step1.secondQuestionStep6 === "TRUE" && step1.firstQuestionStep6) {
       this.firstStepReturn.emit(step1)

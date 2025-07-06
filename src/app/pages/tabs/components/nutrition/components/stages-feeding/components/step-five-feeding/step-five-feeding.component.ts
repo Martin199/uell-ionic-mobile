@@ -65,7 +65,7 @@ export class StepFiveFeedingComponent  implements OnInit {
     }
     firstQuestion === "NO_SALT" ? secondQuestion = undefined : secondQuestion;
 
-    const step1 = {
+    const step1: any = {
       firstQuestionStep5: firstQuestion,
       secondQuestionStep5: secondQuestion,
       thirdQuestionStep5: thirdQuestion,

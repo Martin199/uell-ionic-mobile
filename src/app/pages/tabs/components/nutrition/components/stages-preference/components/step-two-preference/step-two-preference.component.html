@@ -1,3 +1,17 @@
-<p>
-  step-two-preference works!
-</p>
+<div *ngIf="step == 2">
+  <ion-card>
+      <ion-card-header>
+          <ion-card-title class="card-title">{{questionPreferenceFeeding[0]}}</ion-card-title>
+          <ion-label class="sub-title">{{questionPreferenceFeeding[1]}}</ion-label>
+          <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="content-layout">
+          <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['first'] === i }"
+              (click)="selectOption(i, 'first')" *ngFor="let opciones of firstCard; let i = index">
+              <ion-label class="ion-text-start value" [ngClass]="{'disabled': disabledOption(i)}">{{ opciones }}</ion-label>
+              <ion-icon *ngIf="selectedIndexes['first'] === i"
+                  src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+          </div>
+      </ion-card-content>
+  </ion-card>
+</div>

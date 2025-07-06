@@ -8,13 +8,17 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { IonContent, ModalController } from '@ionic/angular/standalone';
 import { NgIf } from '@angular/common';
 import { StepOnePreferenceComponent } from './components/step-one-preference/step-one-preference.component';
+import { StepTwoPreferenceComponent } from './components/step-two-preference/step-two-preference.component';
+import { StepThreePreferenceComponent } from './components/step-three-preference/step-three-preference.component';
+import { StepFourPreferenceComponent } from './components/step-four-preference/step-four-preference.component';
+import { StepFivePreferenceComponent } from './components/step-five-preference/step-five-preference.component';
 
 @Component({
   selector: 'app-stages-preference',
   templateUrl: './stages-preference.component.html',
   styleUrls: ['./stages-preference.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, StepOnePreferenceComponent],
+  imports: [SharedModule, NgIf, StepOnePreferenceComponent, StepTwoPreferenceComponent, StepThreePreferenceComponent, StepFourPreferenceComponent, StepFivePreferenceComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StagesPreferenceComponent  implements OnInit {
@@ -68,7 +72,8 @@ export class StagesPreferenceComponent  implements OnInit {
       }
 
       if (this.step === 5) {
-        if( JSON.parse(this.storageService.getSessionStorage('stepFeeding') || 'null')){
+        this.modalCtrl.dismiss({ completed: true, data: this.steps });
+        if(this.storageService.getSessionStorage('stepFeeding')){
           this.stepFeeding = true
         } 
         //this.stepFeeding ? this.openModalCreditPoint(): this.modalServices.presentModal(ModalFeedingComponent, 'modal-training', { preferenceInfo: this.steps },null);

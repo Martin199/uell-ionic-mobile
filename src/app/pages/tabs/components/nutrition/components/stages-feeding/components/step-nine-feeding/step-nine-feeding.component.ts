@@ -61,7 +61,7 @@ export class StepNineFeedingComponent  implements OnInit {
     }
     firstQuestion === "NO_SAUSAGES" ? secondQuestion = undefined : secondQuestion;
 
-    const step1 = {
+    const step1: any = {
       firstQuestionStep9: firstQuestion,
       secondQuestionStep9: secondQuestion,
       thirdQuestionStep9: thirdQuestion,
