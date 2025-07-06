@@ -1,0 +1,19 @@
+swiper-container {
+  width: 100%;
+  height: 100%;
+  --swiper-pagination-bullet-inactive-color: #000000;
+  --swiper-pagination-bullet-active-color: #1da4b1;
+}
+
+swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

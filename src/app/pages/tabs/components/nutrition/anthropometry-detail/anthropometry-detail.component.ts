@@ -7,18 +7,14 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { addDays, isAfter, isEqual } from 'date-fns';
 import { AnthropometryComponent } from '../anthropometry/anthropometry.component';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-
+import { IonLabel, IonButton, IonIcon } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-anthropometry-detail',
   templateUrl: './anthropometry-detail.component.html',
   styleUrls: ['./anthropometry-detail.component.scss'],
   standalone: true,
-  imports: [
-    FormsModule,
-    IonicModule
-  ]
+  imports: [FormsModule, IonLabel, IonButton, IonIcon],
 })
 export class AnthropometryDetailComponent  implements OnInit {
 

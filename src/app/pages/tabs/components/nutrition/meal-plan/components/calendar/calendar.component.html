@@ -1,0 +1,39 @@
+<div class="calendar">
+  <div class="calendar__header ion-no-padding ion-no-margin" lines="none">
+    <ion-label class="calendar__header-label ion-no-padding ion-no-margin">
+      <span class="calendar__popover calendar__popover--pd-months" id="click-trigger-month">
+        {{ currentMonthName | uppercase }}
+      </span>
+      <span class="calendar__popover">{{ currentYear }}</span>
+    </ion-label>
+  </div>
+  
+  <div class="calendar__content">
+    <div class="calendar__days">
+      <span class="calendar__day ion-text-center" *ngFor="let dayLabel of daysLabels">
+        {{ dayLabel }}
+      </span>
+    </div>
+    
+    <div class="calendar__days border-bottom" [ngClass]="{ 'calendar__days--loading': loading }">
+      <ion-spinner *ngIf="loading" name="bubbles"></ion-spinner>
+      
+      <ng-container *ngIf="!loading">
+        @if (!loading) {
+          @for (day of weekDays; track $index) {
+            <span
+              class="calendar__day ion-text-center"
+              (click)="selectDay(day)"
+              [ngClass]="getDayClass(day)"
+            >
+              {{ day.getDate() }}
+            </span>
+          }
+        }
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="text ion-text-start ion-padding-top" style="padding-left: 1rem;">
+  Dia {{ selectedDay | date:'dd' }} de {{ selectedDay | date:'LLLL':undefined:'es' | titlecase }}
+</div>

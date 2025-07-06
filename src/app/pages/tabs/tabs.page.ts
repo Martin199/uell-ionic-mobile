@@ -6,6 +6,7 @@ import { home, personOutline } from "ionicons/icons";
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 import { UserStateService } from 'src/app/core/state/user-state.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
     selector: 'app-tabs',
@@ -45,10 +46,11 @@ export class TabsPage implements OnInit {
         this.utilsService.goTo(`/tabs/${this.selectedTab}`);
     }
 
-    statusBarColor(){
-        StatusBar.setBackgroundColor({ color: '#1DA4B1' });
-        StatusBar.setStyle({ style: Style.Dark });
-        EdgeToEdge.setBackgroundColor({ color: '#1DA4B1' });
-      }
+  statusBarColor() {
+    if (!Capacitor.isNativePlatform()) return;
+    StatusBar.setBackgroundColor({ color: '#1DA4B1' });
+    StatusBar.setStyle({ style: Style.Dark });
+    EdgeToEdge.setBackgroundColor({ color: '#1DA4B1' });
+  }
 
 }
