@@ -1,7 +1,9 @@
 import {
   Component,
+  computed,
   EventEmitter,
   inject,
+  input,
   Input,
   OnInit,
   Output,
@@ -14,6 +16,7 @@ import { ImageClass } from 'src/app/services/interfaces/camera.interfaces';
 import { addIcons } from 'ionicons';
 import { cloudUploadOutline } from 'ionicons/icons';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MealPlanService } from 'src/app/services/meal-plan.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -24,10 +27,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 export class FileUploadComponent implements OnInit {
   @Input() title: string = 'Cargue un archivo';
-  @Output() fileUploaded: EventEmitter<ImageClass | null> =
-    new EventEmitter<ImageClass | null>();
+  @Output() fileUploaded: EventEmitter<ImageClass | null> = new EventEmitter<ImageClass | null>();
   private cameraService = inject(CameraService);
-  fileSelected: ImageClass | null = null;
+  private mealPlanService = inject(MealPlanService);
+  fileSelected = computed(() => this.mealPlanService.fileSelected());
 
   async takePicture() {
     if (Capacitor.isNativePlatform()) {
@@ -52,19 +55,21 @@ export class FileUploadComponent implements OnInit {
     }
     try {
       const imageData = await this.cameraService.takePicture();
-      this.fileSelected = imageData;
-      this.fileUploaded.emit(this.fileSelected);
+      this.mealPlanService.setFileSelected(imageData);
+      this.fileUploaded.emit(this.fileSelected());
     } catch (error) {
       console.error('Error capturing image:', error);
     }
   }
 
   deleteFile() {
-    this.fileSelected = null;
+    this.mealPlanService.setFileSelected(null);
     this.fileUploaded.emit(null);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // No longer needed since fileSelected is now computed from service
+  }
 
   constructor() {
     addIcons({ cloudUploadOutline });
