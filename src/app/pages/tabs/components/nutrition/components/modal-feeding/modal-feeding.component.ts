@@ -160,7 +160,6 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
     if (this.stepPreference && this.stepFeeding) {
       this.hasCloseModal = true;
     }
-    // Más lógica si necesitas
   }
 
   postPlan(){
@@ -168,7 +167,8 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
     this.stagesService.postNutritionPlan(this.storageService.getSessionStorage('stepFeeding'), this.storageService.getSessionStorage('stepPreference')).subscribe((resp: any)=> {
       this.isLoading = false
       this.nutritionPlan = resp
-      //this.router.navigateByUrl('/newton/wellness/nutrition/my-results')
+      sessionStorage.setItem('resultNutrition', JSON.stringify(resp));
+      this.utilsService.goTo('/tabs/nutrition/my-results')
       this.modalCtrl.dismiss()
       sessionStorage.removeItem('stepFeeding');
       sessionStorage.removeItem('stepPreference');
