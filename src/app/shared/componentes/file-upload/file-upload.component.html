@@ -1,18 +1,17 @@
-
 <ion-button (click)="takePicture()" class="upload">
   <div class="col"> 
-    @if(!fileSelected){
+    @if(!fileSelected()){
       <ion-icon name="cloud-upload-outline" class="uploadIcon"></ion-icon>
       @if(title){
         <p class="text2"> {{ title }} </p>
       }
     }
-    @if(fileSelected){
-      <img [src]="fileSelected.imageUrl" alt="previewFile" class="fileUploaded">
+    @if(fileSelected()){
+      <img [src]="fileSelected()!.imageUrl" alt="previewFile" class="fileUploaded">
     }
   </div>
 </ion-button>
-@if(fileSelected){
+@if(fileSelected()){
   <div class="buttons">
     <ion-button (click)="takePicture()" expand="block" shape="round" class="primary-color">
       Modificar

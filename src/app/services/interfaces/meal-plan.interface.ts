@@ -1,3 +1,6 @@
+import { NutritionCard } from '../../pages/tabs/components/nutrition/shared/nutrition-card/nutrition-card.interface';
+import { ImageClass } from './camera.interfaces';
+
 export interface FoodOption {
   description: string;
   url: string;
@@ -28,7 +31,17 @@ export interface PostMealCompliance {
   planId: number;
   nutUserFoodId: number;
   uploadDate: Date;
-  compliance: string;
+  compliance?: string;
   fileName?: string;
   fileContent?: string;
+}
+
+export interface MealPlanState {
+  selectedCard: NutritionCard | null;
+  planId: number;
+  reloadMealPlan: boolean;
+  disabledValorarionPlan: boolean;
+  isLoading: boolean;
+  error: string | null;
+  fileSelected: ImageClass | null;
 }
