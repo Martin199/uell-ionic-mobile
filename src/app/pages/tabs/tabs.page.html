@@ -21,7 +21,9 @@
         <ion-label>Mi Contenido</ion-label>
       </ion-tab-button>
       <ion-tab-button
-        tab="nutrition">
+        tab="nutrition"
+        [disabled]="!hasNutrition"
+        [class.tab--disabled]="!hasNutrition">
         <ion-img src="../../../assets/tabs/grocery.svg"></ion-img>
         <ion-label>Nutrición</ion-label>
       </ion-tab-button>

@@ -19,6 +19,7 @@ export class TabsPage implements OnInit {
     selectedTab: string = 'home';
     hasIsps: boolean = false;
     hasWellnessBlog: boolean = false;
+    hasNutrition: boolean = false;
     platform: string = '';
     utilsService = inject(UtilsService);
     private userState = inject(UserStateService);
@@ -28,6 +29,7 @@ export class TabsPage implements OnInit {
 
         this.hasIsps = tenantP.includes('isps');
         this.hasWellnessBlog = tenantP.includes('wellness')
+        this.hasNutrition = tenantP.includes('nutrition')
         addIcons({ home, personOutline });
     }
 
