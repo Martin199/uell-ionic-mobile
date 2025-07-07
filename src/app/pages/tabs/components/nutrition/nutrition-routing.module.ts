@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NutritionPage } from './nutrition.page';
+import { MyResultNutritionComponent } from './my-result-nutrition/my-result-nutrition.component';
+import { HomeNutritionComponent } from './home-nutrition/home-nutrition.component';
+import { StagesFeedingComponent } from './components/stages-feeding/stages-feeding.component';
+import { StagesPreferenceComponent } from './components/stages-preference/stages-preference.component';
 
 const routes: Routes = [
   {
@@ -18,6 +22,20 @@ const routes: Routes = [
         loadComponent: () =>
           import('./my-result-nutrition/my-result-nutrition.component').then(
             (m) => m.MyResultNutritionComponent
+          ),
+      },
+      {
+        path: 'steps-feeding',
+        loadComponent: () =>
+          import('./components/stages-feeding/stages-feeding.component').then(
+            (m) => m.StagesFeedingComponent
+          ),
+      },
+      {
+        path: 'steps-preference',
+        loadComponent: () =>
+          import('./components/stages-preference/stages-preference.component').then(
+            (m) => m.StagesPreferenceComponent
           ),
       },
       {

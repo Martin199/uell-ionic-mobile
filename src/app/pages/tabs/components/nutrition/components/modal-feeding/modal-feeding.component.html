@@ -1,0 +1,54 @@
+<app-modal-header [title]="'¡Crea tu plan de alimentación personalizado!'" [closeModal]="true" [customClass]="'header-padding-24'"></app-modal-header>
+<ion-content>
+  <div class="content">
+    <ion-label class="description">Crea un plan de alimentación nutritivo basado en tus necesidades y preferencias y ahorra tiempo en la preparación de comidas.</ion-label>
+    <ion-label class="strong">Este proceso constará de dos etapas:</ion-label>
+
+
+    <div class="card" [ngClass]="{'hasSelect': stepFeeding}">
+      <div class="layout" (click)="goTo('steps-fedding')">
+          <div>
+              <div class="content-card-icon">
+                  <ion-label class="title-card">Etapa 1 <ion-label *ngIf="stepFeeding">- Completada</ion-label> </ion-label>
+                  <ion-icon *ngIf="stepFeeding"
+                      src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+              </div>
+              <div class="content-card-icon">
+                  <ion-label class="sub-text">Alimentación</ion-label>
+              </div>
+          </div>
+          <div>
+             <ion-icon src="assets/chevron-icon.svg"></ion-icon>
+         </div>
+      </div>
+  </div>
+
+    <div class="card" [ngClass]="{'hasSelect': stepPreference}" >
+        <div class="layout" (click)="goToPreference('steps-preference')">
+            <div>
+                <div class="content-card-icon">
+                    <ion-label class="title-card">Etapa 2 <ion-label *ngIf="stepPreference">- Completada</ion-label> </ion-label>
+                    <ion-icon *ngIf="stepPreference"
+                    src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+                </div>
+                <div class="content-card-icon">
+                    <ion-label class="sub-text">Preferencias</ion-label>
+                </div>
+            </div>
+            <div>
+                <ion-icon src="assets/chevron-icon.svg"></ion-icon>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="stepPreference && stepFeeding">
+    <ion-toolbar class="ion-padding toolbar-center ion-text-center">
+        <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round"> 
+            <ion-label *ngIf="!isLoading">Ver mis resultados</ion-label>
+            <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>
