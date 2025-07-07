@@ -11,25 +11,49 @@ const routes: Routes = [
   {
     path: '',
     component: NutritionPage,
-     children: [
+    children: [
       {
         path: '',
-        component: HomeNutritionComponent
+        loadComponent: () =>
+          import('./home-nutrition/home-nutrition.component').then((m) => m.HomeNutritionComponent),
       },
       {
         path: 'my-results',
-        component: MyResultNutritionComponent
+        loadComponent: () =>
+          import('./my-result-nutrition/my-result-nutrition.component').then(
+            (m) => m.MyResultNutritionComponent
+          ),
       },
       {
         path: 'steps-feeding',
-        component: StagesFeedingComponent
+        loadComponent: () =>
+          import('./components/stages-feeding/stages-feeding.component').then(
+            (m) => m.StagesFeedingComponent
+          ),
       },
       {
         path: 'steps-preference',
-        component: StagesPreferenceComponent
-      }
-    ]
-  }
+        loadComponent: () =>
+          import('./components/stages-preference/stages-preference.component').then(
+            (m) => m.StagesPreferenceComponent
+          ),
+      },
+      {
+        path: 'meal-plan',
+        loadComponent: () =>
+          import('./meal-plan/pages/meal-plan-home/meal-plan-home.component').then(
+            (m) => m.MealPlanHomeComponent
+          ),
+      },
+      {
+        path: 'meal-details',
+        loadComponent: () =>
+          import('./meal-plan/pages/meal-details/meal-details.component').then(
+            (m) => m.MealDetailsComponent
+          ),
+      },
+    ],
+  },
 ];
 
 @NgModule({

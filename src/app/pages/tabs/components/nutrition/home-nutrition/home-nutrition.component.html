@@ -1,10 +1,6 @@
-<ion-button (click)="openModal()">Open Modal</ion-button>
 <div>
   @for(item of cardArray; track item) {
     <app-nutrition-card [nutritionCard]="item" class="nutritionCard" (click)="navigateTo('tabs/nutrition' + item.navigateTo!)"></app-nutrition-card>
-
-    <ion-button (click)="openModal()">Open Modal</ion-button>
-
   }
   <ion-card class="portal-card">
     <div class="content-card">

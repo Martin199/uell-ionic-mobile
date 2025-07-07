@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  background-color: #fff;
+  height: 28rem;
+  width: 20rem;
+  border-radius: 16px;
+  border: var(--optionsSelected, 1px) solid var(--Neutral-GreyLight, #dadfe9);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+}
+
+.image-skeleton {
+  width: 100%;
+  height: 33dvh;
+  border-radius: 16px 16px 0 0;
+  --border-radius: 16px 16px 0 0;
+}
+
+.icon {
+  display: flex;
+  position: absolute;
+  bottom: -22px;
+  right: 20px;
+  padding: 12px;
+  background-color: #fff;
+  border-radius: 9999px;
+  max-width: 48px;
+  width: 48px;
+  height: 48px;
+}
+
+.icon-skeleton {
+  width: 100%;
+  height: 100%;
+  --border-radius: 50%;
+}
+
+.meal-label-skeleton {
+  display: flex;
+  padding: 4px 8px;
+  align-items: flex-start;
+  gap: 10px;
+  position: absolute;
+  left: 16px;
+  bottom: 20px;
+  border-radius: 4px;
+  background: var(--Neutral-White, #fff);
+  min-width: 60px;
+  height: 24px;
+}
+
+.label-skeleton {
+  width: 100%;
+  height: 16px;
+  --border-radius: 4px;
+}
+
+.text {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px;
+  align-self: stretch;
+  flex: 1;
+}
+
+.title-skeleton {
+  width: 80%;
+  height: 24px;
+  --border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.description-skeleton {
+  width: 60%;
+  height: 20px;
+  --border-radius: 4px;
+} 

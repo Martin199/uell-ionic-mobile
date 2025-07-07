@@ -1,0 +1,132 @@
+:host {
+  display: block;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  align-self: stretch;
+
+  border-radius: 4px;
+  background: var(--Neutral-White, #fff);
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Title T1/Semi Bold */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 140% */
+}
+
+.text {
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.016px;
+}
+.subtext {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px;
+  align-self: stretch;
+}
+.header-text {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 0 0;
+}
+
+.media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 350px;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 16px;
+  gap: 24px;
+  background-color: #f2f6fa;
+}
+.card-group {
+  display: flex;
+  // padding: 24px 16px var(--optionsSelected, 0px) 16px;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  align-self: stretch;
+}
+
+.ingridient-cards {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+
+  border-radius: 8px;
+  background: var(--Neutral-White, #fff);
+}
+
+.ingridient-card {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  align-self: stretch;
+
+  border-radius: 4px;
+  border: 1px solid var(--Neutral-GreyLight, #dadfe9);
+}
+
+.card-title {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Label L1/Regular */
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.024px;
+}
+
+.card-amount {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px;
+  align-self: stretch;
+  color: var(--Neutral-GreyMedium, #505a78);
+
+  /* Label L2/Regular */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.035px;
+}
+
+.primary {
+  background-color: #1DA4B1;
+  color: #fff;
+  border-radius: 100px;
+}

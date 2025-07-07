@@ -12,12 +12,14 @@
         </app-searchbar-animation>
       }
     </div>
+
     <div class="recommended-container">
       <div class="title">Contenido recomendado</div>
       @for (item of dataRecommendedForYou; track $index) {
         <app-recommended-wellness-portal [data]="item" (clickEvent)="redirectToPost($event)" style="width: 100%;"></app-recommended-wellness-portal>
       }
     </div>
+    
     <div class="carousel-container">
       @if (dataMostViewed && dataMostViewed.length > 0) {
         <app-carousel-wellness-portal [title]="'Tendencias'" (clickEvent)="redirectToPost($event)" [data]="dataMostViewed"></app-carousel-wellness-portal>

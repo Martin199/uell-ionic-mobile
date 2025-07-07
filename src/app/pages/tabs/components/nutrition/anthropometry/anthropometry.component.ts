@@ -7,7 +7,18 @@ import { AnthropometryService } from 'src/app/services/anthropometry.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserStateService } from 'src/app/core/state/user-state.service';
-import { IonicModule } from '@ionic/angular';
+import {
+  IonIcon,
+  IonLabel,
+  IonInput,
+  IonFooter,
+  IonToolbar,
+  IonButton,
+  IonPopover,
+  IonHeader,
+  IonButtons,
+  IonContent,
+} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -17,9 +28,18 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule,
+    IonIcon,
+    IonLabel,
+    IonInput,
+    IonFooter,
+    IonToolbar,
+    IonButton,
+    IonPopover,
+    IonHeader,
+    IonButtons,
+    IonContent,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
   ],
 })
 export class AnthropometryComponent  implements OnInit, OnChanges {
@@ -211,6 +231,4 @@ export class AnthropometryComponent  implements OnInit, OnChanges {
       })
     ).subscribe();
   }
-
-
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonCard, IonImg } from '@ionic/angular/standalone';
 import { NutritionCard } from './nutrition-card.interface';
 
 @Component({
@@ -7,9 +7,7 @@ import { NutritionCard } from './nutrition-card.interface';
   templateUrl: './nutrition-card.component.html',
   styleUrls: ['./nutrition-card.component.scss'],
   standalone: true,
-  imports: [
-    IonicModule
-  ]
+  imports: [IonCard, IonImg],
 })
 export class NutritionCardComponent  implements OnInit {
 
