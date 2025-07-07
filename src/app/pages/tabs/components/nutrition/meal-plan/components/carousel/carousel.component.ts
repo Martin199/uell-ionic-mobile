@@ -2,7 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, input, OnInit, output } from
 import { NutritionCard } from '../../../shared/nutrition-card/nutrition-card.interface';
 import { Router } from '@angular/router';
 import { MealPlanCardComponent } from '../meal-plan-card/meal-plan-card.component';
-import { MealPlanCardSkeletonComponent } from '../meal-plan-card/meal-plan-card-skeleton.component';
+import { MealPlanCardSkeletonComponent } from '../meal-plan-card/meal-plan-card-skeleton/meal-plan-card-skeleton.component';
 
 @Component({
   selector: 'app-carousel',

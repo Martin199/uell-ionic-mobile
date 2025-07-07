@@ -1,0 +1,76 @@
+ion-card{
+    box-shadow: 0 !important;
+    height: 100%;
+  }
+  
+  .content-layout{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+  }
+  
+  .layout{
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    align-self: stretch;
+    border-radius: 4px;
+    border: 1px solid var(--Neutral-GreyLight, #DADFE9);
+  }
+  
+  .hasSelect{
+    border: 1px solid var(--Primary-Uell, #1DA4B1);
+    ion-label{
+        color: var(--Primary-Uell, #1DA4B1);
+    }
+  }
+  
+  ion-icon{
+    width: 20px;
+    height: 20px;
+  }
+
+    
+.card-title{
+  color: var(--Neutral-GreyDark, #383E52);
+  font-family: 'Inter';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.sub-title{
+  color: var(--Neutral-GreyMedium, #505A78);
+
+  font-family: 'Inter';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.035px;
+}
+
+ion-card-subtitle{
+  color: var(--Neutral-Grey, #8A95AB);
+  font-family: 'Inter';
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.04px;
+}
+
+.value{
+  color: var(--Neutral-GreyDark, #383E52);
+  font-family: 'Inter';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.024px;
+}

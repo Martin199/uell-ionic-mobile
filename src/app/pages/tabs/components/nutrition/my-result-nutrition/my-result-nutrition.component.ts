@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { AnthropometryDetailComponent } from '../anthropometry-detail/anthropometry-detail.component';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-my-result-nutrition',
@@ -40,6 +41,8 @@ import { AnthropometryDetailComponent } from '../anthropometry-detail/anthropome
 })
 export class MyResultNutritionComponent  implements OnInit {
 
+  storageService = inject(StorageService)
+
     valor: number = 0;
   donutText = donutText;
   donutDescription = donutTextDescription;
@@ -60,7 +63,7 @@ export class MyResultNutritionComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
-      this.resultNutrition = sessionStorage.getItem('resultNutrition') ? JSON.parse(sessionStorage.getItem('resultNutrition')!) : undefined;
+      this.resultNutrition = sessionStorage.getItem('resultNutrition') ? this.storageService.getSessionStorage('resultNutrition') as ResultPlanDTO : undefined;
       this.umbralDescription = Utils.returnUmbralNutrition(this.resultNutrition!.totalScore!);
       const lastPlan = sessionStorage.getItem('lastResultdPlan');
       this.createdValidator = Utils.addDaysValidator(lastPlan, 45);

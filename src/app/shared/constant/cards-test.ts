@@ -16,13 +16,13 @@ export const cardHome: NutritionCard[] = [
   //   description: 'Encuentra inspiracion en nuestra coleccion de recetas saludables.',
   //   navigateTo: '/recipes',
   // },
-  {
-    title: 'Contenido recomendado',
-    image: '/assets/nutrition/home3.svg',
-    icon: '/assets/nutrition/icons/checklist.svg',
-    description: 'Encuentra recomendaciones personalizadas para tu bienestar integral.',
-    navigateTo: '/recommended-content',
-  },
+  // {
+   //  title: 'Contenido recomendado',
+    // image: '/assets/nutrition/home3.svg',
+    // icon: '/assets/nutrition/icons/checklist.svg',
+    // description: 'Encuentra recomendaciones personalizadas para tu bienestar integral.',
+    // navigateTo: '/recommended-content',
+  // },
   {
     title: 'Mis Resultados',
     image: '/assets/nutrition/home-results.svg',

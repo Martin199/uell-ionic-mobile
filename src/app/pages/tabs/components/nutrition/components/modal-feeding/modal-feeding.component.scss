@@ -1,0 +1,178 @@
+.content{
+    padding-left: 24px;
+    padding-right: 24px;
+    display: flex;
+    padding: var(--optionsSelected, 0px) 24px 32px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.content-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+ion-img{
+    width: 144.105px;
+    height: 180px;
+}
+
+.content-label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+}
+
+.title{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.label{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.024px;
+    text-align: center;
+}
+
+.save-button {
+    --padding-end: 15px;
+    --padding-start: 15px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+}
+
+.content-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+.toolbar-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+ion-toolbar{
+    padding-bottom: 16px!important;
+} 
+
+.modal-title{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 140% */
+}
+
+.description{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.024px;
+}
+
+.strong{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.016px;
+}
+
+.card{
+    border-radius: 4px;
+    border: 1px solid var(--Neutral-GreyLight, #DADFE9);
+    width: 100%;
+}
+
+.card:hover {
+    background-color: #1da5b11f;
+}
+
+.layout{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    width: 100%;
+    gap: 4px;
+    align-self: stretch;
+    cursor: pointer;
+}
+
+.content-card-icon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.title-card{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+}
+
+.sub-text{
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.024px;
+}
+
+ion-icon{
+    cursor: pointer;
+}
+
+.hasSelect{
+    border: 1px solid var(--Primary-Uell, #1DA4B1);
+    ion-label{
+        color: var(--Primary-Uell, #1DA4B1);
+    }
+  }
+
+.disabled {
+  pointer-events: none; 
+  opacity: 0.5;
+}
+
+// Clase para agregar padding al header del modal
+::ng-deep .header-padding-24 {
+  padding: 0px 24px!important;
+}
+
+// Alternativa: aplicar padding directamente al app-modal-header
+::ng-deep app-modal-header ion-header {
+  padding: 0px 24px!important;
+}
