@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export class Utils {
 static returnSpeechIndice(valueIndice: number) {
     let speech: {
@@ -111,6 +113,37 @@ static returnSpeechIndice(valueIndice: number) {
           speech.options = ["La ansiedad y el estrés muchas veces nos desconectan de lo que solía hacernos bien. Intentar retomar actividades que alguna vez disfrutaste (aunque sea en pequeñas dosis), como escuchar música, leer, cocinar o ver una serie, puede ser una buena manera de reconectar con sensaciones de calma y satisfacción."]
       }
       return speech
+  }
+
+    static addDaysValidator(created: any, day: number): boolean{
+    const _date = moment(created).clone().add(day, 'days');
+    return moment() >= _date;
+  }
+
+    static returnUmbralNutrition(valueIndice: number) {
+    let speech = {
+      title: '',
+      description1: '',
+    
+    }
+    if (valueIndice >= 0 && valueIndice <= 30 && valueIndice !== null) {
+      speech.title = 'Saludable';
+        speech.description1 = "¡Felicitaciones! Tus hábitos son en su mayoría saludables. Sigue así y añade más movimiento a tu día.";
+    }
+    if (valueIndice > 30 && valueIndice <= 55) {
+      speech.title = 'Medianamente saludable';
+        speech.description1 = "Podrías mejorar tus hábitos. Presta atención a tu alimentación y plantea objetivos a corto plazo para corregir esos hábitos. ¡Tú puedes hacerlo!";
+
+    }
+    if (valueIndice > 55 && valueIndice <= 80) {
+      speech.title = 'Poco saludable';
+        speech.description1 = "Tus hábitos alimentarios presentan riesgos para tu salud. Es importante que prestes mayor atención a tus comidas para hacerlas más saludables. ¡No te estreses! Esta situación se puede revertir. ¡Ánimo!";
+    }
+    if (valueIndice > 80) {
+      speech.title = 'Muy poco saludable';
+        speech.description1 = "Tus hábitos alimentarios son muy riesgosos para tu salud. Recuerda que cambiar hábitos alimentarios lleva tiempo y esfuerzo, pero con determinación y paciencia, puedes lograr tus objetivos. ¡Ánimo y sigue adelante!";
+    }
+    return speech
   }
 
 }

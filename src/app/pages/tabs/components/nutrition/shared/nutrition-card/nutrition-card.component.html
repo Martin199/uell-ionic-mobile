@@ -1,0 +1,20 @@
+<ion-card>
+  <div>
+    <div class="image-container">
+      <img [src]="nutritionCard.image" class="image" />
+      @if(nutritionCard.icon){
+        <div class="icon">
+          <ion-img [src]="nutritionCard.icon"></ion-img>
+        </div>
+      }
+    </div>
+    <div class="text">
+      <label class="title">{{ nutritionCard.title }}</label>
+      @if(!nutritionCard.recipeInfo){
+        <p class="description">
+          {{ descriptionCompleted ? descriptionCompleted : nutritionCard.description }}
+        </p>
+      }
+    </div>
+  </div>
+</ion-card>

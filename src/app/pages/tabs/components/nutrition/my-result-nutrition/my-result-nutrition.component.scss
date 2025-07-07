@@ -1,0 +1,98 @@
+.content{
+    padding: 24px 20px 32px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.details-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+}
+.mediciones{
+    display: flex;
+    flex-direction: column;
+    .content-medicion, .result-referent{
+        display: flex;
+        margin-bottom: 16px;
+        gap: 8px;
+        align-items: center;
+    }
+}
+ion-title{
+    color: var(--Neutral-GreyDark, #383e52);
+    font-family: "Inter";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+}
+.divider {
+    border-radius: 100px;
+    background: var(--Neutral-GreyLight, #dadfe9);
+    height: 1px;
+    align-self: stretch;
+}
+
+.details-title, .donut-title{
+    color: var(--Neutral-GreyMedium, #505a78);
+    font-family: "Inter";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.014px;
+}
+.label-measurements, .donut-text{
+    color: var(--Neutral-GreyMedium, #505a78);
+    // text-align: right;
+    font-family: "Inter";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+}
+.donut-text-container{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.progress{
+  font-size: 17px;
+  font-weight: bold;
+}
+round-progress{
+  width: 40% !important;
+  height: 40% !important;
+}
+.circle-container{
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.value-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #383E52;
+    z-index: 2;
+}
+.secondary-number-container {
+    font-size: 14px;
+    font-weight: 300;
+}

@@ -1,0 +1,11 @@
+::ng-deep app-my-result-nutrition {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+::ng-deep app-home-nutrition{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}

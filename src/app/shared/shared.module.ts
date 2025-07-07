@@ -113,6 +113,7 @@ import { IonContent, IonLabel, IonItem, IonIcon, IonInput, IonButton, IonHeader,
         ModalMentalStatusDescriptionComponent,
         UellCoinComponent,
         IspsResultComponent,
+        ModalHeaderComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

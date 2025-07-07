@@ -1,0 +1,55 @@
+<div class="content-container" >
+    <ion-label class="title">{{ pageTitle }}</ion-label>
+    
+        <div class="input-wrapper pt">
+            <ion-label class="sub-label">
+                Altura
+            </ion-label>
+            @if(lastAnthropometry?.height){
+                <ion-label class="value-label">
+                    {{ lastAnthropometry?.height }} cm
+                </ion-label>
+            } @else{
+                <ng-template #elseBlock>
+                    <ion-label>-</ion-label>
+                </ng-template>
+            }
+        </div>
+    
+        <div class="input-wrapper pt-24">
+            <ion-label class="sub-label">
+                Peso
+            </ion-label>
+            @if(lastAnthropometry?.weight){
+                <ion-label class="value-label">
+                    {{ lastAnthropometry?.weight }} kg
+                </ion-label>
+            } @else{
+                <ng-template #elseBlock>
+                    <ion-label>-</ion-label>
+                </ng-template>
+            }
+        </div>
+    
+        <div class="input-wrapper pt-24 pb-16">
+            <ion-label class="sub-label">
+                Circunferencia de cintura
+            </ion-label>
+            @if(lastAnthropometry?.abdominalCircumference){
+                <ion-label class="value-label">
+                    {{ lastAnthropometry?.abdominalCircumference }} cm
+                </ion-label>
+            }@else{
+                <ng-template #elseBlock>
+                    <ion-label>-</ion-label>
+                </ng-template>
+            }
+        </div> 
+    
+
+
+        <ion-button (click)="goEdit()" expand="block" fill="clear" shape="round" [disabled]="validateSetValue()">
+            <ion-icon class="icon" src="/assets/nutrition/edit.svg"></ion-icon>
+            <ion-label  class="btn-label"> {{!lastAnthropometry ? "Cargar" : "Actualizar" }} Datos</ion-label> 
+        </ion-button>
+</div>

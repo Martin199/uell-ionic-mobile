@@ -71,6 +71,7 @@ export class AuthPage implements OnInit{
   }
 
   statusBarColor() {
+    if (!Capacitor.isNativePlatform()) return;
     StatusBar.setBackgroundColor({ color: '#ffffff' });
     EdgeToEdge.setBackgroundColor({ color: '#ffffff' });
     StatusBar.setStyle({ style: Style.Light });

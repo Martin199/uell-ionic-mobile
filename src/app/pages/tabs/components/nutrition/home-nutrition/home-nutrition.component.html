@@ -1,0 +1,22 @@
+<div>
+  @for(item of cardArray; track item) {
+    <app-nutrition-card [nutritionCard]="item" class="nutritionCard" (click)="navigateTo('tabs/nutrition' + item.navigateTo!)"></app-nutrition-card>
+  }
+  <ion-card class="portal-card">
+    <div class="content-card">
+      <ion-label>
+        Descubre información útil para seguir mejorando tu bienestar. 
+      </ion-label>
+      <ion-button class="button-portal" (click)="navigateTo('/tabs/wellness-portal')">
+        Ir a Portal de bienestar 
+      </ion-button>
+    </div>
+  </ion-card>
+
+  <div class="preferences">
+    <ion-button  fill="clear" shape="round" (click)="goToQuestionnaire()">
+        <ion-img src="../../../../../../../assets/nutrition/settings.svg"></ion-img>
+        <ion-label>Personaliza tus preferencias</ion-label>
+    </ion-button>
+  </div>
+</div>

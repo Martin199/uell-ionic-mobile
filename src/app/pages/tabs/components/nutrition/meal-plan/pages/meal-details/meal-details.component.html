@@ -1,0 +1,36 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="returnBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="header-text">
+      <div class="title">{{ card()?.title }}</div>
+      <!-- <div class="subtext">{{ card()?.description }}</div> -->
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+ <div class="media">
+  <ion-img [src]="card()?.image"></ion-img>
+</div>
+
+<div class="content">
+  <div class="card-group">
+            <!-- <div class="link">Informacion nutricional</div> -->
+    <div class="ingridient-cards">
+      @for (ingridient of card()?.mealPrepInfo?.ingredients; track $index) {
+      <div class="ingridient-card" >
+        <div class="card-title">{{ ingridient.name | titlecase }}</div>
+        <div class="card-amount">
+          {{ ingridient.amount }}
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  <ion-button (click)="postMarkDone()" expand="block" shape="round" class="primary">
+    Marcar como realizado
+  </ion-button>
+</div>

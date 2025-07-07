@@ -34,6 +34,7 @@ export class UtilsService {
         return tenantParameters?.tenantParameters?.localization[path as keyof Localization]
     }
 
+
     getUser() {
         return this.storageService.getSessionStorage<User>('user')!;
     }
@@ -131,6 +132,48 @@ export class UtilsService {
 
     goTo(path: string) {
         this.navCtrl.navigateRoot([path]);
+    }
+
+    async presentModal(component: any, css?: string, data?: any, backdropDismiss?: boolean) {
+        const modal = await this.modalCtrl.create({
+        showBackdrop: true,
+        backdropDismiss: backdropDismiss,
+        cssClass: css,
+        component: component,
+        componentProps: data
+        });
+        await modal.present();
+
+        return new Promise((resolve, reject) => {
+        if (!component) {
+            reject('Component is not defined');
+            return; 
+        }
+
+        modal.onDidDismiss().then(data => {
+            resolve(data);
+        });
+        })
+    }
+
+    async closeModal(data? : any) {
+        await this.modalCtrl.dismiss(data);
+    }
+
+    getLocalizationByPath(module: string, valueModule: string) {
+        const tenantParameters: TenantParametersResponse | null = this.storageService.getSessionStorage('tenantParameters')
+        if (!tenantParameters?.tenantParameters?.localization) {
+            return null;
+        }
+        
+        const localization = tenantParameters.tenantParameters.localization;
+        const moduleData = localization[module as keyof Localization];
+        
+        if (moduleData && typeof moduleData === 'object') {
+            return (moduleData as any)[valueModule] || null;
+        }
+        
+        return null;
     }
 
 }

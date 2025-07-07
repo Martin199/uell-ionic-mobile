@@ -1,0 +1,28 @@
+.portal-card{
+    background-color: #E8F6F7;
+}
+.content-card{
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+ion-button.button-portal {
+  --border-radius: 20px;
+  --background: #1DA4B1;
+  --color: white;
+}
+ion-label{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: "Inter";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+    text-align: center;
+}
+.preferences{
+    display: flex;
+    justify-content: center;
+}
