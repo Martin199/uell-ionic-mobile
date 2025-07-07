@@ -21,6 +21,7 @@ export class ModalHeaderComponent {
     closeModal = input<boolean>(false);
     backButton = input<boolean>(false);
     cleanStorage = input<boolean>(false);
+    customClass = input<string>('');
     closeModalEvent = output<string>();
     backModalEvent = output();
 
