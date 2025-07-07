@@ -184,4 +184,5 @@ export class CardPsicosocialComponent implements OnInit, OnChanges {
         this.ispsService.postSelfAppointmentManaggerTurnito(this.user.id);
         window.open('https://turnito.app/p/uell-bienestar', '_blank');
     }
+
 }
