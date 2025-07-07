@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { AnthropometryDetailComponent } from '../anthropometry-detail/anthropometry-detail.component';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-my-result-nutrition',
@@ -56,6 +57,8 @@ export class MyResultNutritionComponent  implements OnInit {
   iconYellow = 'assets/nutrition/results/like-yellow.svg';
   iconOrange = 'assets/nutrition/results/dislike-orange.svg';
   iconRed = 'assets/nutrition/results/dislike-red.svg';
+
+  private navCtrl = inject(NavController);
 
   constructor() { }
 
@@ -231,5 +234,9 @@ export class MyResultNutritionComponent  implements OnInit {
             return '#F2F6FA';
         }
     } 
+
+  returnBack() {
+    this.navCtrl.back();
+  }
 
 }
