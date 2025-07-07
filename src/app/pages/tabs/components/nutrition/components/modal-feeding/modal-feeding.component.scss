@@ -169,10 +169,10 @@ ion-icon{
 
 // Clase para agregar padding al header del modal
 ::ng-deep .header-padding-24 {
-  padding: 24px !important;
+  padding: 0px 24px!important;
 }
 
 // Alternativa: aplicar padding directamente al app-modal-header
 ::ng-deep app-modal-header ion-header {
-  padding: 24px !important;
+  padding: 0px 24px!important;
 }
