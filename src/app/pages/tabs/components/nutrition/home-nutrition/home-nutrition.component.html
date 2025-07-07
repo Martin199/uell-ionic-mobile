@@ -14,7 +14,7 @@
   </ion-card>
 
   <div class="preferences">
-    <ion-button  fill="clear" shape="round" (click)="goToQuestionnaire()">
+    <ion-button  fill="clear" shape="round" [disabled]="!createdValidator" (click)="goToQuestionnaire()">
         <ion-img src="../../../../../../../assets/nutrition/settings.svg"></ion-img>
         <ion-label>Personaliza tus preferencias</ion-label>
     </ion-button>
