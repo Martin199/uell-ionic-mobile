@@ -30,6 +30,10 @@
       }
     </div>
   </div>
+  <app-file-upload title="Subir foto" (fileUploaded)="onFileUploaded($event)"></app-file-upload>
+  <ion-button (click)="uploadPhoto()" expand="block" shape="round" class="primary" [disabled]="!fileSelected()">
+    {{ card()?.mealPrepInfo?.state === 'COMPLETED' ? 'Editar foto' : 'Subir foto' }}
+  </ion-button>
   <ion-button (click)="postMarkDone()" expand="block" shape="round" class="primary">
     Marcar como realizado
   </ion-button>

@@ -203,11 +203,12 @@ export class MealPlanHomeComponent {
 
   selectedCard(card: NutritionCard) {
     if (card.mealPrepInfo?.state == 'COMPLETED') return;
-    this.mealPlanService.selectedCard.set(card);
+    this.mealPlanService.setSelectedCard(card);
     this.router.navigate(['tabs/nutrition/meal-details']);
   }
 
   returnBack() {
+    this.mealPlanService.clearState();
     this.navCtrl.back();
   }
 }
