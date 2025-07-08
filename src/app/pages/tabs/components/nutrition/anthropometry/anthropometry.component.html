@@ -123,9 +123,9 @@
 
 <ion-popover class="pop" #popover [isOpen]="modalVisible" side="top" alignment="end" (didDismiss)="modalVisible = false">
     <ng-template>
-      <ion-header>
+      <div class="popover-header">
         <div class="d-flex">
-            <ion-label class="ml-10 sub-label">
+            <ion-label class="sub-label">
                 Recomendaciones
             </ion-label>
                 <ion-icon class="label" (click)="closeModal()"  src="assets/icons/icon-close.svg">
@@ -135,8 +135,8 @@
         <div class="custom-title">
             {{ modalTitle1 }}
         </div>
-      </ion-header>
-      <ion-content class="ion-padding">
+      </div>
+      <ion-content>
         <p class="description">
           {{ modalText1 }}
         </p>
