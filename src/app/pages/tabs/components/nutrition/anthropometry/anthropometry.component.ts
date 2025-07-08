@@ -36,7 +36,6 @@ import { CommonModule } from '@angular/common';
     IonButton,
     IonPopover,
     IonHeader,
-    IonButtons,
     IonContent,
     FormsModule,
     ReactiveFormsModule,

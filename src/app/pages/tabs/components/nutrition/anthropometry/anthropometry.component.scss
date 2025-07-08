@@ -149,3 +149,27 @@ ion-popover::part(content) {
 .danger {
     color: rgb(214, 31, 31);
 }
+
+ion-icon {
+    height: 24px;
+    width: 24px;
+}
+
+.close{
+    height: 20px;
+    width: 30px;
+}
+
+ion-input.custom-input {
+  --padding-top: 15px;
+  --padding-start: 12px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+ion-input.custom-input input {
+  height: 100%;
+  line-height: 48px;
+  font-size: 16px;
+}
