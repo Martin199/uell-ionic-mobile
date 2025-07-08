@@ -4,6 +4,9 @@ ion-popover::part(content) {
   --max-width: 90vw;
   --border-radius: 12px;
 }
+.content{
+    overflow: auto;
+}
 
 .custom-title {
     color: var(--Neutral-GreyMedium, #505A78);
