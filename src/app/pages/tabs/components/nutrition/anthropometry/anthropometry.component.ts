@@ -15,8 +15,6 @@ import {
   IonToolbar,
   IonButton,
   IonPopover,
-  IonHeader,
-  IonButtons,
   IonContent,
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
@@ -35,8 +33,6 @@ import { CommonModule } from '@angular/common';
     IonToolbar,
     IonButton,
     IonPopover,
-    IonHeader,
-    IonButtons,
     IonContent,
     FormsModule,
     ReactiveFormsModule,
