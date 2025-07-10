@@ -44,8 +44,6 @@ export class StepOneFeedingComponent  implements OnInit {
 
   ngOnInit() {
  
-    console.log(this.questionsHydratation)
-
   }
 
   selectOption(index: number, cardType: 'first' | 'second' | 'third') {

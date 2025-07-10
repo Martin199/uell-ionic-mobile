@@ -54,7 +54,6 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
 
   // Método de prueba para cerrar el modal manualmente
   testCloseModal() {
-    console.log('Cerrando modal de prueba...');
     this.modalCtrl.dismiss({ completed: true, data: { test: 'data' } });
   }
 
@@ -114,7 +113,6 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
   }
 
   firstStepReturn(event: any, number: number) {
-    console.log(`firstStepReturn llamado - paso ${number} con evento:`, event);
     
     if (event !== null) {
       this.stepValues(event, number);
@@ -173,7 +171,6 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
   }
 
   stepValues(value: any, number: number) {
-    console.log(`Ejecutando stepValues - paso ${number} con valor:`, value);
     
     switch (number) {
       case 1:
@@ -210,13 +207,6 @@ export class StagesFeedingComponent  implements OnInit, AfterViewInit {
         break;
     }
 
-    console.log('step1', this.step1);
-    console.log('step2', this.step2);
-    console.log('step3', this.step3);
-    console.log('step4', this.step4);
-    console.log('step5', this.step5);
-    console.log('step6', this.step6);
-    console.log('step7', this.step7);
 
     this.finalObj = Object.assign({}, this.step1, this.step2, this.step3, this.step4, this.step5, this.step6, this.step7, this.step8, this.step9, this.step10);
 

@@ -5,6 +5,7 @@ import { StorageService } from './storage.service';
 import { Localization, TenantParameters, TenantParametersResponse } from '../core/interfaces/tenantParameters';
 import { User } from '../pages/tabs/interfaces/user-interfaces';
 import { countryENUM } from '../shared/constant/country-constants';
+import { modalEnterAnimation, modalLeaveAnimation } from '../shared/animation/animation-modal';
 
 @Injectable({
     providedIn: 'root'
@@ -140,7 +141,9 @@ export class UtilsService {
         backdropDismiss: backdropDismiss,
         cssClass: css,
         component: component,
-        componentProps: data
+        componentProps: data,
+        enterAnimation: modalEnterAnimation,
+        leaveAnimation: modalLeaveAnimation,
         });
         await modal.present();
 

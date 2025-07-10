@@ -84,6 +84,8 @@ ion-toolbar{
 }
 
 .description{
+    padding-top: 16px;
+
     color: var(--Neutral-GreyMedium, #505A78);
     font-family: 'Inter';
     font-size: 16px;
@@ -94,12 +96,12 @@ ion-toolbar{
 }
 
 .strong{
-    color: var(--Neutral-GreyMedium, #505A78);
-    font-family: 'Inter';
+    color: var(--Primary-Uell, #1DA4B1);
+    font-family: Inter;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
-    line-height: 24px;
+    line-height: 24px; /* 150% */
     letter-spacing: 0.016px;
 }
 
