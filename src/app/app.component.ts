@@ -10,7 +10,7 @@ import { Capacitor } from '@capacitor/core';
 import { UtilsService } from './services/utils.service';
 import { UserStateService } from './core/state/user-state.service';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline } from 'ionicons/icons';
+import { alertCircle, arrowBackOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +28,7 @@ export class AppComponent {
     if (Capacitor.isNativePlatform()) {
       this.initPush();
     }
-    addIcons({ arrowBackOutline });
+    addIcons({ arrowBackOutline, alertCircle });
   }
 
   async initializeApp() {
@@ -77,22 +77,16 @@ export class AppComponent {
     });
 
     // Show us the notification payload if the app is open on our device
-    PushNotifications.addListener(
-      'pushNotificationReceived',
-      (notification: PushNotificationSchema) => {
-        // alert('Push received: ' + JSON.stringify(notification));
-      }
-    );
+    PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
+      // alert('Push received: ' + JSON.stringify(notification));
+    });
 
     // Method called when tapping on a notification
-    PushNotifications.addListener(
-      'pushNotificationActionPerformed',
-      (notification: ActionPerformed) => {
-        // alert('Push action performed: ' + JSON.stringify(notification));
-        const redirection = notification.notification.data.redirectTo;
-        if (redirection) this.utilsService.navCtrl.navigateRoot(redirection);
-      }
-    );
+    PushNotifications.addListener('pushNotificationActionPerformed', (notification: ActionPerformed) => {
+      // alert('Push action performed: ' + JSON.stringify(notification));
+      const redirection = notification.notification.data.redirectTo;
+      if (redirection) this.utilsService.navCtrl.navigateRoot(redirection);
+    });
   }
 
   async showSplash() {
