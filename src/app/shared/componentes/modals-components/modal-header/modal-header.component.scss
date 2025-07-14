@@ -55,3 +55,7 @@ ion-header{
 .icon-arrow-back {
   padding: 4px !important;
 }
+
+.custom-background {
+  --background: var(--neutral-neutral-grey, #F8F8F8) !important;
+}

@@ -50,9 +50,9 @@
 
 <ion-footer class="ion-no-border" *ngIf="stepPreference && stepFeeding">
     <ion-toolbar class="ion-padding toolbar-center ion-text-center">
-        <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round"> 
-            <ion-label *ngIf="!isLoading">Ver mis resultados</ion-label>
-            <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+        <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round">
+            <ion-label [ngClass]="{'invisible-label': isLoading}">Ver mis resultados</ion-label>
+            <ion-spinner name="crescent" *ngIf="isLoading" class="spinner-center"></ion-spinner>
         </ion-button>
     </ion-toolbar>
 </ion-footer>

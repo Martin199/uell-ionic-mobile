@@ -185,3 +185,13 @@ ion-icon{
     align-items: center;
     gap: 4px;
   }
+
+  .invisible-label {
+    opacity: 0;
+  }
+  .spinner-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
