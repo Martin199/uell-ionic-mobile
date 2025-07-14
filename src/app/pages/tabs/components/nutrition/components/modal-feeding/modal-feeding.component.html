@@ -10,15 +10,17 @@
           <div>
               <div class="content-card-icon">
                   <ion-label class="title-card">Etapa 1 <ion-label *ngIf="stepFeeding">- Completada</ion-label> </ion-label>
-                  <ion-icon *ngIf="stepFeeding"
-                      src="assets/nutrition/check_circle.svg"></ion-icon>
+                
               </div>
               <div class="content-card-icon">
                   <ion-label class="sub-text">Alimentación</ion-label>
               </div>
           </div>
           <div>
-             <ion-icon src="assets/nutrition/chevron-icon.svg"></ion-icon>
+            <div class="icons-column">
+              <ion-icon *ngIf="stepFeeding" src="assets/nutrition/check_circle.svg"></ion-icon>
+              <ion-icon src="assets/nutrition/chevron-icon.svg"></ion-icon>
+            </div>
          </div>
       </div>
   </div>
@@ -28,15 +30,17 @@
             <div>
                 <div class="content-card-icon">
                     <ion-label class="title-card">Etapa 2 <ion-label *ngIf="stepPreference">- Completada</ion-label> </ion-label>
-                    <ion-icon *ngIf="stepPreference"
-                    src="assets/nutrition/check_circle.svg"></ion-icon> 
+                    
                 </div>
                 <div class="content-card-icon">
                     <ion-label class="sub-text">Preferencias</ion-label>
                 </div>
             </div>
             <div>
-                <ion-icon src="assets/nutrition/chevron-icon.svg"></ion-icon>
+                <div class="icons-column">
+                    <ion-icon *ngIf="stepPreference" src="assets/nutrition/check_circle.svg"></ion-icon>
+                    <ion-icon src="assets/nutrition/chevron-icon.svg"></ion-icon>
+                </div>
             </div>
         </div>
     </div>
