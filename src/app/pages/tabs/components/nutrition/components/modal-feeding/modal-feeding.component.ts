@@ -127,6 +127,7 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
         modal.onDidDismiss().then((data) => {
           if (data && data.data && data.data.completed) {
             this.checkStep()
+            this.openModalCreditPoint()
           }
         });
       });
@@ -141,6 +142,10 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
     if (this.stepPreference && this.stepFeeding) {
       this.hasCloseModal = true;
     }
+  }
+
+  openModalCreditPoint(){
+    this.utilsService.presentWinToast(3)
   }
 
   postPlan(){

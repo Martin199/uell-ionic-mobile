@@ -26,10 +26,10 @@ export class TabsPage implements OnInit {
 
     constructor() {
         const tenantP: string[] = this.userState.activeModules() ?? [];
-
+        const userData = this.userState.userData();
         this.hasIsps = tenantP.includes('isps');
         this.hasWellnessBlog = tenantP.includes('wellness')
-        this.hasNutrition = tenantP.includes('nutrition')
+        this.hasNutrition = tenantP.includes('nutrition') && userData?.nutrition === true
         addIcons({ home, personOutline });
     }
 

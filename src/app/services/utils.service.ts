@@ -179,4 +179,17 @@ export class UtilsService {
         return null;
     }
 
+    async presentWinToast(creditPoints: number) {
+        creditPoints ? creditPoints : 1;
+        const toast = await this.toastCtrl.create({
+            message: `🎉 Felicidades, ganaste ${creditPoints} ${creditPoints === 1 ? 'crédito' : 'créditos'
+                }`,
+            duration: 3000,
+            position: 'bottom',
+            cssClass: 'custom-toast',
+            animated: true,
+        });
+        await toast.present();
+    }
+
 }
