@@ -17,7 +17,6 @@ import {
   IonPopover,
   IonContent,
 } from '@ionic/angular/standalone';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-anthropometry',
@@ -25,7 +24,6 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./anthropometry.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     IonIcon,
     IonLabel,
     IonInput,
@@ -35,8 +33,8 @@ import { CommonModule } from '@angular/common';
     IonPopover,
     IonContent,
     FormsModule,
-    ReactiveFormsModule,
-  ],
+    ReactiveFormsModule
+],
 })
 export class AnthropometryComponent  implements OnInit, OnChanges {
 

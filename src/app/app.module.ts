@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { contentInterceptor } from './core/interceptors/content.interceptor';
 import { IonicStorageModule } from '@ionic/storage-angular';
@@ -40,7 +40,7 @@ export function initializeStorageFactory(storageService: StorageService) {
       const initializerFn = initializeStorageFactory(inject(StorageService));
       return initializerFn();
     }),
-    provideHttpClient(withInterceptors([authInterceptor, contentInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor, contentInterceptor])),
     provideIonicAngular({ mode: 'md' }),
     provideRouter(routes),
   ],

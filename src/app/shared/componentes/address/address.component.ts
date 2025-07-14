@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/services/storage.service';
@@ -12,7 +12,7 @@ import { TenantParametersResponse } from 'src/app/core/interfaces/tenantParamete
     selector: 'app-address',
     templateUrl: './address.component.html',
     styleUrls: ['./address.component.scss'],
-    imports: [CommonModule, SharedModule],
+    imports: [SharedModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AddressComponent {

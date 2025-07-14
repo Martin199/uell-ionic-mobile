@@ -2,7 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, inject, Input, OnInit,
 import { FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Objetive } from '../../../stages-feeding/const/feeding-const';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AnthropometryDetailComponent } from '../../../../anthropometry-detail/anthropometry-detail.component';
 
@@ -11,7 +11,7 @@ import { AnthropometryDetailComponent } from '../../../../anthropometry-detail/a
   templateUrl: './step-one-preference.component.html',
   styleUrls: ['./step-one-preference.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgClass, NgFor, AnthropometryDetailComponent],
+  imports: [SharedModule, NgClass, AnthropometryDetailComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepOnePreferenceComponent  implements OnInit {

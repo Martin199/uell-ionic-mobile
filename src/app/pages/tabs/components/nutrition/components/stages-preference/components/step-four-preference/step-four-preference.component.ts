@@ -6,15 +6,13 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgClass } from '@angular/common';
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-step-four-preference',
   templateUrl: './step-four-preference.component.html',
   styleUrls: ['./step-four-preference.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgClass, NgFor],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepFourPreferenceComponent  implements OnInit, OnChanges {

@@ -1,3 +1,5 @@
-<div class="coin-container" *ngIf="showCoin">
-  <img src="assets/imgs/credit/uellcoin.png" class="animated-coin" [class.animate]="startAnimation" />
-</div>
+@if (showCoin) {
+  <div class="coin-container">
+    <img src="assets/imgs/credit/uellcoin.png" class="animated-coin" [class.animate]="startAnimation" />
+  </div>
+}

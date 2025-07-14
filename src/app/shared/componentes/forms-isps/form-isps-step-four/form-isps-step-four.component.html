@@ -26,23 +26,23 @@
   </div>
   @if(hiddenCardChoiceMessageThroughCellphone()){
     <div class="card-manager">
-        <ng-container *ngIf="viewChoiceMessageThroughCellphone">
-          <p class="title">¿Te gustaría que un Gestor de Bienestar y Calidad de Vida se contacte contigo?</p>
-          <form [formGroup]="formGestor" style="width: 100%;"> 
-              <ion-list class="">
-                <ion-radio-group formControlName="isChecked">
-                  <ion-item class="no-border">
-                    <span class="radio-label">Sí, me gustaría</span>
-                    <ion-radio slot="start" value="true"></ion-radio>
-                  </ion-item>
-                  <ion-item class="no-border">
-                    <span class="radio-label">No, gracias</span>
-                    <ion-radio slot="start" value="false"></ion-radio>
-                  </ion-item>
-                </ion-radio-group>
-              </ion-list>
-          </form>
-        </ng-container>
+      @if (viewChoiceMessageThroughCellphone()) {
+        <p class="title">¿Te gustaría que un Gestor de Bienestar y Calidad de Vida se contacte contigo?</p>
+        <form [formGroup]="formGestor" style="width: 100%;">
+          <ion-list class="">
+            <ion-radio-group formControlName="isChecked">
+              <ion-item class="no-border">
+                <span class="radio-label">Sí, me gustaría</span>
+                <ion-radio slot="start" value="true"></ion-radio>
+              </ion-item>
+              <ion-item class="no-border">
+                <span class="radio-label">No, gracias</span>
+                <ion-radio slot="start" value="false"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </form>
+      }
     </div>
   }
   @if(!onboarding()){
@@ -66,7 +66,7 @@
               </div>
             }
           </ng-container>
-        }   
+        }
       </div>
     }
     @if(socialDimension){

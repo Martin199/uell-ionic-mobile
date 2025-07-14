@@ -28,7 +28,7 @@
     </swiper-slide>
     <swiper-slide>
       <app-step-eight-feeding (firstStepReturn)="firstStepReturn($event, 8)" [currentSlide]="step"></app-step-eight-feeding>
-    </swiper-slide> 
+    </swiper-slide>
     <swiper-slide>
       <app-step-nine-feeding (firstStepReturn)="firstStepReturn($event, 9)" [currentSlide]="step"></app-step-nine-feeding>
     </swiper-slide>
@@ -39,14 +39,16 @@
 
   <ion-row class="ion-justify-content-end ion-align-items-center ion-padding">
     <ion-col size="auto" class="buttons-container">
-      <ion-button class="save-button footer-btn-back" (click)="prevSlide()" fill="solid" shape="round" *ngIf="step > 1"> Anterior </ion-button>
+      @if (step > 1) {
+        <ion-button class="save-button footer-btn-back" (click)="prevSlide()" fill="solid" shape="round"> Anterior </ion-button>
+      }
       <ion-button
         expand="block" type="submit" class="submit-btn"
         [disabled]="!stepIsValid"
         (click)="nextSlide()"
         fill="solid"
         shape="round"
-      >
+        >
         {{ step === 10 ? "Finalizar" : "Siguiente"}}
       </ion-button>
     </ion-col>

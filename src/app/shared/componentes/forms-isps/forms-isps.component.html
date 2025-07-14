@@ -33,18 +33,22 @@
     <swiper-slide>
       <app-form-isps-step-three (validForm)="updateValidStep($event)" (returnThirdStep)="returnThirdStep($event)"></app-form-isps-step-three>
     </swiper-slide>
-    <swiper-slide *ngIf="((onboarding===true && questionGestor === null) || onboarding===false)">
-      <!-- Resultados -->
-      <ion-spinner *ngIf="!dataIsps"></ion-spinner>
-      @if(dataIsps){
-        <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
-        [hiddenCardChoiceMessageThroughCellphone]="(messageThroughCellphone === 'false' || messageThroughCellphone === 'true') ? false : true"
-        [onboarding]="onboarding"
-         (isChecked)="returnQuestionValue($event)" 
-         [responseISPS]="dataIsps">
-        </app-form-isps-step-four>
-      }
-    </swiper-slide>
+    @if (((onboarding===true && questionGestor === null) || onboarding===false)) {
+      <swiper-slide>
+        <!-- Resultados -->
+        @if (!dataIsps) {
+          <ion-spinner></ion-spinner>
+        }
+        @if(dataIsps){
+          <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
+            [hiddenCardChoiceMessageThroughCellphone]="(messageThroughCellphone === 'false' || messageThroughCellphone === 'true') ? false : true"
+            [onboarding]="onboarding"
+            (isChecked)="returnQuestionValue($event)"
+            [responseISPS]="dataIsps">
+          </app-form-isps-step-four>
+        }
+      </swiper-slide>
+    }
 
   </swiper-container>
 </ion-content>
@@ -65,7 +69,7 @@
         </ion-button>
       }
       @if(step === 5){
-        <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>   
+        <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>
       }
     </ion-buttons>
     <ion-toast

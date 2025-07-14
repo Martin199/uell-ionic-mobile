@@ -1,79 +1,103 @@
-<div *ngIf="step == 7">
-  <ion-card>
+@if (step == 7) {
+  <div>
+    <ion-card>
       <ion-card-header>
-          <ion-card-title class="card-title">{{questionsMeats[0]}}</ion-card-title>
-          <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
+        <ion-card-title class="card-title">{{questionsMeats[0]}}</ion-card-title>
+        <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content class="content-layout">
+        @for (opciones of firstCard; track opciones; let i = $index) {
           <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['first'] === i }"
-              (click)="selectOption(i, 'first')" *ngFor="let opciones of firstCard; let i = index">
-              <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['first'] === i"
-                  src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+            (click)="selectOption(i, 'first')">
+            <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
+            @if (selectedIndexes['first'] === i) {
+              <ion-icon
+              src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+            }
           </div>
+        }
       </ion-card-content>
-  </ion-card>
-
-  <ion-card *ngIf="showSecondCard">
-      <ion-card-header>
+    </ion-card>
+    @if (showSecondCard) {
+      <ion-card>
+        <ion-card-header>
           <ion-card-title class="card-title">{{questionsMeats[1]}}</ion-card-title>
           <ion-card-subtitle>SELECCIONA TODAS LAS QUE CORRESPONDAN</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="content-layout">
-          <div class="layout" [ngClass]="{'hasSelect': selectedOptionIndexes.includes(i)}"
-          (click)="selectOptionArray(i, opciones)" *ngFor="let opciones of secondCard; let i = index">
+        </ion-card-header>
+        <ion-card-content class="content-layout">
+          @for (opciones of secondCard; track opciones; let i = $index) {
+            <div class="layout" [ngClass]="{'hasSelect': selectedOptionIndexes.includes(i)}"
+              (click)="selectOptionArray(i, opciones)">
               <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['second'] === i"
-                  src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
-          </div>
-      </ion-card-content>
-
-  </ion-card>
-
-  <ion-card *ngIf="showSecondCard && showThirdCard">
-      <ion-card-header>
+              @if (selectedIndexes['second'] === i) {
+                <ion-icon
+                src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+              }
+            </div>
+          }
+        </ion-card-content>
+      </ion-card>
+    }
+    @if (showSecondCard && showThirdCard) {
+      <ion-card>
+        <ion-card-header>
           <ion-card-title class="card-title">{{questionsMeats[2]}}</ion-card-title>
           <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="content-layout">
-          <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['third'] === i }"
-              (click)="selectOption(i, 'third')" *ngFor="let opciones of thirdCard; let i = index">
+        </ion-card-header>
+        <ion-card-content class="content-layout">
+          @for (opciones of thirdCard; track opciones; let i = $index) {
+            <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['third'] === i }"
+              (click)="selectOption(i, 'third')">
               <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['third'] === i"
-                  src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
-          </div>
-      </ion-card-content>
-  </ion-card>
-
-  <ion-card *ngIf="showSecondCard && showfourthCard">
-      <ion-card-header>
+              @if (selectedIndexes['third'] === i) {
+                <ion-icon
+                src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+              }
+            </div>
+          }
+        </ion-card-content>
+      </ion-card>
+    }
+    @if (showSecondCard && showfourthCard) {
+      <ion-card>
+        <ion-card-header>
           <ion-card-title class="card-title">{{questionsMeats[3]}}</ion-card-title>
           <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="content-layout">
-          <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['fourth'] === i }"
-              (click)="selectOption(i, 'fourth')" *ngFor="let opciones of fourCard; let i = index">
+        </ion-card-header>
+        <ion-card-content class="content-layout">
+          @for (opciones of fourCard; track opciones; let i = $index) {
+            <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['fourth'] === i }"
+              (click)="selectOption(i, 'fourth')">
               <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['fourth'] === i"
-                  src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
-          </div>
-      </ion-card-content>
-  </ion-card>
-
-
-  <ion-card *ngIf="showSecondCard && showfifthCard">
-      <ion-card-header>
+              @if (selectedIndexes['fourth'] === i) {
+                <ion-icon
+                src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+              }
+            </div>
+          }
+        </ion-card-content>
+      </ion-card>
+    }
+    @if (showSecondCard && showfifthCard) {
+      <ion-card>
+        <ion-card-header>
           <ion-card-title class="card-title">{{questionsMeats[4]}}</ion-card-title>
           <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="content-layout">
-          <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['fifth'] === i }"
-              (click)="selectOption(i, 'fifth')" *ngFor="let opciones of fiveCard; let i = index">
+        </ion-card-header>
+        <ion-card-content class="content-layout">
+          @for (opciones of fiveCard; track opciones; let i = $index) {
+            <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['fifth'] === i }"
+              (click)="selectOption(i, 'fifth')">
               <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['fifth'] === i"
-                  src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
-          </div>
-      </ion-card-content>
-  </ion-card>
-</div>
+              @if (selectedIndexes['fifth'] === i) {
+                <ion-icon
+                src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+              }
+            </div>
+          }
+        </ion-card-content>
+      </ion-card>
+    }
+  </div>
+}
 

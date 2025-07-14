@@ -4,7 +4,7 @@ import { MyResultInformation, resultDemo, ResultPlanDTO } from './results.interf
 import { Utils } from '../../home/utils/utils';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { NutritionService } from 'src/app/services/nutrition.service';
-import { CommonModule } from '@angular/common';
+
 import {
   IonHeader,
   IonToolbar,
@@ -26,7 +26,6 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./my-result-nutrition.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -37,7 +36,7 @@ import { StorageService } from 'src/app/services/storage.service';
     IonButton,
     RoundProgressModule,
     AnthropometryDetailComponent
-  ],
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MyResultNutritionComponent  implements OnInit {

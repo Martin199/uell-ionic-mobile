@@ -3,7 +3,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StagesService } from '../services/stages.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { StagesFeedingComponent } from '../stages-feeding/stages-feeding.component';
 import {  ModalController, Platform } from '@ionic/angular/standalone';
 import { StagesPreferenceComponent } from '../stages-preference/stages-preference.component';
@@ -13,7 +13,7 @@ import { StagesPreferenceComponent } from '../stages-preference/stages-preferenc
   templateUrl: './modal-feeding.component.html',
   styleUrls: ['./modal-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgClass, NgIf,],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ModalFeedingComponent  implements OnInit, OnDestroy {

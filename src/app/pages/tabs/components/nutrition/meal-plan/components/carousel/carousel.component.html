@@ -1,6 +1,6 @@
 
 <swiper-container init="false">
-  @for (card of nutritionCards(); track $index) {
+  @for (card of nutritionCards(); track card) {
     @defer () {
     <swiper-slide class="cardDisplay" speed="500" (click)="    this.selectedCard.emit(card)">
       <app-meal-plan-card [nutritionCard]="card" [typeFood]="typeFood()" ></app-meal-plan-card>

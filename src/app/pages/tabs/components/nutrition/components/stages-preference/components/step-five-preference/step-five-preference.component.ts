@@ -3,7 +3,7 @@ import { KitchenUtensilsList } from '../../const/preference-interfaces';
 import { StagesService } from '../../../services/stages.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
@@ -11,7 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   templateUrl: './step-five-preference.component.html',
   styleUrls: ['./step-five-preference.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgClass, NgFor],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepFivePreferenceComponent  implements OnInit, OnChanges{

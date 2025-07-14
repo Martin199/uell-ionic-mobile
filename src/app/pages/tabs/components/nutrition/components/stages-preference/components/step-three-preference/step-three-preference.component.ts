@@ -5,14 +5,14 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Alcohol, AlcoholFirstCard } from '../../../stages-feeding/const/feeding-const';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-step-three-preference',
   templateUrl: './step-three-preference.component.html',
   styleUrls: ['./step-three-preference.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgClass, NgFor],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepThreePreferenceComponent  implements OnInit, OnChanges {
