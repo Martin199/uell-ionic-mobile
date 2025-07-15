@@ -1,0 +1,19 @@
+<div
+  class="container"
+>
+  <div class="image-container">
+    <img [src]="nutritionCard()?.image" class="image" />
+    @if(nutritionCard() && nutritionCard()?.icon) {
+      <div class="icon">
+        <ion-img [src]="nutritionCard()!.icon"></ion-img>
+      </div>
+    }
+    @if( typeFood() ) {
+      <div class="meal-label">{{ typeFood() | uppercase }}</div>
+    }
+  </div>
+  <div class="text">
+    <label class="title">{{ nutritionCard()?.title }}</label>
+    <p class="description">{{ getTime() }} - {{  nutritionCard()?.mealPrepInfo?.state == 'COMPLETED' ? 'Completado' : 'Pendiente' }}</p>
+  </div>
+</div>

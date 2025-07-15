@@ -1,0 +1,41 @@
+<div *ngIf="step === 4">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title  class="card-title">{{questionsAllergy[0]}}</ion-card-title>
+      <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="content-layout">
+      <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['first'] === i }" (click)="selectOption(i, 'first')"
+        *ngFor="let opciones of firstCard; let i = index">
+        <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
+        <ion-icon *ngIf="selectedIndexes['first'] === i"
+          src="assets/nutrition/check_circle.svg"></ion-icon>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="showSecondCard">
+    <ion-card-header>
+      <ion-card-title  class="card-title">{{questionsAllergy[1]}}</ion-card-title>
+      <ion-card-subtitle>Selecciona todas las que correspondan</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="content-layout" *ngIf="secondCard.length > 0">
+      <div class="layout" (click)="selectOptionArray(i, opciones)"
+        [ngClass]="{'hasSelect': selectedOptionIndexes.includes(i)}" *ngFor="let opciones of secondCard; let i = index">
+        <ion-label class="ion-text-start value">{{ opciones.description }}</ion-label>
+        <ion-icon *ngIf="selectedIndexes['second'] === i"
+          src="assets/nutrition/check_circle.svg"></ion-icon>
+      </div>
+    </ion-card-content>
+    <form [formGroup]="stepFourPreferenceForm">
+      <ion-card-content class="content-layout" *ngIf="secondCard.length > 0">
+        <ion-label  class="ion-text-start">Otros </ion-label>
+        <div class="layout-not-padding" >
+            <ion-input class="ion-no-padding" maxlength="255" formControlName="other"></ion-input>
+        </div>
+      </ion-card-content>
+    </form>
+
+ 
+  </ion-card>
+</div>

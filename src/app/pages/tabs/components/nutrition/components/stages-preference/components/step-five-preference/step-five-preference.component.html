@@ -1,0 +1,23 @@
+<div *ngIf="step === 5">
+  <ion-card>
+      <ion-card-header>
+          <ion-card-title  class="card-title">Haz un balance de tu cocina</ion-card-title>
+          <ion-label class="sub-title">Cuál de los siguientes electrodomésticos tienes para cocinar:</ion-label>
+          <ion-card-subtitle>SELECCIONA TODAS LAS QUE CORRESPONDAN</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="content-layout">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6" *ngFor="let opciones of kitchenUtensilsList; let i = index">
+                <div class="layout" (click)="selectOptionArray(i, opciones)" [ngClass]="{'hasSelect': selectedOptionIndexes.includes(i)}">
+                  <ion-img [src]="opciones.url"></ion-img>
+                  <ion-label>{{ opciones.description }}</ion-label>
+                  <!-- Tu código para el ícono de selección iría aquí -->
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        
+  </ion-card>
+</div>

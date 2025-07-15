@@ -1,0 +1,84 @@
+ion-card{
+    box-shadow: 0 !important;
+    height: 100%;
+}
+
+.content-layout{
+  padding: 16px; /* Añade un relleno a todo el contenedor */
+}
+
+.layout{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid #DADFE9;
+  padding: 16px; /* Espaciado dentro de cada tarjeta */
+}
+
+ion-card-content {
+  display: block;
+}
+
+ion-img {
+  max-width: 60px; /* Ajusta este valor según el tamaño de tus íconos */
+  height: auto;
+}
+
+ion-label {
+  font-size: 0.8em; /* Ajusta el tamaño de la fuente si es necesario */
+}
+
+
+.hasSelect{
+    border: 1px solid var(--Primary-Uell, #1DA4B1);
+    ion-label{
+        color: var(--Primary-Uell, #1DA4B1);
+    }
+}
+
+ion-icon{
+    width: 20px;
+    height: 20px;
+}
+
+.card-title{
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+  
+  .sub-title{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+  }
+  
+  ion-card-subtitle{
+    color: var(--Neutral-Grey, #8A95AB);
+    font-family: 'Inter';
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.04px;
+  }
+  
+  .value{
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.024px;
+  }

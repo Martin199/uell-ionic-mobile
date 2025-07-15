@@ -6,12 +6,11 @@ import {
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
-import { SessionServiceService } from './services/session-service.service';
 import { Capacitor } from '@capacitor/core';
-import { StorageService } from './services/storage.service';
 import { UtilsService } from './services/utils.service';
 import { UserStateService } from './core/state/user-state.service';
-import { UserResponseDTO } from './core/interfaces/user';
+import { addIcons } from 'ionicons';
+import { alertCircle, arrowBackOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -20,18 +19,17 @@ import { UserResponseDTO } from './core/interfaces/user';
   standalone: false,
 })
 export class AppComponent {
-    private sessionService = inject(SessionServiceService);
-    private storageService = inject(StorageService);
-    private userStateService = inject(UserStateService);
-    private utilsService = inject(UtilsService);
+  private userStateService = inject(UserStateService);
+  private utilsService = inject(UtilsService);
 
-    constructor() {
-        this.showSplash();
-        this.initializeApp();
-        if (Capacitor.isNativePlatform()) {
-            this.initPush();
-        }
+  constructor() {
+    this.showSplash();
+    this.initializeApp();
+    if (Capacitor.isNativePlatform()) {
+      this.initPush();
     }
+    addIcons({ arrowBackOutline, alertCircle });
+  }
 
   async initializeApp() {
     // TODO: Buscar terminos y condiciones
@@ -42,7 +40,13 @@ export class AppComponent {
         this.utilsService.navCtrl.navigateRoot(['auth']);
         return;
       }
-      this.utilsService.navCtrl.navigateRoot(['tabs/home']);
+
+      const currentUrl = window.location.pathname;
+      const isOnValidRoute = currentUrl.includes('/tabs/') && currentUrl !== '/tabs';
+
+      if (!isOnValidRoute) {
+        this.utilsService.navCtrl.navigateRoot(['tabs/home']);
+      }
     }
   }
 
@@ -73,22 +77,16 @@ export class AppComponent {
     });
 
     // Show us the notification payload if the app is open on our device
-    PushNotifications.addListener(
-      'pushNotificationReceived',
-      (notification: PushNotificationSchema) => {
-        // alert('Push received: ' + JSON.stringify(notification));
-      }
-    );
+    PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
+      // alert('Push received: ' + JSON.stringify(notification));
+    });
 
     // Method called when tapping on a notification
-    PushNotifications.addListener(
-      'pushNotificationActionPerformed',
-      (notification: ActionPerformed) => {
-        // alert('Push action performed: ' + JSON.stringify(notification));
-        const redirection = notification.notification.data.redirectTo;
-        if (redirection) this.utilsService.navCtrl.navigateRoot(redirection);
-      }
-    );
+    PushNotifications.addListener('pushNotificationActionPerformed', (notification: ActionPerformed) => {
+      // alert('Push action performed: ' + JSON.stringify(notification));
+      const redirection = notification.notification.data.redirectTo;
+      if (redirection) this.utilsService.navCtrl.navigateRoot(redirection);
+    });
   }
 
   async showSplash() {

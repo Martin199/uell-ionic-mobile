@@ -12,7 +12,10 @@
 
       <div class="card-rrhh__content-flex-row">
         <div class="isps-description">
-          <app-isps-circle [score]="(ispsData && ispsData.score) || 0"></app-isps-circle>
+          @if(ispsData){
+            <app-circle-progress [progress]="ispsData.score" [module]="'isps'"></app-circle-progress>
+          }
+
           @if( score === false  ){
             <div class="content-notscore">
               <ion-label class="label-notscore"

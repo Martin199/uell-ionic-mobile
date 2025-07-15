@@ -1,0 +1,45 @@
+.portal-card{
+    background-color: #E8F6F7;
+    border-radius: 16px;
+    border: 1px solid var(--Neutral-GreyLight, #DADFE9);
+    margin: 24px 16px;
+    /* Menu shadow */
+    box-shadow: 0px 8px 16px 0px rgba(33, 37, 50, 0.08);
+}
+.content-card{
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+ion-button.button-portal {
+  --border-radius: 20px;
+  --background: #1DA4B1;
+  --color: white;
+}
+ion-label{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: "Inter";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+    text-align: center;
+}
+.preferences{
+    display: flex;
+    justify-content: center;
+}
+
+.span{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: "Inter";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.016px;
+    padding-right: 5px;
+
+}

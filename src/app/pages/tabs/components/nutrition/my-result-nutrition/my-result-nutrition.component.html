@@ -1,0 +1,193 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="returnBack()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="title">Mis resultados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+@if(resultNutrition || sessionlastPlan){
+  <ion-content [fullscreen]="true">
+    <ion-card>
+      <div class="content">
+        <div class="donut-container">
+
+          @if(resultNutrition){
+            <div class="circle-container">
+              <div class="progress-text">
+                <span class="progress">{{!resultNutrition ? sessionlastPlan?.totalScore : resultNutrition.totalScore || 0}}</span>
+                <span class="progress">/</span>
+                <span class="secondary-number-container">100</span>
+              </div>  
+              <round-progress [current]="resultNutrition.totalScore!" [max]="100" [rounded]="true" [color]="getColorScore()" [stroke]="20"/>
+            </div>
+          }
+          <div class="donut-text-container">
+            @if(umbralDescription){
+              <p class="donut-title">{{ umbralDescription.title }}</p>
+              <p class="donut-text">{{ umbralDescription.description1 }}</p>
+            }
+          </div>
+        </div>
+          
+        <div class="divider"></div>
+        <div class="details-container">
+          <div class="details-title">Los resultados del cuestionario se deberán interpretar según estas referencias:</div>
+          <div class="mediciones">
+            <div class="content-medicion">
+              <ion-img src="assets/nutrition/results/like-green.svg"></ion-img>
+              <ion-label class="label-measurements">Saludable</ion-label>
+            </div>
+            <div class="content-medicion">
+              <ion-img src="assets/nutrition/results/like-yellow.svg"></ion-img>
+              <ion-label class="label-measurements">Medianamente saludable</ion-label>
+            </div>
+            <div class="content-medicion">
+              <ion-img src="assets/nutrition/results/dislike-orange.svg"></ion-img>
+              <ion-label class="label-measurements">Poco saludable</ion-label>
+            </div>
+            <div class="content-medicion">
+              <ion-img src="assets/nutrition/results/dislike-red.svg"></ion-img>
+              <ion-label class="label-measurements">Muy poco saludable</ion-label>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="mediciones">
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scoreHidratacion : resultNutrition.scoreHidratacion) ?? 0,
+                      'scoreHidratacion'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Hidratación</div>
+              </div>
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scoreVerduras : resultNutrition.scoreVerduras) ?? 0,
+                      'scoreVerduras'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Verduras</div>
+              </div>
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scoreFrutas : resultNutrition.scoreFrutas) ?? 0,
+                      'scoreFrutas'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Frutas</div>
+              </div>
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scoreHidratos : resultNutrition.scoreHidratos) ?? 0,
+                      'scoreHidratos'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Cereales, tubérculos y menestras</div>
+              </div>
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scoreSal : resultNutrition.scoreSal) ?? 0,
+                      'scoreSal'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Sal</div>
+              </div>
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scoreAzucar : resultNutrition.scoreAzucar) ?? 0,
+                      'scoreAzucar'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Azúcar</div>
+              </div>
+              @if(resultNutrition &&
+                  resultNutrition.dietPreferences !== 'VEGETARIAN' &&
+                  resultNutrition.dietPreferences !== 'VEGAN'){
+                  <div class="result-referent">
+                    <ion-img
+                      [src]="
+                        getRresultReferentIcon(
+                          (!resultNutrition ? sessionlastPlan?.scoreOrigenAnimal : resultNutrition.scoreOrigenAnimal) ?? 0,
+                          'scoreOrigenAnimal'
+                        )
+                      "
+                    ></ion-img>
+                  <div class="referent">Carnes</div>
+                </div>
+              }
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scoreDerivados : resultNutrition.scoreDerivados) ?? 0,
+                      'scoreDerivados'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Lácteos y huevos</div>
+              </div>
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scoreUltraprocesados : resultNutrition.scoreUltraprocesados) ?? 0,
+                      'scoreUltraprocesados'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Ultraprocesados</div>
+              </div>
+              <div class="result-referent">
+                <ion-img
+                  [src]="
+                    getRresultReferentIcon(
+                      (!resultNutrition ? sessionlastPlan?.scorePreparacionDeComidas : resultNutrition.scorePreparacionDeComidas) ?? 0,
+                      'scorePreparacionDeComidas'
+                    )
+                  "
+                ></ion-img>
+                <div class="referent">Preparación de alimentos</div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </ion-card>
+      
+    <div class="anthropometry-content">
+      <ion-card>
+        <app-anthropometry-detail></app-anthropometry-detail>
+      </ion-card>
+    </div>
+      
+    <div class="content-Customize">
+      <ion-button expand="block" fill="clear" shape="round" (click)="goToQuestionnaire()" [disabled]="!createdValidator">
+        <ion-img src="../../../../../../../assets/nutrition/settings.svg"></ion-img>
+        <ion-label class="label-customize">Personaliza tus preferencias</ion-label>
+      </ion-button>
+    </div>
+
+  </ion-content>
+}
+

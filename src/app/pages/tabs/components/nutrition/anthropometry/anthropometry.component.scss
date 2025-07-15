@@ -1,0 +1,182 @@
+ion-popover::part(content) {
+  --width: 320px;
+  --min-width: 280px;
+  --max-width: 90vw;
+  --border-radius: 12px;
+}
+.content{
+    overflow: auto;
+}
+
+.custom-title {
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.popover-header{
+    margin: 20px;
+}
+
+.exit{
+    display: flex;
+    justify-content: end;
+    margin: 20px;
+}
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+.label {
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.048px;
+}
+
+.title{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.content-container {
+    padding: 10px;
+    max-width: 100%;
+    height: 700px;
+    overflow-y: auto;
+}
+
+.modal-title{
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.description{
+    max-width: 90%;
+    color: var(--neutral-grey-medium, #505A78);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; 
+    letter-spacing: 0.024px;
+    margin: 0px 20px 32px 20px;
+}
+.custom-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dcdddf;
+    border-radius: 5px;
+    margin: 8px;
+    height: 48px;
+}
+
+.custom-input {
+    flex: 1;
+    border: none;
+}
+
+.placeholder-right {
+    margin-left: 5px;
+    color: #8A95AB;
+    padding: 5px;
+}
+
+.d-flex {
+    display: flex;
+    width: 98%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-right {
+    order: 1;     
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.input-label {
+	padding-bottom: 4px;
+	margin-left: 10px;
+    font-size: medium !important;
+}
+
+.ml-10 {
+	margin-left: 10px;
+}
+
+.sub-label {
+	color: var(--Neutral-GreyMedium, #505A78);
+	font-family: 'Inter';
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 16px;
+	letter-spacing: 0.048px;
+}
+
+.second-modal {
+    border: 1px solid #dcdddf;
+    border-radius: 5px;
+}
+
+.pop {
+    --min-width: 30%;
+}
+
+.pl-24{
+    padding-left: 24px;
+}
+
+.save-button{
+    --padding-end: 15px;
+    --padding-start: 15px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+    border-radius: 50px;
+    background-color: #1DA4B1;
+}
+
+.danger {
+    color: rgb(214, 31, 31);
+}
+
+ion-icon {
+    height: 24px;
+    width: 24px;
+}
+
+.close{
+    height: 20px;
+    width: 30px;
+}
+
+ion-input.custom-input {
+  --padding-top: 15px;
+  --padding-start: 12px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+ion-input.custom-input input {
+  height: 100%;
+  line-height: 48px;
+  font-size: 16px;
+}

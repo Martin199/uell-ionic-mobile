@@ -120,6 +120,13 @@ export class UserService {
     );
   }
 
+  private completenessProgress: BehaviorSubject<number> = new BehaviorSubject(0);
+  public readonly currenProgress: Observable<number> = this.completenessProgress.asObservable();
+
+  setCurrentProgress(hide: any): void {
+    this.completenessProgress.next(hide);
+  }
+
   //TODO: Chequear como vincular al usuario categoria licencia?????
   postProfilePicture(picture: ImageUpload) {
     this.http.post(

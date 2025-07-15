@@ -1,0 +1,39 @@
+<app-modal-header  [closeModal]="true"></app-modal-header>
+<ion-content>
+  <div class="top-header">
+    <ion-label class="step">Paso {{ step }} de 5</ion-label>
+    <ion-label class="title-step">{{_stepDescription}}</ion-label>
+  </div>
+    <swiper-container #swiperEx [loop]="false" (slideChangeTransitionEnd)="swiperSlideChanged()">
+      <swiper-slide>
+        <app-step-one-preference (firstStepReturn)="firstStepReturn($event, 1)" [currentSlide]="step"></app-step-one-preference>
+      </swiper-slide>
+      <swiper-slide>
+        <app-step-two-preference (firstStepReturn)="firstStepReturn($event, 2)" [currentSlide]="step"></app-step-two-preference>
+      </swiper-slide>
+      <swiper-slide>
+        <app-step-three-preference (firstStepReturn)="firstStepReturn($event, 3)" [currentSlide]="step"></app-step-three-preference>
+      </swiper-slide>
+      <swiper-slide>
+        <app-step-four-preference (firstStepReturn)="firstStepReturn($event, 4)" [currentSlide]="step"></app-step-four-preference>
+      </swiper-slide>
+      <swiper-slide>
+        <app-step-five-preference (firstStepReturn)="firstStepReturn($event, 5)" [currentSlide]="step"></app-step-five-preference>
+      </swiper-slide>
+    </swiper-container>
+  
+    <ion-row class="ion-justify-content-end ion-align-items-center ion-padding">
+      <ion-col size="auto" class="buttons-container">
+        <ion-button class="save-button footer-btn-back" (click)="prevSlide()" fill="solid" shape="round" *ngIf="step > 1"> Anterior </ion-button>
+        <ion-button
+          expand="block" type="submit" class="submit-btn "
+          [disabled]="!stepIsValid"
+          (click)="nextSlide()"
+          fill="solid"
+          shape="round"
+        >
+          {{step === 5 ? 'Finalizar' : 'Siguiente'}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-content>

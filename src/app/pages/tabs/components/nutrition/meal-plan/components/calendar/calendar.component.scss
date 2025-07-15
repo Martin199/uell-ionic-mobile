@@ -1,0 +1,119 @@
+:host {
+  display: block;
+}
+
+.calendar {
+  &__header {
+    --inner-padding-end: 0;
+    height: 35px;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    // row-gap: 16px;
+  }
+  &__headers {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+  }
+  &__popover {
+    color: var(--Neutral-GreyMedium, #505A78);
+    font-family: 'Inter';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.014px;
+    cursor: pointer;
+    padding: 0 20px;
+    &--pd-months {
+      padding: 0 30px;
+    }
+  }
+  &__label-popover {
+    cursor: pointer;
+    color: #505a78;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  &__label-item {
+    height: 35px;
+  }
+  &__header-icon {
+    width: 18px;
+    height: 18px;
+  }
+  &__days {
+    padding: 16px;
+    padding-top: 8px;
+    // height: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    &--loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__day {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.165px;
+    &--selected {
+      display: flex;
+      width: 32px;
+      height: 32px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4.165px;
+      color: #fff;
+      background: var(--Primary-Uell, #1da4b1);
+    }
+  }
+  &__current-day {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.165px;
+    border: 1px solid var(--Primary-Uell, #1da4b1) ;
+  }
+  .daysLabel {
+    display: flex;
+    min-width: 32px;
+    min-height: 32px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.165px;
+  }
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--Neutral-GreyLight, #dadfe9);
+}
+
+.text {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  color: var(--Neutral-GreyDark, #383e52);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.016px;
+}

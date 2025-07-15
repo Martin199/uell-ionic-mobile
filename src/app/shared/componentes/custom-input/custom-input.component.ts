@@ -19,6 +19,7 @@ export class CustomInputComponent implements OnInit {
     // @Input() maxLength!: number;
     pattern = input<string>;
     maxLength = input<number | null>(null);
+    @Input() immediateValidation = false; 
 
     isPassword!: boolean;
     hide: boolean = true;
@@ -55,11 +56,21 @@ export class CustomInputComponent implements OnInit {
                     return `Este campo debe ser menor o igual a ${errors[key].max}`;
                 case 'invalidLength':
                     return `Este campo debe tener ${errors[key].requiredLength} caracteres`;
+                case 'invalidAreaCodeStart':
+                    return 'El código de área no puede comenzar con 9 o 0';
+                case 'invalidPhoneNumberStart':
+                    return 'El número de teléfono no puede comenzar con 15 o 0';
                 default:
                     return 'Hay un error en el campo';
             }
         }
         return null;
+    }
+
+    onInput() {
+        if (this.immediateValidation && this.control) {
+            this.control.markAsTouched();
+        }
     }
 
     isValidField(): boolean {
