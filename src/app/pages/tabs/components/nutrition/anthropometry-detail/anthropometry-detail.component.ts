@@ -8,6 +8,7 @@ import { addDays, isAfter, isEqual } from 'date-fns';
 import { AnthropometryComponent } from '../anthropometry/anthropometry.component';
 import { FormsModule } from '@angular/forms';
 import { IonLabel, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { modalEnterAnimation, modalLeaveAnimation } from 'src/app/shared/animation/animation-modal';
 
 @Component({
   selector: 'app-anthropometry-detail',
@@ -127,6 +128,8 @@ export class AnthropometryDetailComponent  implements OnInit {
     const modal = await this.modalController.create({
         component: AnthropometryComponent,
         cssClass: 'custom-modal-class',
+        enterAnimation: modalEnterAnimation,
+        leaveAnimation: modalLeaveAnimation,
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();

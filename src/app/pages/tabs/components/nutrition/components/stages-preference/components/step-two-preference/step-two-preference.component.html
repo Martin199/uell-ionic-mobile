@@ -10,7 +10,7 @@
               (click)="selectOption(i, 'first')" *ngFor="let opciones of firstCard; let i = index">
               <ion-label class="ion-text-start value" [ngClass]="{'disabled': disabledOption(i)}">{{ opciones }}</ion-label>
               <ion-icon *ngIf="selectedIndexes['first'] === i"
-                  src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
+                  src="assets/nutrition/check_circle.svg"></ion-icon>
           </div>
       </ion-card-content>
   </ion-card>

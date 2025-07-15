@@ -84,6 +84,8 @@ ion-toolbar{
 }
 
 .description{
+    padding-top: 16px;
+
     color: var(--Neutral-GreyMedium, #505A78);
     font-family: 'Inter';
     font-size: 16px;
@@ -94,12 +96,12 @@ ion-toolbar{
 }
 
 .strong{
-    color: var(--Neutral-GreyMedium, #505A78);
-    font-family: 'Inter';
+    color: var(--Primary-Uell, #1DA4B1);
+    font-family: Inter;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
-    line-height: 24px;
+    line-height: 24px; /* 150% */
     letter-spacing: 0.016px;
 }
 
@@ -176,3 +178,20 @@ ion-icon{
 ::ng-deep app-modal-header ion-header {
   padding: 0px 24px!important;
 }
+
+.icons-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .invisible-label {
+    opacity: 0;
+  }
+  .spinner-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }

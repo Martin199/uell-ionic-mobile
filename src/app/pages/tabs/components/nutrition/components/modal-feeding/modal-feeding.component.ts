@@ -7,6 +7,7 @@ import { NgClass, NgIf } from '@angular/common';
 import { StagesFeedingComponent } from '../stages-feeding/stages-feeding.component';
 import {  ModalController, Platform } from '@ionic/angular/standalone';
 import { StagesPreferenceComponent } from '../stages-preference/stages-preference.component';
+import { modalEnterAnimation, modalLeaveAnimation } from 'src/app/shared/animation/animation-modal';
 
 @Component({
   selector: 'app-modal-feeding',
@@ -41,26 +42,21 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('ModalFeedingComponent se está destruyendo');
     sessionStorage.removeItem('stepFeeding');
     sessionStorage.removeItem('stepPreference');
-    // Limpiar suscripción del botón de retroceso
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
     
-    // Opcional: Limpiar sessionStorage si el modal se cierra sin completar
     if (!this.hasCloseModal) {
-      console.log('Modal cerrado sin completar - limpiando datos');
       sessionStorage.removeItem('stepFeeding');
       sessionStorage.removeItem('stepPreference');
     }
   }
 
   ionViewWillLeave() {
-    console.log('ModalFeedingComponent está por salir');
-    // Este método se ejecuta cuando el modal está por cerrarse
-    // Puedes usar esto para detectar el cierre del modal específicamente
+    sessionStorage.removeItem('stepFeeding');
+    sessionStorage.removeItem('stepPreference');
   }
 
   checkStep(){	
@@ -86,54 +82,39 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
   }
 
   async goTo(url: string){
-    console.log('Iniciando goTo...');
     
     try {
       const modal = await this.modalCtrl.create({
         component: StagesFeedingComponent,
         showBackdrop: true,
-        backdropDismiss: false
+        backdropDismiss: false,
+        enterAnimation: modalEnterAnimation,
+        leaveAnimation: modalLeaveAnimation,
       });
       
       await modal.present();
       
       const { data } = await modal.onDidDismiss();
-      console.log('Modal cerrado con datos:', data);
       
-      // Verificar si el modal se cerró con datos de completado
       if (data && data.completed) {
-        console.log('StagesFeeding completado:', data.data);
         this.onStagesFeedingCompleted(data.data);
-      } else {
-        console.log('Modal cerrado sin datos de completado');
-      }
+      } 
     } catch (error) {
       console.error('Error al abrir el modal:', error);
     }
   }
 
   onStagesFeedingCompleted(feedingData: any) {
-    console.log('=== onStagesFeedingCompleted ejecutado ===');
-    console.log('Datos recibidos:', feedingData);
     
-    // Aquí puedes ejecutar cualquier acción que necesites
-    // cuando el StagesFeedingComponent se complete
-    
-    // Por ejemplo, actualizar el estado del componente
     this.stepFeeding = true;
     
-    // Verificar si ambos pasos están completos
     if (this.stepPreference && this.stepFeeding) {
       this.hasCloseModal = true;
     }
     
-    // Puedes agregar más lógica aquí según tus necesidades
-    console.log('Acción ejecutada después de completar StagesFeeding');
-    console.log('Estado actual - stepFeeding:', this.stepFeeding, 'hasCloseModal:', this.hasCloseModal);
   }
 
   async goToPreference(url: string) {
-    console.log('Iniciando goTo...');
     
     try {
       const modal = await this.modalCtrl.create({
@@ -146,6 +127,7 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
         modal.onDidDismiss().then((data) => {
           if (data && data.data && data.data.completed) {
             this.checkStep()
+            this.openModalCreditPoint()
           }
         });
       });
@@ -160,7 +142,10 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
     if (this.stepPreference && this.stepFeeding) {
       this.hasCloseModal = true;
     }
-    // Más lógica si necesitas
+  }
+
+  openModalCreditPoint(){
+    this.utilsService.presentWinToast(3)
   }
 
   postPlan(){
@@ -168,7 +153,8 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
     this.stagesService.postNutritionPlan(this.storageService.getSessionStorage('stepFeeding'), this.storageService.getSessionStorage('stepPreference')).subscribe((resp: any)=> {
       this.isLoading = false
       this.nutritionPlan = resp
-      //this.router.navigateByUrl('/newton/wellness/nutrition/my-results')
+      sessionStorage.setItem('resultNutrition', JSON.stringify(resp));
+      this.utilsService.goTo('/tabs/nutrition/my-results')
       this.modalCtrl.dismiss()
       sessionStorage.removeItem('stepFeeding');
       sessionStorage.removeItem('stepPreference');
@@ -183,22 +169,12 @@ export class ModalFeedingComponent  implements OnInit, OnDestroy {
   }
 
   setupBackButtonHandler() {
-    // Detectar cuando el usuario presiona el botón de retroceso
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
-      console.log('Botón de retroceso presionado en ModalFeeding');
-      // Aquí puedes ejecutar lógica específica cuando el usuario presiona retroceso
       this.handleBackButton();
     });
   }
 
   handleBackButton() {
-    // Lógica específica para cuando el usuario presiona retroceso
-    console.log('Usuario intenta salir del modal con botón de retroceso');
-    
-    // Opcional: Mostrar confirmación antes de cerrar
-    // this.showExitConfirmation();
-    
-    // O cerrar directamente
     this.modalCtrl.dismiss();
   }
 

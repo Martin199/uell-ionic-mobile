@@ -1,3 +1,4 @@
+<app-modal-header  [closeModal]="true"></app-modal-header>
 <ion-content>
   <div class="top-header">
     <ion-label class="step">Paso {{ step }} de 5</ion-label>
@@ -21,11 +22,11 @@
       </swiper-slide>
     </swiper-container>
   
-    <ion-row class="ion-justify-content-end ion-padding">
+    <ion-row class="ion-justify-content-end ion-align-items-center ion-padding">
       <ion-col size="auto" class="buttons-container">
         <ion-button class="save-button footer-btn-back" (click)="prevSlide()" fill="solid" shape="round" *ngIf="step > 1"> Anterior </ion-button>
         <ion-button
-          class="submit-btn save-button"
+          expand="block" type="submit" class="submit-btn "
           [disabled]="!stepIsValid"
           (click)="nextSlide()"
           fill="solid"

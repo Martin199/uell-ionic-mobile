@@ -5,23 +5,25 @@ ion-header{
   }
 }
 .title {
-  color: var(--Neutral-GreyDark, #383E52);
-  font-family: "Red Hat Display";
-  font-size: 24px;
+  color: var(--Neutral-GreyMedium, #505A78);
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 130%;
-  word-break: break-word;
+  line-height: 28px; /* 140% */
   white-space: normal;
-  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow: visible;
+  text-overflow: unset;
 }
 .sub-title {
   color: var(--Neutral-GreyMedium, #505A78);
-  font-family: "Red Hat Display";
-  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 120%;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.024px;
 }
 .header-content-space-between {
   display: flex;
@@ -52,4 +54,8 @@ ion-header{
 
 .icon-arrow-back {
   padding: 4px !important;
+}
+
+.custom-background {
+  --background: var(--neutral-neutral-grey, #F8F8F8) !important;
 }

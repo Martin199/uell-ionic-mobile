@@ -5,6 +5,7 @@ import { StorageService } from './storage.service';
 import { Localization, TenantParameters, TenantParametersResponse } from '../core/interfaces/tenantParameters';
 import { User } from '../pages/tabs/interfaces/user-interfaces';
 import { countryENUM } from '../shared/constant/country-constants';
+import { modalEnterAnimation, modalLeaveAnimation } from '../shared/animation/animation-modal';
 
 @Injectable({
   providedIn: 'root',
@@ -150,6 +151,8 @@ export class UtilsService {
       cssClass: css,
       component: component,
       componentProps: data,
+        enterAnimation: modalEnterAnimation,
+        leaveAnimation: modalLeaveAnimation,
     });
     await modal.present();
 
@@ -184,4 +187,17 @@ export class UtilsService {
 
     return null;
   }
+    async presentWinToast(creditPoints: number) {
+        creditPoints ? creditPoints : 1;
+        const toast = await this.toastCtrl.create({
+            message: `🎉 Felicidades, ganaste ${creditPoints} ${creditPoints === 1 ? 'crédito' : 'créditos'
+                }`,
+            duration: 3000,
+            position: 'bottom',
+            cssClass: 'custom-toast',
+            animated: true,
+        });
+        await toast.present();
+    }
+
 }

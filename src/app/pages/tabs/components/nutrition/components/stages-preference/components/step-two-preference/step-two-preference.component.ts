@@ -58,7 +58,6 @@ export class StepTwoPreferenceComponent  implements OnInit {
       chicken = this.searchOptionMeats('Pollo');
     }
     this.stageServices.getPreferencesRestrictions().subscribe((resp: any) => {
-      console.log(resp, 'getPreferencesRestrictions')
       this.preferenceRestriction = resp;
       sessionStorage.setItem('preferencesRestrictions', JSON.stringify(resp));
     })
