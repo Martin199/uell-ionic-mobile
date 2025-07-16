@@ -7,6 +7,7 @@ import {
   IonIcon,
   IonTitle,
   IonSpinner,
+  IonContent,
   NavController,
 } from '@ionic/angular/standalone';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
@@ -32,6 +33,7 @@ import { Router } from '@angular/router';
     IonButton,
     IonIcon,
     IonTitle,
+    IonContent,
     IonSpinner,
     CarouselComponent,
     CommonModule,

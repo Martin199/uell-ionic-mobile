@@ -9,30 +9,33 @@
   </ion-toolbar>
 </ion-header>
 
-<app-calendar (selectedDate)="selectedDay.set($event)"></app-calendar>
-<div class="suggestion-container" >
-  @defer () {
-    <div class="carousel-container" [ngClass]="{'gray-filter': breakfastDisabled()}">
-      <app-carousel [nutritionCards]="breakFastCards()!" [typeFood]="'DESAYUNO'" (selectedCard)="selectedCard($event)" ></app-carousel>
-    </div>
-    <div class="carousel-container" [ngClass]="{'gray-filter': lunchDisabled()}">
-      <app-carousel [nutritionCards]="lunchCards()!" [typeFood]="'ALMUERZO'" (selectedCard)="selectedCard($event)"></app-carousel>
-    </div>
-    <div class="carousel-container" [ngClass]="{'gray-filter': snackDisabled()}">
-      <app-carousel [nutritionCards]="snackCards()!" [typeFood]="'MERIENDA'" (selectedCard)="selectedCard($event)"></app-carousel>
-    </div>
-    <div class="carousel-container" [ngClass]="{'gray-filter': dinerDisabled()}">
-      <app-carousel [nutritionCards]="dinerCards()!" [typeFood]="'CENA'" (selectedCard)="selectedCard($event)"></app-carousel>
-    </div>
-  }
-  @loading {
-    <h1>Cargando...</h1>
-    <ion-spinner></ion-spinner>
-  }
+<ion-content [fullscreen]="true">
+  <app-calendar (selectedDate)="selectedDay.set($event)"></app-calendar>
+  <div class="suggestion-container" >
+    @defer () {
+      <div class="carousel-container" [ngClass]="{'gray-filter': breakfastDisabled()}">
+        <app-carousel [nutritionCards]="breakFastCards()!" [typeFood]="'DESAYUNO'" (selectedCard)="selectedCard($event)" ></app-carousel>
+      </div>
+      <div class="carousel-container" [ngClass]="{'gray-filter': lunchDisabled()}">
+        <app-carousel [nutritionCards]="lunchCards()!" [typeFood]="'ALMUERZO'" (selectedCard)="selectedCard($event)"></app-carousel>
+      </div>
+      <div class="carousel-container" [ngClass]="{'gray-filter': snackDisabled()}">
+        <app-carousel [nutritionCards]="snackCards()!" [typeFood]="'MERIENDA'" (selectedCard)="selectedCard($event)"></app-carousel>
+      </div>
+      <div class="carousel-container" [ngClass]="{'gray-filter': dinerDisabled()}">
+        <app-carousel [nutritionCards]="dinerCards()!" [typeFood]="'CENA'" (selectedCard)="selectedCard($event)"></app-carousel>
+      </div>
+    }
+    @loading {
+      <h1>Cargando...</h1>
+      <ion-spinner></ion-spinner>
+    }
+  
+    @placeholder (minimum 1000ms) {
+      <div class="loading-spinner">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    }
+  </div>
+</ion-content>
 
-  @placeholder (minimum 1000ms) {
-    <div class="loading-spinner">
-      <ion-spinner name="crescent"></ion-spinner>
-    </div>
-  }
-</div>

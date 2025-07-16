@@ -4,7 +4,7 @@ import { NutritionCard } from '../shared/nutrition-card/nutrition-card.interface
 import { cardHome } from 'src/app/shared/constant/cards-test';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ModalFeedingComponent } from '../components/modal-feeding/modal-feeding.component';
-import { IonCard, IonLabel, IonButton, IonImg } from '@ionic/angular/standalone';
+import { IonCard, IonLabel, IonButton, IonImg, IonContent} from '@ionic/angular/standalone';
 import { NutritionService } from 'src/app/services/nutrition.service';
 import { ResultPlanDTO } from '../my-result-nutrition/results.interface';
 import { UserStateService } from 'src/app/core/state/user-state.service';
@@ -15,7 +15,7 @@ import { Utils } from '../../home/utils/utils';
   templateUrl: './home-nutrition.component.html',
   styleUrls: ['./home-nutrition.component.scss'],
   standalone: true,
-  imports: [NutritionCardComponent, IonCard, IonLabel, IonButton, IonImg],
+  imports: [NutritionCardComponent, IonCard, IonLabel, IonButton, IonImg, IonContent],
 })
 export class HomeNutritionComponent implements OnInit {
 

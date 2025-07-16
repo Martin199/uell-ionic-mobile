@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MyResultNutritionComponent } from './my-result-nutrition/my-result-nutrition.component';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { HomeNutritionComponent } from './home-nutrition/home-nutrition.component';
+import { IonRouterOutlet } from '@ionic/angular/standalone';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { HomeNutritionComponent } from './home-nutrition/home-nutrition.componen
         SharedModule,
         RoundProgressModule,
         MyResultNutritionComponent,
-        HomeNutritionComponent
+        HomeNutritionComponent,
+        IonRouterOutlet,
     ],
     declarations: [
         NutritionPage, 
