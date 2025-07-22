@@ -7,8 +7,9 @@ import { NutritionCard } from '../../../../shared/nutrition-card/nutrition-card.
 import { MealPlanService } from 'src/app/services/meal-plan.service';
 import { IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, IonContent } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBackSharp, ellipse, heartOutline, timeOutline, people, starOutline, bulb } from 'ionicons/icons';
+import { arrowBackSharp, ellipse, heartOutline, timeOutline, people, starOutline, bulb, heart } from 'ionicons/icons';
 import { NavController } from '@ionic/angular';
+import { StarsRateComponent } from '../../../../shared/stars-rate/stars-rate.component';
 
 addIcons({
   arrowBackSharp,
@@ -17,6 +18,7 @@ addIcons({
   timeOutline,
   people,
   starOutline,
+  heart
 });
 
 @Component({
@@ -25,7 +27,7 @@ addIcons({
   styleUrls: ['./recipe-detail.component.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [CommonModule, IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, IonContent], // agrega aquí los módulos necesarios
+  imports: [CommonModule, IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, IonContent, StarsRateComponent],
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
   private router = inject(Router);

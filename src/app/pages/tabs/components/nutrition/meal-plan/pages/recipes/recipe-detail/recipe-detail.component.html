@@ -51,17 +51,6 @@
             </div>
           </div>
           <div class="recipe">
-            <!-- <div class="info">
-              <p class="info-text" id="open-modal">Informacion Nutricional</p>
-            </div> -->
-            <!-- <div class="card">
-              <div class="title">Utensilios</div>
-              <div class="utensils-list">
-                <div *ngFor="let utensil of utensils" class="utensil gray-filter">
-                  <ion-img [src]="utensil"></ion-img>
-                </div>
-              </div>
-            </div> -->
             <div class="card">
               <div class="title">Ingredientes</div>
               <div class="ingridient-list">
@@ -100,27 +89,6 @@
               </div>
             </div>
           </div>
-          <!-- Modal para informacion nutricional -->
-          <!-- <ion-modal id="nutri-info" #modal trigger="open-modal">
-            <ng-template>
-              <ion-header class="ion-no-border">
-                <ion-toolbar>
-                  <ion-title>{{ recipeDetail.title }}</ion-title>
-                  <ion-buttons slot="end">
-                    <ion-button (click)="modal.dismiss()">X</ion-button>
-                  </ion-buttons>
-                </ion-toolbar>
-              </ion-header>
-
-              <ion-list lines="none" class="modal-list">
-                <ion-label class="modal-label">Por Porcion</ion-label>
-                <ion-item *ngFor="let info of nutritionalValueArray" button="true" class="nutri-modal-item">
-                  <ion-label class="text-modal">{{ info.key | uppercase }} :</ion-label>
-                  <div slot="end">{{ info.value }} g</div>
-                </ion-item>
-              </ion-list>
-            </ng-template>
-          </ion-modal> -->
         </div>
       </ion-col>
     </ion-row>
