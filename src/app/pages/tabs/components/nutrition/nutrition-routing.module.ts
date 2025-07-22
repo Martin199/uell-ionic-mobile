@@ -52,6 +52,13 @@ const routes: Routes = [
             (m) => m.MealDetailsComponent
           ),
       },
+      {
+        path: 'recipe-detail',
+        loadComponent: () =>
+          import('./meal-plan/pages/recipes/recipe-detail/recipe-detail.component').then(
+            (m) => m.RecipeDetailComponent
+          ),
+      },
     ],
   },
 ];

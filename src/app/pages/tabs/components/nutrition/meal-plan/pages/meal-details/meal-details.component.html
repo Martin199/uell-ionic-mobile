@@ -12,29 +12,44 @@
   </ion-toolbar>
 </ion-header>
 
- <div class="media">
-  <ion-img [src]="card()?.image"></ion-img>
-</div>
-
-<div class="content">
-  <div class="card-group">
-            <!-- <div class="link">Informacion nutricional</div> -->
-    <div class="ingridient-cards">
-      @for (ingridient of card()?.mealPrepInfo?.ingredients; track $index) {
-      <div class="ingridient-card" >
-        <div class="card-title">{{ ingridient.name | titlecase }}</div>
-        <div class="card-amount">
-          {{ ingridient.amount }}
-        </div>
-      </div>
-      }
-    </div>
+<ion-content>
+  <div class="media">
+    <ion-img [src]="card()?.image"></ion-img>
   </div>
-  <app-file-upload title="Subir foto" (fileUploaded)="onFileUploaded($event)"></app-file-upload>
-  <ion-button (click)="uploadPhoto()" expand="block" shape="round" class="primary" [disabled]="!fileSelected()">
-    {{ card()?.mealPrepInfo?.state === 'COMPLETED' ? 'Editar foto' : 'Subir foto' }}
-  </ion-button>
-  <ion-button (click)="postMarkDone()" expand="block" shape="round" class="primary">
-    Marcar como realizado
-  </ion-button>
-</div>
+
+  <div class="content">
+    <div class="card-group">
+      <!-- <div class="link">Informacion nutricional</div> -->
+      <div class="ingridient-cards">
+        @for (ingridient of card()?.mealPrepInfo?.ingredients; track $index) {
+        <div class="ingridient-card">
+          <div class="card-title">{{ ingridient.name | titlecase }}</div>
+          <div class="card-amount">
+            {{ ingridient.amount }}
+            <div
+              *ngIf="ingridient.recipeId"
+              (click)="navigateToRecipe(ingridient.recipeId)"
+              class="link"
+            >
+              Ver receta
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <app-file-upload title="Subir foto" (fileUploaded)="onFileUploaded($event)"></app-file-upload>
+    <ion-button
+      (click)="uploadPhoto()"
+      expand="block"
+      shape="round"
+      class="primary"
+      [disabled]="!fileSelected()"
+    >
+      {{ card()?.mealPrepInfo?.state === "COMPLETED" ? "Editar foto" : "Subir foto" }}
+    </ion-button>
+    <ion-button (click)="postMarkDone()" expand="block" shape="round" class="primary">
+      Marcar como realizado
+    </ion-button>
+  </div>
+</ion-content>

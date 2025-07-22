@@ -168,4 +168,22 @@ export class MealPlanService {
     const isDisabled = differenceInDays(currentDate, expiretionDate) <= 0;
     this.setDisabledValorarionPlan(isDisabled);
   }
+
+  getRecipeById(recipeId: number) {
+    const userId = this.userState.userId();
+    const url = `${environment.apiBaseUrl}${environment.apiVersion}/nutrition/recipes/getAll?userId=${userId}&recipeId=${recipeId}`;
+    return this.http.get<any>(url);
+  }
+
+  postFavoriteRecipe(recipeId: number, favorite: boolean) {
+    const userId = this.userState.userId();
+
+    const url = `${environment.apiBaseUrl}${environment.apiVersion}/nutrition/recipes/recipe-valoration`;
+    const payload = {
+      userId: userId,
+      recipeId: recipeId,
+      isFavorite: favorite,
+    };
+    return this.http.post(url, payload);
+  }
 }
