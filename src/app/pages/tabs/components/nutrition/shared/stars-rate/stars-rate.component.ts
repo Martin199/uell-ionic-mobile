@@ -1,7 +1,5 @@
 import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonContent } from '@ionic/angular/standalone';
-
 interface IStarRate {
   rate: number;
   selected: boolean;
@@ -12,7 +10,7 @@ interface IStarRate {
   templateUrl: './stars-rate.component.html',
   styleUrls: ['./stars-rate.component.scss'],
   standalone: true,
-  imports: [NgFor, IonContent],
+  imports: [NgFor],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
 })

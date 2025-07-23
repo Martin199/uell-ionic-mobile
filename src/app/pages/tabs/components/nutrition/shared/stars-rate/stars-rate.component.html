@@ -1,10 +1,8 @@
-<ion-content>
-  <ion-icon
-    *ngFor="let item of starRate"
-    [src]="
-      item.selected ? 'assets/nutrition/icons/StarSelected.svg' : 'assets/nutrition/icons/Star.svg'
-    "
-    (click)="setSelectedStars(item.rate)"
-  >
-  </ion-icon>
-</ion-content>
+<ion-icon
+  *ngFor="let item of starRate"
+  [src]="
+    item.selected ? 'assets/nutrition/icons/StarSelected.svg' : 'assets/nutrition/icons/Star.svg'
+  "
+  (click)="setSelectedStars(item.rate)"
+>
+</ion-icon>

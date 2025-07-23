@@ -1,25 +1,40 @@
-import { Component, OnInit, OnDestroy, computed, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  computed,
+  inject,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular/standalone';
 import { NutritionCard } from '../../../../shared/nutrition-card/nutrition-card.interface';
 //import { ModalRatingComponent } from '../modal-rating/modal-rating.component';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
-import { IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, IonContent } from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonImg,
+  IonContent,
+  ModalController,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBackSharp, ellipse, heartOutline, timeOutline, people, starOutline, bulb, heart } from 'ionicons/icons';
-import { NavController } from '@ionic/angular';
-import { StarsRateComponent } from '../../../../shared/stars-rate/stars-rate.component';
-
-addIcons({
+import {
   arrowBackSharp,
   ellipse,
   heartOutline,
   timeOutline,
   people,
   starOutline,
-  heart
-});
+  bulb,
+  heart,
+} from 'ionicons/icons';
+import { NavController } from '@ionic/angular';
+import { StarsRateComponent } from '../../../../shared/stars-rate/stars-rate.component';
+import { ModalRatingComponent } from '../modal-rating/modal-rating.component';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -27,7 +42,17 @@ addIcons({
   styleUrls: ['./recipe-detail.component.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [CommonModule, IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, IonContent, StarsRateComponent],
+  imports: [
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonImg,
+    IonContent,
+    StarsRateComponent,
+  ],
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
   private router = inject(Router);
@@ -40,6 +65,16 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getRecipe();
+
+    addIcons({
+      arrowBackSharp,
+      ellipse,
+      heartOutline,
+      timeOutline,
+      people,
+      starOutline,
+      heart,
+    });
   }
 
   ngOnDestroy() {
@@ -72,17 +107,17 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   async openRatingModal() {
     if (!this.recipeCard) return;
-    //const modal = await this.modalCtrl.create({
-    //  component: ModalRatingComponent,
-    //  componentProps: { title: this.recipeCard.title, recipeId: this.recipeCard.recipeInfo.id },
-    //});
+    const modal = await this.modalCtrl.create({
+      component: ModalRatingComponent,
+      componentProps: { title: this.recipeCard.title, recipeId: this.recipeCard!.recipeInfo!.id },
+    });
 
-    //await modal.present();
+    await modal.present();
 
-    //const { data } = await modal.onWillDismiss();
-    //if (data) {
-    //  this.rating = data.rate;
-    //}
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+     this.rating = data.rate;
+    }
   }
 
   returnBack() {

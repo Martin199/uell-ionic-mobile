@@ -1,6 +1,3 @@
-:host {
-  display: block;
-}
 
 .toolbar {
   display: flex;
@@ -34,13 +31,13 @@ ion-header {
 }
 
 .content {
+  height: 100dvh;
   background: var(--Neutral-Neutral-grey, #f8f8f8);
 }
 .media {
   display: flex;
   flex-direction: column;
   position: relative;
-  align-items: center;
   justify-content: center;
   gap: -32px;
   width: 100%;

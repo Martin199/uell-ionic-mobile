@@ -1,0 +1,115 @@
+
+  .content {
+    display: flex;
+    padding: var(--optionsSelected, 0px) 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    height: 90%;
+    flex: 1 0 0;
+    align-self: stretch;
+  }
+  
+  .no-button {
+    display: flex;
+    padding: var(--optionsSelected, 0px) 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    flex: 1 0 0;
+    align-self: stretch;
+  }
+  
+  .title {
+    color: var(--Neutral-GreyMedium, #505a78);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  
+    /* Title T1/Bold */
+    font-family: 'Inter';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 140% */
+  }
+  
+  .rating-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+  }
+  
+  .subtitle {
+    padding-left: 5%;
+    color: var(--Neutral-GreyMedium, #505a78);
+  
+    font-family: 'Inter';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+    align-self: stretch;
+  }
+  
+  .rating-stars {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .comments {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  
+    align-self: stretch;
+  }
+  
+  .comment-input {
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+  
+    border-radius: 4px;
+    border: 1px solid var(--Neutral-GreyLight, #dadfe9);
+    background: var(--Neutral-White, #fff);
+  }
+  
+  .comentario {
+    color: var(--Neutral-GreyDark, #383e52);
+  
+    /* Comment C1/Regular */
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.048px;
+  }
+  
+  .button-save {
+    display: flex;
+    padding: 16px 32px 32px 32px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+  }
+  
+  :host ion-textarea {
+    --border-radius: 30px;
+    width: 100%;
+    min-height: 60px; /* o el valor que prefieras */
+    max-height: 300px;
+    --highlight-color-focused: #1da4b1;
+    --highlight-color-valid: #1da4b1;
+   
+  }
+  

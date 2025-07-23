@@ -186,4 +186,16 @@ export class MealPlanService {
     };
     return this.http.post(url, payload);
   }
+
+  postValorationRecipe(recipeId: number, valoration: number, comments: string) {
+    const userId = this.userState.userId();
+    const url = `${environment.apiBaseUrl}${environment.apiVersion}/nutrition/recipes/recipe-valoration`;
+    const payload = {
+      userId: userId,
+      recipeId: recipeId,
+      valoration: valoration,
+      comments: comments,
+    };
+    return this.http.post(url, payload);
+  }
 }

@@ -1,0 +1,52 @@
+<!-- modal-rating.component.html -->
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+    <div class="no-button">
+      <h2 class="title">{{ title }}</h2>
+
+      <!-- ---------- Rating ---------- -->
+      <div class="rating-content">
+        <p class="subtitle">¿Qué te pareció esta receta?</p>
+        <div class="rating-stars">
+          <!-- Sin ngModel, solo emitimos el cambio -->
+          <app-stars-rate (rateChange)="setRate($event)"></app-stars-rate>
+        </div>
+      </div>
+
+      <!-- ---------- Comentarios ---------- -->
+      <div class="comments">
+        <label class="comentario">Comentarios</label>
+        <ion-textarea
+          name="comments"
+          [(ngModel)]="comments"
+          autoGrow="true"
+          debounce="300"
+          shape="round"
+          fill="outline"
+          [counter]="true"
+          maxlength="500">
+        </ion-textarea>
+      </div>
+    </div>
+
+    <!-- ---------- Botón guardar ---------- -->
+    <div class="button-save">
+      <ion-button
+        shape="round"
+        (click)="save()"
+        [disabled]="disable || !comments.trim()">
+        Guardar
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

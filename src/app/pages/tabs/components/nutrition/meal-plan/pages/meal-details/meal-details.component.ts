@@ -94,7 +94,7 @@ export class MealDetailsComponent {
             title: recipe.title,
             description: '',
             navigateTo: 'meal-detail',
-            image: '/assets/nutrition/home2.svg',
+            image: recipe.url,
             recipeInfo: {
               id: recipe.id,
               cook_time: recipe.cook_time,

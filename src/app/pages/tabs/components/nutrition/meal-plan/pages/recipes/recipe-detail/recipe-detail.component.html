@@ -15,82 +15,86 @@
       (click)="favRecipe(true)"
       name="heart-outline"
     ></ion-icon>
-    <ion-icon *ngIf="recipeCard?.recipeInfo?.fav" slot="end" id="header-fav" (click)="favRecipe(false)" name="heart"></ion-icon>
+    <ion-icon
+      *ngIf="recipeCard?.recipeInfo?.fav"
+      slot="end"
+      id="header-fav"
+      (click)="favRecipe(false)"
+      name="heart"
+    ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div *ngIf="recipeCard" class="content">
-          <div class="media">
-            <ion-img [src]="recipeCard.image" class="media-img"></ion-img>
-            <div class="details">
-              <div class="time-portions">
-                <div class="cook_time">
-                  <ion-icon name="time-outline"></ion-icon>
-                  <label class="icon-label">{{ recipeCard?.recipeInfo?.cook_time }} min</label>
-                </div>
-                <div class="portions">
-                  <ion-icon name="people"></ion-icon>
-                  <label class="icon-label"
-                    >{{ recipeCard?.recipeInfo?.portions }}
-                    {{ recipeCard?.recipeInfo?.portions === '1' ? 'porción' : 'porciones' }}
-                  </label>
-                </div>
-              </div>
-              <div class="rating">
-                <ion-icon
-                  *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
-                  [name]="i < (recipeCard?.recipeInfo?.valoration ?? 0) ? 'star' : 'star-outline'"
-                  class="star"
-                >
-                </ion-icon>
-              </div>
-            </div>
+<ion-content>
+  <div *ngIf="recipeCard" class="content">
+    <div class="media">
+      <ion-img [src]="recipeCard.image" class="media-img"></ion-img>
+      <div class="details">
+        <div class="time-portions">
+          <div class="cook_time">
+            <ion-icon name="time-outline"></ion-icon>
+            <label class="icon-label">{{ recipeCard!.recipeInfo!.cook_time }} min</label>
           </div>
-          <div class="recipe">
-            <div class="card">
-              <div class="title">Ingredientes</div>
-              <div class="ingridient-list">
-                <div *ngFor="let ingredient of recipeCard?.recipeInfo?.ingredients" class="ingredient">
-                  <div class="ingridients">
-                    <ion-icon name="ellipse" class="color-primary"></ion-icon>
-                    <label class="ingredient-label">{{ ingredient.amount }} de {{ ingredient.name }}</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="title">Preparación</div>
-              <div class="steps-list">
-                <div class="step" *ngFor="let step of recipeCard?.recipeInfo?.cook_steps; let i = index">
-                  <div class="number">{{ i + 1 }}</div>
-                  <div class="step-description">{{ step }}</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="title">¿Qué te pareció esta receta?</div>
-              <div class="star-rate">
-                <app-stars-rate (click)="openRatingModal()" [isEditable]="false" [initialRate]="rating"> </app-stars-rate>
-              </div>
-            </div>
-
-            <div *ngIf="recipeCard?.recipeInfo?.nutrition_tips" class="tip-card">
-              <div class="icon-title">
-                <p class="tip-title">Tip</p>
-                <ion-icon name="bulb" class="icon-tip color-primary"></ion-icon>
-              </div>
-              <div class="tip-description">
-                {{ recipeCard?.recipeInfo?.nutrition_tips }}
-              </div>
+          <div class="portions">
+            <ion-icon name="people"></ion-icon>
+            <label class="icon-label"
+              >{{ recipeCard!.recipeInfo!.portions }}
+              {{ recipeCard!.recipeInfo!.portions === "1" ? "porción" : "porciones" }}
+            </label>
+          </div>
+        </div>
+        <div class="rating">
+          <ion-icon
+            *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
+            [name]="i < (recipeCard!.recipeInfo!.valoration ?? 0) ? 'star' : 'star-outline'"
+            class="star"
+          >
+          </ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="recipe">
+      <div class="card">
+        <div class="title">Ingredientes</div>
+        <div class="ingridient-list">
+          <div *ngFor="let ingredient of recipeCard?.recipeInfo?.ingredients" class="ingredient">
+            <div class="ingridients">
+              <ion-icon name="ellipse" class="color-primary"></ion-icon>
+              <label class="ingredient-label"
+                >{{ ingredient.amount }} de {{ ingredient.name }}</label
+              >
             </div>
           </div>
         </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </div>
+
+      <div class="card">
+        <div class="title">Preparación</div>
+        <div class="steps-list">
+          <div class="step" *ngFor="let step of recipeCard?.recipeInfo?.cook_steps; let i = index">
+            <div class="number">{{ i + 1 }}</div>
+            <div class="step-description">{{ step }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="title">¿Qué te pareció esta receta?</div>
+        <div class="star-rate">
+          <app-stars-rate (click)="openRatingModal()" [isEditable]="false" [initialRate]="rating">
+          </app-stars-rate>
+        </div>
+      </div>
+
+      <div *ngIf="recipeCard?.recipeInfo?.nutrition_tips" class="tip-card">
+        <div class="icon-title">
+          <p class="tip-title">Tip</p>
+          <ion-icon name="bulb" class="icon-tip color-primary"></ion-icon>
+        </div>
+        <div class="tip-description">
+          {{ recipeCard!.recipeInfo!.nutrition_tips }}
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
