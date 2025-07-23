@@ -54,6 +54,7 @@ export class MealDetailsComponent {
     this.mealPlanService.postMealCompliance(this.mealPost).subscribe(() => {
       this.returnBack();
       this.mealPlanService.triggerReload.update(value => !value);
+      this.utilsService.presentWinToast(1)
     });
   }
 
