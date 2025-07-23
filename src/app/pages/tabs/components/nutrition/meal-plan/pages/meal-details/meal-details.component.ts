@@ -50,7 +50,10 @@ export class MealDetailsComponent {
   fileSelected = computed(() => this.mealPlanService.fileSelected());
 
   postMarkDone() {
-    this.mealPlanService.postMealCompliance(this.mealPost).subscribe(() => this.returnBack());
+    this.mealPlanService.postMealCompliance(this.mealPost).subscribe(() => {
+      this.returnBack();
+      this.utilsService.presentWinToast(1)
+    } );
   }
 
   onFileUploaded(file: ImageClass | null) {

@@ -217,6 +217,7 @@ export class AnthropometryComponent  implements OnInit, OnChanges {
             this.setAnthropometryStatus(content);
             this.setAnthropometryData(content);
             this.modalController.dismiss(resp.content);
+            this.utilsService.presentWinToast(2)
           }
           this.closeModalWithData()
         }
