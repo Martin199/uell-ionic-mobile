@@ -1,4 +1,4 @@
-import { Component, computed, inject, resource, signal } from '@angular/core';
+import { Component, computed, inject, resource, signal, effect } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -46,7 +46,10 @@ export class MealPlanHomeComponent {
   private mealPlanService = inject(MealPlanService);
 
   suggestionsResource = resource({
-    loader: () => {
+    request: () => ({id: this.mealPlanService.triggerReload()}),
+    loader: ({request}) => {
+    
+    
       return firstValueFrom(this.mealPlanService.getMealPlan());
     },
   });

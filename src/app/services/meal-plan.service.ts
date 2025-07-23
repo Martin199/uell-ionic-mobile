@@ -38,6 +38,7 @@ export class MealPlanService {
   readonly error = computed(() => this.state().error);
   readonly nutUserFoodId = computed(() => this.selectedCard()?.mealPrepInfo?.nutUserFoodId);
   readonly fileSelected = computed(() => this.state().fileSelected);
+  triggerReload = signal<boolean>(false);
 
   constructor() {
     // Set up effect to persist state changes

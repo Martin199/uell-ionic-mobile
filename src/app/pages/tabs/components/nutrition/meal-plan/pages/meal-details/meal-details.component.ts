@@ -19,13 +19,14 @@ import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { alertCircle, arrowBackOutline, arrowBackCircleOutline } from 'ionicons/icons';
+import { MealPlanHomeComponent } from '../meal-plan-home/meal-plan-home.component';
 
 @Component({
   selector: 'app-meal-details',
   templateUrl: './meal-details.component.html',
   styleUrls: ['./meal-details.component.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, CommonModule, FileUploadComponent, IonContent],
+  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, CommonModule, FileUploadComponent, IonContent, MealPlanHomeComponent],
 })
 export class MealDetailsComponent {
   private navCtrl = inject(NavController);
@@ -52,8 +53,8 @@ export class MealDetailsComponent {
   postMarkDone() {
     this.mealPlanService.postMealCompliance(this.mealPost).subscribe(() => {
       this.returnBack();
-      this.utilsService.presentWinToast(1)
-    } );
+      this.mealPlanService.triggerReload.update(value => !value);
+    });
   }
 
   onFileUploaded(file: ImageClass | null) {
