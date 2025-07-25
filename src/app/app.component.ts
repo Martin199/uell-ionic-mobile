@@ -78,12 +78,14 @@ export class AppComponent {
 
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
+      console.log('pushNotificationReceived')
       // alert('Push received: ' + JSON.stringify(notification));
     });
 
     // Method called when tapping on a notification
     PushNotifications.addListener('pushNotificationActionPerformed', (notification: ActionPerformed) => {
       // alert('Push action performed: ' + JSON.stringify(notification));
+      console.log('pushNotificationActionPerformed')
       const redirection = notification.notification.data.redirectTo;
       if (redirection) this.utilsService.navCtrl.navigateRoot(redirection);
     });

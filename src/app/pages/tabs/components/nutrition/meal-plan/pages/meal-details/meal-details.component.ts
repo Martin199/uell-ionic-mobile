@@ -19,14 +19,13 @@ import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { alertCircle, arrowBackOutline, arrowBackCircleOutline } from 'ionicons/icons';
-import { MealPlanHomeComponent } from '../meal-plan-home/meal-plan-home.component';
 
 @Component({
   selector: 'app-meal-details',
   templateUrl: './meal-details.component.html',
   styleUrls: ['./meal-details.component.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, CommonModule, FileUploadComponent, IonContent, MealPlanHomeComponent],
+  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonImg, CommonModule, FileUploadComponent, IonContent],
 })
 export class MealDetailsComponent {
   private navCtrl = inject(NavController);
