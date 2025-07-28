@@ -1,0 +1,102 @@
+
+ion-content {
+  ion-grid {
+    ion-row {
+      ion-col {
+        ion-title{
+          color: var(--Neutral-GreyMedium, #505A78);
+          font-family: Inter;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 28px;
+        }
+        
+        .description{
+          color: var(--Neutral-GreyMedium, #505A78);
+          font-family: Inter;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 20px;
+          letter-spacing: 0.035px;
+        }
+        
+        .sub-description{
+          color: var(--Neutral-GreyDark, #383E52);
+          font-family: Inter;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 16px;
+          letter-spacing: 0.048px;
+        }
+
+        .ion-align-items-center {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        ion-textarea {
+          height: 84px;
+          border-radius: 4px;
+          border: 1px solid var(--Neutral-GreyLight, #DADFE9);
+          background: var(--Neutral-White, #FFF);
+        }
+
+        ion-icon {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+        }
+
+        ion-button {
+          --background: var(--Primary-Blue, #2563eb);
+          --color: var(--Neutral-White, #fff);
+          --border-radius: 24px;
+          --padding-start: 32px;
+          --padding-end: 32px;
+          --padding-top: 12px;
+          --padding-bottom: 12px;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 20px;
+        }
+
+        ion-button:disabled {
+          --background: var(--Neutral-GreyLight, #dadfe9);
+          --color: var(--Neutral-GreyMedium, #505a78);
+        }
+      }
+    }
+  }
+}
+
+ion-textarea {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--Neutral-GreyLight, #dadfe9);
+  background: var(--Neutral-White, #fff);
+  min-height: 100px;
+}
+
+ion-button {
+  --background: var(--Primary-Blue, #2563eb);
+  --color: var(--Neutral-White, #fff);
+  --border-radius: 24px;
+  --padding-start: 32px;
+  --padding-end: 32px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+ion-button:disabled {
+  --background: var(--Neutral-GreyLight, #dadfe9);
+  --color: var(--Neutral-GreyMedium, #505a78);
+}

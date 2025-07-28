@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+      <ion-row>
+          <ion-col size="12" class="ion-text-end">
+              <ion-icon
+              src="assets/icons/icon-close.svg"
+              (click)="closeModal()">
+          </ion-icon>
+          </ion-col>
+          <ion-col size="12">
+              <ion-title>Valorar plan nutricional</ion-title>
+          </ion-col>
+          <ion-col size="12" class="ion-text-center">
+              <p class="description">Califica tu satisfacción general con tu plan nutricional.</p>
+          </ion-col>
+          <ion-col size="12" class="ion-text-center">
+              <app-stars-rate (rateChange)="changeCurrentRate($event)"></app-stars-rate>
+          </ion-col>
+          <ion-col size="12">
+              <div class="ion-align-items-center">
+                  <p class="sub-description">Muy insatisfecho</p>
+                  <p class="sub-description">Muy satisfecho</p>
+              </div>
+          </ion-col>
+          <ion-col size="12" class="ion-text-center">
+              <p class="description">Comparte cualquier comentario adicional que tengas sobre tu experiencia con el plan nutricional.</p>
+          </ion-col>
+          <ion-col size="12">
+              <p class="sub-description">Comentarios</p>
+              <ion-textarea [(ngModel)]="comment" maxlength="500">
+              </ion-textarea>
+              <div class="ion-text-end ion-align-self-end">
+                  <p class="sub-description" >{{comment.length}}/500</p>
+              </div>
+          </ion-col>
+          <ion-col size="12" class="ion-text-center">
+              <ion-button (click)="sendRateMealPlan()" shape="round" color="primary" [disabled]="!comment || !valoration">
+                  Guardar
+              </ion-button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

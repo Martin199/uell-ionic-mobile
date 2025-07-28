@@ -47,7 +47,7 @@
       class="primary"
       [disabled]="!fileSelected()"
     >
-      {{ card()?.mealPrepInfo?.state === "COMPLETED" ? "Editar foto" : "Subir foto" }}
+      {{ card()?.mealPrepInfo?.state === "COMPLETED" ? "Editar foto" : "Subir imagen" }}
     </ion-button>
     <ion-button (click)="postMarkDone()" expand="block" shape="round" class="primary">
       Marcar como realizado

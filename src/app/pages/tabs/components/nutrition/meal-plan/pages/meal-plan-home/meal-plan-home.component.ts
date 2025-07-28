@@ -1,4 +1,4 @@
-import { Component, computed, inject, resource, signal, effect } from '@angular/core';
+import { Component, computed, inject, resource, signal, effect, OnInit } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -9,6 +9,7 @@ import {
   IonSpinner,
   IonContent,
   NavController,
+  ModalController
 } from '@ionic/angular/standalone';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
 import { firstValueFrom } from 'rxjs';
@@ -20,6 +21,9 @@ import { CalendarComponent } from '../../components/calendar/calendar.component'
 import { CarouselComponent } from '../../components/carousel/carousel.component';
 import { NutritionCard } from '../../../shared/nutrition-card/nutrition-card.interface';
 import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/services/utils.service';
+import { ModalRateMealPlanComponent } from '../../pages/modal-rate-meal-plan/modal-rate-meal-plan.component';
+import moment from 'moment';
 
 @Component({
   selector: 'app-meal-plan-home',
@@ -39,16 +43,48 @@ import { Router } from '@angular/router';
     CommonModule,
   ],
 })
-export class MealPlanHomeComponent {
+export class MealPlanHomeComponent implements OnInit {
   private navCtrl = inject(NavController);
   private router = inject(Router);
+  private modalCtrl = inject(ModalController)
+  private utilsService = inject(UtilsService);
 
   private mealPlanService = inject(MealPlanService);
+
+  disabledValorarionPlan: boolean = true;
+
+  constructor() {
+    // Effect para validar la fecha de valoración cuando cambian los datos del plan
+    effect(() => {
+      if (this.suggestionsResource.hasValue()) {
+        const planData = this.suggestionsResource.value();
+        console.log(planData)
+        this.enabledValorationPlan(planData.valorationDate || '');
+      }
+    });
+  }
+
+  ngOnInit() {
+    // Validar la fecha de valoración al inicializar el componente
+    this.validateValorationDate();
+  }
+
+  ionViewWillEnter() {
+    // Validar la fecha de valoración cada vez que se entra al componente
+    this.validateValorationDate();
+  }
+
+  private validateValorationDate() {
+    if (this.suggestionsResource.hasValue()) {
+      const planData = this.suggestionsResource.value();
+      this.enabledValorationPlan(planData.valorationDate || '');
+    }
+  }
+
 
   suggestionsResource = resource({
     request: () => ({id: this.mealPlanService.triggerReload()}),
     loader: ({request}) => {
-    
     
       return firstValueFrom(this.mealPlanService.getMealPlan());
     },
@@ -215,5 +251,32 @@ export class MealPlanHomeComponent {
   returnBack() {
     this.mealPlanService.clearState();
     this.navCtrl.back();
+  }
+
+  async openModal() {
+    await this.utilsService
+      .presentModal(ModalRateMealPlanComponent, 'ion-modal-default', {
+        data: {
+          nutUserPlanId: this.mealPlanService.planId(),
+        },
+      })
+      .then((res: any) => {
+        res.data ? this.getSuggestions() : null;
+      });
+  }
+
+  getSuggestions() {
+    // Método para recargar las sugerencias después de la valoración
+    this.mealPlanService.triggerReload.set(true);
+  }
+
+  enabledValorationPlan(date: string) {
+    if (!date) {
+      this.disabledValorarionPlan = false;
+      return;
+    }
+    const currentDate = moment();
+    const expiretionDate = moment(date);
+    this.disabledValorarionPlan = currentDate.diff(expiretionDate, 'days') <= 0;
   }
 }

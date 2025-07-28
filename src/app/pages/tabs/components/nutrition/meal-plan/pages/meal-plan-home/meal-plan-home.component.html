@@ -37,5 +37,11 @@
       </div>
     }
   </div>
+  <div class="suggestion-container">
+    <button class="ion-align-items-center nutri-button" (click)="openModal()" [disabled]="disabledValorarionPlan">
+      <ion-icon class="icon" src="assets/icons/StarGray.svg"></ion-icon>
+      <p [ngClass]="!disabledValorarionPlan ? 'description' : 'description-disabled'">Valorar plan nutricional</p>
+    </button>
+  </div>
 </ion-content>
 

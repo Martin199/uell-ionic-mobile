@@ -199,4 +199,14 @@ export class MealPlanService {
     };
     return this.http.post(url, payload);
   }
+
+  postNutritionPlanFeedback(payload: { nutUserPlanId: number; valoration: number; comment: string }) {
+    const userId = this.userState.userId();
+    const url = `${environment.apiBaseUrl}${environment.apiVersion}/nutrition-plan/feedback`;
+    const body = {
+      userId: userId,
+      ...payload,
+    };
+    return this.http.post(url, body);
+  }
 }
