@@ -151,7 +151,7 @@ export class MealPlanHomeComponent {
       title: res.title,
       image: foodOption.url ? foodOption.url : defaultCard.image,
       icon: defaultCard.icon,
-      description: foodOption.description,
+      description: defaultCard.description,
       mealPrepInfo: {
         ingredients: resId ? resId.ingredients : res.ingredients,
         state: category.status,
