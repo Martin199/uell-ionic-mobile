@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Información de dirección</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()" class="close-button">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+    <div class="content">
+      <!-- Country Select -->
+      <div class="field">
+        <ion-label class="label-input">País</ion-label>
+        <ion-select
+          formControlName="countryCode"
+          interface="action-sheet"
+          fill="outline"
+          labelPlacement="stacked"
+          justify="space-between"
+          class="select-input"
+          placeholder="Seleccione país"
+          errorText="Campo requerido"
+        >
+          @for (country of countries; track country.country) {
+          <ion-select-option [value]="country.country">
+            {{ country.name }}
+          </ion-select-option>
+          }
+        </ion-select>
+      </div>
+
+      <!-- Province Select -->
+      <div class="field">
+        <ion-label class="label-input">Estado/Provincia</ion-label>
+        <ion-select
+          formControlName="province"
+          interface="action-sheet"
+          fill="outline"
+          labelPlacement="stacked"
+          justify="space-between"
+          class="select-input"
+          placeholder="Seleccione estado/provincia"
+          errorText="Campo requerido"
+        >
+          @for (province of provinces; track province.id) {
+          <ion-select-option [value]="province">
+            {{ province.name }}
+          </ion-select-option>
+          }
+        </ion-select>
+      </div>
+
+      <!-- Department Select -->
+      <div class="field">
+        <ion-label class="label-input">Ciudad</ion-label>
+        <ion-select
+          formControlName="department"
+          interface="action-sheet"
+          fill="outline"
+          labelPlacement="stacked"
+          justify="space-between"
+          class="select-input"
+          placeholder="Seleccione ciudad"
+          errorText="Campo requerido"
+        >
+          @for (department of departments; track department.id) {
+          <ion-select-option [value]="department">
+            {{ department.name }}
+          </ion-select-option>
+          }
+        </ion-select>
+      </div>
+
+      <!-- Street Address -->
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Dirección"
+          [control]="getControl('address')"
+          type="text"
+          autocomplete="street-address"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Ciudad"
+          [control]="getControl('city')"
+          type="text"
+          autocomplete="address-level2"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Estado/Provincia"
+          [control]="getControl('state')"
+          type="text"
+          autocomplete="address-level1"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Código postal"
+          [control]="getControl('zip')"
+          type="text"
+          autocomplete="postal-code"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="submit-section">
+        <ion-button
+          type="submit"
+          expand="block"
+          size="large"
+          shape="round"
+          [disabled]="!addressForm.valid"
+          style="width: 30%"
+        >
+          Guardar
+        </ion-button>
+      </div>
+    </div>
+  </form>
+</ion-content>

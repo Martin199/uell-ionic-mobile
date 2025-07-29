@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { GetTenantCodeResponse } from './interfaces/auth-service.interfaces';
+import { ContactFormBody, GetTenantCodeResponse } from './interfaces/auth-service.interfaces';
 import { EMPTY, map, Observable } from 'rxjs';
 
 @Injectable({
@@ -51,5 +51,10 @@ export class AuthService {
         return res;
       })
     );
+  }
+
+  postSupportContact(body: ContactFormBody) {
+    const url = `${environment.apiBaseUrl}${environment.apiVersion}/help-request/generate`;
+    return this.http.post(url, body);
   }
 }

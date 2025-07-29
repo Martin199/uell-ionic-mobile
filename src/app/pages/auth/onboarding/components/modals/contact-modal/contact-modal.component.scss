@@ -1,0 +1,41 @@
+ion-title {
+  color: var(--Neutral-GreyMedium, #505a78);
+
+  /* Title T1/Bold */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px; /* 140% */
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.submit-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.info-text {
+  color: var(--Neutral-GreyMedium, #505a78);
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.048px;
+}
+.select-input {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-top: 0;
+  --border-color: #e5e5e5;
+  --border-width: 0.1rem;
+  --border-radius: 0.5rem;
+  --border-style: solid;
+}

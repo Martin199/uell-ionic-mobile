@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Añadir foto de perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()" class="close-button">
+        <ion-icon name="close" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+    <div class="profile-pic-section">
+      <div class="current-pic">
+        <ion-img [src]="getImage() || 'assets/login/person.svg'" class="profile-image"></ion-img>
+      </div>
+
+      <div class="upload-section">
+        <ion-button shape="round" size="large" expand="block" (click)="openGallery()" class="upload-button">
+          <ion-icon name="image-outline" slot="start"></ion-icon>
+          Explorar galería
+        </ion-button>
+        <ion-button shape="round" size="large" expand="block" (click)="takePhoto()" class="upload-button">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          Tomar foto
+        </ion-button>
+      </div>
+    </div>
+
+    <div class="submit-section">
+      <ion-button expand="block" size="large" shape="round" (click)="saveImage()" style="width: 30%">
+        Guardar
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

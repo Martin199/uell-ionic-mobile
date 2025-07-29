@@ -1,0 +1,59 @@
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="content">
+      <app-logo (click)="onClickLogo()"></app-logo>
+      <div class="body">
+        <ion-text>
+          <h1 class="title">Contacto de soporte</h1>
+          <p class="subtitle">Completa este formulario para que podamos ayudarte a recuperar el acceso cuanto antes.</p>
+        </ion-text>
+        <ion-list lines="none">
+          @for (field of supportFields; track field.key) { @if (field.type === 'select') {
+          <div class="select">
+            <ion-label class="label">{{ field.label }}</ion-label>
+            <ion-select
+              [formControlName]="field.key"
+              interface="action-sheet"
+              fill="outline"
+              labelPlacement="stacked"
+              justify="space-between"
+              class="select-input"
+              errorText="Este campo es requerido"
+              (ionChange)="onSelectChange($event)"
+            >
+              @for (option of field.options; track option) {
+              <ion-select-option [value]="option">{{ option }}</ion-select-option>
+              }
+            </ion-select>
+          </div>
+          } @else if (field.type === 'textarea') {
+          <ion-label class="label">{{ field.label }}</ion-label>
+          <ion-textarea
+            [formControlName]="field.key"
+            placeholder="Escribe aquí..."
+            fill="outline"
+            autoGrow="true"
+            errorText="Este campo es requerido"
+          ></ion-textarea>
+          } @else {
+          <app-custom-input
+            style="width: 100%"
+            textClass="login-label"
+            [label]="field.label"
+            [type]="field.type"
+            [control]="getFormControl(field.key)"
+            [autocomplete]="field.type === 'email' ? 'email' : field.type === 'tel' ? 'tel' : 'off'"
+          >
+          </app-custom-input>
+          } }
+        </ion-list>
+        <div class="button-container">
+          <!-- TODO: Add a loading state and error state -->
+          <ion-button type="submit" expand="block" shape="round" size="large" [disabled]="!form.valid">
+            Enviar
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ion-content>

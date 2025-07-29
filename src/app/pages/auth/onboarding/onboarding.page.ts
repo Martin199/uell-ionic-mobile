@@ -352,11 +352,11 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
                 surgeriesDescription: bodyTwo.surgeriesDescription ?? null,
             },
         };
-        this.userService.postMedicalDiseases(this.userId!, data).subscribe(
-            () => { },
-            (error) => {
-                console.error(error);
-            }
+        this.userService.postMedicalDiseases(data).subscribe(
+          () => {},
+          error => {
+            console.error(error);
+          }
         );
     }
 
@@ -365,9 +365,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
     }
 
     sendCompletenessMedical() {
-        this.userService
-            .postCompletenessMedicalInformation(this.userId!, this.completenessData)
-            .subscribe(() => { });
+        this.userService.postCompletenessMedicalInformation(this.completenessData).subscribe(() => {});
     }
 
     private async buildPostRequest(): Promise<OnBoardingRequest> {
@@ -415,7 +413,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
 
     public async postOnboarding() {
         const request = await this.buildPostRequest();
-        this.userService.postOnBoarding(this.userId!, request).subscribe(() => {
+        this.userService.postOnBoarding(request).subscribe(() => {
           const userData = this.userState.userData();
           userData!.onboarded = true;
           this.userState.setUser(userData);

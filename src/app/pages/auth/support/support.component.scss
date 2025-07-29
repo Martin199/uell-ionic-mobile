@@ -1,0 +1,72 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+}
+
+.title {
+  color: var(--Neutral-GreyVeryDark, #212532);
+
+  /* Title T1/Semi Bold */
+  font-family: "Inter";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 140% */
+}
+
+.subtitle {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Label L2/Regular */
+  font-family: "Inter";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.035px;
+}
+
+.label {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Comment C1/Regular */
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.048px;
+}
+
+.select {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.25rem;
+  //   padding: 0 1rem 2rem 1rem;
+}
+
+.select-input {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-top: 0;
+  --border-color: #e5e5e5;
+  --border-width: 0.1rem;
+  --border-radius: 0.5rem;
+  --border-style: solid;
+}
+
+:host ion-textarea {
+  --border-color: #e5e5e5;
+  --border-width: 0.1rem;
+  --border-radius: 0.5rem;
+  --highlight-color-focused: #1da4b1;
+  --highlight-color-valid: #1da4b1;
+}
+
+.button-container {
+  padding: 1rem 1rem 2rem 1rem;
+}

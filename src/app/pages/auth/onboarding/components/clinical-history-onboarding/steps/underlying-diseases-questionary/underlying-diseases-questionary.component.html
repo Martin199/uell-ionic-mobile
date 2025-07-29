@@ -1,0 +1,180 @@
+<ion-content [fullscreen]="true">
+  <div class="content">
+    <div class="card">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        @if (currentStep) {
+        <div class="step-header">
+          <h2 class="step-title">{{ currentStep.title }}</h2>
+          @if (currentStep.subtitle) {
+          <p class="step-subtitle">{{ currentStep.subtitle }}</p>
+          }
+        </div>
+
+        <ion-list lines="none">
+          @for (field of getVisibleFields(); track field.id) {
+          <ion-item-group class="field-group">
+            <ion-label class="field-label">{{ field.label }}</ion-label>
+
+            @if (field.type === 'radio') {
+            <ion-radio-group
+              [formControlName]="field.id"
+              class="radio-group"
+              (ionChange)="onRadioChange($event)"
+              [name]="field.id"
+            >
+              @for (option of field.options; track option.value) {
+              <ion-item lines="none" class="radio-item">
+                <ion-radio mode="md" slot="start" [value]="option.value" [class.error-field]="isFieldValid(field.id)">
+                </ion-radio>
+                <span class="radio-label">{{ option.label }}</span>
+              </ion-item>
+
+              <!-- Show diabetes_type field between Sí and No -->
+              @if (field.id === 'diabetes' && option.value === true) { @for (diabetesTypeField of currentStep.fields;
+              track diabetesTypeField.id) { @if (diabetesTypeField.id === 'diabetes_type') {
+              <div class="subfield-group" [class.visible]="shouldShowField('diabetes_type')">
+                @if (diabetesTypeField.type === 'radio') {
+                <ion-radio-group
+                  [formControlName]="diabetesTypeField.id"
+                  class="radio-group"
+                  [name]="diabetesTypeField.id"
+                >
+                  @for (subOption of diabetesTypeField.options; track subOption.value) {
+                  <ion-item lines="none" class="radio-item subfield-radio-item">
+                    <ion-radio
+                      mode="md"
+                      slot="start"
+                      [value]="subOption.value"
+                      [class.error-field]="isFieldValid(diabetesTypeField.id)"
+                    >
+                    </ion-radio>
+                    <span class="radio-label">{{ subOption.label }}</span>
+                  </ion-item>
+                  }
+                </ion-radio-group>
+                } @if (isFieldValid(diabetesTypeField.id)) {
+                <div class="error-message">Este campo es requerido</div>
+                }
+              </div>
+              } } }
+
+              <!-- Show subfields after Sí option for other fields -->
+              @if (option.value === true && field.subFields) { @for (subField of field.subFields; track subField.id) {
+              <div class="subfield-group" [class.visible]="shouldShowSubfield(field.id)">
+                @if (subField.type === 'radio') {
+                <ion-radio-group [formControlName]="subField.id" class="radio-group" [name]="subField.id">
+                  @for (subOption of subField.options; track subOption.value) {
+                  <ion-item lines="none" class="radio-item subfield-radio-item">
+                    <ion-radio
+                      mode="md"
+                      slot="start"
+                      [value]="subOption.value"
+                      [class.error-field]="isFieldValid(subField.id)"
+                    >
+                    </ion-radio>
+                    <span class="radio-label">{{ subOption.label }}</span>
+                  </ion-item>
+                  }
+                </ion-radio-group>
+                } @if (subField.type === 'checkbox') {
+                <div class="checkbox-group">
+                  @for (subOption of subField.options; track subOption.value) {
+                  <div class="checkbox-item">
+                    <ion-checkbox
+                      [value]="subOption.value"
+                      [checked]="isCheckboxChecked(subField.id, subOption.value)"
+                      (ionChange)="onCheckboxChange($event, subField.id)"
+                      [class.error-field]="isFieldValid(subField.id)"
+                    >
+                    </ion-checkbox>
+                    <span class="checkbox-label">{{ subOption.label }}</span>
+                  </div>
+                  }
+                </div>
+                } @if (subField.type === 'textarea') {
+                <ion-textarea
+                  [formControlName]="subField.id"
+                  placeholder="Escribe aquí..."
+                  fill="outline"
+                  autoGrow="true"
+                  [maxlength]="subField.validation?.maxLength || 500"
+                  [class.error-field]="isFieldValid(subField.id)"
+                >
+                </ion-textarea>
+                } @if (subField.type === 'text') {
+                <ion-input
+                  [formControlName]="subField.id"
+                  placeholder="Escribe aquí..."
+                  fill="outline"
+                  [class.error-field]="isFieldValid(subField.id)"
+                >
+                </ion-input>
+                } @if (isFieldValid(subField.id)) {
+                <div class="error-message">Este campo es requerido</div>
+                }
+              </div>
+              } } }
+            </ion-radio-group>
+            } @if (field.type === 'checkbox') {
+            <div class="checkbox-group">
+              @for (option of field.options; track option.value) {
+              <div class="checkbox-item">
+                <ion-checkbox
+                  [value]="option.value"
+                  [formControlName]="field.id"
+                  [class.error-field]="isFieldValid(field.id)"
+                >
+                </ion-checkbox>
+                <span class="checkbox-label">{{ option.label }}</span>
+              </div>
+              }
+            </div>
+            } @if (field.type === 'textarea') {
+            <ion-textarea
+              [formControlName]="field.id"
+              placeholder="Escribe aquí..."
+              fill="outline"
+              autoGrow="true"
+              [maxlength]="field.validation?.maxLength || 500"
+              [class.error-field]="isFieldValid(field.id)"
+            >
+            </ion-textarea>
+            } @if (field.type === 'text') {
+            <ion-input
+              [formControlName]="field.id"
+              placeholder="Escribe aquí..."
+              fill="outline"
+              [class.error-field]="isFieldValid(field.id)"
+            >
+            </ion-input>
+            } @if (field.type === 'select') {
+            <ion-select
+              [formControlName]="field.id"
+              interface="action-sheet"
+              fill="outline"
+              placeholder="Selecciona una opción"
+              [class.error-field]="isFieldValid(field.id)"
+            >
+              @for (option of field.options; track option.value) {
+              <ion-select-option [value]="option.value">
+                {{ option.label }}
+              </ion-select-option>
+              }
+            </ion-select>
+            } @if (isFieldValid(field.id)) {
+            <div class="error-message">Este campo es requerido</div>
+            }
+          </ion-item-group>
+          }
+        </ion-list>
+
+        <div class="form-actions">
+          <ion-button expand="block" shape="round" type="submit" size="large" [disabled]="form.invalid">
+            Continuar
+          </ion-button>
+        </div>
+        }
+      </form>
+    </div>
+  </div>
+</ion-content>

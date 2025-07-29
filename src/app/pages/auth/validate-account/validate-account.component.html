@@ -1,0 +1,49 @@
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="content">
+      <app-logo></app-logo>
+      <div class="body">
+        <ion-text>
+          <h1 class="title">Validar cuenta</h1>
+        </ion-text>
+        <app-custom-input label="CUIL" textClass="login-label" [control]="form.controls.cuil"></app-custom-input>
+        <app-individual-inputs
+          [digits]="6"
+          [control]="form.controls.code"
+          label="Código de verificación"
+        ></app-individual-inputs>
+
+        <!-- DEBUG SECTION -->
+        <div style="background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; font-family: monospace">
+          <h4 style="margin: 0 0 10px 0; color: #333">DEBUG INFO:</h4>
+          <p style="margin: 5px 0"><strong>CUIL Value:</strong> {{ form.controls.cuil.value }}</p>
+          <p style="margin: 5px 0"><strong>Code Value:</strong> {{ form.controls.code.value }}</p>
+          <p style="margin: 5px 0"><strong>Form Valid:</strong> {{ form.valid }}</p>
+          <p style="margin: 5px 0"><strong>Form Touched:</strong> {{ form.touched }}</p>
+          <p style="margin: 5px 0"><strong>Form Dirty:</strong> {{ form.dirty }}</p>
+          <p style="margin: 5px 0"><strong>Form Pristine:</strong> {{ form.pristine }}</p>
+        </div>
+
+        @if(form.invalid && form.touched) {
+        <div class="error-message">
+          <ion-icon name="alert-circle-outline" color="danger" size="large"></ion-icon>
+          <ion-text>
+            <!-- TODO: add correct error msg condition -->
+            <p>Parece que alguno de los datos ingresados no es correcto. Revísalos e intenta nuevamente.</p>
+          </ion-text>
+        </div>
+        } @else {
+        <div style="height: 4rem"></div>
+        }
+      </div>
+      <ion-button expand="block" shape="round" type="submit" size="large" [disabled]="form.invalid">
+        Siguiente
+      </ion-button>
+      <ion-text class="login-link">
+        <p class="subtitle">¿Ya tienes una cuenta?</p>
+        <ion-button routerLink="/auth" fill="clear">Iniciar sesión</ion-button>
+      </ion-text>
+      <app-floating-help></app-floating-help>
+    </div>
+  </form>
+</ion-content>

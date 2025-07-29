@@ -1,0 +1,47 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
+  gap: 3rem;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+}
+
+.login-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  ion-button {
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    margin: 0;
+    height: auto;
+    min-height: auto;
+
+    &::part(native) {
+      padding: 0;
+    }
+  }
+}
+
+.error-message {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  color: var(--States-Error, #e00000);
+
+  /* Comment C1/Regular */
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.048px;
+
+  p {
+    margin: 0;
+  }
+}

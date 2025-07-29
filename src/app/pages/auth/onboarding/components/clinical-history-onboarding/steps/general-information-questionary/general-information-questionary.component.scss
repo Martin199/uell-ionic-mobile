@@ -1,0 +1,194 @@
+ion-content {
+  height: fit-content;
+}
+.content {
+  padding: 16px;
+  height: 90dvh;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-header {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.step-title {
+  color: var(--Neutral-GreyVeryDark, #212532);
+
+  /* Label L1/Semi Bold */
+  font-family: Inter;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.016px;
+}
+
+.step-subtitle {
+  color: var(--Neutral-GreyDark, #383e52);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+}
+
+.field-group {
+  margin-bottom: 20px;
+}
+
+.field-label {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Label L2/Regular */
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.035px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radio-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+  --border-color: transparent;
+}
+
+.radio-label {
+  color: var(--Neutral-GreyDark, #383e52);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-left: 8px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-label {
+  color: var(--Neutral-GreyDark, #383e52);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+ion-textarea {
+  --border-color: #e0e0e0;
+  --border-radius: 8px;
+  --border-style: solid;
+  --border-width: 1px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  margin-top: 8px;
+}
+
+ion-input {
+  --border-color: #e0e0e0;
+  --border-radius: 8px;
+  --border-style: solid;
+  --border-width: 1px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  margin-top: 8px;
+}
+
+ion-select {
+  --border-color: #e0e0e0;
+  --border-radius: 8px;
+  --border-style: solid;
+  --border-width: 1px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  margin-top: 8px;
+}
+
+.error-field {
+  --border-color: #ff4961 !important;
+}
+
+.error-message {
+  color: #ff4961;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: 4px;
+}
+
+.form-actions {
+  margin-top: 32px;
+}
+
+ion-button {
+  --background: var(--Primary-Uell, #1da4b1);
+  --background-hover: #4c8dff;
+  --background-activated: #3366cc;
+  --color: #ffffff;
+  --border-radius: 100px;
+  --font-weight: bold;
+  --text-transform: none;
+  --font-family: "Inter", sans-serif;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+}
+
+ion-button:disabled {
+  --background: #cccccc;
+  --color: #666666;
+}
+
+// Global styles for radio and checkbox components
+ion-radio {
+  --size: 20px;
+  --color: #ccc;
+  --border-color: #ccc;
+  --border-width: 2px;
+}
+
+ion-radio[aria-checked="true"] {
+  --color: #1da4b1;
+  --border-color: #1da4b1;
+}
+
+ion-radio[aria-checked="true"]::part(container) {
+  background: radial-gradient(circle, #1da4b1 50%, transparent 55%);
+}
+
+ion-checkbox {
+  --size: 25px;
+  --checkbox-background-checked: #1da4b1;
+}

@@ -1,0 +1,74 @@
+ion-title {
+  color: var(--Neutral-GreyMedium, #505a78);
+
+  /* Title T1/Bold */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px; /* 140% */
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.submit-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// Date picker styles
+.date-picker-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+.date-input {
+  cursor: pointer;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.custom-modal {
+  --height: auto;
+  --max-height: 90vh;
+}
+
+.date-picker-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 1rem;
+}
+
+ion-datetime {
+  width: 100%;
+  height: auto;
+}
+
+.label {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Comment C1/Regular */
+  font-family: "Inter";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.048px;
+}
+
+.date-input {
+  padding-bottom: 1rem;
+  padding-top: 0;
+  --padding-start: 1rem;
+  --border-color: #e5e5e5;
+  --border-width: 0.1rem;
+  --border-radius: 0.5rem;
+  --border-style: solid;
+}

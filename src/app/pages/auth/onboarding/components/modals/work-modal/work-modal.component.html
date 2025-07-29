@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Información laboral</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()" class="close-button">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="workForm" (ngSubmit)="onSubmit()">
+    <div class="content">
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Empresa"
+          [control]="getControl('company')"
+          type="text"
+          autocomplete="organization"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Cargo"
+          [control]="getControl('position')"
+          type="text"
+          autocomplete="organization-title"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Fecha de inicio"
+          [control]="getControl('startDate')"
+          type="date"
+          autocomplete="off"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Fecha de fin"
+          [control]="getControl('endDate')"
+          type="date"
+          autocomplete="off"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="submit-section">
+        <ion-button
+          type="submit"
+          expand="block"
+          size="large"
+          shape="round"
+          [disabled]="!workForm.valid"
+          style="width: 30%"
+        >
+          Guardar
+        </ion-button>
+      </div>
+    </div>
+  </form>
+</ion-content>

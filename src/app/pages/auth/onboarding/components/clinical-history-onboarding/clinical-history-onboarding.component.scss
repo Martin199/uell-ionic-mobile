@@ -1,0 +1,22 @@
+ion-title {
+  color: var(--Neutral-GreyVeryDark, #212532);
+
+  /* Title T1/Semi Bold */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 140% */
+}
+
+ion-progress-bar {
+  background: #f2f6fa;
+}
+
+.content {
+  height: 100%;
+}
+
+swiper-container {
+  height: 100%;
+}

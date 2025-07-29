@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" name="arrow-back-outline" size="large" (click)="onClickBack()"></ion-icon>
+    <ion-title>Historia clínica ocupacional</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-progress-bar class="ion-progress-bar" [value]="progress()" color="primary"></ion-progress-bar>
+
+<div class="content">
+  <swiper-container #swiperContainer [init]="false">
+    <swiper-slide>
+      <app-general-information-questionary
+        (returnResponse)="onGeneralInformationResponse($event)"
+      ></app-general-information-questionary>
+    </swiper-slide>
+    <swiper-slide>
+      <app-underlying-diseases-questionary
+        (returnResponse)="onUnderlyingDiseasesResponse($event)"
+      ></app-underlying-diseases-questionary>
+    </swiper-slide>
+  </swiper-container>
+</div>
