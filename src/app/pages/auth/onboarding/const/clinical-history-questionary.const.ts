@@ -1,6 +1,8 @@
 // form-config.ts
 export interface FormField {
   id: string;
+  key?: string;
+  questionKey?: string;
   type: 'radio' | 'checkbox' | 'text' | 'select' | 'textarea';
   label: string;
   required?: boolean;
@@ -10,8 +12,9 @@ export interface FormField {
 }
 
 export interface FormOption {
-  value: string | boolean;
+  value: string | boolean | number;
   label: string;
+  labelKey?: string;
   subOptions?: FormOption[];
 }
 

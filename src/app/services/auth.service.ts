@@ -1,8 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ContactFormBody, GetTenantCodeResponse } from './interfaces/auth-service.interfaces';
+import { ContactFormBody, GetTenantCodeResponse, PostWellnessContent } from './interfaces/auth-service.interfaces';
 import { EMPTY, map, Observable } from 'rxjs';
+import { UserStateService } from '../core/state/user-state.service';
+import { UserResponseDTO } from '../core/interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private tenant = signal<string | null>(null);
   email = signal<string | null>(null);
-
+  private userState = inject(UserStateService);
   getTenantCode(code: string) {
     const url = `${environment.apiBaseUrl}${environment.apiVersion}/tenant/get-tenant-code?code=${code}`;
     return this.http.get<GetTenantCodeResponse[]>(url).pipe(
@@ -45,16 +47,16 @@ export class AuthService {
     const tenant = 'emergencias';
     if (!tenant) return EMPTY;
     const headers = { tenant: tenant };
-    return this.http.post(url, { cuil, temporaryPassword, email }, { headers }).pipe(
-      map(res => {
-        console.log(res);
-        return res;
-      })
-    );
+    return this.http.post(url, { cuil, temporaryPassword, email }, { headers });
   }
 
   postSupportContact(body: ContactFormBody) {
     const url = `${environment.apiBaseUrl}${environment.apiVersion}/help-request/generate`;
     return this.http.post(url, body);
+  }
+
+  public postWellnessContent(body: PostWellnessContent): Observable<any> {
+    const userId = this.userState.userData()?.id;
+    return this.http.post(`${environment.apiBaseUrl}${environment.apiVersion}/psico-health/${userId}`, body);
   }
 }

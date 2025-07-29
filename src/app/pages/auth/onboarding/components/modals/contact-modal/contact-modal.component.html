@@ -36,17 +36,30 @@
           class="select-input"
           errorText="Campo requerido"
         >
-          <ion-select-option value="1">1</ion-select-option>
-          <ion-select-option value="2">2</ion-select-option>
-          <ion-select-option value="3">3</ion-select-option>
+          @for(country of countryCodes; track country.value) {
+            <ion-select-option 
+              [value]="country.value"
+            >
+              {{ country.prefix }}
+            </ion-select-option>
+          }
         </ion-select>
       </div>
 
-      <div class="field">
+      <div class="field-cellphone">
+        <app-custom-input
+          textClass="login-label"
+          label="Código de área"
+          [control]="getControl('areaCode')"
+          type="tel"
+          autocomplete="tel"
+          style="width: 30%"
+        >
+        </app-custom-input>
         <app-custom-input
           textClass="login-label"
           label="Número de teléfono"
-          [control]="getControl('phone')"
+          [control]="getControl('phoneNumber')"
           type="tel"
           autocomplete="tel"
         >

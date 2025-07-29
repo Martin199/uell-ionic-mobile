@@ -15,3 +15,72 @@ export interface ContactFormBody {
   comment?: string;
 }
 
+export interface PostWellnessContent {
+  enjoyDailyActivities: number;
+  personalProblemsHandling: number;
+  futureSelfProjecting: number;
+  energyForDailyTasks: number;
+  properlyFocus: number;
+  cantFaceAllToDo: number;
+  moodSwings: number;
+  impulsive: number;
+  frequentlyArgue: number;
+  anxiousMannerisms: number;
+  unableToRelax: number;
+  worryFutureMisfortunes: number;
+  comfortabilityOppositeSexSmalltalk: number;
+  comfortabilityUnknownGroup: number;
+  feelMostTimeAfraid: number;
+  feelUnionCloseCircle: number;
+  feelLeftBehind: number;
+  feelAloneInGroup: number;
+  properDiet: number;
+  fastfoodConsuming: number;
+  sugarbasedDrinks: number;
+  enoughSleep: number;
+  hardtimeSleeping: number;
+  repairingSleep: number;
+  sedentaryJob: number;
+  dailyPhysicalActivity: number;
+  sports: number;
+  messageThroughCellphone: boolean;
+  shortly: boolean;
+}
+export interface MoodEnergyWellbeingPostData {
+  enjoyDailyActivities?: number;
+  personalProblemsHandling?: number;
+  futureSelfProjecting?: number;
+  moodSwings?: number;
+  impulsive?: number;
+  frequentlyArgue?: number;
+  anxiousMannerisms?: number;
+  unableToRelax?: number;
+  worryFutureMisfortunes?: number;
+}
+
+export interface EnergyConcentrationPostData {
+  energyForDailyTasks?: number;
+  properlyFocus?: number;
+  cantFaceAllToDo?: number;
+  comfortabilityOppositeSexSmalltalk?: number;
+  comfortabilityUnknownGroup?: number;
+  feelMostTimeAfraid?: number;
+  feelUnionCloseCircle?: number;
+  feelLeftBehind?: number;
+  feelAloneInGroup?: number;
+}
+
+export interface NutritionLifestylePostData {
+  properDiet?: number;
+  fastfoodConsuming?: number;
+  sugarbasedDrinks?: number;
+  enoughSleep?: number;
+  hardtimeSleeping?: number;
+  repairingSleep?: number;
+  sedentaryJob?: number;
+  dailyPhysicalActivity?: number;
+  sports?: number;
+  messageThroughCellphone?: boolean;
+  shortly?: boolean;
+}
+

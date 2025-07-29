@@ -105,12 +105,23 @@ export class BasicModalComponent implements OnInit {
 
   onSubmit() {
     this.basicForm.markAllAsTouched();
+
+    // Ensure bornDate is in YYYY-MM-DD format
+    let formattedDate = '';
+    if (this.basicForm.value.birthDate) {
+      const date = new Date(this.basicForm.value.birthDate);
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      formattedDate = `${year}-${month}-${day}`;
+    }
+
     const body: OnBoardingBasicInfoPatch = {
       userAlias: this.basicForm.value.alias || '',
-      bornDate: this.basicForm.value.birthDate || '',
+      bornDate: formattedDate,
     };
     if (this.basicForm.valid) {
-      this.userService.postOnBoarding(body).subscribe(res => {
+      this.userService.postOnBoardingBasicInfo(body).subscribe(res => {
         this.userStateService.setUser(res);
       });
       this.modalCtrlr.dismiss(this.basicForm.value);

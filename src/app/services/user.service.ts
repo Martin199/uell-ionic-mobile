@@ -134,9 +134,22 @@ export class UserService {
     );
   }
 
-  postOnBoarding(
-    body: OnBoardingRequest | OnBoardingBasicInfoPatch | OnBoardingContactPatch | OnBoardingProfilePicPatch
-  ) {
+  postOnBoarding(body: OnBoardingRequest) {
+    const userId = this.userState.userData()?.id;
+    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
+  }
+
+  postOnBoardingContact(body: OnBoardingContactPatch) {
+    const userId = this.userState.userData()?.id;
+    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
+  }
+
+  postOnBoardingBasicInfo(body: OnBoardingBasicInfoPatch) {
+    const userId = this.userState.userData()?.id;
+    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
+  }
+
+  postOnBoardingProfilePic(body: OnBoardingProfilePicPatch) {
     const userId = this.userState.userData()?.id;
     return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
   }

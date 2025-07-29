@@ -39,3 +39,29 @@ ion-title {
   --border-radius: 0.5rem;
   --border-style: solid;
 }
+
+.label-input {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Comment C1/Regular */
+  font-family: "Inter";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.048px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.field-cellphone {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 1rem;
+}

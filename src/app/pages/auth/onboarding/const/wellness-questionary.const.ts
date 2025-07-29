@@ -1,0 +1,391 @@
+import { FormConfig } from './clinical-history-questionary.const';
+export interface QuestionOption {
+  value: number;
+  labelKey: string;
+}
+
+export interface Question {
+  key: string;
+  questionKey: string;
+  options: QuestionOption[];
+}
+export const WELLNESS_QUESTIONNAIRE_FORM: FormConfig = {
+  id: 'wellness-questionnaire',
+  title: 'Bienestar',
+  steps: [
+    {
+      id: 'mood-energy-wellbeing',
+      title: 'Bienestar',
+      subtitle: 'Responde considerando los últimos tres meses.',
+      fields: [
+        {
+          id: 'mood_irritability',
+          key: 'irritable',
+          questionKey: 'irritable',
+          type: 'radio',
+          label: '1. ¿Sentiste irritabilidad o cambios de humor bruscos con frecuencia?',
+          required: true,
+          options: [
+            { value: 5, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 3, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'impulsive_behavior',
+          key: 'impulsive',
+          questionKey: 'impulsive',
+          type: 'radio',
+          label: '2. ¿Alguno de tus amigos te ha dicho que sos una persona impulsiva?',
+          required: true,
+          options: [
+            { value: 2, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'frequent_arguments',
+          key: 'disscucion',
+          questionKey: 'argued',
+          type: 'radio',
+          label: '3. ¿Discutiste a menudo con los demás?',
+          required: true,
+          options: [
+            { value: 3, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'repetitive_episodes',
+          key: 'anxiety',
+          questionKey: 'episodes',
+          type: 'radio',
+          label:
+            '4. ¿Experimentaste alguno de estos episodios: olvidar las piernas repetidamente, palpitaciones espontáneas o morderte las uñas o las cutículas?',
+          required: true,
+          options: [
+            { value: 5, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 3, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'unable_to_relax',
+          key: 'cantRelax',
+          questionKey: 'unable-relax',
+          type: 'radio',
+          label: '5. ¿Sentiste que eras incapaz de relajarte?',
+          required: true,
+          options: [
+            { value: 3, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'worried_about_future',
+          key: 'futureProblems',
+          questionKey: 'worried',
+          type: 'radio',
+          label: '6. ¿Estuviste preocupado/a por posibles problemas futuros?',
+          required: true,
+          options: [
+            { value: 7, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 5, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'confidence_in_problem_solving',
+          key: 'noConfidence',
+          questionKey: 'confidence',
+          type: 'radio',
+          label: '7. ¿Sentiste confianza en tu capacidad para resolver problemas personales?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 7, label: 'No', labelKey: 'no' },
+            { value: 5, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'life_perception_next_3_years',
+          key: 'futureSelfProjecting',
+          questionKey: 'three-years',
+          type: 'radio',
+          label: '8. ¿Qué percepción tenés de tu vida para los próximos 3 años?',
+          required: true,
+          options: [
+            { value: 0, label: 'Estoy esperanzado/a', labelKey: 'hope' },
+            { value: 3, label: 'Estoy desalentado/a', labelKey: 'hopeless' },
+          ],
+        },
+        {
+          id: 'enjoy_daily_activities',
+          key: 'enjoyDailyActivities',
+          questionKey: 'enjoy',
+          type: 'radio',
+          label: '9. ¿Disfrutaste de las actividades cotidianas que realizás?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 5, label: 'No', labelKey: 'no' },
+            { value: 3, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'energy-concentration',
+      title: 'Bienestar',
+      subtitle: 'Responde considerando los últimos tres meses.',
+      fields: [
+        {
+          id: 'sufficient_energy_daily_tasks',
+          key: 'energy',
+          questionKey: 'energy',
+          type: 'radio',
+          label: '10. ¿Tuviste suficiente energía para realizar tus tareas cotidianas de manera eficiente?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 3, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'adequate_concentration',
+          key: 'focus',
+          questionKey: 'concentrate',
+          type: 'radio',
+          label: '11. ¿Pudiste concentrarte adecuadamente en tus actividades?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 5, label: 'No', labelKey: 'no' },
+            { value: 3, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'feeling_unable_to_cope',
+          key: 'tasks',
+          questionKey: 'confront',
+          type: 'radio',
+          label: '12. ¿Has sentido que no podías afrontar todas las cosas que tenías que hacer?',
+          required: true,
+          options: [
+            { value: 7, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 5, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'feeling_comfortable_with_opposite_sex',
+          key: 'comfortabilityOppositeSex',
+          questionKey: 'comfortable',
+          type: 'radio',
+          label: '13. ¿Normalmente te encontraste a gusto cuando hablabas con alguien del sexo opuesto?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 2, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'feeling_comfortable_with_unknown_people',
+          key: 'comfortabilityUnknownGroup',
+          questionKey: 'comfortable-group',
+          type: 'radio',
+          label: '14. ¿Te sentiste cómodo/a estando con un grupo de gente desconocida?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 3, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'feeling_scared_or_frightened',
+          key: 'feelMostTimeAfraid',
+          questionKey: 'scared',
+          type: 'radio',
+          label: '15. ¿Te sentiste atemorizado/a o asustado/a?',
+          required: true,
+          options: [
+            { value: 5, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 3, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'feeling_united_with_close_people',
+          key: 'feelUnionCloseCircle',
+          questionKey: 'contained',
+          type: 'radio',
+          label: '16. ¿Te sentiste unido y contenido por las personas que te rodean (amigos, familia, pareja)?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 3, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'feeling_excluded',
+          key: 'feelLeftBehind',
+          questionKey: 'excluded',
+          type: 'radio',
+          label: '17. ¿Sentiste que te excluían?',
+          required: true,
+          options: [
+            { value: 1, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 2, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'feeling_lonely_in_group',
+          key: 'feelAloneInGroup',
+          questionKey: 'alone',
+          type: 'radio',
+          label: '18. ¿Te sentiste solo/a incluso cuando estabas en grupo?',
+          required: true,
+          options: [
+            { value: 1, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 2, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'nutrition-lifestyle',
+      title: 'Bienestar',
+      subtitle: 'Responde considerando los últimos tres meses.',
+      fields: [
+        {
+          id: 'healthy_nutrition',
+          key: 'goodFood',
+          questionKey: 'healthy-food',
+          type: 'radio',
+          label:
+            '19. ¿Mantuviste una alimentación saludable basada en alimentos ricos en proteínas, grasas esenciales, hidratos de carbono, vitaminas y minerales?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 5, label: 'No', labelKey: 'no' },
+            { value: 3, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'processed_foods_consumption',
+          key: 'fastFood',
+          questionKey: 'junk-food',
+          type: 'radio',
+          label:
+            '20. ¿Consumiste alimentos procesados o comidas rápidas diariamente, como snacks o alimentos congelados?',
+          required: true,
+          options: [
+            { value: 3, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'sugary_drinks_consumption',
+          key: 'drinks',
+          questionKey: 'sugar',
+          type: 'radio',
+          label: '21. ¿Evitaste consumir bebidas azucaradas?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 2, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'adequate_sleep_hours',
+          key: 'enoughSleep',
+          questionKey: 'sleep-enough',
+          type: 'radio',
+          label: '22. ¿Dormiste suficientes horas al día (entre 7 y 8 horas)?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 3, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'difficulty_falling_asleep',
+          key: 'hardtimeSleeping',
+          questionKey: 'sleep-difficult',
+          type: 'radio',
+          label: '23. ¿Tuviste dificultades para conciliar o mantener el sueño?',
+          required: true,
+          options: [
+            { value: 7, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 5, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'restorative_sleep',
+          key: 'repairingSleep',
+          questionKey: 'restful-sleep',
+          type: 'radio',
+          label: '24. ¿Considerás que tuviste un sueño reparador?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 5, label: 'No', labelKey: 'no' },
+            { value: 3, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'work_involves_sitting',
+          key: 'sedentaryJob',
+          questionKey: 'sitting',
+          type: 'radio',
+          label: '25. ¿Tu trabajo implica principalmente estar sentado/a durante largos períodos de tiempo?',
+          required: true,
+          options: [
+            { value: 2, label: 'Sí', labelKey: 'yes' },
+            { value: 0, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'daily_physical_activity',
+          key: 'dailyPhysicalActivity',
+          questionKey: 'exercise',
+          type: 'radio',
+          label: '26. ¿Realizaste al menos 30 minutos de actividad física diariamente, como caminar, correr o nadar?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 2, label: 'No', labelKey: 'no' },
+            { value: 1, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+        {
+          id: 'weekly_sports_practice',
+          key: 'sports',
+          questionKey: 'sport',
+          type: 'radio',
+          label: '27. ¿Practicaste algún deporte en grupo de manera semanal?',
+          required: true,
+          options: [
+            { value: 0, label: 'Sí', labelKey: 'yes' },
+            { value: 1, label: 'No', labelKey: 'no' },
+            { value: 2, label: 'A veces', labelKey: 'sometimes' },
+          ],
+        },
+      ],
+    },
+  ],
+};

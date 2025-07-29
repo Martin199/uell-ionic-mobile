@@ -30,7 +30,7 @@ export class MyProfileComponent {
   private utilsService = inject(UtilsService);
   private userStateService = inject(UserStateService);
   profileCards = computed(() => {
-    const userData = this.userStateService.userData();
+    const userData = this.userStateService.userData;
 
     if (!userData) {
       return profileCardsData; // Return default data if no user data
@@ -43,19 +43,19 @@ export class MyProfileComponent {
         fields: [
           {
             field: 'Nombre completo',
-            description: `${userData.name || ''} ${userData.surname || ''}`.trim() || 'No disponible',
+            description: `${userData()?.name || ''} ${userData()?.surname || ''}`.trim() || 'No disponible',
           },
           {
             field: 'Alias',
-            description: userData.userAlias || 'No disponible',
+            description: userData()?.userAlias || 'No disponible',
           },
           {
             field: 'Fecha de nacimiento',
-            description: userData.bornDate ? new Date(userData.bornDate).toLocaleDateString('es-ES') : 'No disponible',
+            description: userData()?.bornDate ? this.formatDate(userData()?.bornDate!) : 'No disponible',
           },
           {
             field: 'DNI',
-            description: userData.documentNumber || 'No disponible',
+            description: userData()?.documentNumber || 'No disponible',
           },
         ],
       },
@@ -65,12 +65,14 @@ export class MyProfileComponent {
         fields: [
           {
             field: 'Correo electrónico',
-            description: userData.email || 'No disponible',
+            description: userData()?.email || 'No disponible',
           },
           {
             field: 'Teléfono',
-            description: userData.telephoneNumber
-              ? `${userData.telephoneNumber.countryCode} ${userData.telephoneNumber.areaCode} ${userData.telephoneNumber.phoneNumber}`
+            description: userData()?.telephoneNumber
+              ? `${userData()?.telephoneNumber.countryCode} ${userData()?.telephoneNumber.areaCode} ${
+                  userData()?.telephoneNumber.phoneNumber
+                }`
               : 'No disponible',
           },
         ],
@@ -81,7 +83,7 @@ export class MyProfileComponent {
         fields: [
           {
             field: 'Dirección',
-            description: this.formatAddress(userData.address),
+            description: this.formatAddress(userData()?.address),
           },
         ],
       },
@@ -91,24 +93,59 @@ export class MyProfileComponent {
         fields: [
           {
             field: 'Empresa',
-            description: userData.area || 'No disponible',
+            description: userData()?.area || 'No disponible',
           },
           {
             field: 'Segmento',
-            description: userData.segmentationUnit?.segDescription || 'No disponible',
+            description: userData()?.segmentationUnit?.segDescription || 'No disponible',
           },
           {
             field: 'Área',
-            description: userData.workstation || 'No disponible',
+            description: userData()?.workstation || 'No disponible',
           },
           {
             field: 'Puesto',
-            description: userData.workstation || 'No disponible',
+            description: userData()?.workstation || 'No disponible',
           },
         ],
       },
     ];
   });
+
+  private formatDate(date: Date | string): string {
+    if (!date) return 'No disponible';
+
+    let day: string, month: string, year: string;
+
+    if (typeof date === 'string') {
+      // Handle ISO date string format (YYYY-MM-DD)
+      if (date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        const parts = date.split('-');
+        year = parts[0];
+        month = parts[1];
+        day = parts[2];
+      } else {
+        // Fallback to Date object for other formats
+        const dateObj = new Date(date);
+        if (isNaN(dateObj.getTime())) {
+          return 'No disponible';
+        }
+        day = dateObj.getDate().toString().padStart(2, '0');
+        month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        year = dateObj.getFullYear().toString();
+      }
+    } else {
+      // Handle Date object
+      if (isNaN(date.getTime())) {
+        return 'No disponible';
+      }
+      day = date.getDate().toString().padStart(2, '0');
+      month = (date.getMonth() + 1).toString().padStart(2, '0');
+      year = date.getFullYear().toString();
+    }
+
+    return `${day}/${month}/${year}`;
+  }
 
   private formatAddress(addresses: any[] | undefined): string {
     if (!addresses || addresses.length === 0) {

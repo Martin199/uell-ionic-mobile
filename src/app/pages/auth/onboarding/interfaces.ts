@@ -54,7 +54,8 @@ export interface OnBoardingBasicInfoPatch {
 
 export interface OnBoardingContactPatch {
   email: string | null;
-  phone: TelephoneNumber | null;
+  cellphoneNumber: TelephoneNumber | null;
+  telephoneNumber: TelephoneNumber | null;
 }
 
 export interface OnBoardingProfilePicPatch {
@@ -62,108 +63,109 @@ export interface OnBoardingProfilePicPatch {
 }
 
 export interface AdressResponse {
-	addressCodePostal: string;
-	addressDepartment: string;
-	addressFloor: string;
-	addressName: string;
-	addressNumber?: string;
-	addressType: string;
-	id?: string | number;
-	isPrimary: boolean;
-	latitude: string | number;
-	locality: Localidad;
-	longitude: string | number;
-	observation: string | null;
-	userId?: any;
-	addressValidated: boolean;
-	addressGeometryLocationType: string;
-	countryCode?: string;
+  addressCodePostal: string;
+  addressDepartment: string;
+  addressFloor: string;
+  addressName: string;
+  addressNumber?: string;
+  addressType: string;
+  id?: string | number;
+  isPrimary: boolean;
+  latitude: string | number;
+  locality: Localidad;
+  longitude: string | number;
+  observation: string | null;
+  userId?: any;
+  addressValidated: boolean;
+  addressGeometryLocationType: string;
+  countryCode?: string;
 }
 
 export interface TelephoneNumber {
-	countryCode: string | null;
-	areaCode: string | null;
-	phoneNumber: string | null;
-	id: string | null;
+  countryCode: string | null;
+  areaCode: string | null;
+  phoneNumber: string | null;
+  id: string | null;
 }
 
 export interface Localidad {
-	code: string;
-	id: string | number;
-	name: string;
-	state: State;
-	tenant: string;
+  code: string;
+  id: string | number;
+  name: string;
+  state: State;
+  tenant: string;
 }
 
 export interface State {
-	code: string;
-	id: string | number;
-	name: string;
-	tenant: string;
+  code: string;
+  id: string | number;
+  name: string;
+  tenant: string;
 }
 
 export class IMedicalInformation {
-	// TO DO
-	id?: string;
-	height?: string | number;
-	weight?: string | number;
-	diseases?: string | object | Array<string>;
-	medicaments?: string | object | Array<string>;
-	surgeries?: string | object | Array<string>;
-	smoker?: boolean;
-	mentalDisorders?: string | object | Array<string>;
+  // TO DO
+  id?: string;
+  height?: string | number;
+  weight?: string | number;
+  diseases?: string | object | Array<string>;
+  medicaments?: string | object | Array<string>;
+  surgeries?: string | object | Array<string>;
+  smoker?: boolean;
+  mentalDisorders?: string | object | Array<string>;
 
-	arterialHypertension?: boolean | null;
-	diabetes?: boolean;
-	diabetesTypeOne?: boolean;
-	diabetesTypeTwo?: boolean;
-	diabetesType?: boolean;
-	insulineRequiring?: boolean;
-	respiratory?: boolean;
-	cardiac?: boolean;
-	neurological?: boolean;
-	metabolice?: boolean;
+  arterialHypertension?: boolean | null;
+  diabetes?: boolean;
+  diabetesTypeOne?: boolean;
+  diabetesTypeTwo?: boolean;
+  diabetesType?: boolean;
+  insulineRequiring?: boolean;
+  respiratory?: boolean;
+  cardiac?: boolean;
+  neurological?: boolean;
+  metabolice?: boolean;
 
-	oncology?: boolean;
-	onchologicRespiratory?: boolean;
-	onchologicGinecological?: boolean;
-	onchologicNephrourological?: boolean;
-	onchologicGastrointestinal?: boolean;
-	onchologicEndocrinal?: boolean;
-	onchologicNeurological?: boolean;
-	others?: boolean;
+  oncology?: boolean;
+  onchologicRespiratory?: boolean;
+  onchologicGinecological?: boolean;
+  onchologicNephrourological?: boolean;
+  onchologicGastrointestinal?: boolean;
+  onchologicEndocrinal?: boolean;
+  onchologicNeurological?: boolean;
+  others?: boolean;
 
-	gastrointestinal?: boolean;
-	spine?: boolean;
-	endocrinological?: boolean;
-	infectious?: boolean;
-	bodyMassIndex?: string | number;
-	medicalHistoryDiseases?: any;
-	hasSurgeries?: boolean;
-    surgeriesDescription?: string;
+  gastrointestinal?: boolean;
+  spine?: boolean;
+  endocrinological?: boolean;
+  infectious?: boolean;
+  psychiatric?: boolean;
+  bodyMassIndex?: string | number;
+  medicalHistoryDiseases?: any;
+  hasSurgeries?: boolean;
+  surgeriesDescription?: string;
 }
 
 export interface PersonalFormResponse {
-	id?: string;
-	email: string | null;
-	emailCorporate?: string | null;
-	phone: TelephoneNumber | null;
-	cellphoneNumber?: TelephoneNumber | null;
-	observation?: string;
+  id?: string;
+  email: string | null;
+  emailCorporate?: string | null;
+  phone: TelephoneNumber | null;
+  cellphoneNumber?: TelephoneNumber | null;
+  observation?: string;
 }
 
 export interface PersonalData {
-	idHr: string;
-	nombre: string;
-	apellido: string;
-	tipoDeDocumento: string;
-	numeroDeDocumento: string;
-	sexo: string;
-	fechaDeNacimento: string;
-	estadoCivil: string;
+  idHr: string;
+  nombre: string;
+  apellido: string;
+  tipoDeDocumento: string;
+  numeroDeDocumento: string;
+  sexo: string;
+  fechaDeNacimento: string;
+  estadoCivil: string;
 }
 export interface MedicalHistoryDiseases {
-    medicalHistoryDiseases: MedicalHistoryDiseasesClass;
+  medicalHistoryDiseases: MedicalHistoryDiseasesClass;
 }
 
 export interface MedicalHistoryDiseasesClass {
@@ -187,4 +189,46 @@ export interface MedicalHistoryDiseasesClass {
   infectious: boolean;
   surgeries: boolean | null;
   surgeriesDescription: string | null;
+}
+
+export interface WellnessQuestionnaireData {
+  moodEnergyWellbeing: MoodEnergyWellbeingData;
+  energyConcentration: EnergyConcentrationData;
+  nutritionLifestyle: NutritionLifestyleData;
+}
+
+export interface MoodEnergyWellbeingData {
+  mood_irritability: number;
+  impulsive_behavior: number;
+  frequent_arguments: number;
+  repetitive_episodes: number;
+  unable_to_relax: number;
+  worried_about_future: number;
+  confidence_in_problem_solving: number;
+  life_perception_next_3_years: number;
+  enjoy_daily_activities: number;
+}
+
+export interface EnergyConcentrationData {
+  sufficient_energy_daily_tasks: number;
+  adequate_concentration: number;
+  feeling_unable_to_cope: number;
+  feeling_comfortable_with_opposite_sex: number;
+  feeling_comfortable_with_unknown_people: number;
+  feeling_scared_or_frightened: number;
+  feeling_united_with_close_people: number;
+  feeling_excluded: number;
+  feeling_lonely_in_group: number;
+}
+
+export interface NutritionLifestyleData {
+  healthy_nutrition: number;
+  processed_foods_consumption: number;
+  sugary_drinks_consumption: number;
+  adequate_sleep_hours: number;
+  difficulty_falling_asleep: number;
+  restorative_sleep: number;
+  work_involves_sitting: number;
+  daily_physical_activity: number;
+  weekly_sports_practice: number;
 }
