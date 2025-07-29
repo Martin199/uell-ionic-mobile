@@ -209,8 +209,8 @@ export class AnthropometryComponent  implements OnInit, OnChanges {
           this.modalController.dismiss(resp);
           this.utilsService.getToastMessage('bottom', 3000, 'Podés actualizar los datos nuevamente luego de 30 días.')
         } else {
-          const message = content ? 'Se guardaron correctamente los cambios de Antropometría.' : 'No se pudieron guardar los cambios de Antropometría.';
-          this.utilsService.getToastMessage('bottom', 3000, message);
+          //const message = content ? 'Se guardaron correctamente los cambios de Antropometría.' : 'No se pudieron guardar los cambios de Antropometría.';
+          //this.utilsService.getToastMessage('bottom', 3000, message);
           this.userService.setCurrentProgress(content.completenessPercentage);
           
           if (content) {

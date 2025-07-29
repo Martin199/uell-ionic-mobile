@@ -35,7 +35,7 @@ export class ModalHeaderComponent {
             sessionStorage.removeItem('stepPreference');
         }
         if (this.routerUrl()) {
-            this.utilsService.navCtrl.navigateRoot(['/newton']);
+            this.utilsService.navCtrl.navigateRoot([this.routerUrl()]);
             this.modalCtrl.dismiss();
         } else {
             this.modalCtrl.dismiss({ dismiss: true });

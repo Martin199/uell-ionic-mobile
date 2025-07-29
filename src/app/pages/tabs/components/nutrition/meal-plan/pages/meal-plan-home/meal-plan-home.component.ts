@@ -250,7 +250,7 @@ export class MealPlanHomeComponent implements OnInit {
 
   returnBack() {
     this.mealPlanService.clearState();
-    this.navCtrl.back();
+    this.navCtrl.navigateRoot('/tabs/nutrition')
   }
 
   async openModal() {
