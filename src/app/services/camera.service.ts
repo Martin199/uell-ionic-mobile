@@ -34,8 +34,7 @@ export class CameraService {
       const size = await this.getImageSize(imageUrl!);
 
       if (!size) throw new Error('No size');
-      if (size / (1024 * 1024) > environment.maxImageSize)
-        throw new Error('Image size is too large');
+      if (size / (1024 * 1024) > environment.maxImageSize) throw new Error('Image size is too large');
 
       const base64String = await this.convertUriToBase64(imageUrl);
       if (!base64String) throw new Error('No base64');
@@ -45,6 +44,53 @@ export class CameraService {
       console.error('Error taking picture:', error);
       throw error;
     }
+  }
+
+  public async takePhoto() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Camera,
+        allowEditing: true,
+      });
+      return image;
+    } catch (error) {
+      console.error('Error taking photo:', error);
+      throw error;
+    }
+  }
+
+  public async openGallery() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Photos,
+        allowEditing: true,
+      });
+      return image;
+    } catch (error) {
+      console.error('Error opening gallery:', error);
+      throw error;
+    }
+  }
+
+  private async checkImageValidity(image: Photo) {
+    if (!image) throw new Error('No image');
+    var imageUrl = image.webPath;
+    const format = image.format;
+
+    if (!imageUrl) throw new Error('No image webPath');
+    const size = await this.getImageSize(imageUrl!);
+
+    if (!size) throw new Error('No size');
+    if (size / (1024 * 1024) > environment.maxImageSize) throw new Error('Image size is too large');
+
+    const base64String = await this.convertUriToBase64(imageUrl);
+    if (!base64String) throw new Error('No base64');
+
+    return new ImageClass({ base64String, format, imageUrl, size });
   }
 
   private async getImageSize(webPath: string) {

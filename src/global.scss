@@ -30,7 +30,24 @@
 
 ion-button {
   text-transform: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5rem;
+  letter-spacing: 0.016px;
 }
+
+// Remove header and toolbar shadows globally
+ion-header {
+  box-shadow: none !important;
+}
+
+ion-toolbar {
+  --box-shadow: none !important;
+  box-shadow: none !important;
+}
+
 
 .example-content {
   display: flex;
@@ -93,10 +110,6 @@ ion-checkbox {
   --checkbox-background-checked: #1da4b1;
 }
 
-ion-checkbox::part(container) {
-  border-radius: 6px;
-  border: 2px solid #1da4b1;
-}
 
 .custom-input {
   --border-color: #e0e0e0;

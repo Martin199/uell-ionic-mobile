@@ -1,0 +1,63 @@
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem
+}
+
+.title{
+  color: var(--Neutral-GreyVeryDark, #212532);
+
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.body{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  ion-button {
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    margin: 0;
+    height: auto;
+    min-height: auto;
+    
+    &::part(native) {
+      padding: 0;
+    }
+  }
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--Neutral-GreyVeryDark, #212532);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.primary-button{
+  color: var(--Neutral-White, #FFF);
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px;
+letter-spacing: 0.016px;
+}

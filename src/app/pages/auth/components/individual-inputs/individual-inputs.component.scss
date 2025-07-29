@@ -1,0 +1,42 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.individual-input-group {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+ion-label {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Comment C1/Regular */
+  font-family: "Inter";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.048px;
+}
+
+.input {
+  width: 2.5rem;
+  --border-radius: 0.5rem;
+  --padding-start: 1rem;
+
+  color: var(--Neutral-GreyVeryDark, #212532);
+  font-family: "Inter";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.035px;
+}
+
+.padding-right {
+  margin-right: 1rem;
+}

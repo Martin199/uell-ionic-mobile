@@ -44,6 +44,7 @@ export interface User {
   telephoneNumber: PhoneNumber;
   onboardedDate: Date;
   unitSegmentationsUser: SegmentationUnit[];
+  userAlias: string;
 }
 
 export interface Address {

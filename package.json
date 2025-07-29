@@ -35,21 +35,38 @@
     "android:stage": "ionic build --configuration stage && npx cap sync android",
     "ios:stage": "ionic build --configuration stage && npx cap sync ios",
     "prepare:firebase:dev": "node scripts/prepare-firebase.js dev",
-    "prepare:firebase:prod": "node scripts/prepare-firebase.js prod"
+    "prepare:firebase:prod": "node scripts/prepare-firebase.js prod",
+    "format": "prettier --write \"src/**/*.{ts,html,scss,css,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,html,scss,css,json}\""
   },
   "prettier": {
-    "printWidth": 100
+    "printWidth": 120,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
+    "overrides": [
+      {
+        "files": "*.scss",
+        "options": {
+          "parser": "scss"
+        }
+      }
+    ]
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.1.0",
-    "@angular/common": "^20.1.0",
-    "@angular/compiler": "^20.1.0",
-    "@angular/core": "^20.1.0",
-    "@angular/forms": "^20.1.0",
-    "@angular/platform-browser": "^20.1.0",
-    "@angular/platform-browser-dynamic": "^20.1.0",
-    "@angular/router": "^20.1.0",
+    "@angular/animations": "^20.1.3",
+    "@angular/common": "^20.1.3",
+    "@angular/compiler": "^20.1.3",
+    "@angular/core": "^20.1.3",
+    "@angular/forms": "^20.1.3",
+    "@angular/platform-browser": "^20.1.3",
+    "@angular/platform-browser-dynamic": "^20.1.3",
+    "@angular/router": "^20.1.3",
     "@capacitor/android": "^7.0.1",
     "@capacitor/app": "7.0.0",
     "@capacitor/assets": "^3.0.5",
@@ -80,15 +97,16 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular-devkit/schematics": "^20.1.0",
     "@angular-eslint/builder": "^18.0.0",
     "@angular-eslint/eslint-plugin": "^18.0.0",
     "@angular-eslint/eslint-plugin-template": "^18.0.0",
-    "@angular-eslint/schematics": "^18.0.0",
+    "@angular-eslint/schematics": "^18.4.3",
     "@angular-eslint/template-parser": "^18.0.0",
-    "@angular/build": "^20.1.0",
-    "@angular/cli": "^20.1.0",
-    "@angular/compiler-cli": "^20.1.0",
-    "@angular/language-service": "^20.1.0",
+    "@angular/build": "^20.1.2",
+    "@angular/cli": "^20.1.2",
+    "@angular/compiler-cli": "^20.1.2",
+    "@angular/language-service": "^20.1.2",
     "@capacitor/cli": "^7.0.1",
     "@ionic/angular-toolkit": "12.1.1",
     "@types/jasmine": "~5.1.0",

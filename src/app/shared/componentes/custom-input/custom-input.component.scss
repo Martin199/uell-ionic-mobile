@@ -37,3 +37,15 @@
 .error-placeholder{
     height: 25px;
 }
+
+.login-label{
+    color: var(--Neutral-GreyDark, #383E52);
+
+    /* Comment C1/Regular */
+    font-family: 'Inter';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.048px;
+}

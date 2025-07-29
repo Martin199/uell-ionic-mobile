@@ -1,0 +1,30 @@
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="content">
+      <app-logo></app-logo>
+      <div class="body">
+        <ion-text>
+          <h1 class="title">Crear cuenta</h1>
+        </ion-text>
+        <app-custom-input
+          label="Código de empresa"
+          textClass="login-label"
+          [control]="form.controls.code"
+        ></app-custom-input>
+        <app-custom-input
+          label="Correo electrónico"
+          textClass="login-label"
+          [control]="form.controls.email"
+        ></app-custom-input>
+      </div>
+      <ion-button expand="block" shape="round" type="submit" size="large" [disabled]="!form.valid">
+        Siguiente
+      </ion-button>
+      <ion-text class="login-link">
+        <p class="subtitle">¿Ya tienes una cuenta?</p>
+        <ion-button routerLink="/auth" fill="clear">Iniciar sesión</ion-button>
+      </ion-text>
+      <app-floating-help></app-floating-help>
+    </div>
+  </form>
+</ion-content>

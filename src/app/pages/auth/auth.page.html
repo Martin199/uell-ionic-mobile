@@ -1,53 +1,51 @@
 <ion-content [fullscreen]="true">
-  <div class="content">
-    <div class="d-flex-center-login">
-      <form [formGroup]="formAuth" class="form-container" (ngSubmit)="submit()" (keypress.enter)="submit()">
-  
-        <div class="logo"> 
-          <app-logo></app-logo>
-        </div>
-  
-        <ion-text class="d-flex-center ">
-          <h1 class="title"> ¡Te damos la bienvenida! </h1>
-        </ion-text>
-        <!-- Usuario -->
-        <div #userContainer class="user-container">
-          <app-custom-input icon="person-outline" [control]="formAuth.controls.cuil" label="Usuario">
-          </app-custom-input>
-  
-        </div>
-  
-        <!-- Contraseña -->
-        <div #passwordContainer>
-          <app-custom-input icon="lock-closed-outline" [control]="formAuth.controls.password" type="password"
-            label="Contraseña">
-          </app-custom-input>
-          <ion-text color="primary" class="forgot-password" (click)="forgotPassword()">¿Olvidaste tu contraseña?</ion-text>
-        </div>
-        
-        @if(formAuth.errors?.['incorrect']) {
-          <div class="validators">
-            <div class="error-field">Usuario o contraseña incorrectos</div>
+    <div class="content-login">
+        <form [formGroup]="formAuth" class="form-container" (ngSubmit)="submit()" (keypress.enter)="submit()">
+    
+          <div class="logo"> 
+            <app-logo></app-logo>
           </div>
-        } @else {
-          <div class="error-placeholder"> </div>
-        }
-        <ion-button expand="block" shape="round" type="submit" class="submit-btn submit">
-          Iniciar sesión 
-        </ion-button>
-        
-      </form>
-    </div>
-    <div class="support">
-      <p>¿Necesitas ayuda?</p>
-      <span (click)="contactSupport()">{{supportEmail}}</span>
+    
+          <h1 class="title"> Iniciar sesión  </h1>
+          <!-- Usuario -->
+          <div #userContainer class="user-container">
+            <app-custom-input icon="person-outline" [control]="formAuth.controls.cuil" label="Usuario" textClass="login-label">
+            </app-custom-input>
+    
+          </div>
+    
+          <!-- Contraseña -->
+          <div class="password-container" #passwordContainer>
+            <app-custom-input icon="lock-closed-outline" [control]="formAuth.controls.password" type="password"
+              label="Contraseña" textClass="login-label" style="width: 100%;">
+            </app-custom-input>
+            <ion-text color="primary" class="forgot-password" (click)="forgotPassword()">¿Olvidaste tu contraseña?</ion-text>
+          </div>
+          
+          @if(formAuth.errors?.['incorrect']) {
+            <div class="validators">
+              <div class="error-field">Usuario o contraseña incorrectos</div>
+            </div>
+          } @else {
+            <div class="error-placeholder"> </div>
+          }
+          <div class="buttons-container">
+            <ion-button expand="block" shape="round" type="submit" size="large">
+              Iniciar sesión 
+            </ion-button>
+            <ion-button expand="block" shape="round" fill="outline" (click)="navigateToCreateAccount()" size="large">
+              Crear cuenta
+            </ion-button>
+          </div>
+          
+        </form>
+        <app-floating-help></app-floating-help>
     </div>
     @if(version && env){
-      <p style="align-items: flex-end;">v{{version}}
+      <p class="version">{{version}}
         @if (env !== 'prod') {-{{env}}}
       </p>
     }
-  </div>
 
 
 

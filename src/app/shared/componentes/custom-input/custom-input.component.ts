@@ -10,7 +10,7 @@ import * as allIonicons from 'ionicons/icons';
     standalone: false
 })
 export class CustomInputComponent implements OnInit {
-
+    textClass = input<string>('');
     @Input() label!: string;
     @Input() control!: FormControl;
     @Input() type!: string;
@@ -47,7 +47,7 @@ export class CustomInputComponent implements OnInit {
                 case 'required':
                     return 'Este campo es requerido';
                 case 'minlength':
-                    return `Este campo debe tener al menos ${errors[key].requiredLength} caracteres`;
+                    return `Este campo debe tener mas de ${errors[key].requiredLength - 1} caracteres`;
                 case 'maxlength':
                     return `Este campo debe tener menos de ${errors[key].requiredLength + 1} caracteres`;
                 case 'min':

@@ -7,7 +7,15 @@ import { UserResponseDTO } from '../core/interfaces/user';
 import { ImageUpload } from './interfaces/camera.interfaces';
 import { UserStateService } from '../core/state/user-state.service';
 import { TenantParametersResponse } from '../core/interfaces/tenantParameters';
-import { InitialClinicalData, MedicalHistoryDiseases, OnBoardingRequest } from '../pages/auth/onboarding/interfaces';
+import { MedicalHistoryDiseasesClass } from '../pages/auth/onboarding/interfaces';
+import {
+  InitialClinicalData,
+  MedicalHistoryDiseases,
+  OnBoardingBasicInfoPatch,
+  OnBoardingContactPatch,
+  OnBoardingProfilePicPatch,
+  OnBoardingRequest,
+} from '../pages/auth/onboarding/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +29,7 @@ export class UserService {
 
   constructor() {
     const savedUser = localStorage.getItem('user');
-    this.userSubject = new BehaviorSubject<UserResponseDTO>(
-      savedUser ? JSON.parse(savedUser) : null
-    );
+    this.userSubject = new BehaviorSubject<UserResponseDTO>(savedUser ? JSON.parse(savedUser) : null);
   }
 
   setUser(user: any) {
@@ -36,23 +42,17 @@ export class UserService {
   }
 
   getMe() {
-    return this.http.get<UserResponseDTO>(
-      `${environment.apiBaseUrl}${environment.apiVersion}/users/me`
-    ).pipe(
-      tap((user: UserResponseDTO) => this.userState.setUser(user))
-    );
+    return this.http
+      .get<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/me`)
+      .pipe(tap((user: UserResponseDTO) => this.userState.setUser(user)));
   }
 
   getUserTenants() {
-    return this.http.get(
-      `${environment.apiBaseUrl}${environment.apiVersion}/tenant/getusertenants`
-    );
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/getusertenants`);
   }
 
   getAllSegmentation() {
-    return this.http.get(
-      `${environment.apiBaseUrl}${environment.apiVersion}/tenant/getallsegmentation`
-    );
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/getallsegmentation`);
   }
 
   postEmotional(userid: any, emotionId: number) {
@@ -62,14 +62,10 @@ export class UserService {
 
   getTenantParameters() {
     return this.http
-      .get<TenantParametersResponse>(
-        `${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`
-      )
+      .get<TenantParametersResponse>(`${environment.apiBaseUrl}${environment.apiVersion}/tenant/gettenantparameters`)
       .pipe(
-        tap((tenantParamResponse) => {
-          this.userState.setTenantParameters(
-            tenantParamResponse.tenantParameters
-          );
+        tap(tenantParamResponse => {
+          this.userState.setTenantParameters(tenantParamResponse.tenantParameters);
         })
       );
   }
@@ -94,10 +90,7 @@ export class UserService {
   }
 
   getAddressesState(filter?: any): Observable<any> {
-    return this.http.get(
-      `${environment.apiBaseUrl}${environment.apiVersion}/states?sort=name,asc`,
-      filter
-    );
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/states?sort=name,asc`, filter);
   }
 
   public getLocalitiesByState(id: string): Observable<any> {
@@ -106,14 +99,16 @@ export class UserService {
     );
   }
 
-  postMedicalDiseases(userId: number, body: MedicalHistoryDiseases) {
+  postMedicalDiseases(body: MedicalHistoryDiseases) {
+    const userId = this.userState.userData()?.id;
     return this.http.post(
       `${environment.apiBaseUrl}${environment.apiVersion}/medical-history/${userId}`,
-      body
+      body.medicalHistoryDiseases
     );
   }
 
-  postCompletenessMedicalInformation(userId: number, body: InitialClinicalData) {
+  postCompletenessMedicalInformation(body: InitialClinicalData) {
+    const userId = this.userState.userData()?.id;
     return this.http.post(
       `${environment.apiBaseUrl}${environment.apiVersion}/medical-history/completeness/${userId}`,
       body
@@ -129,10 +124,7 @@ export class UserService {
 
   //TODO: Chequear como vincular al usuario categoria licencia?????
   postProfilePicture(picture: ImageUpload) {
-    this.http.post(
-      `${environment.apiBaseUrl}${environment.apiVersion}/file-management?category=licence`,
-      picture
-    );
+    this.http.post(`${environment.apiBaseUrl}${environment.apiVersion}/file-management?category=licence`, picture);
   }
 
   postB64Picture(picture: ImageUpload) {
@@ -142,22 +134,20 @@ export class UserService {
     );
   }
 
-  postOnBoarding(id: number, body: OnBoardingRequest) {
-    return this.http.patch(
-      `${environment.apiBaseUrl}${environment.apiVersion}/users/${id}`,
-      body
-    );
+  postOnBoarding(
+    body: OnBoardingRequest | OnBoardingBasicInfoPatch | OnBoardingContactPatch | OnBoardingProfilePicPatch
+  ) {
+    const userId = this.userState.userData()?.id;
+    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
   }
 
   getOnBoarding(id: number) {
-    return this.http.get(
-      `${environment.apiBaseUrl}${environment.apiVersion}/users/onboarding/${id}`
-    );
+    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/users/onboarding/${id}`);
   }
 
-	getUsedMail(userId: number, mail: string) {
+  getUsedMail(userId: number, mail: string) {
     return this.http.get(
       `${environment.apiBaseUrl}${environment.apiVersion}/users/emailValidate?id=${userId}&email=${mail}`
     );
-	}
+  }
 }

@@ -34,17 +34,31 @@ export interface MedicalFormDataTwo {
 }
 
 export interface OnBoardingRequest {
-	address: Array<AdressResponse>;
-	bornDate: string | null;
-	emailCorporate: string | null;
-	email: string | null;
-	photo: string;
-	telephoneNumber: TelephoneNumber | null;
-	cellphoneNumber?: TelephoneNumber | null;
-	maritalStatus: string | null;
-	onboarded: boolean;
-	// TODO: definir body a enviar
-	medicalInformation: IMedicalInformation | null;
+  address: Array<AdressResponse>;
+  bornDate: string | null;
+  alias: string | null;
+  emailCorporate: string | null;
+  email: string | null;
+  photo: string;
+  telephoneNumber: TelephoneNumber | null;
+  cellphoneNumber?: TelephoneNumber | null;
+  maritalStatus: string | null;
+  onboarded: boolean;
+  medicalInformation: IMedicalInformation | null;
+}
+
+export interface OnBoardingBasicInfoPatch {
+  userAlias: string | null;
+  bornDate: string | null;
+}
+
+export interface OnBoardingContactPatch {
+  email: string | null;
+  phone: TelephoneNumber | null;
+}
+
+export interface OnBoardingProfilePicPatch {
+  photo: string;
 }
 
 export interface AdressResponse {
@@ -153,24 +167,24 @@ export interface MedicalHistoryDiseases {
 }
 
 export interface MedicalHistoryDiseasesClass {
-    isHypertensive:             boolean;
-    hasDiabetes:                string;
-    respiratory:                boolean;
-    cardiovascular:             boolean;
-    neurologic:                 boolean;
-    metabolic:                  boolean;
-    psychiatric:                boolean;
-    onchologic:                 boolean;
-    onchologicRespiratory:      boolean | null;
-    onchologicGinecological:    boolean | null;
-    onchologicNephrourological: boolean | null;
-    onchologicGastrointestinal: boolean | null;
-    onchologicEndocrinal:       boolean | null;
-    onchologicNeurological:     boolean | null;
-    gastrointestinal:           boolean;
-    spine:                      boolean;
-    endocrinological:           boolean;
-    infectious:                 boolean;
-    surgeries:                  boolean | null;
-    surgeriesDescription:       boolean | null;
+  isHypertensive: boolean;
+  hasDiabetes: boolean;
+  respiratory: boolean;
+  cardiovascular: boolean;
+  neurologic: boolean;
+  metabolic: boolean;
+  psychiatric: boolean;
+  onchologic: boolean;
+  onchologicRespiratory: boolean | null;
+  onchologicGinecological: boolean | null;
+  onchologicNephrourological: boolean | null;
+  onchologicGastrointestinal: boolean | null;
+  onchologicEndocrinal: boolean | null;
+  onchologicNeurological: boolean | null;
+  gastrointestinal: boolean;
+  spine: boolean;
+  endocrinological: boolean;
+  infectious: boolean;
+  surgeries: boolean | null;
+  surgeriesDescription: string | null;
 }

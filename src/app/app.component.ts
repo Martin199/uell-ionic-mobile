@@ -10,7 +10,7 @@ import { Capacitor } from '@capacitor/core';
 import { UtilsService } from './services/utils.service';
 import { UserStateService } from './core/state/user-state.service';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline } from 'ionicons/icons';
+import { arrowBackOutline, pencil, close, cameraOutline, imageOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +28,7 @@ export class AppComponent {
     if (Capacitor.isNativePlatform()) {
       this.initPush();
     }
-    addIcons({ arrowBackOutline });
+    addIcons({ arrowBackOutline, pencil, close, cameraOutline, imageOutline });
   }
 
   async initializeApp() {

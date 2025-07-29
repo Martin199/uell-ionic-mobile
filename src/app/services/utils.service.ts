@@ -134,6 +134,10 @@ export class UtilsService {
         this.navCtrl.navigateRoot([path]);
     }
 
+    navigateTo(path: string, params?: any) { 
+        this.router.navigate([path], { queryParams: params });
+    }
+
     async presentModal(component: any, css?: string, data?: any, backdropDismiss?: boolean) {
         const modal = await this.modalCtrl.create({
         showBackdrop: true,
