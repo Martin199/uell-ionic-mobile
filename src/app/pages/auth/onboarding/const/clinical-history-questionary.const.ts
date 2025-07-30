@@ -122,8 +122,8 @@ export const OCCUPATIONAL_HEALTH_FORM: FormConfig = {
           label: 'Tipo de diabetes:',
           required: true,
           options: [
-            { value: 'type1', label: 'Tipo 1' },
-            { value: 'type2', label: 'Tipo 2' },
+            { value: 'DIABETES_TYPE_1', label: 'Tipo 1' },
+            { value: 'DIABETES_TYPE_2', label: 'Tipo 2' },
           ],
         },
         {

@@ -122,6 +122,7 @@ export interface AddressValidations {
 
 export interface CountryValidations {
   [countryName: string]: {
+    countryCode: number;
     phoneValidations?: PhoneValidations;
     addressValidations: AddressValidations;
   };
@@ -136,6 +137,7 @@ export const baseNumberCountry: Base = {
   validations: {
     country: {
       ARGENTINA: {
+        countryCode: 1,
         phoneValidations: {
           code: {
             prefix: '+54',
@@ -177,6 +179,7 @@ export const baseNumberCountry: Base = {
         },
       },
       COLOMBIA: {
+        countryCode: 3,
         phoneValidations: {
           code: {
             prefix: '+57',
@@ -217,6 +220,7 @@ export const baseNumberCountry: Base = {
         },
       },
       ECUADOR: {
+        countryCode: 4,
         phoneValidations: {
           code: {
             prefix: '+593',
@@ -255,6 +259,7 @@ export const baseNumberCountry: Base = {
         },
       },
       PERU: {
+        countryCode: 2,
         phoneValidations: {
           code: {
             prefix: '+51',
@@ -295,6 +300,7 @@ export const baseNumberCountry: Base = {
         },
       },
       Other: {
+        countryCode: 0,
         phoneValidations: {
           phoneNumber: {
             required: true,
@@ -302,7 +308,7 @@ export const baseNumberCountry: Base = {
             maxLength: 15,
           },
           code: {
-            prefix: '0',
+            prefix: 'Otros',
             maxLength: 1,
             minLength: 1,
           },

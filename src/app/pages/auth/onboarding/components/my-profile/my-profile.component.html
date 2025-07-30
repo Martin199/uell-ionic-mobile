@@ -16,6 +16,9 @@
       <app-profile-pic-onboarding></app-profile-pic-onboarding>
       @for (card of profileCards(); track card.title) {
       <app-profile-card [card]="card" (editModal)="openEditModal($event)"></app-profile-card>
+      @if (card.type === 'contact' && error()) {
+        <p class="error">{{ error() }}</p>
+      }
       }
       <div class="button-container">
         <ion-button (click)="next()" class="next-button" expand="block" size="large" shape="round"

@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { IonHeader, IonToolbar, IonIcon, IonButtons, IonContent, IonButton } from '@ionic/angular/standalone';
 import { ProfileCardComponent } from '../profile-card/profile-card.component';
 import { profileCardsData } from '../../const/my-profile-fields';
@@ -8,7 +8,6 @@ import { ContactModalComponent } from '../modals/contact-modal/contact-modal.com
 import { AddressModalComponent } from '../modals/address-modal/address-modal.component';
 import { WorkModalComponent } from '../modals/work-modal/work-modal.component';
 import { ProfilePicOnboardingComponent } from '../profile-pic-onboarding/profile-pic-onboarding.component';
-import { AuthService } from 'src/app/services/auth.service';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 
 @Component({
@@ -29,6 +28,18 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 export class MyProfileComponent {
   private utilsService = inject(UtilsService);
   private userStateService = inject(UserStateService);
+  error = computed(() => {
+    const userData = this.userStateService.userData();
+    if (!userData) return null;
+    if (
+      userData.email &&
+      userData.telephoneNumber.areaCode &&
+      userData.telephoneNumber.phoneNumber &&
+      userData.telephoneNumber.countryCode
+    )
+      return false;
+    return 'Complete los datos de contacto para continuar';
+  });
   profileCards = computed(() => {
     const userData = this.userStateService.userData;
 
@@ -218,7 +229,12 @@ export class MyProfileComponent {
         break;
     }
   }
+
   next() {
+    if (this.error()) {
+      return;
+    }
+
     this.utilsService.navigateTo('/auth/onboarding/clinical-history');
   }
 }

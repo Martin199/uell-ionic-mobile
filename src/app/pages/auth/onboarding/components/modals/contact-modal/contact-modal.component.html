@@ -47,21 +47,24 @@
       </div>
 
       <div class="field-cellphone">
-        <app-custom-input
-          textClass="login-label"
-          label="Código de área"
-          [control]="getControl('areaCode')"
-          type="tel"
-          autocomplete="tel"
-          style="width: 30%"
-        >
-        </app-custom-input>
+        @if (isAreaCodeRequired()) {
+          <app-custom-input
+            textClass="login-label"
+            label="Código de área"
+            [control]="getControl('areaCode')"
+            type="tel"
+            autocomplete="tel"
+            style="width: 35%"
+          >
+          </app-custom-input>
+        }
         <app-custom-input
           textClass="login-label"
           label="Número de teléfono"
           [control]="getControl('phoneNumber')"
           type="tel"
           autocomplete="tel"
+          style="width: 100%"
         >
         </app-custom-input>
       </div>

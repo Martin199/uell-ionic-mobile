@@ -61,6 +61,11 @@ export class ContactModalComponent implements OnInit {
 
   ngOnInit() {
     this.initializeCountryCodes();
+    const currentCountryCode = this.contactForm.get('countryCode')?.value;
+    if (currentCountryCode) {
+      this.updateValidationsForCountry(currentCountryCode);
+    }
+
     this.contactForm.get('countryCode')?.valueChanges.subscribe(countryCode => {
       if (countryCode) {
         this.updateValidationsForCountry(countryCode);
@@ -74,7 +79,7 @@ export class ContactModalComponent implements OnInit {
       value: validations.phoneValidations?.code.prefix || '',
       label: countryName,
       prefix: validations.phoneValidations?.code.prefix || '',
-      id: this.userStateService.userData()?.cellphoneNumber.id || 0,
+      id: validations.countryCode || 0,
       validations: validations.phoneValidations || {
         code: { prefix: '', minLength: 1, maxLength: 4 },
         phoneNumber: { minLength: 5, maxLength: 15, required: true },
@@ -113,6 +118,21 @@ export class ContactModalComponent implements OnInit {
 
   getControl(fieldName: string): FormControl {
     return this.contactForm.get(fieldName) as FormControl;
+  }
+
+  isAreaCodeRequired(): boolean {
+    const required = this.selectedCountryValidations?.area?.required || false;
+    if (!required) {
+      this.contactForm.get('areaCode')?.setValue(null);
+      this.contactForm.get('areaCode')?.clearValidators();
+      this.contactForm.get('areaCode')?.updateValueAndValidity();
+    }
+
+    if (required) {
+      this.contactForm.get('areaCode')?.setValidators([Validators.required]);
+      this.contactForm.get('areaCode')?.updateValueAndValidity();
+    }
+    return required;
   }
 
   onSubmit() {
