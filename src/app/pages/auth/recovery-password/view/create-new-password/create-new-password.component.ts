@@ -26,6 +26,7 @@ export class CreateNewPasswordComponent implements OnInit {
     isShown: boolean = false;
     otpForm: FormGroup;
     otpDigits = [0, 1, 2, 3, 4, 5];
+    passwordValue: string = '';
 
     fb = inject(FormBuilder);
     login = inject(LoginService)
@@ -42,9 +43,13 @@ export class CreateNewPasswordComponent implements OnInit {
                 new FormControl('', [Validators.required, CustomValidators.noSpaces]),
                 new FormControl('', [Validators.required, CustomValidators.noSpaces])
             ]),
-            newPassword: ['', [Validators.required, Validators.minLength(10), CustomValidators.customPasswordValidation]]
+            newPassword: ['', [Validators.required, Validators.minLength(12), CustomValidators.customPasswordValidation]]
         });
         addIcons({ closeCircleOutline, checkmarkCircleOutline });
+
+        this.otpForm.get('newPassword')?.valueChanges.subscribe(value => {
+            this.passwordValue = value;
+        });
     }
 
     ngOnInit(): void {
@@ -108,10 +113,7 @@ export class CreateNewPasswordComponent implements OnInit {
     }
 
     handleCharacters(event: KeyboardEvent) {
-        const value = event.key;
-        const alphanumeric = /^[a-zA-Z0-9]+$/;
-
-        if (!alphanumeric.test(value)) {
+        if (event.key === ' ' && event.target && (event.target as HTMLInputElement).value.endsWith(' ')) {
             event.preventDefault();
             return;
         }

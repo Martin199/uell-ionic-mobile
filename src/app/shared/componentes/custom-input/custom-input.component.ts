@@ -47,7 +47,7 @@ export class CustomInputComponent implements OnInit {
                 case 'required':
                     return 'Este campo es requerido';
                 case 'minlength':
-                    return `Este campo debe tener mas de ${errors[key].requiredLength - 1} caracteres`;
+                    return `Este campo debe tener mas de ${errors[key].requiredLength } caracteres`;
                 case 'maxlength':
                     return `Este campo debe tener menos de ${errors[key].requiredLength + 1} caracteres`;
                 case 'min':

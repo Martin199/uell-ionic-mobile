@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { CognitoService } from 'src/app/core/services/cognito.service';
 import { RegexCommon } from 'src/app/services/regex.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { COMMON_PASSWORDS } from '../const/common-password.constants';
 
 @Component({
     selector: 'app-create-password',
@@ -22,14 +23,8 @@ export class CreatePasswordPage {
     user: any | null = null;
     showPass: boolean = false;
     showPass2: boolean = false;
-    passwordRules: string[] = [
-        '10 caracteres',
-        '1 mayúscula',
-        '1 número',
-        'Ningún caracter especial',
-        'Distinta a la anterior'
-    ];
     loading: boolean = false;
+    passwordValue: string = '';
 
     constructor() {
         this.user = this.cognitoService.getUserFirst();
@@ -40,10 +35,12 @@ export class CreatePasswordPage {
         }
 
         this.createNewPassForm = this.formBuilder.group({
-            newPass: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.regex.password)]],
-            oldPass: [this.user.pass],
-            newPass2: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15), Validators.pattern(this.regex.password)]]
-        }, { validator: this.passwordMatchValidator });
+            newPass: ['', [Validators.required, Validators.minLength(12), notCommonPassword ]]
+        });
+
+        this.createNewPassForm.get('newPass')?.valueChanges.subscribe(value => {
+            this.passwordValue = value;
+        });
     }
 
     hasShowPass() {
@@ -85,16 +82,12 @@ export class CreatePasswordPage {
         this.utilsService.navCtrl.navigateRoot(['auth']);
     }
 
-    passwordMatchValidator(formGroup: FormGroup) {
-        const newPass = formGroup.get('newPass')?.value;
-        const newPass2 = formGroup.get('newPass2')?.value;
+}
 
-        if (newPass !== newPass2) {
-            formGroup.get('newPass2')?.setErrors({ notSame: true });
-        } else {
-            formGroup.get('newPass2')?.setErrors(null);
-        }
+export function notCommonPassword(control: AbstractControl): ValidationErrors | null {
+  const value = control.value;
+  if (!value) return null;
 
-        return newPass === newPass2 ? null : { notSame: true };
-    }
+  const isCommon = COMMON_PASSWORDS.includes(value.trim().toLowerCase());
+  return isCommon ? { commonPassword: true } : null;
 }

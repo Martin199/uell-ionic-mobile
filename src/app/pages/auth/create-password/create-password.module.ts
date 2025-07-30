@@ -5,6 +5,7 @@ import { CreatePasswordRoutingModule } from './create-password-routing.module';
 import { CreatePasswordPage } from './create-password.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IonContent, IonText, IonInput, IonButton, IonSpinner } from "@ionic/angular/standalone";
+import { IonIcon } from '@ionic/angular/standalone';
 
 @NgModule({
     declarations: [CreatePasswordPage],
@@ -16,7 +17,8 @@ import { IonContent, IonText, IonInput, IonButton, IonSpinner } from "@ionic/ang
         IonText,
         IonInput,
         IonButton,
-        IonSpinner
+        IonSpinner,
+        IonIcon
     ]
 })
 export class CreatePasswordModule { }

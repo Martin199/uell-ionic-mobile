@@ -30,6 +30,7 @@ import { UellCoinComponent } from './componentes/uell-coin/uell-coin.component';
 import { IspsResultComponent } from './componentes/isps-result/isps-result.component';
 import { ModalMailRegisteredComponent } from './componentes/modal-mail-registered/modal-mail-registered.component';
 import { IonContent, IonLabel, IonItem, IonIcon, IonInput, IonButton, IonHeader, IonToolbar, IonTitle, IonButtons, IonProgressBar, IonSpinner, IonFooter, IonToast, IonImg, IonThumbnail, IonAvatar, IonCheckbox, IonRange, IonList, IonRadioGroup, IonRadio, IonListHeader, IonItemGroup, IonCol } from "@ionic/angular/standalone";
+import { BarPasswordSecurityComponent } from './componentes/bar-password-security/bar-password-security.component';
 
 @NgModule({
     declarations: [
@@ -91,7 +92,8 @@ import { IonContent, IonLabel, IonItem, IonIcon, IonInput, IonButton, IonHeader,
         IonItemGroup,
         IonRadioGroup,
         IonRadio,
-        IonCol
+        IonCol,
+        BarPasswordSecurityComponent
       ],      
     exports: [
         HeaderComponent,
@@ -113,7 +115,8 @@ import { IonContent, IonLabel, IonItem, IonIcon, IonInput, IonButton, IonHeader,
         ModalMentalStatusDescriptionComponent,
         UellCoinComponent,
         IspsResultComponent,
-        ModalHeaderComponent
+        ModalHeaderComponent,
+        BarPasswordSecurityComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
