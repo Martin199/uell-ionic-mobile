@@ -14,10 +14,12 @@ export class AuthService {
   tenant = signal<string | null>(null);
   email = signal<string | null>(null);
   private userState = inject(UserStateService);
+
   getTenantCode(code: string) {
     const url = `${environment.apiBaseUrl}${environment.apiVersion}/tenant/get-tenant-code?code=${code}`;
     return this.http.get<GetTenantCodeResponse[]>(url).pipe(
       map(res => {
+        if (res === null) return null;
         const tenant = res[0]?.tenant;
         if (tenant) {
           this.tenant.set(tenant);
@@ -36,13 +38,13 @@ export class AuthService {
     const tenant = this.tenant();
     this.email.set(email);
     if (!tenant) return EMPTY;
-    const url = (`${environment.apiBaseUrl}${environment.apiVersion}/temporalPassword/generate`);
+    const url = `${environment.apiBaseUrl}${environment.apiVersion}/temporalPassword/generate`;
     const headers = { tenant: tenant };
     return this.http.post(url, { email }, { headers });
   }
 
   createCognitoUser(cuil: number, temporaryPassword: number) {
-    const url = (`${environment.apiBaseUrl}${environment.apiVersion}/temporalPassword/createCognitoUser`);
+    const url = `${environment.apiBaseUrl}${environment.apiVersion}/temporalPassword/createCognitoUser`;
     const email = this.email();
     const tenant = this.tenant();
     if (!tenant) return EMPTY;

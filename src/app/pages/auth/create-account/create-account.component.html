@@ -16,6 +16,12 @@
           textClass="login-label"
           [control]="form.controls.email"
         ></app-custom-input>
+        @if(error()){
+        <div class="error-conteiner" style="display: flex; align-items: center; gap: 0.5rem">
+          <ion-icon slot="start" name="alert-circle" color="danger" size="large"></ion-icon>
+          <p class="error-msg">{{ errorMsg }}</p>
+        </div>
+        }
       </div>
       <ion-button expand="block" shape="round" type="submit" size="large" [disabled]="!form.valid">
         Siguiente

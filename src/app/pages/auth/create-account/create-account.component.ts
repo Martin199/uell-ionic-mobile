@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonText, IonButton, IonRouterLink } from '@ionic/angular/standalone';
+import { IonContent, IonText, IonButton, IonRouterLink, IonIcon } from '@ionic/angular/standalone';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FloatingHelpComponent } from '../components/floating-help/floating-help.component';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
-  imports: [IonButton, IonContent, SharedModule, IonText, RouterLink, IonRouterLink, FloatingHelpComponent],
+  imports: [IonIcon, IonButton, IonContent, SharedModule, IonText, RouterLink, IonRouterLink, FloatingHelpComponent],
   styleUrls: ['./create-account.component.scss'],
 })
 export class CreateAccountComponent {
@@ -22,6 +22,8 @@ export class CreateAccountComponent {
     code: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
   });
+  error = signal<boolean>(false);
+  errorMsg = 'Parece que alguno de los datos ingresados no es correcto. Revísalos e intenta nuevamente.';
 
   navigateToValidateAccount() {
     this.utils.navigateTo('auth/create-account/validate-account');
@@ -32,7 +34,11 @@ export class CreateAccountComponent {
     if (!code) return;
     this.authService.getTenantCode(code).subscribe({
       next: res => {
-        if (res === null) return;
+        this.loading()?.dismiss();
+        if (res === null) {
+          this.error.set(true);
+          return;
+        }
         this.generatePassword();
       },
       error: err => {
