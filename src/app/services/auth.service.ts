@@ -36,13 +36,13 @@ export class AuthService {
     const tenant = this.tenant();
     this.email.set(email);
     if (!tenant) return EMPTY;
-    const url = 'https://dev-usermassupload.eks.development.uell.ai/app/temporalPassword/generate';
+    const url = (`${environment.apiBaseUrl}${environment.apiVersion}/temporalPassword/generate`);
     const headers = { tenant: tenant };
     return this.http.post(url, { email }, { headers });
   }
 
   createCognitoUser(cuil: number, temporaryPassword: number) {
-    const url = 'https://dev-usermassupload.eks.development.uell.ai/app/temporalPassword/createCognitoUser';
+    const url = (`${environment.apiBaseUrl}${environment.apiVersion}/temporalPassword/createCognitoUser`);
     const email = this.email();
     const tenant = this.tenant();
     if (!tenant) return EMPTY;
