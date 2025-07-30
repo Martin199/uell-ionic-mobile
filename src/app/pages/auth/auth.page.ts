@@ -70,6 +70,7 @@ export class AuthPage implements OnInit {
 
   ngOnInit(): void {
     this.statusBarColor();
+    this.userState.logout();
   }
 
   statusBarColor() {

@@ -102,8 +102,8 @@ export class StorageService {
   }
 
   async clearSessionStorage(): Promise<void> {
-    await this.waitForInitialization();
     sessionStorage.clear();
+    await this.waitForInitialization();
     if (this._storage) {
       const keys = await this._storage.keys();
       for (const key of keys) {

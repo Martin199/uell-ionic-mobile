@@ -93,9 +93,9 @@ export class HeaderComponent implements OnInit {
             () => {
                 this.mentalStatusService.clearEmotionalCache();
                 this.storageService.clearStorage();
-                this.utilServices.navCtrl.navigateRoot(['/auth']);
                 this.userState.logout();
                 this.cognito.logout();
+                this.utilServices.navCtrl.navigateRoot(['/auth']);
             }
         );
     }
