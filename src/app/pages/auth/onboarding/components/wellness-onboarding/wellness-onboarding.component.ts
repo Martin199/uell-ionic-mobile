@@ -13,6 +13,7 @@ import {
   EnergyConcentrationPostData,
   NutritionLifestylePostData,
 } from 'src/app/services/interfaces/auth-service.interfaces';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-wellness-onboarding',
@@ -39,7 +40,7 @@ export class WellnessOnboardingComponent {
 
   private router = inject(Router);
   private authService = inject(AuthService);
-
+  private userService = inject(UserService);
   private postWellnessData: Partial<PostWellnessContent> = {};
 
   ngAfterViewInit() {
@@ -81,13 +82,11 @@ export class WellnessOnboardingComponent {
   onNutritionLifestyleResponse(event: NutritionLifestylePostData) {
     this.postWellnessData = { ...this.postWellnessData, ...event };
 
-    const completeWellnessData: PostWellnessContent = {
-      ...(this.postWellnessData as PostWellnessContent),
-      onboarded: true,
-    };
+    const completeWellnessData: PostWellnessContent = this.postWellnessData as PostWellnessContent;
 
     this.authService.postWellnessContent(completeWellnessData).subscribe({
       next: () => {
+        this.userService.postOnBoarding({ onboarded: true });
         this.router.navigate(['/tabs/home']);
       },
       error: (error: any) => {
