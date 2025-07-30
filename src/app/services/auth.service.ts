@@ -11,7 +11,7 @@ import { UserResponseDTO } from '../core/interfaces/user';
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private tenant = signal<string | null>(null);
+  tenant = signal<string | null>(null);
   email = signal<string | null>(null);
   private userState = inject(UserStateService);
   getTenantCode(code: string) {
@@ -43,8 +43,8 @@ export class AuthService {
 
   createCognitoUser(cuil: number, temporaryPassword: number) {
     const url = 'https://dev-usermassupload.eks.development.uell.ai/app/temporalPassword/createCognitoUser';
-    const email = 'jnine@emergencias.com.ar';
-    const tenant = 'emergencias';
+    const email = this.email();
+    const tenant = this.tenant();
     if (!tenant) return EMPTY;
     const headers = { tenant: tenant };
     return this.http.post(url, { cuil, temporaryPassword, email }, { headers });

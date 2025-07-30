@@ -47,6 +47,10 @@ export interface OnBoardingRequest {
   medicalInformation: IMedicalInformation | null;
 }
 
+export interface OnBoardingCompleteRequest {
+  onboarded: boolean;
+}
+
 export interface OnBoardingBasicInfoPatch {
   userAlias: string | null;
   bornDate: string | null;
