@@ -171,7 +171,7 @@ export class UnderlyingDiseasesQuestionaryComponent implements OnInit {
     const formData = this.form.value;
     const medicalData: MedicalHistoryDiseasesClass = {
       isHypertensive: formData.hypertension || false,
-      hasDiabetes: formData.diabetes || false,
+      hasDiabetes: formData.diabetes_type || 'NO_DIABETES',
       respiratory: formData.respiratory || false,
       cardiovascular: formData.cardiovascular || false,
       neurologic: formData.neurological || false,

@@ -1,0 +1,110 @@
+.content {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-label {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Label L2/Regular */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.035px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.step-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.step-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.step-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.field-group {
+  margin-bottom: 0;
+}
+
+.radio-group {
+  margin-top: 8px;
+}
+
+.radio-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 0;
+}
+
+.radio-label {
+  font-size: 14px;
+  color: #555;
+  margin-left: 8px;
+}
+
+.checkbox-group {
+  margin-top: 8px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.checkbox-label {
+  font-size: 14px;
+  color: #555;
+  margin-left: 8px;
+}
+
+.error-field {
+  --border-color: #ff4961;
+  --color: #ff4961;
+}
+
+.error-message {
+  color: #ff4961;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-actions {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+ion-button {
+  --background: #1da4b1;
+  --color: white;
+  --border-radius: 8px;
+  font-weight: 600;
+}
+
+ion-button:disabled {
+  --background: #ccc;
+  --color: #666;
+}

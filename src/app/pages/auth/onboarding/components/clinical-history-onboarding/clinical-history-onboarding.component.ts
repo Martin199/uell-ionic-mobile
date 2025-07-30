@@ -32,6 +32,13 @@ export class ClinicalHistoryOnboardingComponent {
 
   private router = inject(Router);
   private userService = inject(UserService);
+  private initialClinicalData = signal<InitialClinicalData>({
+    takesMedication: false,
+    hadJobAccidents: false,
+    hadJobSickness: false,
+    hadPreviousJobs: false,
+    hadVaccines: false,
+  });
   ngAfterViewInit() {
     if (this.swiperContainer.nativeElement) {
       const swiperOptions: SwiperOptions = {
@@ -63,15 +70,9 @@ export class ClinicalHistoryOnboardingComponent {
 
   onGeneralInformationResponse(event: InitialClinicalData) {
     // Post the completeness medical information
-    this.userService.postCompletenessMedicalInformation(event).subscribe({
-      next: () => {
-        this.progress.set(1);
-        this.nextSlide();
-      },
-      error: error => {
-        console.error('Error posting completeness medical information:', error);
-      },
-    });
+    this.initialClinicalData.set(event);
+    this.progress.set(1);
+    this.nextSlide();
   }
 
   onUnderlyingDiseasesResponse(event: MedicalHistoryDiseasesClass) {
@@ -81,7 +82,14 @@ export class ClinicalHistoryOnboardingComponent {
 
     this.userService.postMedicalDiseases(medicalHistoryDiseases).subscribe({
       next: () => {
-        this.router.navigate(['/auth/onboarding']);
+        this.userService.postCompletenessMedicalInformation(this.initialClinicalData()).subscribe({
+          next: () => {
+            this.router.navigate(['/auth/onboarding/wellness-onboarding']);
+          },
+          error: error => {
+            console.error('Error posting completeness medical information:', error);
+          },
+        });
       },
       error: error => {
         console.error('Error posting medical diseases:', error);

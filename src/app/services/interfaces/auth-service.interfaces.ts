@@ -45,6 +45,7 @@ export interface PostWellnessContent {
   sports: number;
   messageThroughCellphone: boolean;
   shortly: boolean;
+  onboarded: boolean;
 }
 export interface MoodEnergyWellbeingPostData {
   enjoyDailyActivities?: number;

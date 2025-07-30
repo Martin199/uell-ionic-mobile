@@ -1,9 +1,9 @@
 export interface InitialClinicalData {
-    medicament: boolean;
-    accident: boolean;
-    sickness: boolean;
-    previousJob: boolean;
-    relevantVaccine: boolean;
+  takesMedication: boolean;
+  hadJobAccidents: boolean;
+  hadJobSickness: boolean;
+  hadPreviousJobs: boolean;
+  hadVaccines: boolean;
 }
 
 export interface MedicalFormData {
@@ -170,7 +170,7 @@ export interface MedicalHistoryDiseases {
 
 export interface MedicalHistoryDiseasesClass {
   isHypertensive: boolean;
-  hasDiabetes: boolean;
+  hasDiabetes: string | null;
   respiratory: boolean;
   cardiovascular: boolean;
   neurologic: boolean;

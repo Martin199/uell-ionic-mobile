@@ -1,7 +1,6 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, output } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {
-  IonContent,
   IonList,
   IonItem,
   IonLabel,
@@ -40,12 +39,11 @@ import { InitialClinicalData } from '../../../../interfaces';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class GeneralInformationQuestionaryComponent implements OnInit {
+  private fb = inject(FormBuilder);
   returnResponse = output<InitialClinicalData>();
   form!: FormGroup;
   formConfig = OCCUPATIONAL_HEALTH_FORM;
   currentStep = this.formConfig.steps.find(step => step.id === 'general-info');
-
-  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.initForm();
@@ -81,11 +79,11 @@ export class GeneralInformationQuestionaryComponent implements OnInit {
     // Map the form values to match the InitialClinicalData interface
     const formData = this.form.value;
     const clinicalData: InitialClinicalData = {
-      medicament: formData.current_medication || false,
-      accident: formData.work_accident || false,
-      sickness: formData.professional_disease || false,
-      previousJob: formData.previous_work || false,
-      relevantVaccine: formData.recent_vaccines || false,
+      takesMedication: formData.current_medication || false,
+      hadJobAccidents: formData.work_accident || false,
+      hadJobSickness: formData.professional_disease || false,
+      hadPreviousJobs: formData.previous_work || false,
+      hadVaccines: formData.recent_vaccines || false,
     };
 
     this.returnResponse.emit(clinicalData);

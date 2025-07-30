@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthPage } from './auth.page';
-import { MyProfileComponent } from './onboarding/components/my-profile/my-profile.component';
-import { ClinicalHistoryOnboardingComponent } from './onboarding/components/clinical-history-onboarding/clinical-history-onboarding.component';
 
 const routes: Routes = [
   {
@@ -44,6 +42,13 @@ const routes: Routes = [
         loadComponent: () =>
           import('./onboarding/components/clinical-history-onboarding/clinical-history-onboarding.component').then(
             m => m.ClinicalHistoryOnboardingComponent
+          ),
+      },
+      {
+        path: 'wellness-onboarding',
+        loadComponent: () =>
+          import('./onboarding/components/wellness-onboarding/wellness-onboarding.component').then(
+            m => m.WellnessOnboardingComponent
           ),
       },
       {

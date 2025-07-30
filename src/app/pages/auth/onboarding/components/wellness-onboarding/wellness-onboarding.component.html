@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" name="arrow-back-outline" size="large" (click)="onClickBack()"></ion-icon>
+    <ion-title>Bienestar</ion-title>
+    <ion-text class="subtitle">Responde considerando los últimos tres meses.</ion-text>
+  </ion-toolbar>
+</ion-header>
+<ion-progress-bar class="ion-progress-bar" [value]="progress()" color="primary"></ion-progress-bar>
+
+<div class="content">
+  <swiper-container #swiperContainer [init]="false">
+    <swiper-slide>
+      <app-mood-energy-wellbeing (returnResponse)="onMoodEnergyWellbeingResponse($event)"></app-mood-energy-wellbeing>
+    </swiper-slide>
+    <swiper-slide>
+      <app-energy-concentration (returnResponse)="onEnergyConcentrationResponse($event)"></app-energy-concentration>
+    </swiper-slide>
+    <swiper-slide>
+      <app-nutrition-lifestyle (returnResponse)="onNutritionLifestyleResponse($event)"></app-nutrition-lifestyle>
+    </swiper-slide>
+  </swiper-container>
+</div>
