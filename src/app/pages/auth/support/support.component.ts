@@ -9,6 +9,8 @@ import {
   IonSelect,
   IonSelectOption,
   IonTextarea,
+  IonPopover,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SUPPORT_OPTIONS, SUPPORT_FIELDS } from '../const/support-const';
@@ -20,21 +22,35 @@ import { AuthService } from 'src/app/services/auth.service';
   selector: 'app-support',
   templateUrl: './support.component.html',
   styleUrls: ['./support.component.scss'],
-  imports: [IonList, IonText, IonContent, IonButton, IonLabel, IonSelect, IonSelectOption, IonTextarea, SharedModule],
+  imports: [
+    IonIcon,
+    IonPopover,
+    IonList,
+    IonText,
+    IonContent,
+    IonButton,
+    IonLabel,
+    IonSelect,
+    IonSelectOption,
+    IonTextarea,
+    SharedModule,
+  ],
 })
 export class SupportComponent {
   private formBuilder = inject(FormBuilder);
   private utilService = inject(UtilsService);
   private authService = inject(AuthService);
+  private validationPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+  private phoneValidationPattern = /^[0-9\s+]+$/;
   supportOptions = SUPPORT_OPTIONS;
   supportFields = SUPPORT_FIELDS;
 
   form = this.formBuilder.group({
-    name: ['', Validators.required],
-    surename: ['', Validators.required],
+    name: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validationPattern)]],
+    surname: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validationPattern)]],
     cuil: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
     email: ['', [Validators.required, Validators.email]],
-    telephone: [''],
+    telephone: ['', [Validators.pattern(this.phoneValidationPattern), Validators.maxLength(15)]],
     reason: ['', Validators.required],
     comment: [''],
   });
@@ -48,7 +64,7 @@ export class SupportComponent {
     if (this.form.valid) {
       const body: ContactFormBody = {
         name: this.form.value.name || '',
-        surname: this.form.value.surename || '',
+        surname: this.form.value.surname || '',
         cuil: this.form.value.cuil || '',
         email: this.form.value.email || '',
         phone: this.form.value.telephone || '',

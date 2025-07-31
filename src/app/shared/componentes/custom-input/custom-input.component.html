@@ -1,6 +1,18 @@
 <div class="content">
   @if (label) {
-    <ion-label class="label-input" [class]="textClass()"> {{ label }}</ion-label>
+    <div class="label-container">
+      <ion-label class="label-input" [class]="textClass()"> {{ label }}</ion-label>
+      @if (popOver()) {
+        <ion-icon name="information-circle-outline" id="click-trigger" color="primary"></ion-icon>
+        <ion-popover arrow="true" trigger="click-trigger" triggerAction="click" side="right" alignment="end">
+          <ng-template>
+            <ion-content class="ion-padding">
+               {{ popOver() }}
+            </ion-content> 
+          </ng-template>
+        </ion-popover>
+      }
+    </div>
   }
   
   <ion-item class="custom-input" lines="none" class="no-margin">
@@ -8,7 +20,13 @@
       <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
     }
     
-    <ion-input [type]="type" [formControl]="control" [maxlength]="maxLength() || null" (ionInput)="onInput()" ></ion-input>  
+    <ion-input 
+      [type]="type" 
+      [formControl]="control" 
+      [maxlength]="maxLength() || null" 
+      (ionInput)="onInput()" 
+      (input)="preventInvalidInput($event)"
+    ></ion-input>  
     
     @if (isPassword) {
       <ion-button (click)="showOrhidePassword()" slot="end" fill="clear" shape="round">
