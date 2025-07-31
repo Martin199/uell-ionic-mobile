@@ -58,7 +58,7 @@ export class MyProfileComponent {
           },
           {
             field: 'Alias',
-            description: userData()?.userAlias || 'No disponible',
+            description: userData()?.userAlias || '-',
           },
           {
             field: 'Fecha de nacimiento',

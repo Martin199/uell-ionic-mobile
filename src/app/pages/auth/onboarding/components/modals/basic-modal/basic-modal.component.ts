@@ -67,7 +67,10 @@ export class BasicModalComponent implements OnInit {
   basicForm = this.formBuilder.group({
     name: [{ value: '', disabled: true }, [Validators.required]],
     surname: [{ value: '', disabled: true }, [Validators.required]],
-    alias: ['', [Validators.required]],
+    alias: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern(/^[a-zA-Z]+$/)],
+    ],
     birthDate: ['', [Validators.required]],
     docType: [{ value: '', disabled: true }, [Validators.required]],
     docNumber: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(5)]],
