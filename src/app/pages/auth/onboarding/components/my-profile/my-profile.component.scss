@@ -55,3 +55,16 @@ ion-toolbar {
 .next-button {
   width: 30%;
 }
+
+.error {
+  margin: 0;
+  color: var(--Error-Error, #ff0000);
+
+  /* Label L1/Regular */
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.024px;
+}

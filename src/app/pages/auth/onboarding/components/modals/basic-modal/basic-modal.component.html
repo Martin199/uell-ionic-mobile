@@ -12,6 +12,18 @@
 <ion-content>
   <form [formGroup]="basicForm" (ngSubmit)="onSubmit()">
     <div class="content">
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Alias"
+          [control]="getControl('alias')"
+          type="text"
+          autocomplete="nickname"
+        >
+        </app-custom-input>
+      </div>
+
       <div class="field">
         <app-custom-input
           textClass="login-label"
@@ -35,17 +47,6 @@
       </div>
 
       <div class="field">
-        <app-custom-input
-          textClass="login-label"
-          label="Usuario"
-          [control]="getControl('alias')"
-          type="text"
-          autocomplete="nickname"
-        >
-        </app-custom-input>
-      </div>
-
-      <div class="field">
         <ion-label position="stacked" class="label">Fecha de nacimiento</ion-label>
         <ion-input
           readonly
@@ -61,8 +62,8 @@
 
       <ion-modal
         [isOpen]="isDatePickerOpen"
-        [breakpoints]="[0, 0.5, 0.7, 0.9]"
-        [initialBreakpoint]="0.7"
+        [breakpoints]="[1]"
+        [initialBreakpoint]="1"
         (didDismiss)="closeDatePicker()"
         class="custom-modal"
       >

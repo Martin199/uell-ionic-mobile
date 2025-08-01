@@ -1,0 +1,49 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  ion-button {
+    color: var(--Neutral-GreyMedium, #505a78);
+    font-family: "Inter";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px; /* 128.571% */
+  }
+}
+
+.content {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+
+  height: 100%;
+  border-radius: 4px;
+  border-left: 4px solid var(--States-ErrorLight, #f52e40);
+  background: #f8f8f8;
+
+  .text-container {
+    h1 {
+      color: var(--Neutral-GreyDark, #383e52);
+
+      /* Label L2/Semi Bold */
+      font-family: "Inter";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: 0.014px;
+    }
+
+    color: var(--Neutral-GreyMedium, #505a78);
+
+    /* Comment C1/Regular */
+    font-family: "Inter";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.048px;
+  }
+}

@@ -1,7 +1,14 @@
+<ion-header>
+  <ion-toolbar
+    style="padding-left: 1rem; max-height: 8rem; display: flex; justify-content: space-between; align-items: center"
+  >
+    <ion-icon slot="start" name="arrow-back" (click)="goBack()" size="large"></ion-icon>
+    <app-logo (click)="onClickLogo()"></app-logo>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="content">
-      <app-logo (click)="onClickLogo()"></app-logo>
       <div class="body">
         <ion-text>
           <h1 class="title">Contacto de soporte</h1>

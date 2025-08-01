@@ -36,7 +36,7 @@ export const SUPPORT_FIELDS = [
   },
   {
     key: 'telephone',
-    label: 'Teléfono',
+    label: 'Teléfono (opcional)',
     type: 'tel',
     required: false,
     validators: ['pattern'],

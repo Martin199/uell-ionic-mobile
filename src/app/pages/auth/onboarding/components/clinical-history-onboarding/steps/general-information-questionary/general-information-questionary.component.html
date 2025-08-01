@@ -13,7 +13,7 @@
         <ion-list lines="none">
           @for (field of currentStep.fields; track field.id) {
           <ion-item-group class="field-group">
-            <ion-label class="field-label">{{ field.label }}</ion-label>
+            <ion-label class="field-label"> {{$index + 1}}. {{ field.label }}</ion-label>
 
             @if (field.type === 'radio') {
             <ion-radio-group [formControlName]="field.id" class="radio-group">

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonFab, IonFabButton, IonIcon } from '@ionic/angular/standalone';
 import { UtilsService } from 'src/app/services/utils.service';
 

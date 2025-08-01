@@ -5,7 +5,10 @@ import { FloatingHelpComponent } from '../components/floating-help/floating-help
 import { FormBuilder, Validators } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
 import { IndividualInputsComponent } from '../components/individual-inputs/individual-inputs.component';
-import { CreateSuccessModalComponent } from '../components/create-success-modal/create-success-modal.component';
+import {
+  CreateSuccessModalComponent,
+  SuccessModalData,
+} from '../components/create-success-modal/create-success-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,7 +21,7 @@ export class ValidateAccountComponent {
   private utils = inject(UtilsService);
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
-  error = signal<boolean>(false);
+  error = signal<number>(0);
   form = this.formBuilder.group({
     cuil: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
     code: [null, [Validators.required]],
@@ -31,25 +34,72 @@ export class ValidateAccountComponent {
     const code = this.form.value.code;
     if (!cuil || !code) return;
     this.authService.createCognitoUser(cuil, code).subscribe({
-      next: () => {
+      next: res => {
+        this.error.update(value => value + 1);
         loading.dismiss();
-        this.presentModal(false);
+        if (res.code === 2001) {
+          this.presentModal('error');
+        } else if (res.code === 2002 || res.code === 2003) {
+          this.presentModal('contact support');
+        } else if (res.code === 201) {
+          this.presentModal('success account');
+        } else if (res.code === 2004) {
+          this.presentModal('user exists');
+        } else if (this.error() === 3) {
+          this.presentModal('error');
+        }
       },
       error: err => {
         console.error('error create cognito user', err);
         loading.dismiss();
-        this.error.set(true);
-        if (err.status == 409) {
-          this.presentModal(this.error());
+        this.error.set(3);
+        if (err.status == 409 || err.status == 500) {
+          this.presentModal('contact support');
         }
       },
     });
   }
 
-  presentModal(error: boolean) {
-    const modalData = {
-      type: error ? 'error' : 'success',
-      email: this.authService.email(),
+  presentModal(type: 'success account' | 'success support' | 'error' | 'user exists' | 'contact support') {
+    let text = '';
+    let title = '';
+    let image = '';
+    let button: 'login' | 'support' = 'login';
+    switch (type) {
+      case 'error':
+        title = 'Alcanzaste el número máximo de intentos permitidos';
+        text = 'El codigo expiro o ya es obsoleto, debería volver a generarlo';
+        image = 'assets/login/error.svg';
+        button = 'support';
+        break;
+      case 'success account':
+        text = `Te enviamos un usuario y contraseña temporal a <strong>${this.authService.email()}</strong
+        >para iniciar sesión en Uell.`;
+        title = '¡Ya creaste tu cuenta!';
+        image = 'assets/login/success.svg';
+        button = 'login';
+        break;
+      case 'user exists':
+        text = `El numero de usuario ya se encuentra registrado en Uell deberas iniciar sesión con tu usuario o recuperar tu contraseña.`;
+        title = '¡El usuario ya existe!';
+        image = 'assets/login/error.svg';
+        button = 'support';
+        break;
+      case 'contact support':
+        text = 'Necesitamos que nos contactes a través de nuestro formulario de soporte.';
+        title = 'Hubo un error';
+        image = 'assets/login/error.svg';
+        button = 'support';
+        break;
+      default:
+        break;
+    }
+    const modalData: SuccessModalData = {
+      type: type,
+      title: title,
+      image: image,
+      text: text,
+      button: button,
     };
     this.utils.presentModal(CreateSuccessModalComponent, undefined, modalData);
   }

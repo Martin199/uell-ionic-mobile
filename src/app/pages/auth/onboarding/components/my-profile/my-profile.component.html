@@ -1,11 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-icon name="arrow-back-outline" size="large"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="content">
     <div class="title">
@@ -15,10 +7,12 @@
     <div class="cards-container">
       <app-profile-pic-onboarding></app-profile-pic-onboarding>
       @for (card of profileCards(); track card.title) {
-      <app-profile-card [card]="card" (editModal)="openEditModal($event)"></app-profile-card>
-      @if (card.type === 'contact' && error()) {
-        <p class="error">{{ error() }}</p>
-      }
+        <div>
+          <app-profile-card [card]="card" (editModal)="openEditModal($event)"></app-profile-card>
+          @if (card.type === 'contact' && error()) {
+            <p class="error">{{ error() }}</p>
+          }
+        </div>
       }
       <div class="button-container">
         <ion-button (click)="next()" class="next-button" expand="block" size="large" shape="round"

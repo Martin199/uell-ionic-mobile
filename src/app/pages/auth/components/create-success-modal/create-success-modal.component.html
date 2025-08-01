@@ -2,21 +2,23 @@
   <div class="content">
     <app-logo></app-logo>
 
-    <ion-img [src]="getImage()" style="width: 15rem"></ion-img>
+    <ion-img [src]="image" style="width: 15rem"></ion-img>
 
     <div class="text-container">
-      <h1 class="title">{{ getTitle() }}</h1>
+      <h1 class="title">{{ title }}</h1>
       <p class="subtitle">
-        @if (type === 'success') { Te enviamos un usuario y contraseña temporal a <strong>{{ email }}</strong
-        >para iniciar sesión en Uell. } @else { Serás redirigido al inicio de sesión en
-        <strong>{{ countdown() }} segundos.</strong>
+        <span [innerHTML]="text"></span>
+        @if (type === 'error' || type === 'success support') {
+          Serás redirigido al inicio de sesión en <strong>{{ countdown() }} segundos.</strong>
         }
       </p>
     </div>
-    @if (type === 'error') {
-    <ion-button expand="block" (click)="navigateToHelp()" size="large" shape="round"> Contactar a soporte </ion-button>
-    } @else {
-    <ion-button expand="block" routerLink="/auth" size="large" shape="round"> Iniciar sesión </ion-button>
-    }
+    <ion-button 
+      expand="block" 
+      (click)="navigate()"
+      size="large" 
+      shape="round">
+      {{ getButtonText() }}
+    </ion-button>
   </div>
 </ion-content>

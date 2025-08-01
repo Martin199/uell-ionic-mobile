@@ -30,7 +30,7 @@
 
 ion-button {
   text-transform: none;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;
@@ -47,7 +47,6 @@ ion-toolbar {
   --box-shadow: none !important;
   box-shadow: none !important;
 }
-
 
 .example-content {
   display: flex;
@@ -109,7 +108,6 @@ ion-checkbox {
   --size: 25px;
   --checkbox-background-checked: #1da4b1;
 }
-
 
 .custom-input {
   --border-color: #e0e0e0;
@@ -297,4 +295,12 @@ ion-toast.custom-toast {
   font-family: "Red Hat Display", sans-serif;
   font-weight: 600;
   z-index: 9999;
+}
+
+.auto-height-modal {
+  ion-modal {
+    --height: auto;
+    --border-radius: 16px 16px 0 0;
+    --backdrop-opacity: 0.4;
+  }
 }

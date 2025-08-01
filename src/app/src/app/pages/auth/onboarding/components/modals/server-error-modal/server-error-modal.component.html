@@ -1,0 +1,13 @@
+<div class="content">
+  <ion-icon name="alert-circle-outline" size="large" color="danger"></ion-icon>
+  <div class="modal">
+    <div class="text-container">
+      <h1>{{ title }}</h1>
+      <p>{{ message }}</p>
+    </div>
+    <ion-button (click)="dismiss()" routerLink="/auth" expand="block" fill="clear" shape="round" size="large">
+      Volver al inicio
+    </ion-button>
+  </div>
+  <ion-icon slot="end" name="close" (click)="dismiss()" size="large"></ion-icon>
+</div>

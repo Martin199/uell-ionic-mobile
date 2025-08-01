@@ -52,3 +52,13 @@ export interface IErrorSecurityCode {
 	message?: string;
 	valid?: boolean;
 }
+
+export interface ResponseCreateCognitoUser {
+  code: number;
+  message: string;
+}
+
+export interface CreateCognitoUserResponse {
+  code: number;
+  message: string;
+}

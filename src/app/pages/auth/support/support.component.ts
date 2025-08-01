@@ -11,18 +11,25 @@ import {
   IonTextarea,
   IonPopover,
   IonIcon,
+  IonHeader,
+  IonToolbar,
 } from '@ionic/angular/standalone';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SUPPORT_OPTIONS, SUPPORT_FIELDS } from '../const/support-const';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ContactFormBody } from 'src/app/services/interfaces/auth-service.interfaces';
 import { AuthService } from 'src/app/services/auth.service';
+import { CreateSuccessModalComponent } from '../components/create-success-modal/create-success-modal.component';
+import { ServerErrorModalComponent } from 'src/app/src/app/pages/auth/onboarding/components/modals/server-error-modal/server-error-modal.component';
+import { ModalOptions } from '@ionic/angular';
 
 @Component({
   selector: 'app-support',
   templateUrl: './support.component.html',
   styleUrls: ['./support.component.scss'],
   imports: [
+    IonToolbar,
+    IonHeader,
     IonIcon,
     IonPopover,
     IonList,
@@ -73,16 +80,31 @@ export class SupportComponent {
       };
       this.authService.postSupportContact(body).subscribe({
         next: () => {
-          this.utilService.getToastMessage('top', 3000, 'Gracias por contactarnos, te responderemos lo antes posible.');
+          const options: ModalOptions = {
+            component: CreateSuccessModalComponent,
+            componentProps: {
+              type: 'success support',
+              text: `Gracias por contactarte. En breve recibirás una respuesta al correo <strong>${this.authService.email()}</strong>.`,
+              title: 'Tu solicitud fue enviada',
+              image: 'assets/login/email.svg',
+              button: 'login',
+            },
+          };
+          this.utilService.presentModalWithOptions(options);
           this.utilService.navigateTo('/auth');
         },
         error: err => {
           console.error(err);
+          if (err.status === 409 || err.status === 500) this.utilService.presentModal(ServerErrorModalComponent);
         },
       });
     } else {
       console.error('Form is not valid');
     }
+  }
+
+  goBack() {
+    this.utilService.goBack();
   }
 
   onClickLogo() {

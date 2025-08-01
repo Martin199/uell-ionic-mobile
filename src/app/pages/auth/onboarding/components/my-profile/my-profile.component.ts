@@ -1,5 +1,5 @@
 import { Component, inject, computed, signal } from '@angular/core';
-import { IonHeader, IonToolbar, IonIcon, IonButtons, IonContent, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonButton } from '@ionic/angular/standalone';
 import { ProfileCardComponent } from '../profile-card/profile-card.component';
 import { profileCardsData } from '../../const/my-profile-fields';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -13,16 +13,7 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
-  imports: [
-    IonButton,
-    IonContent,
-    IonButtons,
-    IonIcon,
-    IonToolbar,
-    ProfileCardComponent,
-    IonHeader,
-    ProfilePicOnboardingComponent,
-  ],
+  imports: [IonButton, IonContent, ProfileCardComponent, ProfilePicOnboardingComponent],
   styleUrls: ['./my-profile.component.scss'],
 })
 export class MyProfileComponent {
@@ -231,9 +222,9 @@ export class MyProfileComponent {
   }
 
   next() {
-    if (this.error()) {
-      return;
-    }
+    // if (this.error()) {
+    //   return;
+    // }
 
     this.utilsService.navigateTo('/auth/onboarding/clinical-history');
   }

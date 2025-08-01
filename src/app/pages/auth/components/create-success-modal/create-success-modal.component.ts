@@ -1,8 +1,10 @@
-import { Component, inject, input, signal, effect } from '@angular/core';
+import { Component, inject, input, signal, effect, OnInit } from '@angular/core';
 import { IonContent, IonButton, IonImg, ModalController } from '@ionic/angular/standalone';
+import { RouterLink, Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthService } from 'src/app/services/auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-success-modal',
@@ -10,28 +12,32 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./create-success-modal.component.scss'],
   imports: [IonImg, IonButton, IonContent, SharedModule],
 })
-export class CreateSuccessModalComponent {
+export class CreateSuccessModalComponent implements OnInit {
   private utils = inject(UtilsService);
   private modalCtrl = inject(ModalController);
   private authService = inject(AuthService);
-
   // Properties to receive data from componentProps
-  type: 'success' | 'error' = 'error';
-  email: string = this.authService.email() ?? '';
 
+  type: 'success account' | 'success support' | 'error' | 'user exists' | 'contact support' | null = null;
+  email = this.authService.email;
+  title: string = '';
+  text: string = '';
+  button: 'login' | 'support' | null = null;
+  image: string = '';
   countdown = signal(10);
   private isModalClosed = false;
 
-  async navigateToHelp() {
+  async navigate() {
     if (!this.isModalClosed) {
       this.isModalClosed = true;
+      const route = this.button === 'support' ? '/auth/support' : '/auth';
+      this.utils.navigateTo(route);
       await this.modalCtrl.dismiss();
-      this.utils.navigateTo('/auth/support');
     }
   }
 
-  constructor() {
-    if (this.type === 'error') {
+  ngOnInit(): void {
+    if (this.type === 'error' || this.type === 'success support') {
       this.startCountdown();
     }
   }
@@ -50,19 +56,21 @@ export class CreateSuccessModalComponent {
     }, 1000);
   }
 
-  getImage() {
-    if (this.type === 'success') {
-      return 'assets/login/success.svg';
+  getButtonText() {
+    if (this.button === 'support') {
+      return 'Contactar a soporte';
+    } else if (this.button === 'login') {
+      return 'Iniciar sesión';
     } else {
-      return 'assets/login/error.svg';
+      return 'Volver al inicio de sesión';
     }
   }
+}
 
-  getTitle() {
-    if (this.type === 'success') {
-      return '¡Ya creaste tu cuenta!';
-    } else {
-      return 'Alcanzaste el número máximo de intentos permitidos';
-    }
-  }
+export interface SuccessModalData {
+  type: 'success account' | 'success support' | 'error' | 'user exists' | 'contact support';
+  title: string;
+  image: string;
+  button: 'login' | 'support';
+  text: string;
 }

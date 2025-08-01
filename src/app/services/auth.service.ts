@@ -5,6 +5,7 @@ import { ContactFormBody, GetTenantCodeResponse, PostWellnessContent } from './i
 import { EMPTY, map, Observable } from 'rxjs';
 import { UserStateService } from '../core/state/user-state.service';
 import { UserResponseDTO } from '../core/interfaces/user';
+import { CreateCognitoUserResponse, ResponseCreateCognitoUser } from '../core/interfaces/auth.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class AuthService {
     if (!tenant) return EMPTY;
     const url = `${environment.apiBaseUrl}${environment.apiVersion}/temporalPassword/generate`;
     const headers = { tenant: tenant };
-    return this.http.post(url, { email }, { headers });
+    return this.http.post<CreateCognitoUserResponse>(url, { email }, { headers });
   }
 
   createCognitoUser(cuil: number, temporaryPassword: number) {
@@ -49,7 +50,7 @@ export class AuthService {
     const tenant = this.tenant();
     if (!tenant) return EMPTY;
     const headers = { tenant: tenant };
-    return this.http.post(url, { cuil, temporaryPassword, email }, { headers });
+    return this.http.post<ResponseCreateCognitoUser>(url, { cuil, temporaryPassword, email }, { headers });
   }
 
   postSupportContact(body: ContactFormBody) {
