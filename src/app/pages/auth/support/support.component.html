@@ -10,7 +10,29 @@
         <ion-list lines="none">
           @for (field of supportFields; track field.key) { @if (field.type === 'select') {
           <div class="select">
-            <ion-label class="label">{{ field.label }}</ion-label>
+            <div class="label-container">
+              <ion-label class="label">{{ field.label }}</ion-label>
+              @if (field.popOver) {
+              <ion-icon
+                name="information-circle-outline"
+                [id]="'click-trigger-' + field.key"
+                color="primary"
+              ></ion-icon>
+              <ion-popover
+                arrow="true"
+                [trigger]="'click-trigger-' + field.key"
+                triggerAction="click"
+                side="right"
+                alignment="end"
+              >
+                <ng-template>
+                  <ion-content class="ion-padding">
+                    {{ field.popOver }}
+                  </ion-content>
+                </ng-template>
+              </ion-popover>
+              }
+            </div>
             <ion-select
               [formControlName]="field.key"
               interface="action-sheet"
@@ -34,6 +56,8 @@
             fill="outline"
             autoGrow="true"
             errorText="Este campo es requerido"
+            maxlength="500"
+            [counter]="true"
           ></ion-textarea>
           } @else {
           <app-custom-input
@@ -43,6 +67,7 @@
             [type]="field.type"
             [control]="getFormControl(field.key)"
             [autocomplete]="field.type === 'email' ? 'email' : field.type === 'tel' ? 'tel' : 'off'"
+            [popOver]="field.popOver || ''"
           >
           </app-custom-input>
           } }
