@@ -47,7 +47,7 @@ export class AddressInfoComponent implements OnInit {
 
     ngOnInit() {
         this.setData();
-        this.getProvincias();
+        // this.getProvincias();
         this.observerProvinceControl();
         this.observerAddressInfoForm();
     }
@@ -214,8 +214,8 @@ export class AddressInfoComponent implements OnInit {
     formConfigEcuador() {
     }
 
-    private getProvincias() {
-        this.userService.getAddressesState().subscribe((res: IStatesResponse[]) => {
+    private getProvincias(countryId: string) {
+        this.userService.getAddressesState(countryId).subscribe((res: IStatesResponse[]) => {
             res.forEach((e: IStatesResponse) => {
                 e.name = e.name.toUpperCase();
             });

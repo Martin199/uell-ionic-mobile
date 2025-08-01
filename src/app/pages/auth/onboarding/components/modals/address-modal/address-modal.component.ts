@@ -14,15 +14,17 @@ import {
 } from '@ionic/angular/standalone';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UserService } from 'src/app/services/user.service';
-import { COUNTRY_CODE } from 'src/app/shared/constant/country-constants';
+import { ProfileValidationsService } from 'src/app/services/profile-validations.service';
+// import { AdressResponse } from '../../../interfaces';
 
 export interface AddressModalData {
   country: string;
   province: any;
   department: any;
   address: string;
-  city: string;
-  state: string;
+  addressNumber: string;
+  addressFloor: string;
+  addressDepartment: string;
   zip: string;
 }
 
@@ -48,31 +50,36 @@ export class AddressModalComponent implements OnInit {
   private modalCtrlr = inject(ModalController);
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
+  private phoneValidations = inject(ProfileValidationsService);
 
   // Properties to receive data from componentProps
   country: string = '';
   province: any = null;
   department: any = null;
   address: string = '';
-  city: string = '';
-  state: string = '';
+  addressNumber: string = '';
+  addressFloor: string = '';
+  addressDepartment: string = '';
   zip: string = '';
 
   // Data arrays for selects
-  countries = COUNTRY_CODE;
+  countries: any[] = [];
   provinces: any[] = [];
   departments: any[] = [];
+  loadingCountries = false;
   loadingProvinces = false;
   loadingDepartments = false;
+  addressValidations: any;
 
   addressForm = this.formBuilder.group({
     country: ['', [Validators.required]],
     province: [{ value: '', disabled: true }, [Validators.required]],
     department: [{ value: '', disabled: true }, [Validators.required]],
     address: ['', [Validators.required]],
-    city: ['', [Validators.required]],
-    state: ['', [Validators.required]],
-    zip: ['', [Validators.required, Validators.pattern(/^\d{5}(-\d{4})?$/)]],
+    addressNumber: ['', [Validators.required]],
+    addressFloor: [''],
+    addressDepartment: [''],
+    zip: ['', [Validators.required, Validators.pattern(/^\d{4}(-\d{4})?$/)]],
   });
 
   ngOnInit() {
@@ -80,8 +87,9 @@ export class AddressModalComponent implements OnInit {
     console.log('province:', this.province);
     console.log('department:', this.department);
     console.log('address:', this.address);
-    console.log('city:', this.city);
-    console.log('state:', this.state);
+    console.log('address:', this.addressNumber);
+    console.log('addressFloor:', this.addressFloor);
+    console.log('addressDepartment:', this.addressDepartment);
     console.log('zip:', this.zip);
 
     this.addressForm.patchValue({
@@ -89,18 +97,15 @@ export class AddressModalComponent implements OnInit {
       province: this.province || '',
       department: this.department || '',
       address: this.address || '',
-      city: this.city || '',
-      state: this.state || '',
+      addressNumber: this.addressNumber || '',
+      addressFloor: this.addressFloor || '',
+      addressDepartment: this.addressDepartment || '',
       zip: this.zip || '',
     });
 
     // Set up form change listeners
     this.setupFormListeners();
-
-    // Load initial provinces if country is set
-    if (this.country) {
-      this.loadProvinces();
-    }
+    this.loadCountries();
   }
 
   setupFormListeners() {
@@ -116,10 +121,12 @@ export class AddressModalComponent implements OnInit {
         this.addressForm.get('province')?.disable();
         this.addressForm.get('department')?.disable();
       } else {
+        this.setValidations(country);
         this.addressForm.get('province')?.enable();
-        this.loadProvinces();
+        this.loadProvinces(country);
       }
     });
+  
 
     // When province changes, load departments
     this.addressForm.get('province')?.valueChanges.subscribe((province: any) => {
@@ -138,9 +145,36 @@ export class AddressModalComponent implements OnInit {
     });
   }
 
-  loadProvinces() {
+  setValidations(country: any) {
+    debugger
+    const selectedCountry = this.countries.find(c => c.id == country);
+    if (!selectedCountry?.countryName) {  return; }
+    const countryUpperCase = selectedCountry.countryName.toUpperCase();
+    this.addressValidations = this.phoneValidations.returnGlobalsConfig().validations.country[countryUpperCase].addressValidations;
+    this.updateAddressValidations();
+  }
+
+  loadCountries() {
+    this.loadingCountries = false;
+    this.userService.getAddressesCountry().subscribe({
+      next: (res: any[]) => {
+        this.countries = res.map(countries => ({
+          ...countries,
+          name: countries.countryName.toUpperCase(),
+        }));
+      },
+      error: error => {
+        console.error('Error loading provinces:', error);
+      },
+      complete: () => {
+        this.loadingCountries = false;
+      },
+    });
+  }
+
+  loadProvinces(countryId: string) {
     this.loadingProvinces = true;
-    this.userService.getAddressesState().subscribe({
+    this.userService.getAddressesState(countryId).subscribe({
       next: (res: any[]) => {
         this.provinces = res.map(province => ({
           ...province,
@@ -176,17 +210,85 @@ export class AddressModalComponent implements OnInit {
     return this.addressForm.get(fieldName) as FormControl;
   }
 
+  updateAddressValidations() {
+    this.addressForm.get('addressNumber')!.setValidators([
+      this.addressValidations.addressNumber.required ? Validators.required : Validators.nullValidator,
+    ]);
+
+    this.addressForm.get('addressNumber')!.setValidators([
+      this.addressValidations.addressNumber.required ? Validators.required : Validators.nullValidator,
+    ]);
+
+    const zipCtrl = this.addressForm.get('zip')!;
+    zipCtrl.clearValidators();
+    const zipValidators = [];
+    if (this.addressValidations.addressCodePostal.required) {
+      zipValidators.push(Validators.required);
+    }
+    if (this.addressValidations.addressCodePostal.minLength) {
+      zipValidators.push(
+        Validators.minLength(this.addressValidations.addressCodePostal.minLength)
+      );
+    }
+    if (this.addressValidations.addressCodePostal.maxLength) {
+      zipValidators.push(
+        Validators.maxLength(this.addressValidations.addressCodePostal.maxLength)
+      );
+    }
+    zipCtrl.setValidators(zipValidators);
+    zipCtrl.updateValueAndValidity();
+  }
+
   onSubmit() {
     this.addressForm.markAllAsTouched();
     if (this.addressForm.valid) {
       console.log('Form submitted:', this.addressForm.value);
-      this.modalCtrlr.dismiss(this.addressForm.value);
-    } else {
-      console.log('Form is not valid');
+      const body: any = {
+        
+      }
+      //TODO: hacer el patch con el addressId que hay que conseguir primero
+    //   this.userService.patchOnBoardingAddress(body, addressToPost.id!).subscribe({
+    //     next: (res: any) => {
+    //       console.log(res);
+    //     },
+    //     error: (err) => {
+    //       console.error(err);
+    //     },
+    //     complete: () => {},
+    //   });
+
+    //   this.modalCtrlr.dismiss(this.addressForm.value);
+    // } else {
+    //   console.log('Form is not valid');
     }
   }
+
+  //? fe-core:
+      // this.contactForm.markAllAsTouched();
+      // if (this.contactForm.valid) {
+      //   const selectedCountry = this.countryCodes.find(country => country.prefix === this.contactForm.value.countryCode);
+      //   const telephoneNumber: TelephoneNumber = {
+      //     countryCode: this.contactForm.value.countryCode || '',
+      //     areaCode: this.contactForm.value.areaCode || '',
+      //     phoneNumber: this.contactForm.value.phoneNumber || '',
+      //     id: selectedCountry?.id?.toString() || null,
+      //   };
+      //   const body: OnBoardingContactPatch = {
+      //     email: this.contactForm.value.email || '',
+      //     cellphoneNumber: telephoneNumber,
+      //     telephoneNumber: telephoneNumber,
+      //   };
+      //   console.log('body post onboarding', body);
+      //   this.userService.postOnBoardingContact(body).subscribe((res: any) => {
+      //     this.userStateService.setUser(res);
+      //   });
+      //   this.modalCtrlr.dismiss(this.contactForm.value);
+      // } else {
+      //   console.log('Form is not valid');
+      // }
 
   dismiss() {
     this.modalCtrlr.dismiss();
   }
+
 }

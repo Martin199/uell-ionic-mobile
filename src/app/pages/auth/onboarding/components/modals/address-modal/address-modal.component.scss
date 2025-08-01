@@ -32,3 +32,17 @@ ion-title {
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.048px;
 }
+
+.address-fields {
+  display: flex;
+  gap: 16px;
+}
+
+.address-fields .field {
+  flex: 1;
+  min-width: 0;
+}
+
+.address-fields .field--number {
+  flex: 2;
+}

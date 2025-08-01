@@ -83,6 +83,7 @@ export interface AdressResponse {
   addressValidated: boolean;
   addressGeometryLocationType: string;
   countryCode?: string;
+  country: string;
 }
 
 export interface TelephoneNumber {
