@@ -1,0 +1,8 @@
+<ion-icon name="information-circle-outline" [id]="'click-trigger'" color="primary"></ion-icon>
+<ion-popover arrow="true" [trigger]="'click-trigger'" triggerAction="click" side="right" alignment="end">
+  <ng-template>
+    <ion-content class="ion-padding">
+      {{ text() }}
+    </ion-content>
+  </ng-template>
+</ion-popover>

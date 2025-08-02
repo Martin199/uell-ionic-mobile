@@ -202,8 +202,11 @@ export class MyProfileComponent {
         break;
       case 'address':
         const primaryAddress = userData.address?.find(addr => addr.isPrimary) || userData.address?.[0];
+        const modalData = {
+          address: primaryAddress,
+        };
         const addressId = primaryAddress?.id || 0;
-        this.utilsService.presentModal(AddressInfoComponent, undefined, { addressId: addressId });
+        this.utilsService.presentModal(AddressInfoComponent, undefined, modalData);
         break;
       case 'work':
         const modalDataWork = {

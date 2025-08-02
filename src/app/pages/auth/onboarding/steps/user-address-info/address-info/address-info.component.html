@@ -24,9 +24,10 @@
           justify="space-between"
           formControlName="country"
           class="select-input"
+          [placeholder]="countryPlaceHolder | titlecase"
         >
           @for (country of countries; track $index) {
-          <ion-select-option [value]="country">{{ country.name }}</ion-select-option>
+          <ion-select-option [value]="country">{{ country.countryName | titlecase }}</ion-select-option>
           }
         </ion-select>
       </ion-list>
@@ -59,24 +60,34 @@
       } -->
     </div>
     <!-- ! Localidades -->
-    <div class="form-group">
-      <ion-label class="label-input">{{ tenantParameters()!.localization.onboarding["locality"] }}</ion-label>
-      <ion-list>
-        <ion-select
-          aria-label="localityes"
-          interface="action-sheet"
-          fill="outline"
-          labelPlacement="stacked"
-          justify="space-between"
-          formControlName="locality"
-          [disabled]="loadingLocality"
-          class="select-input"
-        >
-          @for (loc of localitiesResponse; track $index) {
-          <ion-select-option [value]="loc">{{ loc.name }}</ion-select-option>
-          }
-        </ion-select>
-      </ion-list>
+    <div class="form-group no-mb d-flex">
+      <div class="row">
+        <div class="form-group col-md-2" style="width: 100%">
+          <ion-label class="label-input">{{ tenantParameters()!.localization.onboarding["locality"] }}</ion-label>
+          <ion-select
+            aria-label="localityes"
+            interface="action-sheet"
+            fill="outline"
+            labelPlacement="stacked"
+            justify="space-between"
+            formControlName="locality"
+            [disabled]="loadingLocality"
+            class="select-input"
+          >
+            @for (loc of localitiesResponse; track $index) {
+            <ion-select-option [value]="loc">{{ loc.name }}</ion-select-option>
+            }
+          </ion-select>
+        </div>
+        <div class="form-group col-md-2">
+          <app-custom-input
+            [control]="addressForm.controls['postalCode']"
+            [maxLength]="6"
+            [label]="tenantParameters()!.localization.onboarding['zip-code']"
+            textClass="login-label"
+          ></app-custom-input>
+        </div>
+      </div>
       <!-- @if (addressForm.controls['locality'].errors?.['required'] && (addressForm.controls['locality'].touched ||
       addressForm.controls['locality'].dirty)) {
       <span class="form-error-msg"> - {{ tenantParameters()!.localization.onboarding["required-field"] }} </span>
@@ -87,6 +98,7 @@
         [control]="addressForm.controls['street']"
         [maxLength]="255"
         [label]="tenantParameters()!.localization.onboarding['street']"
+        textClass="login-label"
       ></app-custom-input>
       <!-- @if (addressForm.controls['street'].errors?.['required'] && (addressForm.controls['street'].touched ||
       addressForm.controls['street'].dirty)) {
@@ -102,12 +114,14 @@
             [control]="addressForm.controls['number']"
             [maxLength]="50"
             [label]="tenantParameters()!.localization.onboarding['number']"
+            textClass="login-label"
           ></app-custom-input>
         </div>
         <div class="form-group col-md-2">
           <app-custom-input
             [control]="addressForm.controls['floor']"
             [label]="tenantParameters()!.localization.onboarding['floor']"
+            textClass="login-label"
           ></app-custom-input>
           @if (addressForm.controls['floor'].hasError('pattern')) {
           <span class="form-error-msg"> - Caracteres epseciales no permitidos </span>
@@ -119,6 +133,7 @@
           <app-custom-input
             [control]="addressForm.controls['apartment']"
             [label]="tenantParameters()!.localization.onboarding['dept']"
+            textClass="login-label"
           ></app-custom-input>
           <!-- @if (addressForm.controls['apartment'].hasError('pattern')) {
           <span class="form-error-msg"> - Caracteres epseciales no permitidos </span>
@@ -128,12 +143,13 @@
         </div>
       </div>
       <div class="form-group col-md-3">
-        <div class="form-group col-md-3 pl-0">
-          <app-custom-input
+        <div class="form-group col-md-2 pl-0">
+          <!-- <app-custom-input
             [control]="addressForm.controls['postalCode']"
             [maxLength]="6"
             [label]="tenantParameters()!.localization.onboarding['zip-code']"
-          ></app-custom-input>
+            textClass="login-label"
+          ></app-custom-input> -->
           <!-- @if (addressForm.controls['postalCode'].errors?.['required'] && (addressForm.controls['postalCode'].touched ||
           addressForm.controls['postalCode'].dirty)) {
           <span class="form-error-msg"> - {{ tenantParameters()!.localization.onboarding["required-field"] }} </span>

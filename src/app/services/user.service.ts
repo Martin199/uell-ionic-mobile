@@ -17,6 +17,7 @@ import {
   OnBoardingRequest,
 } from '../pages/auth/onboarding/interfaces';
 import { AdressResponse } from '../pages/auth/onboarding/steps/user-address-info/interfaces/address-info.interface';
+import { CountryResponse } from './interfaces/user-service.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -91,7 +92,7 @@ export class UserService {
   }
 
   getAddressesCountry(filter?: any): Observable<any> {
-    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/country`, filter);
+    return this.http.get<CountryResponse>(`${environment.apiBaseUrl}${environment.apiVersion}/country`, filter);
   }
 
   getAddressesState(countryId: string, filter?: any): Observable<any> {
@@ -159,10 +160,9 @@ export class UserService {
 
   patchOnBoardingAddress(address: AdressResponse, addresId: string | number): Observable<void> {
     const userId = this.userState.userData()?.id;
-    return this.http.patch<any>(
-      `${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/address/${addresId}`,
-      address
-    );
+    return this.http
+      .patch<any>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/address/${addresId}`, address)
+      .pipe(tap(user => console.log('este es el user', user)));
   }
 
   getOnBoarding(id: number) {

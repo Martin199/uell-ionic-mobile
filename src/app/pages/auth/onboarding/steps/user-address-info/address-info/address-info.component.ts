@@ -1,4 +1,4 @@
-import { Component, computed, inject, Input, OnInit, output } from '@angular/core';
+import { Component, computed, inject, Input, OnInit, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
@@ -23,7 +23,6 @@ import {
   IonButton,
   IonIcon,
   IonList,
-  IonItem,
   IonLabel,
   IonSelect,
   IonSelectOption,
@@ -31,6 +30,8 @@ import {
 } from '@ionic/angular/standalone';
 import { GoogleApisService } from 'src/app/services/google-apis.service';
 import { OnBoardingCountryPatch } from '../../../interfaces';
+import { Address } from 'src/app/core/interfaces/user';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-address-info',
@@ -51,6 +52,7 @@ import { OnBoardingCountryPatch } from '../../../interfaces';
     IonSelect,
     IonSelectOption,
     IonTextarea,
+    TitleCasePipe,
   ],
 })
 export class AddressInfoComponent implements OnInit {
@@ -61,7 +63,9 @@ export class AddressInfoComponent implements OnInit {
   userState = inject(UserStateService);
   googleApisService = inject(GoogleApisService);
 
-  @Input() addressId: number = 0;
+  private loading = signal<HTMLIonLoadingElement | null>(null);
+
+  @Input() address: Address | null = null;
   addressInfo = output<{ data: IAddressInfo; isValid: boolean }>();
   user!: User;
   tenantParameters = computed(() => this.userState.tenantParameters());
@@ -72,8 +76,7 @@ export class AddressInfoComponent implements OnInit {
   countryValidations: ICountryAddressValidation = COUNTRY_ADDRESS_VALIDATIONS[countryENUM.OTHER];
   loadingLocality: boolean = false;
   countries: any[] = [];
-  countryId: number = 1;
-
+  countryPlaceHolder: string = '';
   addressForm = new FormGroup({
     street: new FormControl('', { validators: [Validators.required] }),
     number: new FormControl(''),
@@ -81,17 +84,17 @@ export class AddressInfoComponent implements OnInit {
     apartment: new FormControl(''),
     postalCode: new FormControl(''),
     country: new FormControl<Country | null>(null, { validators: [Validators.required] }),
-    province: new FormControl('', { validators: [Validators.required] }),
-    locality: new FormControl('', { validators: [Validators.required] }),
+    province: new FormControl<any>('', { validators: [Validators.required] }),
+    locality: new FormControl<any>('', { validators: [Validators.required] }),
     observation: new FormControl('', { validators: [Validators.maxLength(250)] }),
   });
 
-  constructor() {}
-
-  ngOnInit() {
+  async ngOnInit() {
+    const loading = await this.utilsService.loading();
+    this.loading.set(loading);
+    this.loadCountries();
     this.setupFormListeners();
     this.setData();
-    this.loadCountries();
     // this.loadStates();
     this.observerProvinceControl();
     // this.observerAddressInfoForm();
@@ -108,14 +111,13 @@ export class AddressInfoComponent implements OnInit {
       this.addressForm.get('province')?.reset();
       this.addressForm.get('locality')?.reset();
       this.addressForm.get('observation')?.reset();
-
+      console.log('form value listener', this.addressForm.value);
       this.provincesResponse = [];
       this.localitiesResponse = [];
       if (!country) {
         this.addressForm.get('province')?.disable();
         this.addressForm.get('locality')?.disable();
       } else {
-        this.setValidations(country);
         this.addressForm.get('province')?.enable();
         this.loadStates(country);
         this.setCountryValidation(country.countryName);
@@ -124,17 +126,13 @@ export class AddressInfoComponent implements OnInit {
     });
   }
 
-  setValidations(country: any) {
-    this.countryId = country.id;
-  }
-
   loadCountries() {
     this.userService.getAddressesCountry().subscribe({
       next: (res: any[]) => {
-        this.countries = res.map(countries => ({
-          ...countries,
-          name: countries.countryName.charAt(0).toUpperCase() + countries.countryName.slice(1).toLowerCase(),
-        }));
+        this.countries = res;
+        if (this.address) {
+          this.setupFormValues();
+        }
       },
       error: error => {
         console.error('Error loading provinces:', error);
@@ -156,7 +154,7 @@ export class AddressInfoComponent implements OnInit {
   }
 
   setData() {
-    this.user = this.utilsService.getUser();
+    this.user = this.userState.userData() as User;
     const countryEnum = this.utilsService.findCountryEnum(this.tenantParameters()?.country ?? countryENUM.ARGENTINA);
     this.country = countryEnum;
     this.setCountryValidation(this.country);
@@ -165,6 +163,71 @@ export class AddressInfoComponent implements OnInit {
   setCountryValidation(country: countryENUM) {
     this.countryValidations = COUNTRY_ADDRESS_VALIDATIONS[country];
     this.selectCountryAddressForm();
+  }
+
+  private setupFormValues() {
+    if (!this.address) return;
+    const user = this.userState.userData();
+    const countryResponse = this.countries.find(c => {
+      if (c.id === user?.countryId) return c;
+    });
+    const country: Country = {
+      countryName: countryResponse?.countryName || '',
+      id: countryResponse?.id || 0,
+    };
+
+    // Set basic form values
+    console.log('this.address en setupFormValues', this.address);
+    console.log('countryResponse en setupFormValues', countryResponse);
+    this.countryPlaceHolder = countryResponse?.countryName || '';
+    console.log('country en setupFormValues', country);
+    this.addressForm.patchValue({
+      country: country,
+    });
+    this.addressForm.patchValue({
+      street: this.address.addressName,
+      number: this.address.addressNumber,
+      floor: this.address.addressFloor,
+      apartment: this.address.addressDepartment,
+      postalCode: this.address.addressCodePostal,
+      observation: this.address.observation,
+    });
+    console.log('addressForm en setupFormValues', this.addressForm.value);
+
+    // Set locality if available
+    if (this.address.locality) {
+      // Try to find the country based on the locality state
+      if (this.address.locality.state) {
+        // Load states for the default country first
+        this.userService.getAddressesState(country.id.toString()).subscribe((res: IStatesResponse[]) => {
+          res.forEach((e: IStatesResponse) => {
+            e.name = e.name.charAt(0).toUpperCase() + e.name.slice(1).toLowerCase();
+          });
+          this.provincesResponse = res;
+
+          // Find the province that matches the locality's state
+          const province = res.find(p => p.id === this.address?.locality?.state?.id);
+          if (province) {
+            this.addressForm.patchValue({ province: province as any });
+
+            // Load localities for the selected province
+            this.userService.getLocalitiesByState(province.id.toString()).subscribe((locRes: IlocalitiesResponse[]) => {
+              locRes.forEach((e: IlocalitiesResponse) => {
+                e.name = e.name.charAt(0).toUpperCase() + e.name.slice(1).toLowerCase();
+                this.localitiesResponse.push(e);
+                this.loading()?.dismiss();
+              });
+
+              // Set locality
+              const locality = this.localitiesResponse.find(l => l.id === this.address?.locality?.id);
+              if (locality) {
+                this.addressForm.patchValue({ locality: locality as any });
+              }
+            });
+          }
+        });
+      }
+    }
   }
 
   selectCountryAddressForm() {
@@ -271,7 +334,7 @@ export class AddressInfoComponent implements OnInit {
       console.error('No address payload found');
       return;
     }
-    this.userService.patchOnBoardingAddress(body, this.addressId).subscribe({
+    this.userService.patchOnBoardingAddress(body, this.address!.id).subscribe({
       next: () => {
         this.postCountry();
       },
@@ -283,7 +346,7 @@ export class AddressInfoComponent implements OnInit {
   }
 
   postCountry() {
-    const body: OnBoardingCountryPatch = { countryId: this.countryId };
+    const body: OnBoardingCountryPatch = { countryId: this.address!.id };
     this.userService.postOnBoarding(body).subscribe({
       next: () => {},
       error: err => {
@@ -303,5 +366,4 @@ export class AddressInfoComponent implements OnInit {
 interface Country {
   countryName: countryENUM;
   id: number;
-  name: string;
 }
