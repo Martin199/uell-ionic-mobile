@@ -380,6 +380,7 @@ export class AddressInfoComponent implements OnInit {
     }
 
     postCountry() {
+        //TODO: arreglar posteo de countryId
         this.userService.postOnBoardingCountry(this.countryId).subscribe({
           next: (res: any) => {
             console.log(res);
