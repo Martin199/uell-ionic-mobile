@@ -12,6 +12,7 @@ export interface UserState {
   error: ErrorLog | null;
   token: string | null;
   fcmToken: string | null;
+  branding: string | null;
 }
 
 export interface ErrorLog {

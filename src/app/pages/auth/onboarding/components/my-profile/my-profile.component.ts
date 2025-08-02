@@ -218,10 +218,11 @@ export class MyProfileComponent {
   }
 
   next() {
-    // if (this.error()) {
-    //   return;
-    // }
-
-    this.utilsService.navigateTo('/auth/onboarding/clinical-history');
+    if (this.error()) {
+      return;
+    }
+    const activeModules = this.userStateService.tenantParameters()?.activeModules;
+    if (activeModules?.includes('hc_onboarding')) this.utilsService.navigateTo('/auth/onboarding/clinical-history');
+    else this.utilsService.navigateTo('/auth/onboarding/wellness-onboarding');
   }
 }

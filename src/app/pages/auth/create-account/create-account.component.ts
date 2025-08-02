@@ -11,6 +11,7 @@ import {
   CreateSuccessModalComponent,
   SuccessModalData,
 } from '../components/create-success-modal/create-success-modal.component';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 
 @Component({
   selector: 'app-create-account',
@@ -23,6 +24,7 @@ export class CreateAccountComponent {
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
   private loading = signal<HTMLIonLoadingElement | null>(null);
+  private userStateService = inject(UserStateService);
   form = this.formBuilder.group({
     code: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
@@ -44,6 +46,7 @@ export class CreateAccountComponent {
           this.error.set(true);
           return;
         }
+        this.userStateService.setBranding(res.url);
         this.generatePassword();
       },
       error: err => {

@@ -10,17 +10,30 @@ import {
   SuccessModalData,
 } from '../components/create-success-modal/create-success-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { RouterLink } from '@angular/router';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 
 @Component({
   selector: 'app-validate-account',
   templateUrl: './validate-account.component.html',
   styleUrls: ['./validate-account.component.scss'],
-  imports: [IonIcon, IonButton, IonText, IonContent, SharedModule, FloatingHelpComponent, IndividualInputsComponent],
+  imports: [
+    IonIcon,
+    IonButton,
+    IonText,
+    IonContent,
+    SharedModule,
+    FloatingHelpComponent,
+    IndividualInputsComponent,
+    RouterLink,
+  ],
 })
 export class ValidateAccountComponent {
   private utils = inject(UtilsService);
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
+  private userStateService = inject(UserStateService);
+  branding = this.userStateService.branding;
   error = signal<number>(0);
   form = this.formBuilder.group({
     cuil: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
@@ -47,6 +60,9 @@ export class ValidateAccountComponent {
           this.presentModal('user exists');
         } else if (this.error() === 3) {
           this.presentModal('error');
+        }
+        if (res.code === 201) {
+          this.presentModal('success account');
         }
       },
       error: err => {

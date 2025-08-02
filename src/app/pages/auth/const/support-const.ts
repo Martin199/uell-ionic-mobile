@@ -42,7 +42,7 @@ export const SUPPORT_FIELDS = [
     validators: ['pattern'],
   },
   {
-    key: 'reason',
+    key: 'motive',
     label: 'Motivo',
     type: 'select',
     required: true,
@@ -51,7 +51,7 @@ export const SUPPORT_FIELDS = [
     popOver: 'Selecciona un motivo',
   },
   {
-    key: 'comment',
+    key: 'comentary',
     label: 'Comentario',
     type: 'textarea',
     required: false,

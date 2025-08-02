@@ -1,6 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular/standalone';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+  NavController,
+  ToastController,
+} from '@ionic/angular/standalone';
 import { StorageService } from './storage.service';
 import { Localization, TenantParameters, TenantParametersResponse } from '../core/interfaces/tenantParameters';
 import { User } from '../pages/tabs/interfaces/user-interfaces';
@@ -155,6 +161,7 @@ export class UtilsService {
 
   async presentModalWithOptions(options: ModalOptions) {
     const modal = await this.modalCtrl.create(options);
+    console.log('presentando modal opciones', options);
     await modal.present();
 
     return new Promise((resolve, reject) => {

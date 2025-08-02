@@ -11,8 +11,8 @@ export interface ContactFormBody {
   cuil: string;
   email: string;
   phone: string;
-  reason: string;
-  comment?: string;
+  motive: string;
+  comentary?: string;
 }
 
 export interface PostWellnessContent {
@@ -83,4 +83,3 @@ export interface NutritionLifestylePostData {
   messageThroughCellphone?: boolean;
   shortly?: boolean;
 }
-

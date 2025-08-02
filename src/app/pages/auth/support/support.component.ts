@@ -55,11 +55,11 @@ export class SupportComponent {
   form = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validationPattern)]],
     surname: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validationPattern)]],
-    cuil: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+    cuil: ['', [Validators.required, Validators.maxLength(15)]],
     email: ['', [Validators.required, Validators.email]],
     telephone: ['', [Validators.pattern(this.phoneValidationPattern), Validators.maxLength(15)]],
-    reason: ['', Validators.required],
-    comment: [''],
+    motive: ['', Validators.required],
+    comentary: [''],
   });
 
   getFormControl(fieldKey: string): FormControl {
@@ -75,8 +75,8 @@ export class SupportComponent {
         cuil: this.form.value.cuil || '',
         email: this.form.value.email || '',
         phone: this.form.value.telephone || '',
-        reason: this.form.value.reason || '',
-        comment: this.form.value.comment || '',
+        motive: this.form.value.motive || '',
+        comentary: this.form.value.comentary || '',
       };
       this.authService.postSupportContact(body).subscribe({
         next: () => {
@@ -113,11 +113,11 @@ export class SupportComponent {
 
   onSelectChange(event: any) {
     if (event.detail.value === 'Otro') {
-      this.form.get('comment')?.setValidators([Validators.required]);
-      this.form.get('comment')?.updateValueAndValidity();
+      this.form.get('comentary')?.setValidators([Validators.required]);
+      this.form.get('comentary')?.updateValueAndValidity();
     } else {
-      this.form.get('comment')?.clearValidators();
-      this.form.get('comment')?.updateValueAndValidity();
+      this.form.get('comentary')?.clearValidators();
+      this.form.get('comentary')?.updateValueAndValidity();
     }
   }
 }

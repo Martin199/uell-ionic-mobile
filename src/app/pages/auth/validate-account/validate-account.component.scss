@@ -7,6 +7,12 @@
   padding: 1.5rem 1.5rem 2rem 1.5rem;
 }
 
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .login-link {
   display: flex;
   align-items: center;
@@ -34,7 +40,7 @@
   color: var(--States-Error, #e00000);
 
   /* Comment C1/Regular */
-  font-family: Inter;
+  font-family: 'Inter';
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -44,4 +50,16 @@
   p {
     margin: 0;
   }
+}
+
+.subtitle {
+  color: var(--Neutral-GreyDark, #383E52);
+
+/* Label L2/Regular */
+font-family: 'Inter';
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: 0.035px;
 }

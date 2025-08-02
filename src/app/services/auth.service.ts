@@ -54,8 +54,10 @@ export class AuthService {
   }
 
   postSupportContact(body: ContactFormBody) {
+    const tenant = this.tenant() ?? 'uell';
+    const headers = { tenant: tenant };
     const url = `${environment.apiBaseUrl}${environment.apiVersion}/help-request/generate`;
-    return this.http.post(url, body);
+    return this.http.post(url, body, { headers });
   }
 
   public postWellnessContent(body: PostWellnessContent): Observable<any> {
