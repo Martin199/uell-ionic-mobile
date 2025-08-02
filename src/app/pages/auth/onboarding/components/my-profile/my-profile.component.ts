@@ -10,6 +10,7 @@ import { WorkModalComponent } from '../modals/work-modal/work-modal.component';
 import { ProfilePicOnboardingComponent } from '../profile-pic-onboarding/profile-pic-onboarding.component';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { AddressInfoComponent } from '../../steps/user-address-info/address-info/address-info.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -20,6 +21,7 @@ import { AddressInfoComponent } from '../../steps/user-address-info/address-info
 export class MyProfileComponent {
   private utilsService = inject(UtilsService);
   private userStateService = inject(UserStateService);
+  private userService = inject(UserService);
   error = computed(() => {
     const userData = this.userStateService.userData();
     if (!userData) return null;
@@ -222,7 +224,19 @@ export class MyProfileComponent {
       return;
     }
     const activeModules = this.userStateService.tenantParameters()?.activeModules;
-    if (activeModules?.includes('hc_onboarding')) this.utilsService.navigateTo('/auth/onboarding/clinical-history');
-    else this.utilsService.navigateTo('/auth/onboarding/wellness-onboarding');
+    if (activeModules?.includes('hc_onboarding')) {
+      this.utilsService.navigateTo('/auth/onboarding/clinical-history');
+    } else if (activeModules?.includes('isps')) {
+      this.utilsService.navigateTo('/auth/onboarding/wellness-onboarding');
+    } else {
+      this.postOnboarding()
+    }  
+  }
+
+  public async postOnboarding() {
+    const body = {onboarded: true};
+    this.userService.postOnBoarding(body).subscribe(() => {
+        this.utilsService.navigateTo('/tabs/home');
+    });
   }
 }

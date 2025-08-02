@@ -14,6 +14,7 @@ import {
   NutritionLifestylePostData,
 } from 'src/app/services/interfaces/auth-service.interfaces';
 import { UserService } from 'src/app/services/user.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-wellness-onboarding',
@@ -41,6 +42,7 @@ export class WellnessOnboardingComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
   private userService = inject(UserService);
+  private utilsService = inject(UtilsService);
   private postWellnessData: Partial<PostWellnessContent> = {};
 
   ngAfterViewInit() {
@@ -109,7 +111,7 @@ export class WellnessOnboardingComponent {
       this.prevSlide();
       this.progress.set(0.33);
     } else {
-      this.router.navigate(['/auth/onboarding/clinical-history']);
+      this.utilsService.goBack();
     }
   }
 }

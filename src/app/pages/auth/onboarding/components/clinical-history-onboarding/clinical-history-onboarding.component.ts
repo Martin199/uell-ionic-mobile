@@ -81,7 +81,6 @@ export class ClinicalHistoryOnboardingComponent {
     this.userService.postCompletenessMedicalInformation(this.initialClinicalData()).subscribe({
       next: () => {
         loading.dismiss();
-        this.utils.navigateTo('/auth/onboarding/wellness-onboarding');
         this.progress.set(1);
         this.nextSlide();
       },
@@ -105,8 +104,13 @@ export class ClinicalHistoryOnboardingComponent {
     this.userService.postMedicalDiseases(medicalHistoryDiseases).subscribe({
       next: () => {
         loading.dismiss();
-        this.utils.navigateTo('/auth/onboarding/wellness-onboarding');
-        this.nextSlide();
+        const activeModules = this.userStateService.tenantParameters()?.activeModules;
+        if (activeModules?.includes('isps')) {
+          this.utils.navigateTo('/auth/onboarding/wellness-onboarding');
+          // this.nextSlide();
+        } else {
+          this.postOnboarding();
+        }
       },
       error: error => {
         loading.dismiss();
@@ -115,6 +119,13 @@ export class ClinicalHistoryOnboardingComponent {
         }
         console.error('Error posting medical diseases:', error);
       },
+    });
+  }
+
+  public async postOnboarding() {
+    const body = {onboarded: true};
+    this.userService.postOnBoarding(body).subscribe(() => {
+        this.utils.navigateTo('/tabs/home');
     });
   }
 
