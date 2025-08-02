@@ -1,6 +1,5 @@
-import { Component, computed, inject, OnInit, output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TenantParameters } from 'src/app/core/interfaces/tenantParameters';
+import { Component, computed, inject, Input, OnInit, output } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { User } from 'src/app/pages/tabs/interfaces/user-interfaces';
 import { StorageService } from 'src/app/services/storage.service';
@@ -8,20 +7,57 @@ import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { COUNTRY_ADDRESS_VALIDATIONS, countryENUM } from 'src/app/shared/constant/country-constants';
 import { IAddressInfo, ICountryAddressValidation, IlocalitiesResponse, IStatesResponse } from 'src/app/shared/interface/country-interfaces';
+import {
+} from '@ionic/angular/standalone';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ModalController, IonContent } from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonSelect,
+  IonSelectOption,
+} from '@ionic/angular/standalone';
+import { GoogleApisService } from 'src/app/services/google-apis.service';
 
 @Component({
     selector: 'app-address-info',
     templateUrl: './address-info.component.html',
     styleUrls: ['./address-info.component.scss'],
-    standalone: false
+    imports: [
+        ReactiveFormsModule,
+        SharedModule,
+        IonContent,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonButtons,
+        IonButton,
+        IonIcon,
+        IonList,
+        IonItem,
+        IonLabel,
+        IonSelect,
+        IonSelectOption,
+    ],
+    standalone: true
 })
 export class AddressInfoComponent implements OnInit {
 
+    private modalCtrlr = inject(ModalController);
     storageService = inject(StorageService);
     userService = inject(UserService);
     utilsService = inject(UtilsService);
     userState = inject(UserStateService);
+    googleApisService = inject(GoogleApisService);
 
+    @Input() addressId: number = 0;
     addressInfo = output<{ data: IAddressInfo; isValid: boolean }>();
     user!: User;
     tenantParameters = computed(() => this.userState.tenantParameters());
@@ -31,6 +67,8 @@ export class AddressInfoComponent implements OnInit {
     country: countryENUM = countryENUM.OTHER;
     countryValidations: ICountryAddressValidation = COUNTRY_ADDRESS_VALIDATIONS[countryENUM.OTHER];
     loadingLocality: boolean = false;
+    countries: any[] = [];
+    countryId: number = 1;
 
     addressForm = new FormGroup({
         street: new FormControl('', { validators: [Validators.required] }),
@@ -38,6 +76,7 @@ export class AddressInfoComponent implements OnInit {
         floor: new FormControl(''),
         apartment: new FormControl(''),
         postalCode: new FormControl(''),
+        country: new FormControl('', { validators: [Validators.required] }),
         province: new FormControl('', { validators: [Validators.required] }),
         locality: new FormControl('', { validators: [Validators.required] }),
         observation: new FormControl('', { validators: [Validators.maxLength(250)] }),
@@ -46,10 +85,62 @@ export class AddressInfoComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+        this.setupFormListeners();
         this.setData();
-        // this.getProvincias();
+        this.loadCountries();
+        // this.loadStates();
         this.observerProvinceControl();
-        this.observerAddressInfoForm();
+        // this.observerAddressInfoForm();
+    }
+
+    setupFormListeners() {
+        this.addressForm.get('country')?.valueChanges.subscribe(country => {
+          this.addressForm.get('province')?.reset();
+          this.addressForm.get('department')?.reset();
+          this.provincesResponse = [];
+          this.localitiesResponse = [];
+          if (!country) {
+            this.addressForm.get('province')?.disable();
+            this.addressForm.get('department')?.disable();
+          } else {
+            this.setValidations(country);
+            this.addressForm.get('province')?.enable();
+            this.loadStates(country);
+            // this.loadProvinces(country);
+          }
+        });
+    }
+
+    setValidations(country: any) {
+        this.countryId = country.id;
+    }
+
+    loadCountries() {
+        this.userService.getAddressesCountry().subscribe({
+          next: (res: any[]) => {
+            this.countries = res.map(countries => ({
+              ...countries,
+              name: countries.countryName.charAt(0).toUpperCase() + countries.countryName.slice(1).toLowerCase()
+            }));
+          },
+          error: error => {
+            console.error('Error loading provinces:', error);
+          },
+          complete: () => {
+          },
+        });
+    }
+
+    private loadStates(country: any) {
+        this.userService.getAddressesState(country.id).subscribe((res: IStatesResponse[]) => {
+            res.forEach((e: IStatesResponse) => {
+                e.name = e.name.charAt(0).toUpperCase() + e.name.slice(1).toLowerCase()
+            });
+            this.provincesResponse = res;
+            if (this.provincesResponse.length > 0) {
+                this.addressForm.controls.province.enable();
+            }
+        });
     }
 
     setData() {
@@ -214,18 +305,6 @@ export class AddressInfoComponent implements OnInit {
     formConfigEcuador() {
     }
 
-    private getProvincias(countryId: string) {
-        this.userService.getAddressesState(countryId).subscribe((res: IStatesResponse[]) => {
-            res.forEach((e: IStatesResponse) => {
-                e.name = e.name.toUpperCase();
-            });
-            this.provincesResponse = res;
-            if (this.provincesResponse.length > 0) {
-                this.addressForm.controls.province.enable();
-            }
-        });
-    }
-
     private observerProvinceControl() {
         this.addressForm.get('province')?.valueChanges.subscribe(() => {
             this.loadingLocality = true;
@@ -237,7 +316,7 @@ export class AddressInfoComponent implements OnInit {
             if (value?.id) {
                 this.userService.getLocalitiesByState(id).subscribe((res: IlocalitiesResponse[]) => {
                     res.forEach((e: IlocalitiesResponse) => {
-                        e.name = e.name.toUpperCase();
+                        e.name = e.name.charAt(0).toUpperCase() + e.name.slice(1).toLowerCase()
                         this.localitiesResponse.push(e);
                     });
                     if (this.localitiesResponse.length > 0) {
@@ -249,13 +328,17 @@ export class AddressInfoComponent implements OnInit {
         });
     }
 
-    observerAddressInfoForm() {
-        this.addressForm.valueChanges.subscribe((value) => {
-            this.emitAddressInfo(value);
-        });
+    // observerAddressInfoForm() {
+    //     this.addressForm.valueChanges.subscribe((value) => {
+    //         this.emitAddressInfo(value);
+    //     });
+    // }
+
+    postAddress() {
+        this.builAddressInfo(this.addressForm.value);
     }
 
-    emitAddressInfo(formValue: any) {
+    async builAddressInfo(formValue: any) {
         const contactInfo: IAddressInfo = {
             street: formValue.street,
             number: formValue.number,
@@ -266,10 +349,52 @@ export class AddressInfoComponent implements OnInit {
             locality: formValue.locality,
             observation: formValue.observation,
         };
-        this.addressInfo.emit({
-            data: contactInfo,
-            isValid: this.addressForm.valid,
+        // this.validacionGoogleMaps(contactInfo);
+        const confirmAddress: any = await this.validacionGoogleMaps(contactInfo);
+        if (confirmAddress) {
+            this.patchAddress();
+        } else {
+
+        }
+    }
+
+    validacionGoogleMaps(addressInfo: IAddressInfo) {
+        return this.googleApisService.validacionGoogleMaps(addressInfo);
+    }
+
+    patchAddress() {
+        const body = this.googleApisService.getAddressPayload();
+        if (!body) {
+            console.error('No address payload found');
+            return;
+        }
+        this.userService.patchOnBoardingAddress(body, this.addressId).subscribe({
+          next: () => {
+            this.postCountry();
+          },
+          error: (err) => {
+            console.error(err);
+          },
+          complete: () => {},
         });
+    }
+
+    postCountry() {
+        this.userService.postOnBoardingCountry(this.countryId).subscribe({
+          next: (res: any) => {
+            console.log(res);
+          },
+          error: (err) => {
+            console.error(err);
+          },
+          complete: () => {
+            this.dismiss();
+          },
+        });
+    }
+
+    dismiss() {
+        this.modalCtrlr.dismiss();
     }
 
 }

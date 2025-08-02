@@ -43,6 +43,7 @@ export interface UserResponseDTO {
   onboardedDate: Date;
   unitSegmentationsUser: SegmentationUnit[];
   userAlias: string;
+  countryId: number;
 }
 
 export interface Address {

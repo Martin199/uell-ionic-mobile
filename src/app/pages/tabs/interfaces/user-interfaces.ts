@@ -45,6 +45,7 @@ export interface User {
   onboardedDate: Date;
   unitSegmentationsUser: SegmentationUnit[];
   userAlias: string;
+  countryId: number;
 }
 
 export interface Address {

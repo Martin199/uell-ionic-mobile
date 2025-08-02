@@ -1,14 +1,15 @@
-import { Component, inject, computed, signal } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { IonContent, IonButton } from '@ionic/angular/standalone';
 import { ProfileCardComponent } from '../profile-card/profile-card.component';
 import { profileCardsData } from '../../const/my-profile-fields';
 import { UtilsService } from 'src/app/services/utils.service';
 import { BasicModalComponent, BasicModalData } from '../modals/basic-modal/basic-modal.component';
 import { ContactModalComponent } from '../modals/contact-modal/contact-modal.component';
-import { AddressModalComponent } from '../modals/address-modal/address-modal.component';
+// import { AddressModalComponent } from '../modals/address-modal/address-modal.component';
 import { WorkModalComponent } from '../modals/work-modal/work-modal.component';
 import { ProfilePicOnboardingComponent } from '../profile-pic-onboarding/profile-pic-onboarding.component';
 import { UserStateService } from 'src/app/core/state/user-state.service';
+import { AddressInfoComponent } from '../../steps/user-address-info/address-info/address-info.component';
 
 @Component({
   selector: 'app-my-profile',
@@ -199,13 +200,8 @@ export class MyProfileComponent {
         break;
       case 'address':
         const primaryAddress = userData.address?.find(addr => addr.isPrimary) || userData.address?.[0];
-        const modalDataAddress = {
-          address: primaryAddress ? `${primaryAddress.addressName} ${primaryAddress.addressNumber || ''}`.trim() : '',
-          city: primaryAddress?.locality?.name || '',
-          state: primaryAddress?.locality?.state?.name || '',
-          zip: primaryAddress?.addressCodePostal || '',
-        };
-        this.utilsService.presentModal(AddressModalComponent, undefined, modalDataAddress);
+        const addressId = primaryAddress?.id || 0;
+        this.utilsService.presentModal(AddressInfoComponent, undefined, { addressId: addressId });
         break;
       case 'work':
         const modalDataWork = {

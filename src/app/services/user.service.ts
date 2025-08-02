@@ -7,7 +7,7 @@ import { UserResponseDTO } from '../core/interfaces/user';
 import { ImageUpload } from './interfaces/camera.interfaces';
 import { UserStateService } from '../core/state/user-state.service';
 import { TenantParametersResponse } from '../core/interfaces/tenantParameters';
-import { AdressResponse, OnBoardingCompleteRequest } from '../pages/auth/onboarding/interfaces';
+import { OnBoardingCompleteRequest } from '../pages/auth/onboarding/interfaces';
 import {
   InitialClinicalData,
   MedicalHistoryDiseases,
@@ -16,6 +16,7 @@ import {
   OnBoardingProfilePicPatch,
   OnBoardingRequest,
 } from '../pages/auth/onboarding/interfaces';
+import { AdressResponse } from '../pages/auth/onboarding/steps/user-address-info/interfaces/address-info.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -154,6 +155,11 @@ export class UserService {
   }
 
   postOnBoardingProfilePic(body: OnBoardingProfilePicPatch) {
+    const userId = this.userState.userData()?.id;
+    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
+  }
+
+  postOnBoardingCountry(body: number) {
     const userId = this.userState.userData()?.id;
     return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
   }

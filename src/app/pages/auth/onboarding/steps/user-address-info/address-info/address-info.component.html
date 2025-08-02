@@ -1,8 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Información de dirección</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()" class="close-button">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
 @if (tenantParameters()) {
   <form class="form" [formGroup]="addressForm">
-      <div class="titulo">
-        <p>{{ tenantParameters()!.localization.onboarding['adress'] }}</p>
-      </div>
+    <div class="titulo">
+      <p>{{ tenantParameters()!.localization.onboarding['adress'] }}</p>
+    </div>
+    <!-- ! Pais -->
+    <div class="form-group">
+      <ion-label class="label-input">Pais</ion-label>
+      <ion-list>
+        <ion-item>
+          <ion-select aria-label="country" interface="action-sheet" placeholder="Seleccione provincia" formControlName="country">
+            @for (country of countries; track $index) {
+              <ion-select-option [value]="country">{{country.name}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      @if (addressForm.controls['country'].errors?.['required'] && (addressForm.controls['country'].touched || addressForm.controls['country'].dirty)) {
+        <span class="form-error-msg">
+          - {{ tenantParameters()!.localization.onboarding['required-field'] }}
+        </span>
+      }
+    </div>
+    <!-- ! Provincia -->
+    <div class="form-group">
+      <ion-label class="label-input">{{ tenantParameters()!.localization.onboarding['province'] }}</ion-label>
+      <ion-list>
+        <ion-item>
+          <ion-select aria-label="province" interface="action-sheet" placeholder="Seleccione provincia" formControlName="province">
+            @for (prov of provincesResponse; track $index) {
+              <ion-select-option [value]="prov">{{prov.name}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      @if (addressForm.controls['province'].errors?.['required'] && (addressForm.controls['province'].touched || addressForm.controls['province'].dirty)) {
+        <span class="form-error-msg">
+          - {{ tenantParameters()!.localization.onboarding['required-field'] }}
+        </span>
+      }
+    </div>
+    <!-- ! Localidades -->
+    <div class="form-group">
+      <p class="label">{{ tenantParameters()!.localization.onboarding['locality'] }}</p>
+      <ion-list>
+        <ion-item>
+          <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione localidad" formControlName="locality" [disabled]="loadingLocality">
+            @for (loc of localitiesResponse; track $index) {
+              <ion-select-option [value]="loc">{{loc.name}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      @if (addressForm.controls['locality'].errors?.['required'] && (addressForm.controls['locality'].touched || addressForm.controls['locality'].dirty)) {
+        <span class="form-error-msg">
+          - {{ tenantParameters()!.localization.onboarding['required-field'] }}
+        </span>
+      }
+    </div>
     <div class="form-group">
         <app-custom-input  [control]="addressForm.controls['street']" [maxLength]="255" [label]="tenantParameters()!.localization.onboarding['street']"></app-custom-input>
         @if (addressForm.controls['street'].errors?.['required'] && (addressForm.controls['street'].touched || addressForm.controls['street'].dirty)) {
@@ -90,41 +156,6 @@
         </div>
     </div>
     <div class="form-group">
-        <ion-label class="label-input">{{ tenantParameters()!.localization.onboarding['province'] }}</ion-label>
-            <ion-list>
-              <ion-item>
-                <ion-select aria-label="province" interface="action-sheet" placeholder="Seleccione provincia" formControlName="province">
-                  @for (prov of provincesResponse; track $index) {
-                    <ion-select-option [value]="prov">{{prov.name}}</ion-select-option>
-                  }
-                </ion-select>
-              </ion-item>
-            </ion-list>
-            @if (addressForm.controls['province'].errors?.['required'] && (addressForm.controls['province'].touched || addressForm.controls['province'].dirty)) {
-              <span class="form-error-msg">
-                - {{ tenantParameters()!.localization.onboarding['required-field'] }}
-              </span>
-            }
-
-    </div>
-    <div class="form-group">
-        <p class="label">{{ tenantParameters()!.localization.onboarding['locality'] }}</p>
-           <ion-list>
-            <ion-item>
-              <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione localidad" formControlName="locality" [disabled]="loadingLocality">
-                @for (loc of localitiesResponse; track $index) {
-                  <ion-select-option [value]="loc">{{loc.name}}</ion-select-option>
-                }
-              </ion-select>
-            </ion-item>
-          </ion-list>
-          @if (addressForm.controls['locality'].errors?.['required'] && (addressForm.controls['locality'].touched || addressForm.controls['locality'].dirty)) {
-            <span class="form-error-msg">
-              - {{ tenantParameters()!.localization.onboarding['required-field'] }}
-            </span>
-          }
-    </div>
-    <div class="form-group">
         <app-custom-input  [control]="addressForm.controls['observation']" [label]="tenantParameters()!.localization.onboarding['observations']">
         </app-custom-input>
         @if (addressForm.controls['observation'].errors?.['maxlength']) {
@@ -134,5 +165,20 @@
         }
         <p class="max-length">{{addressForm.get('observation')?.value?.length + ' / '}}<b>{{countryValidations.observation.maxLength}}</b></p>
     </div>
+
+    <div class="submit-section">
+        <ion-button
+          type="submit"
+          expand="block"
+          size="large"
+          shape="round"
+          [disabled]="!addressForm.valid"
+          style="width: 30%"
+          (click)="postAddress()"
+        >
+          Guardar
+        </ion-button>
+      </div>
   </form>
 }
+</ion-content>

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ModalController, IonContent } from '@ionic/angular/standalone';
 import {
@@ -15,6 +15,8 @@ import {
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UserService } from 'src/app/services/user.service';
 import { ProfileValidationsService } from 'src/app/services/profile-validations.service';
+import { IAddressInfo } from 'src/app/shared/interface/country-interfaces';
+import { GoogleApisService } from 'src/app/services/google-apis.service';
 // import { AdressResponse } from '../../../interfaces';
 
 export interface AddressModalData {
@@ -51,6 +53,7 @@ export class AddressModalComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private phoneValidations = inject(ProfileValidationsService);
+  private googleApisService = inject(GoogleApisService);
 
   // Properties to receive data from componentProps
   country: string = '';
@@ -61,6 +64,7 @@ export class AddressModalComponent implements OnInit {
   addressFloor: string = '';
   addressDepartment: string = '';
   zip: string = '';
+  @Input() addressId: number = 0;
 
   // Data arrays for selects
   countries: any[] = [];
@@ -83,15 +87,6 @@ export class AddressModalComponent implements OnInit {
   });
 
   ngOnInit() {
-    console.log('country:', this.country);
-    console.log('province:', this.province);
-    console.log('department:', this.department);
-    console.log('address:', this.address);
-    console.log('address:', this.addressNumber);
-    console.log('addressFloor:', this.addressFloor);
-    console.log('addressDepartment:', this.addressDepartment);
-    console.log('zip:', this.zip);
-
     this.addressForm.patchValue({
       country: this.country || '',
       province: this.province || '',
@@ -146,7 +141,6 @@ export class AddressModalComponent implements OnInit {
   }
 
   setValidations(country: any) {
-    debugger
     const selectedCountry = this.countries.find(c => c.id == country);
     if (!selectedCountry?.countryName) {  return; }
     const countryUpperCase = selectedCountry.countryName.toUpperCase();
@@ -242,26 +236,48 @@ export class AddressModalComponent implements OnInit {
   onSubmit() {
     this.addressForm.markAllAsTouched();
     if (this.addressForm.valid) {
+      const formValue = this.addressForm.value;
       console.log('Form submitted:', this.addressForm.value);
+      // const contactInfo: IAddressInfo = {
+      //       street: formValue.address!, 
+      //       number: formValue.addressNumber!,
+      //       floor: formValue.addressFloor!,
+      //       apartment: formValue.addressDepartment!,
+      //       postalCode: formValue.zip!,
+      //       province: formValue.province!,
+      //       locality: formValue.department!,
+      //       observation: formValue.observation,
+      //   };
       const body: any = {
         
       }
-      //TODO: hacer el patch con el addressId que hay que conseguir primero
-    //   this.userService.patchOnBoardingAddress(body, addressToPost.id!).subscribe({
-    //     next: (res: any) => {
-    //       console.log(res);
-    //     },
-    //     error: (err) => {
-    //       console.error(err);
-    //     },
-    //     complete: () => {},
-    //   });
+    //       const postBody = this.addressForm.value;
+    // postBody.userId = localStorage.getItem('userId');
+    // postBody.id = this.addressData.id;
+    // postBody.country = this.country
+      this.userService.patchOnBoardingAddress(body, this.addressId).subscribe({
+        next: (res: any) => {
+              // validacionGoogleMaps(addressInfo: IAddressInfo) {
+        // this.googleApisService.validacionGoogleMaps(addressInfo);
+        // this.validacionGoogleMaps();
+    // }
+          console.log(res);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {},
+      });
 
-    //   this.modalCtrlr.dismiss(this.addressForm.value);
-    // } else {
-    //   console.log('Form is not valid');
+      this.modalCtrlr.dismiss(this.addressForm.value);
+    } else {
+      console.log('Form is not valid');
     }
   }
+
+    validacionGoogleMaps(addressInfo: IAddressInfo) {
+      const aux = this.googleApisService.validacionGoogleMaps(addressInfo);
+    }
 
   //? fe-core:
       // this.contactForm.markAllAsTouched();
