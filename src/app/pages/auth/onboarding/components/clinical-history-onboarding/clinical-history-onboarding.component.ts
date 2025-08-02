@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ServerErrorModalComponent } from 'src/app/src/app/pages/auth/onboarding/components/modals/server-error-modal/server-error-modal.component';
 import { UtilsService } from 'src/app/services/utils.service';
 import { UserStateService } from 'src/app/core/state/user-state.service';
+import { time } from 'ionicons/icons';
 
 @Component({
   selector: 'app-clinical-history-onboarding',
@@ -81,8 +82,10 @@ export class ClinicalHistoryOnboardingComponent {
     this.userService.postCompletenessMedicalInformation(this.initialClinicalData()).subscribe({
       next: () => {
         loading.dismiss();
-        this.progress.set(1);
-        this.nextSlide();
+        setTimeout(() => {
+          this.progress.set(1);
+          this.nextSlide();
+        }, 500);
       },
       error: error => {
         loading.dismiss();
