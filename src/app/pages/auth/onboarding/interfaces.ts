@@ -7,30 +7,30 @@ export interface InitialClinicalData {
 }
 
 export interface MedicalFormData {
-    arterialHypertension: boolean;
-    diabetes:             boolean;
-    respiratory:          boolean;
-    cardiac:              boolean;
-    neurological:         boolean;
-    metabolice:           boolean;
+  arterialHypertension: boolean;
+  diabetes: boolean;
+  respiratory: boolean;
+  cardiac: boolean;
+  neurological: boolean;
+  metabolice: boolean;
 }
 
 export interface MedicalFormDataTwo {
-    mentalDisorders:            boolean;
-    oncology:                   boolean;
-    gastrointestinal:           boolean;
-    spine:                      boolean;
-    endocrinological:           boolean;
-    infectious:                 boolean;
-    onchologicRespiratory:      boolean;
-    onchologicGinecological:    boolean;
-    onchologicNephrourological: boolean;
-    onchologicGastrointestinal: boolean;
-    onchologicEndocrinal:       boolean;
-    onchologicNeurological:     boolean;
-    surgeries:                  boolean;
-    surgeriesDescription:       string;
-    onchologicInfo:             boolean;
+  mentalDisorders: boolean;
+  oncology: boolean;
+  gastrointestinal: boolean;
+  spine: boolean;
+  endocrinological: boolean;
+  infectious: boolean;
+  onchologicRespiratory: boolean;
+  onchologicGinecological: boolean;
+  onchologicNephrourological: boolean;
+  onchologicGastrointestinal: boolean;
+  onchologicEndocrinal: boolean;
+  onchologicNeurological: boolean;
+  surgeries: boolean;
+  surgeriesDescription: string;
+  onchologicInfo: boolean;
 }
 
 export interface OnBoardingRequest {
@@ -64,6 +64,10 @@ export interface OnBoardingContactPatch {
 
 export interface OnBoardingProfilePicPatch {
   photo: string;
+}
+
+export interface OnBoardingCountryPatch {
+  countryId: number;
 }
 
 export interface AdressResponse {

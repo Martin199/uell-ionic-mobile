@@ -65,7 +65,7 @@ export class ProfilePicModalComponent {
       const body: OnBoardingProfilePicPatch = {
         photo: res,
       };
-      this.userService.postOnBoardingProfilePic(body).subscribe(res => {
+      this.userService.postOnBoarding(body).subscribe(res => {
         this.userStateService.setUser(res);
       });
     });

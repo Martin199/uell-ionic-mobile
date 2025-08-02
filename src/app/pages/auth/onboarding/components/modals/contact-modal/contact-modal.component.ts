@@ -150,13 +150,12 @@ export class ContactModalComponent implements OnInit {
         cellphoneNumber: telephoneNumber,
         telephoneNumber: telephoneNumber,
       };
-      console.log('body post onboarding', body);
-      this.userService.postOnBoardingContact(body).subscribe((res: any) => {
+      this.userService.postOnBoarding(body).subscribe((res: any) => {
         this.userStateService.setUser(res);
       });
       this.modalCtrlr.dismiss(this.contactForm.value);
     } else {
-      console.log('Form is not valid');
+      console.error('Form is not valid');
     }
   }
 

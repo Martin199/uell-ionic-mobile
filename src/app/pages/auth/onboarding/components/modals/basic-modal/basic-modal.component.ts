@@ -124,7 +124,7 @@ export class BasicModalComponent implements OnInit {
       bornDate: formattedDate,
     };
     if (this.basicForm.valid) {
-      this.userService.postOnBoardingBasicInfo(body).subscribe(res => {
+      this.userService.postOnBoarding(body).subscribe(res => {
         this.userStateService.setUser(res);
       });
       this.modalCtrlr.dismiss(this.basicForm.value);

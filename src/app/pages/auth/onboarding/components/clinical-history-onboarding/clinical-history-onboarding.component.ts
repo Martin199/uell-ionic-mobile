@@ -73,11 +73,26 @@ export class ClinicalHistoryOnboardingComponent {
     this.swiperContainer.nativeElement.swiper.slidePrev();
   }
 
-  onGeneralInformationResponse(event: InitialClinicalData) {
+  async onGeneralInformationResponse(event: InitialClinicalData) {
     // Post the completeness medical information
     this.initialClinicalData.set(event);
-    this.progress.set(1);
-    this.nextSlide();
+    const loading = await this.utils.loading();
+    await loading.present();
+    this.userService.postCompletenessMedicalInformation(this.initialClinicalData()).subscribe({
+      next: () => {
+        loading.dismiss();
+        this.utils.navigateTo('/auth/onboarding/wellness-onboarding');
+        this.progress.set(1);
+        this.nextSlide();
+      },
+      error: error => {
+        loading.dismiss();
+        if (error.status === 409 || error.status === 500) {
+          this.utils.presentModal(ServerErrorModalComponent);
+        }
+        console.error('Error posting completeness medical information:', error);
+      },
+    });
   }
 
   async onUnderlyingDiseasesResponse(event: MedicalHistoryDiseasesClass) {
@@ -89,19 +104,9 @@ export class ClinicalHistoryOnboardingComponent {
 
     this.userService.postMedicalDiseases(medicalHistoryDiseases).subscribe({
       next: () => {
-        this.userService.postCompletenessMedicalInformation(this.initialClinicalData()).subscribe({
-          next: () => {
-            loading.dismiss();
-            this.utils.navigateTo('/auth/onboarding/wellness-onboarding');
-          },
-          error: error => {
-            loading.dismiss();
-            if (error.status === 409 || error.status === 500) {
-              this.utils.presentModal(ServerErrorModalComponent);
-            }
-            console.error('Error posting completeness medical information:', error);
-          },
-        });
+        loading.dismiss();
+        this.utils.navigateTo('/auth/onboarding/wellness-onboarding');
+        this.nextSlide();
       },
       error: error => {
         loading.dismiss();

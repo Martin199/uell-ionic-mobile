@@ -7,7 +7,7 @@ import { UserResponseDTO } from '../core/interfaces/user';
 import { ImageUpload } from './interfaces/camera.interfaces';
 import { UserStateService } from '../core/state/user-state.service';
 import { TenantParametersResponse } from '../core/interfaces/tenantParameters';
-import { OnBoardingCompleteRequest } from '../pages/auth/onboarding/interfaces';
+import { OnBoardingCompleteRequest, OnBoardingCountryPatch } from '../pages/auth/onboarding/interfaces';
 import {
   InitialClinicalData,
   MedicalHistoryDiseases,
@@ -95,7 +95,10 @@ export class UserService {
   }
 
   getAddressesState(countryId: string, filter?: any): Observable<any> {
-    return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/states?sort=name,asc&countryId=${countryId}`, filter);
+    return this.http.get(
+      `${environment.apiBaseUrl}${environment.apiVersion}/states?sort=name,asc&countryId=${countryId}`,
+      filter
+    );
   }
 
   public getLocalitiesByState(id: string): Observable<any> {
@@ -139,35 +142,28 @@ export class UserService {
     );
   }
 
-  postOnBoarding(body: OnBoardingRequest | OnBoardingCompleteRequest) {
+  postOnBoarding(
+    body:
+      | OnBoardingRequest
+      | OnBoardingCompleteRequest
+      | OnBoardingContactPatch
+      | OnBoardingBasicInfoPatch
+      | OnBoardingProfilePicPatch
+      | OnBoardingCountryPatch
+  ) {
     const userId = this.userState.userData()?.id;
-    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
+    return this.http
+      .patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body)
+      .pipe(tap(user => this.userState.setUser(user)));
   }
 
-  postOnBoardingContact(body: OnBoardingContactPatch) {
+  patchOnBoardingAddress(address: AdressResponse, addresId: string | number): Observable<void> {
     const userId = this.userState.userData()?.id;
-    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
+    return this.http.patch<any>(
+      `${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/address/${addresId}`,
+      address
+    );
   }
-
-  postOnBoardingBasicInfo(body: OnBoardingBasicInfoPatch) {
-    const userId = this.userState.userData()?.id;
-    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
-  }
-
-  postOnBoardingProfilePic(body: OnBoardingProfilePicPatch) {
-    const userId = this.userState.userData()?.id;
-    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
-  }
-
-  postOnBoardingCountry(body: number) {
-    const userId = this.userState.userData()?.id;
-    return this.http.patch<UserResponseDTO>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}`, body);
-  }
-
-  patchOnBoardingAddress(address: AdressResponse, addresId: string|number): Observable<void> {
-    const userId = this.userState.userData()?.id;
-    return this.http.patch<any>(`${environment.apiBaseUrl}${environment.apiVersion}/users/${userId}/address/${addresId}`, address);
-	}
 
   getOnBoarding(id: number) {
     return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/users/onboarding/${id}`);
