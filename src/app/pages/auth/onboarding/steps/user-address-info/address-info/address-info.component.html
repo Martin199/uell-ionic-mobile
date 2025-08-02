@@ -14,7 +14,7 @@
   <form class="form" [formGroup]="addressForm">
     <!-- ! Pais -->
     <div class="form-group">
-      <ion-label class="label-input">Pais</ion-label>
+      <ion-label class="label-input">País</ion-label>
       <ion-list>
         <ion-select
           aria-label="country"
@@ -38,7 +38,7 @@
     </div>
     <!-- ! Provincia -->
     <div class="form-group">
-      <ion-label class="label-input">{{ tenantParameters()!.localization.onboarding["province"] }}</ion-label>
+      <ion-label class="label-input">{{ stateTitle() }}</ion-label>
       <ion-list>
         <ion-select
           aria-label="province"
@@ -63,7 +63,7 @@
     <div class="form-group no-mb d-flex">
       <div class="row">
         <div class="form-group col-md-2" style="width: 100%">
-          <ion-label class="label-input">{{ tenantParameters()!.localization.onboarding["locality"] }}</ion-label>
+          <ion-label class="label-input">{{ localityTitle() }}</ion-label>
           <ion-select
             aria-label="localityes"
             interface="action-sheet"
@@ -132,7 +132,7 @@
         <div class="form-group col-md-2">
           <app-custom-input
             [control]="addressForm.controls['apartment']"
-            [label]="tenantParameters()!.localization.onboarding['dept']"
+            [label]="apartmentTitle()"
             textClass="login-label"
           ></app-custom-input>
           <!-- @if (addressForm.controls['apartment'].hasError('pattern')) {

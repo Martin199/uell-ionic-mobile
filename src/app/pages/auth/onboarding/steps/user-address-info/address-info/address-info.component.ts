@@ -88,6 +88,9 @@ export class AddressInfoComponent implements OnInit {
     locality: new FormControl<any>('', { validators: [Validators.required] }),
     observation: new FormControl('', { validators: [Validators.maxLength(250)] }),
   });
+  stateTitle = signal<string>('Provincia');
+  localityTitle = signal<string>('Localidad');
+  apartmentTitle = signal<string>('Localidad');
 
   async ngOnInit() {
     const loading = await this.utilsService.loading();
@@ -111,7 +114,6 @@ export class AddressInfoComponent implements OnInit {
       this.addressForm.get('province')?.reset();
       this.addressForm.get('locality')?.reset();
       this.addressForm.get('observation')?.reset();
-      console.log('form value listener', this.addressForm.value);
       this.provincesResponse = [];
       this.localitiesResponse = [];
       if (!country) {
@@ -119,11 +121,18 @@ export class AddressInfoComponent implements OnInit {
         this.addressForm.get('locality')?.disable();
       } else {
         this.addressForm.get('province')?.enable();
+        this.setTitles(country);
         this.loadStates(country);
         this.setCountryValidation(country.countryName);
         // this.loadProvinces(country);
       }
     });
+  }
+
+  setTitles(country: Country) {
+    this.stateTitle.set(country.id === 1 ? 'Provincia' : country.id === 3 ? 'Departamento' : 'Provincia');
+    this.localityTitle.set(country.id === 1 ? 'Localidad' : country.id === 3 ? 'Municipio' : 'Localidad');
+    this.apartmentTitle.set(country.id === 1 ? 'Depto.' : (country.id === 3 || country.id === 2) ? 'Departamento' : 'Depto.');
   }
 
   loadCountries() {
@@ -177,10 +186,7 @@ export class AddressInfoComponent implements OnInit {
     };
 
     // Set basic form values
-    console.log('this.address en setupFormValues', this.address);
-    console.log('countryResponse en setupFormValues', countryResponse);
     this.countryPlaceHolder = countryResponse?.countryName || '';
-    console.log('country en setupFormValues', country);
     this.addressForm.patchValue({
       country: country,
     });
@@ -192,8 +198,6 @@ export class AddressInfoComponent implements OnInit {
       postalCode: this.address.addressCodePostal,
       observation: this.address.observation,
     });
-    console.log('addressForm en setupFormValues', this.addressForm.value);
-
     // Set locality if available
     if (this.address.locality) {
       // Try to find the country based on the locality state
