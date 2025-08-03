@@ -61,9 +61,6 @@ export class ValidateAccountComponent {
         } else if (this.error() === 3) {
           this.presentModal('error');
         }
-        if (res.code === "201") {
-          this.presentModal('success account');
-        }
       },
       error: err => {
         console.error('error create cognito user', err);

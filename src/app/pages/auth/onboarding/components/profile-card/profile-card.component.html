@@ -1,6 +1,10 @@
 <div class="card">
   <div class="card-title">
-    {{ card().title }} <ion-icon (click)="edit()" slot="end" name="pencil" size="medium"></ion-icon>
+    {{ card().title }} 
+    @if(card().type!='work'){
+      <ion-icon (click)="edit()" slot="end" name="pencil" size="medium"></ion-icon>
+    }
+    
   </div>
   <div class="card-body">
     @for (field of card().fields; track field.field) {
