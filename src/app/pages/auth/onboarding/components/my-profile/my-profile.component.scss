@@ -54,6 +54,15 @@ ion-toolbar {
 
 .next-button {
   width: 30%;
+  
+  // Estilos para el botón deshabilitado
+  &:disabled {
+    --background: var(--Neutral-GreyLight, #e5e7eb);
+    --color: var(--Neutral-GreyMedium, #9ca3af);
+    --border-color: var(--Neutral-GreyLight, #e5e7eb);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 .error {

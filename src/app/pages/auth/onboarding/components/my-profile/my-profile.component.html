@@ -15,7 +15,13 @@
         </div>
       }
       <div class="button-container">
-        <ion-button (click)="next()" class="next-button" expand="block" size="large" shape="round"
+        <ion-button 
+          (click)="next()" 
+          class="next-button" 
+          expand="block" 
+          size="large" 
+          shape="round"
+          [disabled]="isNextButtonDisabled()"
           >Siguiente
         </ion-button>
       </div>

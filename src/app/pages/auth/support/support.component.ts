@@ -84,7 +84,7 @@ export class SupportComponent {
             component: CreateSuccessModalComponent,
             componentProps: {
               type: 'success support',
-              text: `Gracias por contactarte. En breve recibirás una respuesta al correo <strong>${this.authService.email()}</strong>.`,
+              text: `Gracias por contactarte. En breve recibirás una respuesta al correo <strong>${this.form.get('email')?.value}</strong>.`,
               title: 'Tu solicitud fue enviada',
               image: 'assets/login/email.svg',
               button: 'login',

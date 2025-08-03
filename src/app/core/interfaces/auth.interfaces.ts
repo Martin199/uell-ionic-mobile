@@ -54,7 +54,7 @@ export interface IErrorSecurityCode {
 }
 
 export interface ResponseCreateCognitoUser {
-  code: number;
+  code: string;
   message: string;
 }
 

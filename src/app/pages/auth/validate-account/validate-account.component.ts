@@ -50,18 +50,18 @@ export class ValidateAccountComponent {
       next: res => {
         this.error.update(value => value + 1);
         loading.dismiss();
-        if (res.code === 2001) {
+        if (res.code === "2001") {
           this.presentModal('error');
-        } else if (res.code === 2002 || res.code === 2003) {
+        } else if (res.code === "2002" || res.code === "2003") {
           this.presentModal('contact support');
-        } else if (res.code === 201) {
+        } else if (res.code === "201") {
           this.presentModal('success account');
-        } else if (res.code === 2004) {
+        } else if (res.code === "2004") {
           this.presentModal('user exists');
         } else if (this.error() === 3) {
           this.presentModal('error');
         }
-        if (res.code === 201) {
+        if (res.code === "201") {
           this.presentModal('success account');
         }
       },
@@ -90,7 +90,7 @@ export class ValidateAccountComponent {
         break;
       case 'success account':
         text = `Te enviamos un usuario y contraseña temporal a <strong>${this.authService.email()}</strong
-        >para iniciar sesión en Uell.`;
+        > para iniciar sesión en Uell.`;
         title = '¡Ya creaste tu cuenta!';
         image = 'assets/login/success.svg';
         button = 'login';

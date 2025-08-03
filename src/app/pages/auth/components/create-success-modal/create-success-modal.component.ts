@@ -19,7 +19,7 @@ export class CreateSuccessModalComponent implements OnInit {
   // Properties to receive data from componentProps
 
   type: 'success account' | 'success support' | 'error' | 'user exists' | 'contact support' | null = null;
-  email = this.authService.email;
+  email = this.authService.email();
   title: string = '';
   text: string = '';
   button: 'login' | 'support' | null = null;

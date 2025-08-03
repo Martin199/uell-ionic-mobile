@@ -22,6 +22,7 @@ export class MyProfileComponent {
   private utilsService = inject(UtilsService);
   private userStateService = inject(UserStateService);
   private userService = inject(UserService);
+  
   error = computed(() => {
     const userData = this.userStateService.userData();
     if (!userData) return null;
@@ -34,6 +35,74 @@ export class MyProfileComponent {
       return false;
     return 'Complete los datos de contacto para continuar';
   });
+
+  // Nueva validación para el botón "Siguiente"
+  isNextButtonDisabled = computed(() => {
+    const userData = this.userStateService.userData();
+    
+    if (!userData) {
+      return true; // Deshabilitado si no hay datos de usuario
+    }
+
+    // Validar información de contacto
+    const hasValidContact = this.hasValidContactInfo(userData);
+    
+    // Validar dirección
+    const hasValidAddress = this.hasValidAddressInfo(userData);
+    
+    // El botón está habilitado solo si tiene contacto y dirección válidos
+    return !(hasValidContact && hasValidAddress);
+  });
+
+  // Método auxiliar para validar información de contacto
+  private hasValidContactInfo(userData: any): boolean {
+    // Validar email
+    const hasValidEmail = userData.email && 
+                         typeof userData.email === 'string' && 
+                         userData.email.trim() !== '' &&
+                         userData.email.includes('@');
+
+    // Validar teléfono (puede ser telephoneNumber o cellphoneNumber)
+    const hasValidPhone = this.hasValidPhoneNumber(userData.telephoneNumber) || 
+                         this.hasValidPhoneNumber(userData.cellphoneNumber);
+
+    return hasValidEmail && hasValidPhone;
+  }
+
+  // Método auxiliar para validar número de teléfono
+  private hasValidPhoneNumber(phoneData: any): boolean {
+    if (!phoneData) return false;
+    
+    return phoneData.countryCode && 
+           phoneData.areaCode && 
+           phoneData.phoneNumber &&
+           typeof phoneData.countryCode === 'string' && 
+           typeof phoneData.areaCode === 'string' && 
+           typeof phoneData.phoneNumber === 'string' &&
+           phoneData.countryCode.trim() !== '' &&
+           phoneData.areaCode.trim() !== '' &&
+           phoneData.phoneNumber.trim() !== '';
+  }
+
+  // Método auxiliar para validar información de dirección
+  private hasValidAddressInfo(userData: any): boolean {
+    if (!userData.address || !Array.isArray(userData.address) || userData.address.length === 0) {
+      return false;
+    }
+
+    // Buscar la dirección primaria o usar la primera disponible
+    const primaryAddress = userData.address.find((addr: any) => addr.isPrimary) || userData.address[0];
+    
+    if (!primaryAddress) {
+      return false;
+    }
+
+    // Validar que tenga al menos la dirección principal
+    return primaryAddress.addressName && 
+           typeof primaryAddress.addressName === 'string' && 
+           primaryAddress.addressName.trim() !== '';
+  }
+
   profileCards = computed(() => {
     const userData = this.userStateService.userData;
 
@@ -48,19 +117,19 @@ export class MyProfileComponent {
         fields: [
           {
             field: 'Nombre completo',
-            description: `${userData()?.name || ''} ${userData()?.surname || ''}`.trim() || 'No disponible',
+            description: this.formatFullName(userData()?.name, userData()?.surname),
           },
           {
             field: 'Alias',
-            description: userData()?.userAlias || '-',
+            description: this.getSafeValue(userData()?.userAlias),
           },
           {
             field: 'Fecha de nacimiento',
-            description: userData()?.bornDate ? this.formatDate(userData()?.bornDate!) : 'No disponible',
+            description: userData()?.bornDate ? this.formatDate(userData()?.bornDate!) : '-',
           },
           {
             field: 'DNI',
-            description: userData()?.documentNumber || 'No disponible',
+            description: this.getSafeValue(userData()?.documentNumber),
           },
         ],
       },
@@ -70,15 +139,15 @@ export class MyProfileComponent {
         fields: [
           {
             field: 'Correo electrónico',
-            description: userData()?.email || 'No disponible',
+            description: this.getSafeValue(userData()?.email),
           },
           {
             field: 'Teléfono',
             description: userData()?.telephoneNumber
-              ? `${userData()?.telephoneNumber.countryCode} ${userData()?.telephoneNumber.areaCode} ${
-                  userData()?.telephoneNumber.phoneNumber
+              ? `${this.getSafeValue(userData()?.telephoneNumber.countryCode)} ${this.getSafeValue(userData()?.telephoneNumber.areaCode)} ${
+                  this.getSafeValue(userData()?.telephoneNumber.phoneNumber)
                 }`
-              : 'No disponible',
+              : '-',
           },
         ],
       },
@@ -98,19 +167,19 @@ export class MyProfileComponent {
         fields: [
           {
             field: 'Empresa',
-            description: userData()?.area || 'No disponible',
+            description: this.getSafeValue(userData()?.area),
           },
           {
             field: 'Segmento',
-            description: userData()?.segmentationUnit?.segDescription || 'No disponible',
+            description: this.getSafeValue(userData()?.segmentationUnit?.segDescription),
           },
           {
             field: 'Área',
-            description: userData()?.workstation || 'No disponible',
+            description: this.getSafeValue(userData()?.workstation),
           },
           {
             field: 'Puesto',
-            description: userData()?.workstation || 'No disponible',
+            description: this.getSafeValue(userData()?.workstation),
           },
         ],
       },
@@ -118,7 +187,7 @@ export class MyProfileComponent {
   });
 
   private formatDate(date: Date | string): string {
-    if (!date) return 'No disponible';
+    if (!date) return '-';
 
     let day: string, month: string, year: string;
 
@@ -133,7 +202,7 @@ export class MyProfileComponent {
         // Fallback to Date object for other formats
         const dateObj = new Date(date);
         if (isNaN(dateObj.getTime())) {
-          return 'No disponible';
+          return '-';
         }
         day = dateObj.getDate().toString().padStart(2, '0');
         month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
@@ -142,7 +211,7 @@ export class MyProfileComponent {
     } else {
       // Handle Date object
       if (isNaN(date.getTime())) {
-        return 'No disponible';
+        return '-';
       }
       day = date.getDate().toString().padStart(2, '0');
       month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -152,23 +221,45 @@ export class MyProfileComponent {
     return `${day}/${month}/${year}`;
   }
 
+  private getSafeValue(value: any): string {
+    if (value === null || value === undefined || value === '') {
+      return '-';
+    }
+    if (typeof value === 'string' && value.trim() === '') {
+      return '-';
+    }
+    return String(value);
+  }
+
+  private formatFullName(name: string | null | undefined, surname: string | null | undefined): string {
+    const nameValue = this.getSafeValue(name);
+    const surnameValue = this.getSafeValue(surname);
+    
+    if (nameValue === '-' && surnameValue === '-') {
+      return '-';
+    }
+    
+    const fullName = `${nameValue !== '-' ? nameValue : ''} ${surnameValue !== '-' ? surnameValue : ''}`.trim();
+    return fullName || '-';
+  }
+
   private formatAddress(addresses: any[] | undefined): string {
     if (!addresses || addresses.length === 0) {
-      return 'No disponible';
+      return '-';
     }
 
     const primaryAddress = addresses.find(addr => addr.isPrimary) || addresses[0];
     const addressParts = [
-      primaryAddress.addressName,
-      primaryAddress.addressNumber,
-      primaryAddress.addressFloor,
-      primaryAddress.addressDepartment,
-      primaryAddress.locality?.name,
-      primaryAddress.locality?.state?.name,
-      primaryAddress.addressCodePostal,
-    ].filter(part => part && part.trim());
+      this.getSafeValue(primaryAddress.addressName),
+      this.getSafeValue(primaryAddress.addressNumber),
+      this.getSafeValue(primaryAddress.addressFloor),
+      this.getSafeValue(primaryAddress.addressDepartment),
+      this.getSafeValue(primaryAddress.locality?.name),
+      this.getSafeValue(primaryAddress.locality?.state?.name),
+      this.getSafeValue(primaryAddress.addressCodePostal),
+    ].filter(part => part !== '-');
 
-    return addressParts.length > 0 ? addressParts.join(', ') : 'No disponible';
+    return addressParts.length > 0 ? addressParts.join(', ') : '-';
   }
 
   openEditModal(type: string) {

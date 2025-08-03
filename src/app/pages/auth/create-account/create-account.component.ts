@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonText, IonButton, IonRouterLink, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonText, IonButton, IonRouterLink, IonIcon, IonHeader, IonToolbar, IonButtons, IonTitle, IonBackButton } from '@ionic/angular/standalone';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FloatingHelpComponent } from '../components/floating-help/floating-help.component';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -16,7 +16,7 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
-  imports: [IonIcon, IonButton, IonContent, SharedModule, IonText, RouterLink, IonRouterLink, FloatingHelpComponent],
+  imports: [IonIcon, IonButton, IonContent, SharedModule, IonText, RouterLink, IonRouterLink, FloatingHelpComponent, IonHeader, IonToolbar, IonButtons, IonTitle, IonBackButton],
   styleUrls: ['./create-account.component.scss'],
 })
 export class CreateAccountComponent {
@@ -25,6 +25,7 @@ export class CreateAccountComponent {
   private authService = inject(AuthService);
   private loading = signal<HTMLIonLoadingElement | null>(null);
   private userStateService = inject(UserStateService);
+  
   form = this.formBuilder.group({
     code: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
