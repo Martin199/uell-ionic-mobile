@@ -25,6 +25,8 @@ export class CreatePasswordPage {
     showPass2: boolean = false;
     loading: boolean = false;
     passwordValue: string = '';
+    passwordStrength: string = 'Bajo';
+    securityLevel: number = 0;
 
     constructor() {
         this.user = this.cognitoService.getUserFirst();
@@ -40,6 +42,7 @@ export class CreatePasswordPage {
 
         this.createNewPassForm.get('newPass')?.valueChanges.subscribe(value => {
             this.passwordValue = value;
+            this.evaluatePasswordStrength(value);
         });
     }
 
@@ -80,6 +83,31 @@ export class CreatePasswordPage {
 
     goToLogin() {
         this.utilsService.navCtrl.navigateRoot(['auth']);
+    }
+
+    evaluatePasswordStrength(password: string): void {
+        const hasLength = password.length >= 12;
+        const hasLower = /[a-z]/.test(password);
+        const hasUpper = /[A-Z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSymbol = /[^A-Za-z0-9\s]/.test(password);
+
+        const validBasic = hasLength && hasLower && hasUpper && hasNumber;
+
+        if (!validBasic) {
+            this.passwordStrength = 'Baja';
+            this.securityLevel = 1;
+        } else if (validBasic && !hasSymbol) {
+            this.passwordStrength = 'Media';
+            this.securityLevel = 2;
+        } else if (validBasic && hasSymbol) {
+            this.passwordStrength = 'Alta';
+            this.securityLevel = 3;
+        }
+    }
+    
+    get canSubmit(): boolean {
+        return this.createNewPassForm.valid && this.securityLevel >= 2 && !this.loading;
     }
 
 }
