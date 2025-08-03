@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonText, IonButton, IonRouterLink, IonIcon, IonHeader, IonToolbar, IonButtons, IonTitle, IonBackButton } from '@ionic/angular/standalone';
+import { IonContent, IonText, IonButton, IonRouterLink, IonIcon, IonHeader, IonToolbar, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FloatingHelpComponent } from '../components/floating-help/floating-help.component';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -9,14 +9,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ServerErrorModalComponent } from 'src/app/src/app/pages/auth/onboarding/components/modals/server-error-modal/server-error-modal.component';
 import {
   CreateSuccessModalComponent,
-  SuccessModalData,
+  SuccessModalData, 
 } from '../components/create-success-modal/create-success-modal.component';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',
-  imports: [IonIcon, IonButton, IonContent, SharedModule, IonText, RouterLink, IonRouterLink, FloatingHelpComponent, IonHeader, IonToolbar, IonButtons, IonTitle, IonBackButton],
+    imports: [IonIcon, IonButton, IonContent, SharedModule, IonText, RouterLink, IonRouterLink, FloatingHelpComponent, IonHeader, IonToolbar, IonButtons, IonBackButton],
   styleUrls: ['./create-account.component.scss'],
 })
 export class CreateAccountComponent {

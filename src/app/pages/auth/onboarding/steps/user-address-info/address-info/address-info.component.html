@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  @if (tenantParameters()) {
+  @if (tenantParameters() && countryValidations) {
   <form class="form" [formGroup]="addressForm">
     <!-- ! Pais -->
     <div class="form-group">
@@ -126,7 +126,7 @@
           @if (addressForm.controls['floor'].hasError('pattern')) {
           <span class="form-error-msg"> - Caracteres epseciales no permitidos </span>
           } @if (addressForm.controls['floor'].errors?.['maxlength']) {
-          <span class="form-error-msg"> - Maximo {{ countryValidations.floor.maxLength }} caracteres </span>
+          <span class="form-error-msg"> - Maximo {{ countryValidations?.floor?.maxLength }} caracteres </span>
           }
         </div>
         <div class="form-group col-md-2">
@@ -172,13 +172,13 @@
         fill="outline"
         formControlName="observation"
         [counter]="true"
-        [maxlength]="countryValidations.observation.maxLength ?? 250"
+        [maxlength]="countryValidations?.observation?.maxLength ?? 250"
       ></ion-textarea>
       <!-- @if (addressForm.controls['observation'].errors?.['maxlength']) {
-      <span class="form-error-msg"> - Máximo {{ countryValidations.observation.maxLength }} dígitos </span>
+      <span class="form-error-msg"> - Máximo {{ countryValidations?.observation?.maxLength }} dígitos </span>
       }
       <p class="max-length">
-        {{ addressForm.get("observation")?.value?.length + " / " }}<b>{{ countryValidations.observation.maxLength }}</b>
+        {{ addressForm.get("observation")?.value?.length + " / " }}<b>{{ countryValidations?.observation?.maxLength }}</b>
       </p> -->
     </div>
 

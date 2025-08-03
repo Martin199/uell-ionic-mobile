@@ -32,6 +32,7 @@ import { GoogleApisService } from 'src/app/services/google-apis.service';
 import { OnBoardingCountryPatch } from '../../../interfaces';
 import { Address } from 'src/app/core/interfaces/user';
 import { TitleCasePipe } from '@angular/common';
+import { de } from 'date-fns/locale';
 
 @Component({
   selector: 'app-address-info',
@@ -73,7 +74,7 @@ export class AddressInfoComponent implements OnInit {
   localitiesResponse: IlocalitiesResponse[] = [];
   //TODO: cambiar default luego de hacer las pruebas
   country: countryENUM = countryENUM.OTHER;
-  countryValidations: ICountryAddressValidation = COUNTRY_ADDRESS_VALIDATIONS[countryENUM.OTHER];
+  countryValidations: ICountryAddressValidation = COUNTRY_ADDRESS_VALIDATIONS[countryENUM.OTHER] || COUNTRY_ADDRESS_VALIDATIONS[countryENUM.ARGENTINA];
   loadingLocality: boolean = false;
   countries: any[] = [];
   countryPlaceHolder: string = '';
@@ -123,7 +124,7 @@ export class AddressInfoComponent implements OnInit {
         this.addressForm.get('province')?.enable();
         this.setTitles(country);
         this.loadStates(country);
-        this.setCountryValidation(country.countryName);
+        this.setCountryValidation(country.countryName as countryENUM);
         // this.loadProvinces(country);
       }
     });
@@ -169,8 +170,9 @@ export class AddressInfoComponent implements OnInit {
     this.setCountryValidation(this.country);
   }
 
-  setCountryValidation(country: countryENUM) {
-    this.countryValidations = COUNTRY_ADDRESS_VALIDATIONS[country];
+  setCountryValidation(country: countryENUM | string) {
+    const countryEnum = typeof country === 'string' ? this.utilsService.findCountryEnum(country) : country;
+    this.countryValidations = COUNTRY_ADDRESS_VALIDATIONS[countryEnum] || COUNTRY_ADDRESS_VALIDATIONS[countryENUM.ARGENTINA];
     this.selectCountryAddressForm();
   }
 
@@ -241,6 +243,11 @@ export class AddressInfoComponent implements OnInit {
 
   configureFormValidators() {
     const validations = this.countryValidations;
+    if (!validations) {
+      console.warn('countryValidations is undefined, using default validations');
+      return;
+    }
+    
     const formFields = ['street', 'number', 'floor', 'apartment', 'postalCode', 'province', 'locality', 'observation'];
 
     formFields.forEach(field => {
