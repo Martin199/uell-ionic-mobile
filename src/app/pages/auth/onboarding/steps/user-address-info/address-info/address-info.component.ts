@@ -92,6 +92,7 @@ export class AddressInfoComponent implements OnInit {
   stateTitle = signal<string>('Provincia');
   localityTitle = signal<string>('Localidad');
   apartmentTitle = signal<string>('Localidad');
+  streetTitle = signal<string>('Calle');
 
   async ngOnInit() {
     const loading = await this.utilsService.loading();
@@ -131,9 +132,10 @@ export class AddressInfoComponent implements OnInit {
   }
 
   setTitles(country: Country) {
-    this.stateTitle.set(country.id === 1 ? 'Provincia' : country.id === 3 ? 'Departamento' : 'Provincia');
-    this.localityTitle.set(country.id === 1 ? 'Localidad' : country.id === 3 ? 'Municipio' : 'Localidad');
-    this.apartmentTitle.set(country.id === 1 ? 'Depto.' : (country.id === 3 || country.id === 2) ? 'Departamento' : 'Depto.');
+    this.stateTitle.set(country.id === 1 ? 'Provincia' : (country.id === 3 || country.id === 2 || country.id === 4) ? 'Departamento' : 'Provincia');
+    this.localityTitle.set(country.id === 1 ? 'Localidad' : (country.id === 3 || country.id === 2 || country.id === 4) ? 'Municipio' : 'Localidad');
+    this.apartmentTitle.set(country.id === 1 ? 'Depto.' : (country.id === 3 || country.id === 2 || country.id === 4) ? 'Apartamento' : 'Depto.');
+    this.streetTitle.set(country.id === 2 || country.id === 4 || country.id === 3 ? 'Dirección' : 'Calle');
   }
 
   loadCountries() {
@@ -177,6 +179,7 @@ export class AddressInfoComponent implements OnInit {
   }
 
   private setupFormValues() {
+    debugger
     if (!this.address) return;
     const user = this.userState.userData();
     const countryResponse = this.countries.find(c => {
