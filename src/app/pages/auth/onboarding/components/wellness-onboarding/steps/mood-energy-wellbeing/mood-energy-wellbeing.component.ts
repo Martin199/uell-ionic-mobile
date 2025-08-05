@@ -73,7 +73,6 @@ export class MoodEnergyWellbeingComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
     if (this.form.valid) {
       this.returnValid();
     }

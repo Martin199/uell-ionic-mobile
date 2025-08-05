@@ -36,7 +36,7 @@ export class PsychosocialHealthPage {
     }
 
     getIspsData() {
-        this.ispsService.getISPSScore(this.userId!).subscribe((data: any) => {
+        this.ispsService.getISPSScore().subscribe((data: any) => {
             this.ispsData = data;
         })
     }

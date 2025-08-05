@@ -179,7 +179,6 @@ export class AddressInfoComponent implements OnInit {
   }
 
   private setupFormValues() {
-    debugger
     if (!this.address) return;
     const user = this.userState.userData();
     const countryResponse = this.countries.find(c => {

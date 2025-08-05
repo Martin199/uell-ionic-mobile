@@ -1,7 +1,10 @@
-
 <div class="content">
-  <p class="content-title">Hola {{nameUsername()}} ¡Gracias por tus respuestas!</p>
-  <p class="content-subtitle">Te acercamos tus resultados. En una escala del 1 al 100, <span class="span">el menor valor es el recomendable.</span></p>
+  @if(responseISPS()){
+  <p class="content-title">Hola {{ nameUsername() }} ¡Gracias por tus respuestas!</p>
+  <p class="content-subtitle">
+    Te acercamos tus resultados. En una escala del 1 al 100,
+    <span class="span">el menor valor es el recomendable.</span>
+  </p>
   <div class="card-score">
     <div class="circle-card">
       <p class="card-title">I-SPS</p>
@@ -9,112 +12,159 @@
         <app-isps-circle [score]="score"></app-isps-circle>
       </div>
       <div class="score">
-        <div class="title">{{responseISPS().umbral}}</div>
+        <div class="title">{{ responseISPS().umbral }}</div>
         @if(!onboarding()){
-          <p class="text">{{responseISPS().descriptionTotalScore}}</p>
-          @if(responseISPS().suggestion){
-            <ng-container>
-              <p class="text suggestion">Sugerencia:</p>
-              <ul>
-                <li class="text">{{responseISPS().suggestion}}</li>
-              </ul>
-            </ng-container>
-          }
-        }
+        <p class="text">{{ responseISPS().descriptionTotalScore }}</p>
+        @if(responseISPS().suggestion){
+        <ng-container>
+          <p class="text suggestion">Sugerencia:</p>
+          <ul>
+            <li class="text">{{ responseISPS().suggestion }}</li>
+          </ul>
+        </ng-container>
+        } }
       </div>
     </div>
   </div>
   @if(hiddenCardChoiceMessageThroughCellphone()){
-    <div class="card-manager">
-      @if (viewChoiceMessageThroughCellphone()) {
-        <p class="title">¿Te gustaría que un Gestor de Bienestar y Calidad de Vida se contacte contigo?</p>
-        <form [formGroup]="formGestor" style="width: 100%;">
-          <ion-list class="">
-            <ion-radio-group formControlName="isChecked">
-              <ion-item class="no-border">
-                <span class="radio-label">Sí, me gustaría</span>
-                <ion-radio slot="start" value="true"></ion-radio>
-              </ion-item>
-              <ion-item class="no-border">
-                <span class="radio-label">No, gracias</span>
-                <ion-radio slot="start" value="false"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-list>
-        </form>
-      }
+  <div class="card-manager">
+    @if (viewChoiceMessageThroughCellphone()) {
+    <p class="title">¿Te gustaría que un Gestor de Bienestar y Calidad de Vida se contacte contigo?</p>
+    <form [formGroup]="formGestor" style="width: 100%">
+      <ion-list class="">
+        <ion-radio-group formControlName="isChecked">
+          <ion-item class="no-border">
+            <span class="radio-label">Sí, me gustaría</span>
+            <ion-radio slot="start" value="true"></ion-radio>
+          </ion-item>
+          <ion-item class="no-border">
+            <span class="radio-label">No, gracias</span>
+            <ion-radio slot="start" value="false"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </form>
+    }
+  </div>
+  } @if(!onboarding()){ @if(emocionalDimension){
+  <div class="card-dimension" [ngClass]="emocionalDimension.isAffected ? 'card-affected' : ''">
+    <div class="header-color" [ngClass]="emocionalDimension.isAffected ? 'affected' : 'no-affected'"></div>
+    <div class="icon">
+      <img
+        [src]="
+          emocionalDimension.isAffected
+            ? 'assets/wellness-icons/dimenssion_emocional_affected.svg'
+            : 'assets/wellness-icons/dimenssion_emocional.svg'
+        "
+        alt=""
+        width="32px"
+        height="32px"
+      />
     </div>
-  }
-  @if(!onboarding()){
+    <div class="title">Dimensión emocional</div>
+    <div class="status" [ngClass]="emocionalDimension.isAffected ? 'affected' : ''">
+      {{ emocionalDimension.isAffected ? "Afectada" : "En Equilibrio" }}
+    </div>
     @if(emocionalDimension){
-      <div class="card-dimension" [ngClass]="emocionalDimension.isAffected ? 'card-affected' : ''">
-        <div class="header-color" [ngClass]="emocionalDimension.isAffected ? 'affected' : 'no-affected'"></div>
-        <div class="icon">
-          <img [src]="emocionalDimension.isAffected ? 'assets/wellness-icons/dimenssion_emocional_affected.svg' : 'assets/wellness-icons/dimenssion_emocional.svg'" alt="" width="32px" height="32px">
+    <ng-container>
+      @for(item of emocionalDimension.subdimentionDTO; track item){
+      <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'">
+        <div class="staus">
+          <img
+            [src]="
+              item.isAffected
+                ? 'assets/wellness-icons/circle_affected.svg'
+                : 'assets/wellness-icons/circle_no_affected.svg'
+            "
+            alt=""
+          />
         </div>
-        <div class="title">Dimensión emocional</div>
-        <div class="status" [ngClass]="emocionalDimension.isAffected ? 'affected' : ''">{{emocionalDimension.isAffected ? 'Afectada' : 'En Equilibrio'}}</div>
-        @if(emocionalDimension){
-          <ng-container>
-            @for(item of emocionalDimension.subdimentionDTO; track item){
-              <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'">
-                <div class="staus">
-                  <img [src]="item.isAffected ? 'assets/wellness-icons/circle_affected.svg' : 'assets/wellness-icons/circle_no_affected.svg'" alt="">
-                </div>
-                <p class="title">{{item.name}}</p>
-                <p class="description">{{item.description}}</p>
-              </div>
-            }
-          </ng-container>
-        }
+        <p class="title">{{ item.name }}</p>
+        <p class="description">{{ item.description }}</p>
       </div>
+      }
+    </ng-container>
     }
+  </div>
+  } @if(socialDimension){
+  <div class="card-dimension" [ngClass]="socialDimension.isAffected ? 'card-affected' : ''">
+    <div class="header-color" [ngClass]="socialDimension.isAffected ? 'affected' : 'no-affected'"></div>
+    <div class="icon">
+      <img
+        [src]="
+          socialDimension.isAffected
+            ? 'assets/wellness-icons/dimenssion_social_affected.svg'
+            : 'assets/wellness-icons/dimenssion_social.svg'
+        "
+        alt=""
+        width="32px"
+        height="32px"
+      />
+    </div>
+    <div class="title">Dimensión social</div>
+    <div class="status" [ngClass]="socialDimension.isAffected ? 'affected' : ''">
+      {{ socialDimension.isAffected ? "Afectada" : "En Equilibrio" }}
+    </div>
     @if(socialDimension){
-      <div class="card-dimension" [ngClass]="socialDimension.isAffected ? 'card-affected' : ''">
-        <div class="header-color" [ngClass]="socialDimension.isAffected ? 'affected' : 'no-affected'"></div>
-        <div class="icon">
-          <img [src]="socialDimension.isAffected ? 'assets/wellness-icons/dimenssion_social_affected.svg' : 'assets/wellness-icons/dimenssion_social.svg'" alt="" width="32px" height="32px">
+    <ng-container>
+      @for(item of socialDimension.subdimentionDTO; track item){
+      <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'">
+        <div class="staus">
+          <img
+            [src]="
+              item.isAffected
+                ? 'assets/wellness-icons/circle_affected.svg'
+                : 'assets/wellness-icons/circle_no_affected.svg'
+            "
+            alt=""
+          />
         </div>
-        <div class="title">Dimensión social</div>
-        <div class="status" [ngClass]="socialDimension.isAffected ? 'affected' : ''">{{socialDimension.isAffected ? 'Afectada' : 'En Equilibrio'}}</div>
-        @if(socialDimension){
-          <ng-container>
-            @for(item of socialDimension.subdimentionDTO; track item){
-              <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'">
-                <div class="staus">
-                  <img [src]="item.isAffected ? 'assets/wellness-icons/circle_affected.svg' : 'assets/wellness-icons/circle_no_affected.svg'" alt="">
-                </div>
-                <p class="title">{{item.name}}</p>
-                <p class="description">{{item.description}}</p>
-              </div>
-            }
-          </ng-container>
-        }
+        <p class="title">{{ item.name }}</p>
+        <p class="description">{{ item.description }}</p>
       </div>
+      }
+    </ng-container>
     }
+  </div>
+  } @if(fisicoDimension){
+  <div class="card-dimension" [ngClass]="fisicoDimension.isAffected ? 'card-affected' : ''">
+    <div class="header-color" [ngClass]="fisicoDimension.isAffected ? 'affected' : 'no-affected'"></div>
+    <div class="icon">
+      <img
+        [src]="
+          fisicoDimension.isAffected
+            ? 'assets/wellness-icons/dimenssion_salud_affected.svg'
+            : 'assets/wellness-icons/dimenssion_salud.svg'
+        "
+        alt=""
+        width="32px"
+        height="32px"
+      />
+    </div>
+    <div class="title">Dimensión física</div>
+    <div class="status" [ngClass]="fisicoDimension.isAffected ? 'affected' : ''">
+      {{ fisicoDimension.isAffected ? "Afectada" : "En Equilibrio" }}
+    </div>
     @if(fisicoDimension){
-      <div class="card-dimension" [ngClass]="fisicoDimension.isAffected ? 'card-affected' : ''">
-        <div class="header-color" [ngClass]="fisicoDimension.isAffected ? 'affected' : 'no-affected'"></div>
-        <div class="icon">
-          <img [src]="fisicoDimension.isAffected ? 'assets/wellness-icons/dimenssion_salud_affected.svg' : 'assets/wellness-icons/dimenssion_salud.svg'" alt="" width="32px" height="32px">
+    <ng-container>
+      @for(item of fisicoDimension.subdimentionDTO; track item){
+      <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'">
+        <div class="staus">
+          <img
+            [src]="
+              item.isAffected
+                ? 'assets/wellness-icons/circle_affected.svg'
+                : 'assets/wellness-icons/circle_no_affected.svg'
+            "
+            alt=""
+          />
         </div>
-        <div class="title">Dimensión física</div>
-        <div class="status" [ngClass]="fisicoDimension.isAffected ? 'affected' : ''">{{fisicoDimension.isAffected ? 'Afectada' : 'En Equilibrio'}}</div>
-        @if(fisicoDimension){
-          <ng-container>
-            @for(item of fisicoDimension.subdimentionDTO; track item){
-              <div class="subdimension" [ngClass]="item.isAffected ? 'subdimension-affected' : 'subdimension-no-affected'">
-                <div class="staus">
-                  <img [src]="item.isAffected ? 'assets/wellness-icons/circle_affected.svg' : 'assets/wellness-icons/circle_no_affected.svg'" alt="">
-                </div>
-                <p class="title">{{item.name}}</p>
-                <p class="description">{{item.description}}</p>
-              </div>
-            }
-          </ng-container>
-        }
+        <p class="title">{{ item.name }}</p>
+        <p class="description">{{ item.description }}</p>
       </div>
+      }
+    </ng-container>
     }
-  }
-
+  </div>
+  } } }
 </div>

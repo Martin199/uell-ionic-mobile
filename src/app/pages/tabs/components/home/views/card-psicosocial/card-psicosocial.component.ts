@@ -147,7 +147,7 @@ export class CardPsicosocialComponent implements OnInit, OnChanges {
     }
 
     refreshISPS() {
-        this.ispsService.getISPSScore(this.user.id).subscribe((data: any) => {
+        this.ispsService.getISPSScore().subscribe((data: any) => {
             this.ispsData = data;
             this.getISPSScore();
             this.setDimensions(data);

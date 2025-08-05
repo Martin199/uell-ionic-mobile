@@ -18,5 +18,8 @@
     <swiper-slide>
       <app-nutrition-lifestyle (returnResponse)="onNutritionLifestyleResponse($event)"></app-nutrition-lifestyle>
     </swiper-slide>
+    <swiper-slide>
+      <app-form-isps-step-four [responseISPS]="ispsData()"> </app-form-isps-step-four>
+    </swiper-slide>
   </swiper-container>
 </div>

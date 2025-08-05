@@ -26,7 +26,6 @@ export class HomeService {
   currentMonth: number;
 
   constructor() {
-    
     this.currentYear = this.currentDate.getFullYear();
     this.currentMonth = this.currentDate.getMonth() + 1;
   }
@@ -37,14 +36,11 @@ export class HomeService {
       console.error('No se puede obtener el id del usuario');
       return of(null);
     }
-    const generalParameters: any =
-      this.storageService.getSessionStorage('tenantParameters');
-    const modulesActive = generalParameters.tenantParameters.activeModules.find(
-      (module: any) => module === moduleName
-    );
+    const generalParameters: any = this.storageService.getSessionStorage('tenantParameters');
+    const modulesActive = generalParameters.tenantParameters.activeModules.find((module: any) => module === moduleName);
     switch (modulesActive) {
       case 'isps':
-        return this.ispsService.getISPSScore(userId);
+        return this.ispsService.getISPSScore();
       case 'wellness':
         return this.portalService.getLastPostPortal();
       // case 'hc_onboarding':
@@ -69,10 +65,8 @@ export class HomeService {
   }
 
   callAllMethodsForModule(): Observable<any[]> {
-    const generalParameters: any =
-      this.storageService.getSessionStorage('tenantParameters');
-    const activeModules =
-      generalParameters?.tenantParameters?.activeModules || [];
+    const generalParameters: any = this.storageService.getSessionStorage('tenantParameters');
+    const activeModules = generalParameters?.tenantParameters?.activeModules || [];
 
     if (activeModules.length === 0) {
       console.warn('No hay módulos activos configurados.');
@@ -85,7 +79,7 @@ export class HomeService {
           moduleName,
           body: response,
         })),
-        catchError((error) => {
+        catchError(error => {
           console.error(`Error en el módulo ${moduleName}:`, error);
           return of({ moduleName, error });
         })
@@ -93,9 +87,7 @@ export class HomeService {
     );
 
     return forkJoin(observables).pipe(
-      map((results: any) =>
-        results.filter((result: any) => result.body !== null || result.error)
-      )
+      map((results: any) => results.filter((result: any) => result.body !== null || result.error))
     );
   }
 }

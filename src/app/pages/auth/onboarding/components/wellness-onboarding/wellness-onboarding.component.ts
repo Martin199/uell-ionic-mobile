@@ -15,6 +15,11 @@ import {
 } from 'src/app/services/interfaces/auth-service.interfaces';
 import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { concatMap, catchError, of, tap } from 'rxjs';
+import { ISPSService } from 'src/app/services/isps.service';
+import { UserStateService } from 'src/app/core/state/user-state.service';
+import { ISPSScore } from 'src/app/pages/tabs/interfaces/isps';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-wellness-onboarding',
@@ -32,6 +37,7 @@ import { UtilsService } from 'src/app/services/utils.service';
     MoodEnergyWellbeingComponent,
     EnergyConcentrationComponent,
     NutritionLifestyleComponent,
+    SharedModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
@@ -43,7 +49,11 @@ export class WellnessOnboardingComponent {
   private authService = inject(AuthService);
   private userService = inject(UserService);
   private utilsService = inject(UtilsService);
-  private postWellnessData: Partial<PostWellnessContent> = {};
+  private ispsService = inject(ISPSService);
+  private userState = inject(UserStateService);
+  ispsData = signal<ISPSScore | null>(null);
+
+  postWellnessData = signal<PostWellnessContent>({} as PostWellnessContent);
 
   ngAfterViewInit() {
     if (this.swiperContainer.nativeElement) {
@@ -70,37 +80,45 @@ export class WellnessOnboardingComponent {
   }
 
   onMoodEnergyWellbeingResponse(event: MoodEnergyWellbeingPostData) {
-    this.postWellnessData = { ...this.postWellnessData, ...event };
+    this.postWellnessData.update(prev => ({ ...prev, ...event }));
     this.progress.set(0.66);
     this.nextSlide();
   }
 
   onEnergyConcentrationResponse(event: EnergyConcentrationPostData) {
-    this.postWellnessData = { ...this.postWellnessData, ...event };
+    this.postWellnessData.update(prev => ({ ...prev, ...event }));
     this.progress.set(1);
     this.nextSlide();
   }
 
   onNutritionLifestyleResponse(event: NutritionLifestylePostData) {
-    this.postWellnessData = { ...this.postWellnessData, ...event };
+    this.postWellnessData.update(prev => ({ ...prev, ...event }));
 
-    const completeWellnessData: PostWellnessContent = this.postWellnessData as PostWellnessContent;
+    const completeWellnessData: PostWellnessContent = this.postWellnessData();
 
-    this.authService.postWellnessContent(completeWellnessData).subscribe({
-      next: () => {
-        this.userService.postOnBoarding({ onboarded: true }).subscribe({
-          next: () => {
-            this.router.navigate(['/tabs/home']);
-          },
-          error: (error: any) => {
-            console.error('Error posting wellness content:', error);
-          },
-        });
-      },
-      error: (error: any) => {
-        console.error('Error posting wellness content:', error);
-      },
-    });
+    this.authService
+      .postWellnessContent(completeWellnessData)
+      .pipe(
+        // concatMap(() =>
+        //   this.userService.postOnBoarding({ onboarded: true }).pipe(tap(res => this.userState.setUser(res)))
+        // ),
+        concatMap(() => this.ispsService.getISPSScore()),
+        catchError((error: any) => {
+          console.error('Error posting wellness content:', error);
+          return of(null);
+        })
+      )
+      .subscribe({
+        next: res => {
+          console.log('res de suscribe', res);
+          this.ispsData.set(res);
+          // this.router.navigate(['/tabs/home'])
+          this.nextSlide();
+        },
+        error: (error: any) => {
+          console.error('Error posting onboarding status:', error);
+        },
+      });
   }
 
   onClickBack() {
