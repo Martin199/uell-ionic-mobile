@@ -5,7 +5,7 @@
         @if(step === 1){
           <ion-icon slot="start" name="arrow-back-outline" size="large" (click)="returnHHCCorMyProfile()"></ion-icon>
         }
-        @if(step !== 1){
+        @if(step !== 1 && step!== 5){
           <ion-icon slot="start" name="arrow-back-outline" size="large" (click)="goBack()"></ion-icon>
         }
         <p class="onb-title">Bienestar</p>
