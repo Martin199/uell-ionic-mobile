@@ -48,7 +48,6 @@ export class StepTwoPreferenceComponent  implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    debugger
     if (this.storageService.getSessionStorage('stepFeeding')) {this.stepFeeding = this.storageService.getSessionStorage('stepFeeding')}
     let fish: boolean = false;
     let redMeat: boolean = false;

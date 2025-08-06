@@ -32,12 +32,6 @@ export class FormIspsStepFourComponent implements OnInit {
     }
  
     ngOnInit(): void {
-        debugger
-        console.log(this.hiddenCardChoiceMessageThroughCellphone());
-        debugger
-        console.log(this.responseISPS());
-        debugger
-        //TODO: el score siempre viene en 0
         this.score = this.responseISPS().score;
         this.emocionalDimension = this.responseISPS().dimentionDTO.find((dimension: any) => dimension.name === 'Emocional');
         this.fisicoDimension = this.responseISPS().dimentionDTO.find((dimension: any) => dimension.name === 'Físico');
