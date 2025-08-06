@@ -36,11 +36,9 @@ export class StepTwoFeedingComponent  implements OnInit {
     third: null,
   };
   constructor() {
-    console.log('step', this.questionsVegetables);
    }
 
   ngOnInit() {
-    console.log('step', this.questionsVegetables);
   }
 
 
