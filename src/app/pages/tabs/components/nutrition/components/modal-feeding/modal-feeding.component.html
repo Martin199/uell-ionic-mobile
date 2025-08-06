@@ -1,8 +1,8 @@
-<app-modal-header [title]="'¡Crea tu plan de alimentación personalizado!'" [closeModal]="true" [customClass]="'header-padding-24'"></app-modal-header>
+<app-modal-header [title]="'¡Crea tu plan de alimentación personalizado!'"  [closeModal]="true" [customClass]="'header-padding-24'"></app-modal-header>
 <ion-content>
   <div class="content">
     <ion-label class="description">Crea un plan de alimentación nutritivo basado en tus necesidades y preferencias y ahorra tiempo en la preparación de comidas.</ion-label>
-    <ion-label class="strong">Este proceso constará de dos etapas:</ion-label>
+    <ion-label class="strong">Este proceso constará de dos etapas y te llevará aproximadamente 5 minutos:</ion-label>
 
 
     <div class="card" [ngClass]="{'hasSelect': stepFeeding}">
@@ -27,42 +27,36 @@
       </div>
     </div>
 
-    <div class="card" [ngClass]="{'hasSelect': stepPreference}" >
-      <div class="layout" (click)="goToPreference('steps-preference')">
-        <div>
-          <div class="content-card-icon">
-            <ion-label class="title-card">Etapa 2 @if (stepPreference) {
-              <ion-label>- Completada</ion-label>
-            } </ion-label>
-            @if (stepPreference) {
-              <ion-icon
-              src="assets/wellness-icons/nutrition/check_circle.svg"></ion-icon>
-            }
-          </div>
-          <div class="content-card-icon">
-            <ion-label class="sub-text">Preferencias</ion-label>
-          </div>
-        </div>
-        <div>
-          <ion-icon src="assets/chevron-icon.svg"></ion-icon>
+    <div class="card" [ngClass]="{'hasSelect': stepPreference}" [class.disabled]="!stepFeeding">
+        <div class="layout" (click)="goToPreference('steps-preference')">
+            <div>
+                <div class="content-card-icon">
+                    <ion-label class="title-card">Etapa 2 <ion-label *ngIf="stepPreference">- Completada</ion-label> </ion-label>
+                    
+                </div>
+                <div class="content-card-icon">
+                    <ion-label class="sub-text">Preferencias</ion-label>
+                </div>
+            </div>
+            <div>
+                <div class="icons-column">
+                    <ion-icon *ngIf="stepPreference" src="assets/nutrition/check_circle.svg"></ion-icon>
+                    <ion-icon src="assets/chevron-icon.svg"></ion-icon>
+                </div>
+            </div>
         </div>
       </div>
     </div>
-  </div>
 
 </ion-content>
 
 @if (stepPreference && stepFeeding) {
   <ion-footer class="ion-no-border">
     <ion-toolbar class="ion-padding toolbar-center ion-text-center">
-      <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round">
-        @if (!isLoading) {
-          <ion-label>Ver mis resultados</ion-label>
-        }
-        @if (isLoading) {
-          <ion-spinner name="crescent"></ion-spinner>
-        }
-      </ion-button>
+        <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round">
+            <ion-label [ngClass]="{'invisible-label': isLoading}">Ver mis resultados</ion-label>
+            <ion-spinner name="crescent" *ngIf="isLoading" class="spinner-center"></ion-spinner>
+        </ion-button>
     </ion-toolbar>
   </ion-footer>
 }

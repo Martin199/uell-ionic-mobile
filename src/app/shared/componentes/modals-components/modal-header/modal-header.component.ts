@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, Input, input, output } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -21,6 +21,7 @@ export class ModalHeaderComponent {
     closeModal = input<boolean>(false);
     backButton = input<boolean>(false);
     cleanStorage = input<boolean>(false);
+    @Input() customBackground: boolean = false;
     customClass = input<string>('');
     closeModalEvent = output<string>();
     backModalEvent = output();
