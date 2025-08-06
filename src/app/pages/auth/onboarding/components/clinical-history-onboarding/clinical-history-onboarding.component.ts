@@ -78,17 +78,15 @@ export class ClinicalHistoryOnboardingComponent {
     // Post the completeness medical information
     this.initialClinicalData.set(event);
     const loading = await this.utils.loading();
-    await loading.present();
+    // await loading.present();
     this.userService.postCompletenessMedicalInformation(this.initialClinicalData()).subscribe({
       next: () => {
-        loading.dismiss();
-        setTimeout(() => {
-          this.progress.set(1);
-          this.nextSlide();
-        }, 500);
+        // loading.dismiss();
+        this.progress.set(1);
+        this.nextSlide();
       },
       error: error => {
-        loading.dismiss();
+        // loading.dismiss();
         if (error.status === 409 || error.status === 500) {
           this.utils.presentModal(ServerErrorModalComponent);
         }
@@ -99,14 +97,14 @@ export class ClinicalHistoryOnboardingComponent {
 
   async onUnderlyingDiseasesResponse(event: MedicalHistoryDiseasesClass) {
     const loading = await this.utils.loading();
-    await loading.present();
+    // await loading.present();
     const medicalHistoryDiseases: MedicalHistoryDiseases = {
       medicalHistoryDiseases: event,
     };
 
     this.userService.postMedicalDiseases(medicalHistoryDiseases).subscribe({
       next: () => {
-        loading.dismiss();
+        // loading.dismiss();
         const activeModules = this.userStateService.tenantParameters()?.activeModules;
         if (activeModules?.includes('isps')) {
           this.utils.navigateTo('/auth/onboarding/wellness-onboarding');
@@ -116,7 +114,7 @@ export class ClinicalHistoryOnboardingComponent {
         }
       },
       error: error => {
-        loading.dismiss();
+        // loading.dismiss();
         if (error.status === 409 || error.status === 500) {
           this.utils.presentModal(ServerErrorModalComponent);
         }
