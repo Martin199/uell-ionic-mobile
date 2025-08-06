@@ -29,7 +29,7 @@ export class StepTwoPreferenceComponent  implements OnInit {
   step = 0;
   hasSelect: boolean = false;
   firstFeedingForm!: FormGroup;
-  firstCard: any = Object.values(this.utilsService.getLocalizationByPath('nutrition', 'step-preference-feeding'));
+  firstCard: any[] = Object.values(this.utilsService.getLocalizationByPath('nutrition', 'step-preference-feeding'));
   questionPreferenceFeeding: any = Object.values(this.utilsService.getLocalizationByPath('nutrition', 'questionPreferenceFeeding'));
   drinksWaterAndInfusions: boolean = false;
   dailyWaterIntake: boolean = false;
@@ -48,6 +48,7 @@ export class StepTwoPreferenceComponent  implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    debugger
     if (this.storageService.getSessionStorage('stepFeeding')) {this.stepFeeding = this.storageService.getSessionStorage('stepFeeding')}
     let fish: boolean = false;
     let redMeat: boolean = false;
@@ -58,7 +59,6 @@ export class StepTwoPreferenceComponent  implements OnInit {
       chicken = this.searchOptionMeats('Pollo');
     }
     this.stageServices.getPreferencesRestrictions().subscribe((resp: any) => {
-      console.log(resp, 'getPreferencesRestrictions')
       this.preferenceRestriction = resp;
       sessionStorage.setItem('preferencesRestrictions', JSON.stringify(resp));
     })

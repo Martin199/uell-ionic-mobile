@@ -19,15 +19,17 @@ export class TabsPage implements OnInit {
     selectedTab: string = 'home';
     hasIsps: boolean = false;
     hasWellnessBlog: boolean = false;
+    hasNutrition: boolean = false;
     platform: string = '';
     utilsService = inject(UtilsService);
     private userState = inject(UserStateService);
 
     constructor() {
         const tenantP: string[] = this.userState.activeModules() ?? [];
-
+        const userData = this.userState.userData();
         this.hasIsps = tenantP.includes('isps');
         this.hasWellnessBlog = tenantP.includes('wellness')
+        this.hasNutrition = tenantP.includes('nutrition') && userData?.nutrition === true
         addIcons({ home, personOutline });
     }
 

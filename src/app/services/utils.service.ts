@@ -12,6 +12,7 @@ import { Localization, TenantParameters, TenantParametersResponse } from '../cor
 import { User } from '../pages/tabs/interfaces/user-interfaces';
 import { countryENUM } from '../shared/constant/country-constants';
 import { ModalOptions } from '@ionic/angular';
+import { modalEnterAnimation, modalLeaveAnimation } from '../shared/animation/animation-modal';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,10 @@ export class UtilsService {
     return this.loadingCtrl.create({ spinner: 'circles' });
   }
 
+  goBack() {
+    return this.navCtrl.back();
+  }
+
   getLocalization(path: string) {
     const tenantParameters: TenantParametersResponse | null = this.storageService.getSessionStorage('tenantParameters');
     return tenantParameters?.tenantParameters?.localization[path as keyof Localization];
@@ -45,6 +50,23 @@ export class UtilsService {
       message: message,
       duration: time,
       position: position,
+    });
+    await toast.present();
+  }
+
+  async customToast(
+    position: 'top' | 'middle' | 'bottom',
+    time: number,
+    message: string,
+    cssClass?: string,
+    icon?: string
+  ) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: time,
+      position: position,
+      cssClass: cssClass,
+      icon: icon,
     });
     await toast.present();
   }
@@ -133,10 +155,6 @@ export class UtilsService {
     this.navCtrl.navigateForward([path], { queryParams: params });
   }
 
-  goBack() {
-    this.navCtrl.back();
-  }
-
   async presentModal(component: any, css?: string, data?: any, backdropDismiss?: boolean) {
     const modal = await this.modalCtrl.create({
       showBackdrop: true,
@@ -144,6 +162,8 @@ export class UtilsService {
       cssClass: css,
       component: component,
       componentProps: data,
+        enterAnimation: modalEnterAnimation,
+        leaveAnimation: modalLeaveAnimation,
     });
     await modal.present();
 
@@ -195,4 +215,17 @@ export class UtilsService {
 
     return null;
   }
+    async presentWinToast(creditPoints: number) {
+        creditPoints ? creditPoints : 1;
+        const toast = await this.toastCtrl.create({
+            message: `🎉 Felicidades, ganaste ${creditPoints} ${creditPoints === 1 ? 'crédito' : 'créditos'
+                }`,
+            duration: 3000,
+            position: 'bottom',
+            cssClass: 'custom-toast',
+            animated: true,
+        });
+        await toast.present();
+    }
+
 }

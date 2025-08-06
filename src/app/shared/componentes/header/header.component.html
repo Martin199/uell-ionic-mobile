@@ -2,13 +2,13 @@
   <ion-toolbar  class="gradient-toolbar">
     <div class=" d-flex">
       <ion-img src="../../../../assets/logo-header.svg"></ion-img>
-      <div class="container">
+      <div class="container" (click)="presentActionSheet()">
         <div class="d-flex-column">
           <ion-label class="name-user">{{ user()?.name! | titlecase }} {{ user()?.surname! | titlecase }}</ion-label>
           <ion-label class="role">COLABORADOR</ion-label>
         </div>
         <div class="container-avatar">
-          <ion-img class="avatar" [src]="userAvatarUrl ? userAvatarUrl : defaultAvatarUrl" (click)="presentActionSheet()"></ion-img>
+          <ion-img class="avatar" [src]="userAvatarUrl ? userAvatarUrl : defaultAvatarUrl" ></ion-img>
         </div>
       </div>
     </div>

@@ -304,3 +304,22 @@ ion-toast.custom-toast {
     --backdrop-opacity: 0.4;
   }
 }
+
+ion-toast.danger-icon {
+  --background: #e3e3e3;
+  text-align: center;
+  
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #454545;
+  z-index: 9999;
+  
+  ion-icon {
+    color: #fc3636 !important;
+  }
+  
+  &::part(icon) {
+    color: #fc3636 !important;
+  }
+}

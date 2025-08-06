@@ -4,14 +4,14 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { FirstCardHydration, SecondCardHydration, ThirdCardHydration } from '../../const/feeding-const';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgClass } from '@angular/common';
-import { IonCard } from '@ionic/angular';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-step-one-feeding',
   templateUrl: './step-one-feeding.component.html',
   styleUrls: ['./step-one-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgClass],
+  imports: [SharedModule, NgClass, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepOneFeedingComponent  implements OnInit {
@@ -44,8 +44,6 @@ export class StepOneFeedingComponent  implements OnInit {
 
   ngOnInit() {
  
-    console.log(this.questionsHydratation)
-
   }
 
   selectOption(index: number, cardType: 'first' | 'second' | 'third') {

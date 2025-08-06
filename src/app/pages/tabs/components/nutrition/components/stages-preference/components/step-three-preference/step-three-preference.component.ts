@@ -54,9 +54,7 @@ export class StepThreePreferenceComponent  implements OnInit, OnChanges {
 
   getPreferencesRestrictions() {
     if (this.storageService.getSessionStorage('preferencesRestrictions')) {
-      console.log(this.storageService.getSessionStorage('preferencesRestrictions'), 'PreferencesRestrictions')
       const PreferencesRestrictions: any = this.storageService.getSessionStorage('preferencesRestrictions');
-      console.log(PreferencesRestrictions, 'PreferencesRestrictions')
       this.restrictionsList = PreferencesRestrictions.restrictionsList.filter((x: any) => x.section === 'ENFERMEDADES')
     }
   }
