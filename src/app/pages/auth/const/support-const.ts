@@ -22,7 +22,7 @@ export const SUPPORT_FIELDS = [
   {
     key: 'cuil',
     label: 'Usuario',
-    type: 'text',
+    type: 'number',
     required: true,
     validators: ['required', 'minLength:11', 'maxLength:11'],
     popOver: 'Introduce tu numero de identificacion de usuario',

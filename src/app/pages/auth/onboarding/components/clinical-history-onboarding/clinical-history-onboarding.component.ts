@@ -77,7 +77,7 @@ export class ClinicalHistoryOnboardingComponent {
   async onGeneralInformationResponse(event: InitialClinicalData) {
     // Post the completeness medical information
     this.initialClinicalData.set(event);
-    const loading = await this.utils.loading();
+    // const loading = await this.utils.loading();
     // await loading.present();
     this.userService.postCompletenessMedicalInformation(this.initialClinicalData()).subscribe({
       next: () => {
@@ -96,7 +96,7 @@ export class ClinicalHistoryOnboardingComponent {
   }
 
   async onUnderlyingDiseasesResponse(event: MedicalHistoryDiseasesClass) {
-    const loading = await this.utils.loading();
+    // const loading = await this.utils.loading();
     // await loading.present();
     const medicalHistoryDiseases: MedicalHistoryDiseases = {
       medicalHistoryDiseases: event,

@@ -106,6 +106,14 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
     ngAfterViewInit(): void {
         this.swiper = this.swiperContainer.nativeElement.swiper;
         this.swiper.allowTouchMove = false;
+        this.swiperSlideChanged();
+    }
+
+    swiperSlideChanged() {
+        const swiperContainer = document.getElementById('swiperContainer');
+        if (swiperContainer) {
+          swiperContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     closeModal() {

@@ -56,12 +56,17 @@
           <ion-spinner></ion-spinner>
         }
         @if(dataIsps){
-          <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
-            [hiddenCardChoiceMessageThroughCellphone]="(messageThroughCellphone === 'false' || messageThroughCellphone === 'true') ? false : true"
-            [onboarding]="onboarding"
-            (isChecked)="returnQuestionValue($event)"
-            [responseISPS]="dataIsps">
-          </app-form-isps-step-four>
+          <div class="step-result-onb">
+            <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
+              [hiddenCardChoiceMessageThroughCellphone]="(messageThroughCellphone === 'false' || messageThroughCellphone === 'true') ? false : true"
+              [onboarding]="onboarding"
+              (isChecked)="returnQuestionValue($event)"
+              [responseISPS]="dataIsps">
+            </app-form-isps-step-four>
+            @if (step === 5 && onboarding) {
+              <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn btn-result-onb" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>
+            }
+          </div>
         }
       </swiper-slide>
     <!-- } -->
@@ -87,7 +92,7 @@
           {{returnDescriptionBtn()}}
         </ion-button>
       }
-      @if(step === 5){
+      @if(step === 5 && !onboarding){
         <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>
       }
     </ion-buttons>
