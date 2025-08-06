@@ -1,6 +1,8 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
-    <ion-icon slot="start" name="arrow-back-outline" size="large" (click)="onClickBack()"></ion-icon>
+    @if (!loadISPS) {
+      <ion-icon slot="start" name="arrow-back-outline" size="large" (click)="onClickBack()"></ion-icon>
+    }
     <ion-title>Bienestar</ion-title>
     <ion-text class="subtitle">Responde considerando los últimos tres meses.</ion-text>
   </ion-toolbar>
@@ -18,5 +20,19 @@
     <swiper-slide>
       <app-nutrition-lifestyle (returnResponse)="onNutritionLifestyleResponse($event)"></app-nutrition-lifestyle>
     </swiper-slide>
+    <swiper-slide>
+      @if (loadISPS) {
+        <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
+              [hiddenCardChoiceMessageThroughCellphone]="(messageThroughCellphone === 'false' || messageThroughCellphone === 'true') ? false : true"
+              [onboarding]="true"
+              [responseISPS]="dataIsps"
+              (isChecked)="returnQuestionValue($event)">
+        </app-form-isps-step-four>
+      }
+    </swiper-slide>
   </swiper-container>
-</div>
+</div> -->
+
+<ion-content>
+  <app-forms-isps style="margin-top: 16px;" [onboarding]="true"></app-forms-isps>
+</ion-content>

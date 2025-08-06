@@ -15,6 +15,11 @@ import {
 } from 'src/app/services/interfaces/auth-service.interfaces';
 import { UserService } from 'src/app/services/user.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { concatMap, catchError, of, tap } from 'rxjs';
+import { ISPSService } from 'src/app/services/isps.service';
+import { UserStateService } from 'src/app/core/state/user-state.service';
+import { ISPSScore } from 'src/app/pages/tabs/interfaces/isps';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-wellness-onboarding',
@@ -32,86 +37,159 @@ import { UtilsService } from 'src/app/services/utils.service';
     MoodEnergyWellbeingComponent,
     EnergyConcentrationComponent,
     NutritionLifestyleComponent,
+    SharedModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WellnessOnboardingComponent {
-  @ViewChild('swiperContainer') swiperContainer!: ElementRef<{ swiper: Swiper }>;
-  progress = signal(0.33);
+  // @ViewChild('swiperContainer') swiperContainer!: ElementRef<{ swiper: Swiper }>;
+  // progress = signal(0.33);
 
-  private router = inject(Router);
-  private authService = inject(AuthService);
-  private userService = inject(UserService);
-  private utilsService = inject(UtilsService);
-  private postWellnessData: Partial<PostWellnessContent> = {};
+  // private router = inject(Router);
+  // private authService = inject(AuthService);
+  // private userService = inject(UserService);
+  // private utilsService = inject(UtilsService);
+  // private ispsService = inject(ISPSService);
+  // private userState = inject(UserStateService);
+  // tenantParameters = inject(UserStateService).tenantParameters;
+  // ispsData = signal<ISPSScore | null>(null);
 
-  ngAfterViewInit() {
-    if (this.swiperContainer.nativeElement) {
-      const swiperOptions: SwiperOptions = {
-        allowTouchMove: false,
-        observer: true,
-        observeSlideChildren: true,
-        observeParents: true,
-        loop: false,
-      };
+  // postWellnessData = signal<PostWellnessContent>({} as PostWellnessContent);
+  // loadISPS: boolean = false;
 
-      const swiperElementConstructor = this.swiperContainer.nativeElement as any;
-      Object.assign(swiperElementConstructor, swiperOptions);
-      swiperElementConstructor.initialize();
-    }
-  }
+  //   questionGestor: string = '';
+  //   messageThroughCellphone: any;
+  //   viewChoiceMessageThroughCellphone: boolean = true;
+  //   dataIsps: any
 
-  nextSlide() {
-    this.swiperContainer.nativeElement.swiper.slideNext();
-  }
+  // ngAfterViewInit() {
+  //   if (this.swiperContainer.nativeElement) {
+  //     const swiperOptions: SwiperOptions = {
+  //       allowTouchMove: false,
+  //       observer: true,
+  //       observeSlideChildren: true,
+  //       observeParents: true,
+  //       loop: false,
+  //     };
 
-  prevSlide() {
-    this.swiperContainer.nativeElement.swiper.slidePrev();
-  }
+  //     const swiperElementConstructor = this.swiperContainer.nativeElement as any;
+  //     Object.assign(swiperElementConstructor, swiperOptions);
+  //     swiperElementConstructor.initialize();
+  //   }
+  // }
 
-  onMoodEnergyWellbeingResponse(event: MoodEnergyWellbeingPostData) {
-    this.postWellnessData = { ...this.postWellnessData, ...event };
-    this.progress.set(0.66);
-    this.nextSlide();
-  }
+  // nextSlide() {
+  //   this.swiperContainer.nativeElement.swiper.slideNext();
+  // }
 
-  onEnergyConcentrationResponse(event: EnergyConcentrationPostData) {
-    this.postWellnessData = { ...this.postWellnessData, ...event };
-    this.progress.set(1);
-    this.nextSlide();
-  }
+  // prevSlide() {
+  //   this.swiperContainer.nativeElement.swiper.slidePrev();
+  // }
 
-  onNutritionLifestyleResponse(event: NutritionLifestylePostData) {
-    this.postWellnessData = { ...this.postWellnessData, ...event };
+  // onMoodEnergyWellbeingResponse(event: MoodEnergyWellbeingPostData) {
+  //   this.postWellnessData.update(prev => ({ ...prev, ...event }));
+  //   this.progress.set(0.66);
+  //   this.nextSlide();
+  // }
 
-    const completeWellnessData: PostWellnessContent = this.postWellnessData as PostWellnessContent;
+  // onEnergyConcentrationResponse(event: EnergyConcentrationPostData) {
+  //   this.postWellnessData.update(prev => ({ ...prev, ...event }));
+  //   this.progress.set(1);
+  //   this.nextSlide();
+  // }
 
-    this.authService.postWellnessContent(completeWellnessData).subscribe({
-      next: () => {
-        this.userService.postOnBoarding({ onboarded: true }).subscribe({
-          next: () => {
-            this.router.navigate(['/tabs/home']);
-          },
-          error: (error: any) => {
-            console.error('Error posting wellness content:', error);
-          },
-        });
-      },
-      error: (error: any) => {
-        console.error('Error posting wellness content:', error);
-      },
-    });
-  }
+  // onNutritionLifestyleResponse(event: NutritionLifestylePostData) {
+  //   this.postWellnessData.update(prev => ({ ...prev, ...event }));
 
-  onClickBack() {
-    if (this.progress() === 1) {
-      this.prevSlide();
-      this.progress.set(0.66);
-    } else if (this.progress() === 0.66) {
-      this.prevSlide();
-      this.progress.set(0.33);
-    } else {
-      this.utilsService.goBack();
-    }
-  }
+  //   const completeWellnessData: PostWellnessContent = this.postWellnessData();
+  //   this.authService
+  //     .postWellnessContent(completeWellnessData)
+  //     .pipe(
+  //       //TODO: descomentar cuando se terminen las pruebas
+  //       // concatMap(() =>
+  //       //   this.userService.postOnBoarding({ onboarded: true }).pipe(tap(res => this.userState.setUser(res)))
+  //       // ),
+  //       concatMap(() => this.ispsService.getISPSScore()),
+  //       catchError((error: any) => {
+  //         console.error('Error posting wellness content:', error);
+  //         return of(null);
+  //       })
+  //     )
+  //     .subscribe({
+  //       next: res => {
+  //         this.ispsData.set(res);
+  //         this.dataIsps = res;
+  //         this.setISPSData();
+  //         //TODO: el navigate se tiene que poner en un nuevo metodo cuando se postea si quiere contacto con el gestor o no
+  //         //* returnQuestionValue
+  //         // this.router.navigate(['/tabs/home'])
+  //       },
+  //       error: (error: any) => {
+  //         console.error('Error posting onboarding status:', error);
+  //       },
+  //     });
+  // }
+
+  // setISPSData() {
+  //   if(this.tenantParameters()){
+  //     this.messageThroughCellphone = this.tenantParameters()!.gestorWillContactYou ? this.tenantParameters()!.gestorWillContactYou : '';
+  //     if ((this.messageThroughCellphone === 'true' || this.messageThroughCellphone === 'false')) {
+  //         this.viewChoiceMessageThroughCellphone = false;
+  //     } else {
+  //         this.messageThroughCellphone = this.tenantParameters()!.gestorWillContactYou
+  //     }
+  //       this.loadISPS = true;
+  //       this.nextSlide();
+  //   }
+  // }
+
+  // returnQuestionValue(value: string) {
+  //   this.questionGestor = value
+  // }
+
+  // goHome() {
+  //   if (this.questionGestor === 'true' || this.questionGestor === 'false') {
+  //       const stepValue = this.questionGestor === 'true' ? true : false;
+  //       const data = {
+  //           messageThroughCellphone: stepValue
+  //       }
+  //       this.finish(data)
+  //   } else {
+  //       const data = {
+  //           messageThroughCellphone: false
+  //       }
+  //       this.finish(data)
+  //   }
+  // }
+
+  // finish(data: any) {
+  //   //TODO: agregar userId
+  //   // this.ispsService.patchIPSContent(this.user.id, data).subscribe(() => {
+  //   //   this.userService.postOnBoarding({ onboarded: true }).subscribe({
+  //   //     next: (res: any) => {
+  //   //       console.log(res);
+  //   //       this.router.navigate(['/tabs/home'])
+  //   //     },
+  //   //     error: (err) => {
+  //   //       console.error(err);
+  //   //     },
+  //   //     complete: () => {},
+  //   //   });
+  //   // });
+  //   // (err: Error) => {
+  //   //   console.error(err, 'Error al finalizar el indice de salud psicosocial');
+  //   // };
+  // }
+
+  // onClickBack() {
+  //   if (this.progress() === 1) {
+  //     this.prevSlide();
+  //     this.progress.set(0.66);
+  //   } else if (this.progress() === 0.66) {
+  //     this.prevSlide();
+  //     this.progress.set(0.33);
+  //   } else {
+  //     this.utilsService.goBack();
+  //   }
+  // }
 }

@@ -1,48 +1,47 @@
-
 <div class="content">
-  <p class="content-title">Hola {{nameUsername()}} ¡Gracias por tus respuestas!</p>
+  @if (nameUsername()) {
+    <p class="content-title">Hola {{nameUsername()}} ¡Gracias por tus respuestas!</p>
+  }
   <p class="content-subtitle">Te acercamos tus resultados. En una escala del 1 al 100, <span class="span">el menor valor es el recomendable.</span></p>
   <div class="card-score">
     <div class="circle-card">
       <p class="card-title">I-SPS</p>
       <div class="circle">
-        <app-isps-circle [score]="score"></app-isps-circle>
-      </div>
-      <div class="score">
-        <div class="title">{{responseISPS().umbral}}</div>
-        @if(!onboarding()){
-          <p class="text">{{responseISPS().descriptionTotalScore}}</p>
-          @if(responseISPS().suggestion){
-            <ng-container>
-              <p class="text suggestion">Sugerencia:</p>
-              <ul>
-                <li class="text">{{responseISPS().suggestion}}</li>
-              </ul>
-            </ng-container>
-          }
+        @if (score) {
+          <app-isps-circle [score]="score"></app-isps-circle>
         }
       </div>
+      @if(responseISPS().suggestion){
+        <div class="score">
+          <div class="title">{{responseISPS().umbral}}</div>
+          <p class="text">{{responseISPS().descriptionTotalScore}}</p>
+          <p class="text suggestion">Sugerencia:</p>
+          <ul>
+            <li class="text">{{responseISPS().suggestion}}</li>
+          </ul>
+        </div>
+      }
     </div>
   </div>
   @if(hiddenCardChoiceMessageThroughCellphone()){
     <div class="card-manager">
-      @if (viewChoiceMessageThroughCellphone()) {
-        <p class="title">¿Te gustaría que un Gestor de Bienestar y Calidad de Vida se contacte contigo?</p>
-        <form [formGroup]="formGestor" style="width: 100%;">
-          <ion-list class="">
-            <ion-radio-group formControlName="isChecked">
-              <ion-item class="no-border">
-                <span class="radio-label">Sí, me gustaría</span>
-                <ion-radio slot="start" value="true"></ion-radio>
-              </ion-item>
-              <ion-item class="no-border">
-                <span class="radio-label">No, gracias</span>
-                <ion-radio slot="start" value="false"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-list>
-        </form>
-      }
+        <ng-container *ngIf="viewChoiceMessageThroughCellphone">
+          <p class="title">¿Te gustaría que un Gestor de Bienestar y Calidad de Vida se contacte contigo?</p>
+          <form [formGroup]="formGestor" style="width: 100%;">
+              <ion-list class="">
+                <ion-radio-group formControlName="isChecked">
+                  <ion-item class="no-border">
+                    <span class="radio-label">Sí, me gustaría</span>
+                    <ion-radio slot="start" value="true"></ion-radio>
+                  </ion-item>
+                  <ion-item class="no-border">
+                    <span class="radio-label">No, gracias</span>
+                    <ion-radio slot="start" value="false"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list>
+          </form>
+        </ng-container>
     </div>
   }
   @if(!onboarding()){
@@ -66,7 +65,7 @@
               </div>
             }
           </ng-container>
-        }
+        }  
       </div>
     }
     @if(socialDimension){
@@ -116,5 +115,5 @@
       </div>
     }
   }
-
+ 
 </div>

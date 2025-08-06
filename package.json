@@ -33,6 +33,7 @@
     "lint": "ng lint",
     "copy:ios": "ionic build && npx cap copy ios",
     "android:stage": "ionic build --configuration stage && npx cap sync android",
+    "android:prod": "ionic build --configuration production && npx cap sync android",
     "ios:stage": "ionic build --configuration stage && npx cap sync ios",
     "prepare:firebase:dev": "node scripts/prepare-firebase.js dev",
     "prepare:firebase:prod": "node scripts/prepare-firebase.js prod",
