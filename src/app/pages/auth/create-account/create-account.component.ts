@@ -6,12 +6,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FloatingHelpComponent } from '../components/floating-help/floating-help.component';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { ServerErrorModalComponent } from 'src/app/src/app/pages/auth/onboarding/components/modals/server-error-modal/server-error-modal.component';
+import { ServerErrorModalComponent } from 'src/app/pages/auth/components/server-error-modal/server-error-modal.component';
 import {
   CreateSuccessModalComponent,
   SuccessModalData, 
 } from '../components/create-success-modal/create-success-modal.component';
 import { UserStateService } from 'src/app/core/state/user-state.service';
+import { ModalOptions } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-account',
@@ -53,7 +54,13 @@ export class CreateAccountComponent {
       error: err => {
         this.loading()?.dismiss();
         if (err.status === 409 || err.status === 500) {
-          this.utils.presentModal(ServerErrorModalComponent);
+          const modalOptions: ModalOptions = {
+            component: ServerErrorModalComponent,
+            initialBreakpoint: 1,
+            showBackdrop: true,
+            cssClass: 'custom-modal',
+          };
+          this.utils.presentModalWithOptions(modalOptions);
         }
         console.error('error get tenant code', err);
       },
@@ -82,7 +89,13 @@ export class CreateAccountComponent {
       error: err => {
         console.error(err);
         if (err.status === 409 || err.status === 500) {
-          this.utils.presentModal(ServerErrorModalComponent);
+          const modalOptions: ModalOptions = {
+            component: ServerErrorModalComponent,
+            initialBreakpoint: 1,
+            showBackdrop: true,
+            cssClass: 'custom-modal',
+          };
+          this.utils.presentModalWithOptions(modalOptions);
         }
       },
     });

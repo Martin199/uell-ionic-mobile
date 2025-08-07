@@ -20,7 +20,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { ContactFormBody } from 'src/app/services/interfaces/auth-service.interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { CreateSuccessModalComponent } from '../components/create-success-modal/create-success-modal.component';
-import { ServerErrorModalComponent } from 'src/app/src/app/pages/auth/onboarding/components/modals/server-error-modal/server-error-modal.component';
+import { ServerErrorModalComponent } from 'src/app/pages/auth/components/server-error-modal/server-error-modal.component';
 import { ModalOptions } from '@ionic/angular';
 
 @Component({
@@ -84,7 +84,9 @@ export class SupportComponent {
             component: CreateSuccessModalComponent,
             componentProps: {
               type: 'success support',
-              text: `Gracias por contactarte. En breve recibirás una respuesta al correo <strong>${this.form.get('email')?.value}</strong>.`,
+              text: `Gracias por contactarte. En breve recibirás una respuesta al correo <strong>${
+                this.form.get('email')?.value
+              }</strong>.`,
               title: 'Tu solicitud fue enviada',
               image: 'assets/login/email.svg',
               button: 'login',
@@ -95,7 +97,13 @@ export class SupportComponent {
         },
         error: err => {
           console.error(err);
-          if (err.status === 409 || err.status === 500) this.utilService.presentModal(ServerErrorModalComponent);
+          const modalOptions: ModalOptions = {
+            component: ServerErrorModalComponent,
+            initialBreakpoint: 1,
+            showBackdrop: true,
+            cssClass: 'custom-modal',
+          };
+          this.utilService.presentModalWithOptions(modalOptions);
         },
       });
     } else {

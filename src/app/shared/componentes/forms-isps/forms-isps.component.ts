@@ -224,7 +224,7 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
     }
 
     finish(data: any) {
-        this.ispsService.patchIPSContent(this.user.id, data).subscribe(() => {
+        this.ispsService.patchIPSContent( data ).subscribe(() => {
             // this.toastMessage=this.translatesISPS.thanks
             // this.utilsService.modalCtrl.dismiss({ updated: true });
             this.userService.postOnBoarding({ onboarded: true }).subscribe({
