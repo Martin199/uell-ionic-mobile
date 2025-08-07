@@ -7,10 +7,11 @@ import Swiper from 'swiper';
 import type { SwiperOptions } from 'swiper/types';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { ServerErrorModalComponent } from 'src/app/src/app/pages/auth/onboarding/components/modals/server-error-modal/server-error-modal.component';
+import { ServerErrorModalComponent } from 'src/app/pages/auth/components/server-error-modal/server-error-modal.component';
 import { UtilsService } from 'src/app/services/utils.service';
 import { UserStateService } from 'src/app/core/state/user-state.service';
 import { time } from 'ionicons/icons';
+import { ModalOptions } from '@ionic/angular';
 
 @Component({
   selector: 'app-clinical-history-onboarding',
@@ -88,7 +89,13 @@ export class ClinicalHistoryOnboardingComponent {
       error: error => {
         // loading.dismiss();
         if (error.status === 409 || error.status === 500) {
-          this.utils.presentModal(ServerErrorModalComponent);
+          const modalOptions: ModalOptions = {
+            component: ServerErrorModalComponent,
+            initialBreakpoint: 1,
+            showBackdrop: true,
+            cssClass: 'custom-modal',
+          };
+          this.utils.presentModalWithOptions(modalOptions);
         }
         console.error('Error posting completeness medical information:', error);
       },
@@ -116,7 +123,13 @@ export class ClinicalHistoryOnboardingComponent {
       error: error => {
         // loading.dismiss();
         if (error.status === 409 || error.status === 500) {
-          this.utils.presentModal(ServerErrorModalComponent);
+          const modalOptions: ModalOptions = {
+            component: ServerErrorModalComponent,
+            initialBreakpoint: 1,
+            showBackdrop: true,
+            cssClass: 'custom-modal',
+          };
+          this.utils.presentModalWithOptions(modalOptions);
         }
         console.error('Error posting medical diseases:', error);
       },
@@ -124,9 +137,9 @@ export class ClinicalHistoryOnboardingComponent {
   }
 
   public async postOnboarding() {
-    const body = {onboarded: true};
+    const body = { onboarded: true };
     this.userService.postOnBoarding(body).subscribe(() => {
-        this.utils.navigateTo('/tabs/home');
+      this.utils.navigateTo('/tabs/home');
     });
   }
 

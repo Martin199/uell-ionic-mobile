@@ -13,7 +13,6 @@ export class ISPSService {
   private userState = inject(UserStateService);
 
   getISPSScore(): Observable<ISPSScore> {
-    console.log('getISPSScore');
     return this.httpClientService.get<ISPSScore>(
       `${environment.apiBaseUrl}${environment.apiVersion}/psico-health/getIsIspDone/${this.userState.userData()?.id}`
     );
@@ -38,9 +37,10 @@ export class ISPSService {
     );
   }
 
-  public patchIPSContent(idUser: number, data: any): Observable<any> {
+  public patchIPSContent(data: any): Observable<any> {
+    const userID = this.userState.userData()?.id;
     return this.httpClientService.patch(
-      `${environment.apiBaseUrl}${environment.apiVersion}/psico-health/${idUser}`,
+      `${environment.apiBaseUrl}${environment.apiVersion}/psico-health/${userID}`,
       data
     );
   }

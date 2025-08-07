@@ -8,11 +8,11 @@
       </ion-card-header>
       <ion-card-content class="content-layout">
         @for (opciones of firstCard; track opciones; let i = $index) {
-          <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['first'] === i }"
-              (click)="selectOption(i, 'first')">
-              <ion-label class="ion-text-start value" [ngClass]="{'disabled': disabledOption(i)}">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['first'] === i"
-                  src="assets/nutrition/check_circle.svg"></ion-icon>
+        <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['first'] === i }" (click)="selectOption(i, 'first')">
+          <ion-label class="ion-text-start value" [ngClass]="{ disabled: disabledOption(i) }">{{ opciones }}</ion-label>
+          @if (selectedIndexes['first'] === i) {
+          <ion-icon src="assets/nutrition/check_circle.svg"></ion-icon>
+          }
           </div>
         }
       </ion-card-content>

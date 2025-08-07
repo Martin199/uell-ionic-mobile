@@ -27,36 +27,42 @@
       </div>
     </div>
 
-    <div class="card" [ngClass]="{'hasSelect': stepPreference}" [class.disabled]="!stepFeeding">
-        <div class="layout" (click)="goToPreference('steps-preference')">
-            <div>
-                <div class="content-card-icon">
-                    <ion-label class="title-card">Etapa 2 <ion-label *ngIf="stepPreference">- Completada</ion-label> </ion-label>
-                    
-                </div>
-                <div class="content-card-icon">
-                    <ion-label class="sub-text">Preferencias</ion-label>
-                </div>
-            </div>
-            <div>
-                <div class="icons-column">
-                    <ion-icon *ngIf="stepPreference" src="assets/nutrition/check_circle.svg"></ion-icon>
-                    <ion-icon src="assets/nutrition/chevron-icon.svg"></ion-icon>
-                </div>
-            </div>
+    <div class="card" [ngClass]="{ hasSelect: stepPreference }" [class.disabled]="!stepFeeding">
+      <div class="layout" (click)="goToPreference('steps-preference')">
+        <div>
+          <div class="content-card-icon">
+            <ion-label class="title-card"
+              >Etapa 2 @if (stepPreference) {
+              <ion-label>- Completada</ion-label>
+              }
+            </ion-label>
+          </div>
+          <div class="content-card-icon">
+            <ion-label class="sub-text">Preferencias</ion-label>
+          </div>
+        </div>
+        <div>
+          <div class="icons-column">
+            @if (stepPreference) {
+            <ion-icon src="assets/nutrition/check_circle.svg"></ion-icon>
+            }
+            <ion-icon src="assets/chevron-icon.svg"></ion-icon>
+          </div>
         </div>
       </div>
     </div>
-
+  </div>
 </ion-content>
 
 @if (stepPreference && stepFeeding) {
-  <ion-footer class="ion-no-border">
-    <ion-toolbar class="ion-padding toolbar-center ion-text-center">
-        <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round">
-            <ion-label [ngClass]="{'invisible-label': isLoading}">Ver mis resultados</ion-label>
-            <ion-spinner name="crescent" *ngIf="isLoading" class="spinner-center"></ion-spinner>
-        </ion-button>
-    </ion-toolbar>
-  </ion-footer>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-padding toolbar-center ion-text-center">
+    <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round">
+      <ion-label [ngClass]="{ 'invisible-label': isLoading }">Ver mis resultados</ion-label>
+      @if(isLoading){
+      <ion-spinner name="crescent" class="spinner-center"></ion-spinner>
+      }
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
 }
