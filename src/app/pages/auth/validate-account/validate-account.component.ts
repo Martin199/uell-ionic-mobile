@@ -36,7 +36,7 @@ export class ValidateAccountComponent {
   branding = this.userStateService.branding;
   error = signal<number>(0);
   form = this.formBuilder.group({
-    cuil: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+    cuil: [null, [Validators.required, Validators.maxLength(20)]],
     code: [null, [Validators.required]],
   });
 
@@ -50,13 +50,13 @@ export class ValidateAccountComponent {
       next: res => {
         this.error.update(value => value + 1);
         loading.dismiss();
-        if (res.code === "2001") {
+        if (res.code === '2001') {
           this.presentModal('error');
-        } else if (res.code === "2002" || res.code === "2003") {
+        } else if (res.code === '2002' || res.code === '2003') {
           this.presentModal('contact support');
-        } else if (res.code === "201") {
+        } else if (res.code === '201') {
           this.presentModal('success account');
-        } else if (res.code === "2004") {
+        } else if (res.code === '2004') {
           this.presentModal('user exists');
         } else if (this.error() === 3) {
           this.presentModal('error');
