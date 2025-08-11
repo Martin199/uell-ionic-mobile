@@ -1,6 +1,6 @@
 import { Component, input, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { addIcons } from "ionicons";
+import { addIcons } from 'ionicons';
 import * as allIonicons from 'ionicons/icons';
 
 @Component({
@@ -56,7 +56,7 @@ export class CustomInputComponent implements OnInit {
     }
 
     // If this is a phone field, filter to allow only numbers, spaces, and +
-    if (this.type === 'tel' || this.label === 'Teléfono') {
+    if (this.type === 'tel' || this.label === 'Teléfono' || this.label === 'Usuario') {
       const filteredValue = value.replace(/[^0-9\s+]/g, '');
 
       if (value !== filteredValue) {
@@ -93,6 +93,8 @@ export class CustomInputComponent implements OnInit {
         case 'pattern':
           if (this.type === 'tel' || this.label === 'Teléfono') {
             return 'Este campo solo permite números, espacios y el símbolo +';
+          } else if (this.label === 'Usuario') {
+            return 'Este campo solo permite números';
           }
           return 'Este campo solo permite letras y espacios';
         default:

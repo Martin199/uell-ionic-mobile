@@ -55,8 +55,8 @@ export class SupportComponent {
   form = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validationPattern)]],
     surname: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(this.validationPattern)]],
-    cuil: ['', [Validators.required, Validators.maxLength(15)]],
-    email: ['', [Validators.required, Validators.email]],
+    cuil: ['', [Validators.required, Validators.maxLength(20)]],
+    email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
     telephone: ['', [Validators.pattern(this.phoneValidationPattern), Validators.maxLength(15)]],
     motive: ['', Validators.required],
     comentary: [''],
@@ -70,13 +70,13 @@ export class SupportComponent {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       const body: ContactFormBody = {
-        name: this.form.value.name || '',
-        surname: this.form.value.surname || '',
-        cuil: this.form.value.cuil || '',
-        email: this.form.value.email || '',
-        phone: this.form.value.telephone || '',
-        motive: this.form.value.motive || '',
-        comentary: this.form.value.comentary || '',
+        name: this.form.value.name!,
+        surname: this.form.value.surname!,
+        cuil: this.form.value.cuil!,
+        email: this.form.value.email!,
+        phone: this.form.value.telephone!,
+        motive: this.form.value.motive!,
+        comentary: this.form.value.comentary || null,
       };
       this.authService.postSupportContact(body).subscribe({
         next: () => {

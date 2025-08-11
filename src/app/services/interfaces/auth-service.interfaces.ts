@@ -12,7 +12,7 @@ export interface ContactFormBody {
   email: string;
   phone: string;
   motive: string;
-  comentary?: string;
+  comentary?: string | null;
 }
 
 export interface PostWellnessContent {
