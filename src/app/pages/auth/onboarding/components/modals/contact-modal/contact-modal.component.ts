@@ -1,13 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ModalController, IonContent, IonSelectOption, IonLabel } from '@ionic/angular/standalone';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { OnBoardingContactPatch, TelephoneNumber } from '../../../interfaces';
 import { UserStateService } from 'src/app/core/state/user-state.service';
-import { UserService } from 'src/app/services/user.service';
 import { IonSelect } from '@ionic/angular/standalone';
 import { baseNumberCountry, PhoneValidations } from '../../../const/my-profile-fields';
+import { existingEmailValidator } from 'src/validators/validator-existing-email.directive';
+import { UserService } from 'src/app/services/user.service';
 
 export interface ContactModalData {
   email: string;
@@ -46,17 +47,28 @@ export class ContactModalComponent implements OnInit {
   private userStateService = inject(UserStateService);
   private userService = inject(UserService);
 
-  // Properties to receive data from componentProps
   email: string = '';
   phone: TelephoneNumber | null = null;
   countryCodes: CountryCode[] = [];
-  selectedCountryValidations: PhoneValidations | null = null;
+  selectedCountry = signal<CountryCode | null>(null);
 
   contactForm = this.formBuilder.group({
-    email: [this.userStateService.userData()?.email, [Validators.required, Validators.email]],
-    phoneNumber: [this.userStateService.userData()?.cellphoneNumber.phoneNumber, [Validators.required]],
-    countryCode: [this.userStateService.userData()?.cellphoneNumber.countryCode, [Validators.required]],
-    areaCode: [this.userStateService.userData()?.cellphoneNumber.areaCode, [Validators.required]],
+    email: this.formBuilder.control<string>(this.userStateService.userData()?.email ?? '', {
+      validators: [Validators.required, Validators.email, Validators.maxLength(50)],
+      asyncValidators: [existingEmailValidator(this.userService, this.userStateService.userData()?.email ?? '')],
+    }),
+    phoneNumber: this.formBuilder.control<string>(this.userStateService.userData()?.cellphoneNumber.phoneNumber ?? '', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    countryCode: this.formBuilder.control<string>(this.userStateService.userData()?.cellphoneNumber.countryCode ?? '', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    areaCode: this.formBuilder.control<string>(this.userStateService.userData()?.cellphoneNumber.areaCode ?? '', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
   });
 
   ngOnInit() {
@@ -69,6 +81,10 @@ export class ContactModalComponent implements OnInit {
     this.contactForm.get('countryCode')?.valueChanges.subscribe(countryCode => {
       if (countryCode) {
         this.updateValidationsForCountry(countryCode);
+        this.contactForm.patchValue({
+          phoneNumber: '',
+          areaCode: '',
+        });
       }
     });
   }
@@ -78,7 +94,7 @@ export class ContactModalComponent implements OnInit {
     this.countryCodes = Object.entries(countryValidations).map(([countryName, validations]) => ({
       value: validations.phoneValidations?.code.prefix || '',
       label: countryName,
-      prefix: validations.phoneValidations?.code.prefix || '',
+      prefix: validations.phoneValidations?.code.prefix === '0' ? 'Otros' : validations.phoneValidations?.code.prefix,
       id: validations.countryCode || 0,
       validations: validations.phoneValidations || {
         code: { prefix: '', minLength: 1, maxLength: 4 },
@@ -88,31 +104,51 @@ export class ContactModalComponent implements OnInit {
   }
 
   private updateValidationsForCountry(countryCode: string) {
-    const selectedCountry = this.countryCodes.find(country => country.prefix === countryCode);
-    if (selectedCountry) {
-      this.selectedCountryValidations = selectedCountry.validations;
+    const selectedCountry = this.countryCodes.find(country => country.value === countryCode);
+    if (!selectedCountry) {
+      console.error('No se encontró el país');
+      return;
+    }
+    const digitPattern = /^[0-9]+$/;
+    this.selectedCountry.set(selectedCountry);
 
-      // Update phone number validations
-      const phoneNumberControl = this.contactForm.get('phoneNumber');
-      if (phoneNumberControl) {
-        const validations = selectedCountry.validations.phoneNumber;
-        const pattern = new RegExp(`^\\+?[\\d\\s\\-\\(\\)]{${validations.minLength},${validations.maxLength}}$`);
+    // Update phone number validations
+    const phoneNumberControl = this.contactForm.get('phoneNumber');
+    if (phoneNumberControl) {
+      const validations = selectedCountry.validations.phoneNumber;
 
-        phoneNumberControl.setValidators([Validators.required, Validators.pattern(pattern)]);
-        phoneNumberControl.updateValueAndValidity();
-      }
+      // Create a more specific pattern based on the country's requirements
+      phoneNumberControl.setValidators([
+        Validators.required,
+        Validators.pattern(digitPattern),
+        Validators.minLength(validations.minLength),
+        Validators.maxLength(validations.maxLength),
+      ]);
+      phoneNumberControl.updateValueAndValidity();
+    }
 
-      // Update area code validations
-      const areaCodeControl = this.contactForm.get('areaCode');
-      if (areaCodeControl && selectedCountry.validations.area) {
+    // Update area code validations
+    const areaCodeControl = this.contactForm.get('areaCode');
+    if (areaCodeControl) {
+      if (selectedCountry.validations.area) {
         const areaValidations = selectedCountry.validations.area;
-        if (areaValidations.required) {
-          areaCodeControl.setValidators([Validators.required]);
-        } else {
-          areaCodeControl.clearValidators();
-        }
-        areaCodeControl.updateValueAndValidity();
+        const validators = [];
+
+        if (areaValidations.required) validators.push(Validators.required);
+
+        if (areaValidations.minLength) validators.push(Validators.minLength(areaValidations.minLength));
+
+        if (areaValidations.maxLength) validators.push(Validators.maxLength(areaValidations.maxLength));
+        else validators.push(Validators.maxLength(15));
+
+        // Add pattern validation for area code (only digits)
+        validators.push(Validators.pattern(digitPattern));
+
+        areaCodeControl.setValidators(validators);
+      } else {
+        areaCodeControl.clearValidators();
       }
+      areaCodeControl.updateValueAndValidity();
     }
   }
 
@@ -121,32 +157,21 @@ export class ContactModalComponent implements OnInit {
   }
 
   isAreaCodeRequired(): boolean {
-    const required = this.selectedCountryValidations?.area?.required || false;
-    if (!required) {
-      this.contactForm.get('areaCode')?.setValue(null);
-      this.contactForm.get('areaCode')?.clearValidators();
-      this.contactForm.get('areaCode')?.updateValueAndValidity();
-    }
-
-    if (required) {
-      this.contactForm.get('areaCode')?.setValidators([Validators.required]);
-      this.contactForm.get('areaCode')?.updateValueAndValidity();
-    }
-    return required;
+    return this.selectedCountry()?.validations.area?.required || false;
   }
 
   onSubmit() {
     this.contactForm.markAllAsTouched();
     if (this.contactForm.valid) {
-      const selectedCountry = this.countryCodes.find(country => country.prefix === this.contactForm.value.countryCode);
+      const telephoneId = this.userStateService.userData()!.cellphoneNumber.id;
       const telephoneNumber: TelephoneNumber = {
-        countryCode: this.contactForm.value.countryCode || '',
-        areaCode: this.contactForm.value.areaCode || '',
-        phoneNumber: this.contactForm.value.phoneNumber || '',
-        id: selectedCountry?.id?.toString() || null,
+        countryCode: this.contactForm.value.countryCode!,
+        areaCode: this.contactForm.value.areaCode || null,
+        phoneNumber: this.contactForm.value.phoneNumber!,
+        id: telephoneId,
       };
       const body: OnBoardingContactPatch = {
-        email: this.contactForm.value.email || '',
+        email: this.contactForm.value.email!,
         cellphoneNumber: telephoneNumber,
         telephoneNumber: telephoneNumber,
       };
