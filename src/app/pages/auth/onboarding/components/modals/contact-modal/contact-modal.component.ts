@@ -138,12 +138,12 @@ export class ContactModalComponent implements OnInit {
   onSubmit() {
     this.contactForm.markAllAsTouched();
     if (this.contactForm.valid) {
-      const selectedCountry = this.countryCodes.find(country => country.prefix === this.contactForm.value.countryCode);
+      const cellphoneNumberId = this.userStateService.userData()?.cellphoneNumber.id;
       const telephoneNumber: TelephoneNumber = {
         countryCode: this.contactForm.value.countryCode || '',
         areaCode: this.contactForm.value.areaCode || '',
         phoneNumber: this.contactForm.value.phoneNumber || '',
-        id: selectedCountry?.id?.toString() || null,
+        id: cellphoneNumberId!,
       };
       const body: OnBoardingContactPatch = {
         email: this.contactForm.value.email || '',

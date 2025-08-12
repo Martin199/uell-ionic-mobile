@@ -94,7 +94,7 @@ export interface TelephoneNumber {
   countryCode: string | null;
   areaCode: string | null;
   phoneNumber: string | null;
-  id: string | null;
+  id: number;
 }
 
 export interface Localidad {
