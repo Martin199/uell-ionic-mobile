@@ -1,0 +1,20 @@
+<div class="content">
+  <ion-label>{{ label() }}</ion-label>
+  <div class="individual-input-group" role="group" [attr.aria-label]="'Enter ' + digits() + ' digit verification code'">
+    @for (digit of digitsArray(); track digit) {
+    <ion-input
+      type="tel"
+      #input
+      fill="outline"
+      [class.padding-right]="digit + 1 == digits() / 2"
+      class="input"
+      [attr.aria-label]="'Digit ' + (digit + 1) + ' of ' + digits()"
+      inputmode="numeric"
+      maxlength="1"
+      (ionFocus)="onFocus(digit)"
+      (ionInput)="onInput($event, digit)"
+      (keydown)="onKeyDown($event, digit)"
+    ></ion-input>
+    }
+  </div>
+</div>

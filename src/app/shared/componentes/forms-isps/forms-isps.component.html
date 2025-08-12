@@ -1,27 +1,43 @@
-<ion-header>
-  <ion-toolbar class="stepper">
-    <ion-title>Paso {{ onboarding ? step : step - 1 }} de {{ onboarding ? totalSteps : totalSteps - 1 }}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button  class="btnClose" (click)="closeModal()">
-        @if(!onboarding){
-          <ion-icon name="close" slot="icon-only"></ion-icon>
+<!-- <ion-header>
+  <ion-toolbar class="stepper"> -->
+    @if(onboarding){
+      <div class="onb-header">
+        @if(step === 1){
+          <ion-icon slot="start" name="arrow-back-outline" size="large" (click)="returnHHCCorMyProfile()"></ion-icon>
         }
-      </ion-button>
-    </ion-buttons>
-    <div class="mb">
-      <p class="title">
-        Índice de salud Psicosocial(I-SPS)
-      </p>
-    </div>
+        @if(step !== 1 && step!== 5){
+          <ion-icon slot="start" name="arrow-back-outline" size="large" (click)="goBack()"></ion-icon>
+        }
+        <p class="onb-title">Bienestar</p>
+        <p class="onb-sub-title">Responde considerando los últimos tres meses.</p>
+      </div>
+    } @else {
+      <ion-title>Paso {{ onboarding ? step : step - 1 }} de {{ onboarding ? totalSteps : totalSteps - 1 }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button  class="btnClose" (click)="closeModal()">
+          <ion-icon name="close" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <div class="mb">
+        <p class="title">
+          Índice de salud Psicosocial(I-SPS)
+        </p>
+      </div>
+    }
     <ion-progress-bar class="ion-margin-top" [value]="progress"></ion-progress-bar>
-  </ion-toolbar>
-</ion-header>
+  <!-- </ion-toolbar>
+</ion-header> -->
 
-<ion-content [fullscreen]="true" #content>
+<ion-content #content>
   <swiper-container #swiperContainer>
     @if(onboarding){
       <swiper-slide>
-        <app-form-isps-introduction></app-form-isps-introduction>
+        <div class="fist-step">
+          <app-form-isps-introduction></app-form-isps-introduction>
+          <ion-button expand="block" shape="round" type="submit" class="submit-btn footer-btn" [disabled]="!validStep" (click)="nextSlide()">
+            {{returnDescriptionBtn()}}
+          </ion-button>
+        </div>
       </swiper-slide>
     }
     <swiper-slide>
@@ -33,18 +49,27 @@
     <swiper-slide>
       <app-form-isps-step-three (validForm)="updateValidStep($event)" (returnThirdStep)="returnThirdStep($event)"></app-form-isps-step-three>
     </swiper-slide>
-    <swiper-slide *ngIf="((onboarding===true && questionGestor === null) || onboarding===false)">
-      <!-- Resultados -->
-      <ion-spinner *ngIf="!dataIsps"></ion-spinner>
-      @if(dataIsps){
-        <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
-        [hiddenCardChoiceMessageThroughCellphone]="(messageThroughCellphone === 'false' || messageThroughCellphone === 'true') ? false : true"
-        [onboarding]="onboarding"
-         (isChecked)="returnQuestionValue($event)" 
-         [responseISPS]="dataIsps">
-        </app-form-isps-step-four>
-      }
-    </swiper-slide>
+    <!-- @if (((onboarding===true && questionGestor === null) || onboarding===false)) { -->
+      <swiper-slide>
+        <!-- Resultados -->
+        @if (!dataIsps) {
+          <ion-spinner></ion-spinner>
+        }
+        @if(dataIsps){
+          <div class="step-result-onb">
+            <app-form-isps-step-four [viewChoiceMessageThroughCellphone]="viewChoiceMessageThroughCellphone"
+              [hiddenCardChoiceMessageThroughCellphone]="(messageThroughCellphone === 'false' || messageThroughCellphone === 'true') ? false : true"
+              [onboarding]="onboarding"
+              (isChecked)="returnQuestionValue($event)"
+              [responseISPS]="dataIsps">
+            </app-form-isps-step-four>
+            @if (step === 5 && onboarding) {
+              <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn btn-result-onb" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>
+            }
+          </div>
+        }
+      </swiper-slide>
+    <!-- } -->
 
   </swiper-container>
 </ion-content>
@@ -56,16 +81,19 @@
       @if((step !== 5 && step !== 2) && !onboarding){
         <ion-button @slideOut fill="outline" shape="round" class="ion-margin-end footer-btn-back" (click)="goBack()"> Volver </ion-button>
       }
-      @if(step === 1 && onboarding){
-        <ion-button @slideOut fill="outline" shape="round" class="ion-margin-end footer-btn-back" (click)="closeModal()"> Volver </ion-button>
+      <!-- @if(step === 1 && onboarding){
+        <ion-button @slideOut fill="outline" shape="round" class="ion-margin-end footer-btn-back" (click)="returnHHCCorMyProfile()"> Volver </ion-button>
       }
-      @if(step !== 5){
+      @if(step !== 1 && onboarding){
+        <ion-button @slideOut fill="outline" shape="round" class="ion-margin-end footer-btn-back" (click)="goBack()"> Volver </ion-button>
+      } -->
+      @if(step !== 5 && step !== 1){
         <ion-button expand="block" shape="round" type="submit" class="submit-btn footer-btn" [disabled]="!validStep" (click)="nextSlide()">
           {{returnDescriptionBtn()}}
         </ion-button>
       }
-      @if(step === 5){
-        <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>   
+      @if(step === 5 && !onboarding){
+        <ion-button fill="solid" shape="round" [disabled]="invalidLastStep" class="submit-btn footer-btn" (click)="saveAndFinish()">{{returnDescriptionBtn()}}</ion-button>
       }
     </ion-buttons>
     <ion-toast

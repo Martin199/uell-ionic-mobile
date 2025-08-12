@@ -4,7 +4,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { PreferencesRestrictionsDTO } from '../../const/preference-interfaces';
 import { StorageService } from 'src/app/services/storage.service';
 import { DietPreferences } from '../../../stages-feeding/const/feeding-const';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StagesService } from '../../../services/stages.service';
 
@@ -13,7 +13,7 @@ import { StagesService } from '../../../services/stages.service';
   templateUrl: './step-two-preference.component.html',
   styleUrls: ['./step-two-preference.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgClass, NgFor],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepTwoPreferenceComponent  implements OnInit {
@@ -29,7 +29,7 @@ export class StepTwoPreferenceComponent  implements OnInit {
   step = 0;
   hasSelect: boolean = false;
   firstFeedingForm!: FormGroup;
-  firstCard: any = Object.values(this.utilsService.getLocalizationByPath('nutrition', 'step-preference-feeding'));
+  firstCard: any[] = Object.values(this.utilsService.getLocalizationByPath('nutrition', 'step-preference-feeding'));
   questionPreferenceFeeding: any = Object.values(this.utilsService.getLocalizationByPath('nutrition', 'questionPreferenceFeeding'));
   drinksWaterAndInfusions: boolean = false;
   dailyWaterIntake: boolean = false;

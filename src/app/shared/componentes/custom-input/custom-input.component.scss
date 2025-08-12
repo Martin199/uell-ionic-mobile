@@ -1,3 +1,16 @@
+.label-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.1rem;
+}
+
+.info-icon {
+    color: var(--ion-color-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
 .label-input {
     color: var(--Neutral-GreyDark, #383E52);
     font-family: 'Inter', sans-serif;
@@ -36,4 +49,38 @@
 
 .error-placeholder{
     height: 25px;
+}
+
+.login-label{
+    color: var(--Neutral-GreyDark, #383E52);
+
+    /* Comment C1/Regular */
+    font-family: 'Inter';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.048px;
+}
+
+.popover-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10rem;
+    color: var(--Neutral-GreyDark, #383E52);
+    font-family: 'Inter';
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1rem; /* 133.333% */
+    letter-spacing: 0.048px;
+    background-color: var(--Neutral-GreyLight, #E5E5E5);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.ion-content{
+  --border-radius: 5rem;
+
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { AnimationController } from '@ionic/angular/standalone';
@@ -17,7 +17,6 @@ import { UserStateService } from 'src/app/core/state/user-state.service';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 
- 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
@@ -40,17 +39,17 @@ import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
   ],
   standalone: false,
 })
-export class AuthPage implements OnInit{
+export class AuthPage implements OnInit {
   @ViewChild('userContainer', { static: true }) userContainer!: ElementRef;
   @ViewChild('passwordContainer', { static: true })
   passwordContainer!: ElementRef;
   @ViewChild('buttonContainer', { static: true }) buttonContainer!: ElementRef;
- 
+
   formAuth = new FormGroup({
     cuil: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
- 
+
   animationCtrl = inject(AnimationController);
   cognitoService = inject(CognitoService);
   userService = inject(UserService);
@@ -58,16 +57,20 @@ export class AuthPage implements OnInit{
   storageService = inject(StorageService);
   trackingService = inject(TrackingService);
   private userState = inject(UserStateService);
- 
+
   version = environment?.version;
   env = environment?.env;
   private readonly sessionService = inject(SessionServiceService);
-  supportEmail = 'soporte@uell.ai';
- 
-  userDTO!: UserResponseDTO;
-  hasMultipleTenants!: boolean;
-   ngOnInit(): void {
+
+  hasMultipleTenants = computed(() => {
+    const user = this.userState.userData();
+    if (!user) return false;
+    return user.tenant.length > 1;
+  });
+
+  ngOnInit(): void {
     this.statusBarColor();
+    this.userState.logout();
   }
 
   statusBarColor() {
@@ -81,50 +84,47 @@ export class AuthPage implements OnInit{
     if (this.formAuth.invalid) {
       return;
     }
- 
+
     const { cuil, password } = this.formAuth.value;
     const loading = await this.utilsService.loading();
     await loading.present();
- 
+
     try {
       const result = await this.cognitoService.signIn(cuil as string, password as string);
- 
+
       if (result) {
         if (result.type === 'passwordChange') {
           this.utilsService.navCtrl.navigateRoot(['auth/create-new-password']);
           loading.dismiss();
           return;
         }
- 
+
         this.storageService.saveToken();
         this.userState.setToken();
- 
+
         this.userService
           .getMe()
           .pipe(
             tap((user: UserResponseDTO) => {
               this.storageService.setSessionStorage('user', user);
-              this.userDTO = user;
-              this.hasMultipleTenants = user.tenant.length > 1;
- 
-              if (!this.hasMultipleTenants) {
+              if (!this.hasMultipleTenants()) {
                 this.userState.setTenant(user.tenant[0]);
                 this.storageService.setLocalStorage('tenant', user.tenant[0]);
               }
             }),
-            switchMap((user) => {
-              if (!this.hasMultipleTenants) {
-                return new Promise<typeof user>((resolve) => setTimeout(() => resolve(user), 0));
+            switchMap(user => {
+              if (!this.hasMultipleTenants()) {
+                return new Promise<typeof user>(resolve => setTimeout(() => resolve(user), 0));
               }
               return Promise.resolve(user);
             }),
-            switchMap((user) =>
+            switchMap(user =>
               forkJoin({
                 tenantParameters: this.userService.getTenantParameters(),
                 userTenants: this.userService.getUserTenants(),
                 allSegmentation: this.userService.getAllSegmentation(),
               }).pipe(
-                map((result) => ({
+                map(result => ({
                   ...result,
                   user,
                 }))
@@ -135,12 +135,12 @@ export class AuthPage implements OnInit{
             next: ({ tenantParameters, userTenants, allSegmentation, user }) => {
               this.storageService.setSessionStorage('tenantParameters', tenantParameters);
               this.trackingService.trackingUser(user.id.toString(), 'LOGIN').subscribe();
- 
-              if (this.hasMultipleTenants) {
+
+              if (this.hasMultipleTenants()) {
                 this.utilsService.router.navigate(['/auth/select-tenants']);
               } else {
                 this.userState.setTenant(user.tenant[0]);
- 
+
                 if (user.onboarded) {
                   this.utilsService.router.navigateByUrl('tabs/home');
                 } else {
@@ -148,7 +148,7 @@ export class AuthPage implements OnInit{
                 }
               }
               if (Capacitor.isNativePlatform()) {
-                PushNotifications.checkPermissions().then((result) => {
+                PushNotifications.checkPermissions().then(result => {
                   if (result.receive === 'granted') {
                     this.sessionService.handleSession();
                   }
@@ -156,7 +156,7 @@ export class AuthPage implements OnInit{
               }
               loading.dismiss();
             },
-            error: (error) => {
+            error: error => {
               console.error('Error al obtener usuario o datos adicionales:', error);
               loading.dismiss();
             },
@@ -168,7 +168,7 @@ export class AuthPage implements OnInit{
       loading.dismiss();
     }
   }
- 
+
   termsAndConditions(user: UserResponseDTO) {
     this.userService.termsAndConditions(user?.id).subscribe((res: any) => {
       if (res.length > 0) {
@@ -176,7 +176,7 @@ export class AuthPage implements OnInit{
         this.utilsService.navCtrl.navigateRoot(['/auth/term-and-conditions']);
       } else {
         this.storageService.setSessionStorage('tenant', JSON.stringify(user.tenant[0]));
-        if (!this.userDTO.onboarded) {
+        if (!this.userState.userData()?.onboarded) {
           this.utilsService.navCtrl.navigateRoot(['/auth/onboarding']);
         } else {
           this.utilsService.navCtrl.navigateRoot(['tabs/home']);
@@ -184,7 +184,7 @@ export class AuthPage implements OnInit{
       }
     });
   }
- 
+
   animateElements() {
     // Animación para el contenedor de usuario
     const userAnimation = this.animationCtrl
@@ -195,7 +195,7 @@ export class AuthPage implements OnInit{
       .easing('ease-out')
       .fromTo('opacity', '0', '1')
       .fromTo('transform', 'translateY(-50px)', 'translateY(0)');
- 
+
     // Animación para el contenedor de contraseña
     const passwordAnimation = this.animationCtrl
       .create()
@@ -205,17 +205,17 @@ export class AuthPage implements OnInit{
       .easing('ease-out')
       .fromTo('opacity', '0', '1')
       .fromTo('transform', 'translateY(-50px)', 'translateY(0)');
- 
+
     // Reproduce las animaciones en secuencia
     userAnimation.play();
     passwordAnimation.play();
   }
- 
+
   forgotPassword() {
     this.utilsService.navCtrl.navigateRoot(['/recovery-password']);
   }
- 
-  contactSupport() {
-    window.location.href = `mailto:${this.supportEmail}`;
+
+  navigateToCreateAccount() {
+    this.utilsService.navigateTo('/auth/create-account');
   }
 }

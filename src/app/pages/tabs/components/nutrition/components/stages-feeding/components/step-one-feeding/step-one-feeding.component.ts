@@ -3,15 +3,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
 import { FirstCardHydration, SecondCardHydration, ThirdCardHydration } from '../../const/feeding-const';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NgClass, NgFor, NgIf } from '@angular/common';
-import { IonCard } from '@ionic/angular';
+import { NgClass } from '@angular/common';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-step-one-feeding',
   templateUrl: './step-one-feeding.component.html',
   styleUrls: ['./step-one-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgFor,NgClass],
+  imports: [SharedModule, NgClass, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepOneFeedingComponent  implements OnInit {

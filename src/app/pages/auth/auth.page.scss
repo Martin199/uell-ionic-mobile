@@ -1,42 +1,37 @@
-.content {
+.password-container{
   display: flex;
-  flex-direction: column; /* Asegura que los elementos estén en una columna */
-  justify-content: center; /* Centra todo verticalmente */
-  align-items: center; /* Centra todo horizontalmente */
-  height: 100%; /* Ocupa toda la altura del ion-content */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+.content-login{
+  display: flex;
+  height: 90dvh;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  z-index: 0;
+  position: relative;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+
+  border-radius: 16px;
+  background: var(--Neutral-White, #FFF);
 }
 
 .content-logo {
-  display: flex; /* Flexbox para centrar */
-  justify-content: center; /* Centra la imagen horizontalmente */
-  align-items: center; /* Centra la imagen verticalmente */
-  width: 40%; /* Ajusta el tamaño del contenedor de la imagen */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  width: 40%; 
+  ion-img {
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+  }
 }
-
-.content-logo ion-img {
-  max-width: 100%; /* Asegura que la imagen no exceda el tamaño del contenedor */
-  max-height: 100%; /* Mantiene las proporciones dentro del contenedor */
-  object-fit: contain; /* Ajusta la imagen dentro del espacio disponible */
-}
-
-form{
-  width: 100%;
-  padding: 0px 20px;
-}
-
-.d-flex-center-login
-{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}	
-
-.content{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 
 .t{
   color: var(--Neutral-GreyDark, #383E52);
@@ -47,6 +42,12 @@ font-style: normal;
 font-weight: 400;
 line-height: 16px; /* 133.333% */
 letter-spacing: 0.048px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 
@@ -101,22 +102,48 @@ letter-spacing: 0.048px;
   height: 25px;
 }
 
-.logo{
-  margin-top: 6rem;
+form{
+  width: 100%;
 }
 
-.support{
+.buttons-container{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  font-family: Inter !important;
-  font-size: 12px;
-  p{
-    font-weight: 400;
-    margin-bottom: 0;
+  gap: 1.5rem;
+
+  ion-button {
+    margin-top: 0 !important;
   }
-  span{
-    color: #1da4b1;
-    font-weight: 600;
+}
+.create-account{
+  color: var(--Primary-Uell, #1DA4B1);
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5rem; /* 150% */
+  letter-spacing: 0.016px;
+}
+
+.create-account{
+  --border-width:1px !important;
+}
+
+
+ion-fab-button{
+  --background: #1da4b1;
+  ion-img{
+    width: 1.5rem;
   }
+}
+
+.version{
+  text-align: center;
+
+  font-family: 'Inter';
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.06px;
 }

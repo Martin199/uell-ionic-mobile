@@ -1,25 +1,45 @@
-@if (label) {
-  <ion-label class="label-input"> {{ label }}</ion-label>
-}
-
-<ion-item class="custom-input" lines="none" class="no-margin">
-  @if (icon) {
-    <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
+<div class="content">
+  @if (label) {
+    <div class="label-container">
+      <ion-label class="label-input" [class]="textClass()"> {{ label }}</ion-label>
+      @if (popOver()) {
+        <ion-icon name="information-circle-outline" id="click-trigger" color="primary"></ion-icon>
+        <ion-popover arrow="true" trigger="click-trigger" triggerAction="click" side="right" alignment="end">
+          <ng-template>
+            <ion-content class="ion-padding">
+               {{ popOver() }}
+            </ion-content> 
+          </ng-template>
+        </ion-popover>
+      }
+    </div>
   }
   
-  <ion-input [type]="type" [formControl]="control" [maxlength]="maxLength() || null" (ionInput)="onInput()" ></ion-input>  
+  <ion-item class="custom-input" lines="none" class="no-margin">
+    @if (icon) {
+      <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
+    }
+    
+    <ion-input 
+      [type]="type" 
+      [formControl]="control" 
+      [maxlength]="maxLength() || null" 
+      (ionInput)="onInput()" 
+      (input)="preventInvalidInput($event)"
+    ></ion-input>  
+    
+    @if (isPassword) {
+      <ion-button (click)="showOrhidePassword()" slot="end" fill="clear" shape="round">
+        <ion-icon slot="start" [name]="hide ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+      </ion-button>
+    }
+  </ion-item>
   
-  @if (isPassword) {
-    <ion-button (click)="showOrhidePassword()" slot="end" fill="clear" shape="round">
-      <ion-icon slot="start" [name]="hide ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
-    </ion-button>
+  @if(control.errors && control.touched) {
+    <span class="error-field">
+      {{ getFieldError() }}
+   </span>
+  } @else {
+    <div class="error-placeholder"> </div>
   }
-</ion-item>
-
-@if(control.errors && control.touched) {
-  <span class="error-field">
-    {{ getFieldError() }}
- </span>
-} @else {
-  <div class="error-placeholder"> </div>
-}
+</div>

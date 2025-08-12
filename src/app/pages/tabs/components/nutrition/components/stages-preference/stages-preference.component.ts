@@ -6,7 +6,6 @@ import Swiper from 'swiper';
 import { StagesService } from '../services/stages.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { IonContent, ModalController } from '@ionic/angular/standalone';
-import { NgIf } from '@angular/common';
 import { StepOnePreferenceComponent } from './components/step-one-preference/step-one-preference.component';
 import { StepTwoPreferenceComponent } from './components/step-two-preference/step-two-preference.component';
 import { StepThreePreferenceComponent } from './components/step-three-preference/step-three-preference.component';
@@ -18,7 +17,7 @@ import { StepFivePreferenceComponent } from './components/step-five-preference/s
   templateUrl: './stages-preference.component.html',
   styleUrls: ['./stages-preference.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, StepOnePreferenceComponent, StepTwoPreferenceComponent, StepThreePreferenceComponent, StepFourPreferenceComponent, StepFivePreferenceComponent],
+  imports: [SharedModule, StepOnePreferenceComponent, StepTwoPreferenceComponent, StepThreePreferenceComponent, StepFourPreferenceComponent, StepFivePreferenceComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StagesPreferenceComponent  implements OnInit {

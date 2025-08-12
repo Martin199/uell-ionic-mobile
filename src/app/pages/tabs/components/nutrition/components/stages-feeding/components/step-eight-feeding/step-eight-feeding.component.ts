@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -10,7 +10,7 @@ import { DairyType, EggConsumption } from '../../const/feeding-const';
   templateUrl: './step-eight-feeding.component.html',
   styleUrls: ['./step-eight-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgFor,NgClass],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepEightFeedingComponent  implements OnInit {

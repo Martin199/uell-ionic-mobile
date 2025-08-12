@@ -1,5 +1,9 @@
-<div class="d-flex-center">
+<div class="container">
   <ion-thumbnail class="logo-thumbnail">
     <ion-img src="../../../../assets/auth/logo-login - copia.png"></ion-img>
   </ion-thumbnail>
+  @if(branding()) {
+  <div class="divider"></div>
+  <ion-img [src]="branding()"></ion-img>
+  }
 </div>

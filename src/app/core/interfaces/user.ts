@@ -42,6 +42,8 @@ export interface UserResponseDTO {
   telephoneNumber: PhoneNumber;
   onboardedDate: Date;
   unitSegmentationsUser: SegmentationUnit[];
+  userAlias: string;
+  countryId: number;
 }
 
 export interface Address {

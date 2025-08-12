@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClientService } from 'src/app/core/services/http-client.service';
 import { UserStateService } from 'src/app/core/state/user-state.service';
-import { environment } from 'src/environments/environment.qa';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

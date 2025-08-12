@@ -2,7 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, inject, Input, OnInit,
 import { FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
 import { FruitConsumption, FruitDaysPerWeek, FruitPortion } from '../../const/feeding-const';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
@@ -10,7 +10,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   templateUrl: './step-three-feeding.component.html',
   styleUrls: ['./step-three-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgFor,NgClass],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepThreeFeedingComponent  implements OnInit {

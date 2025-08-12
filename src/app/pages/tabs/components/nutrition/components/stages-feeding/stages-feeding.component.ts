@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -23,7 +22,7 @@ import { StepTenFeedingComponent } from './components/step-ten-feeding/step-ten-
   styleUrls: ['./stages-feeding.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SharedModule, NgIf ,StepOneFeedingComponent, StepTwoFeedingComponent, StepThreeFeedingComponent, StepFourFeedingComponent, StepFiveFeedingComponent, StepSixFeedingComponent, StepSevenFeedingComponent,StepEightFeedingComponent, StepNineFeedingComponent, StepTenFeedingComponent],
+  imports: [SharedModule, StepOneFeedingComponent, StepTwoFeedingComponent, StepThreeFeedingComponent, StepFourFeedingComponent, StepFiveFeedingComponent, StepSixFeedingComponent, StepSevenFeedingComponent, StepEightFeedingComponent, StepNineFeedingComponent, StepTenFeedingComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StagesFeedingComponent  implements OnInit, AfterViewInit {

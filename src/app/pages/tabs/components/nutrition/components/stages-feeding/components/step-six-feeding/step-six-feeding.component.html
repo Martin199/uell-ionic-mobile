@@ -1,47 +1,61 @@
-<div *ngIf="step == 6">
-  <ion-card>
+@if (step == 6) {
+  <div>
+    <ion-card>
       <ion-card-header>
-          <ion-card-title class="card-title">{{questionsSugar[0]}}</ion-card-title>
-          <ion-label class="sub-title">{{questionsSugar[1]}}</ion-label>
-          <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
+        <ion-card-title class="card-title">{{questionsSugar[0]}}</ion-card-title>
+        <ion-label class="sub-title">{{questionsSugar[1]}}</ion-label>
+        <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content class="content-layout">
+        @for (opciones of firstCard; track opciones; let i = $index) {
           <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['first'] === i }"
-              (click)="selectOption(i, 'first')" *ngFor="let opciones of firstCard; let i = index">
-              <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['first'] === i"
-                  src="assets/nutrition/check_circle.svg"></ion-icon>
+            (click)="selectOption(i, 'first')">
+            <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
+            @if (selectedIndexes['first'] === i) {
+              <ion-icon
+              src="assets/nutrition/check_circle.svg"></ion-icon>
+            }
           </div>
+        }
       </ion-card-content>
-  </ion-card>
-
-  <ion-card>
+    </ion-card>
+    <ion-card>
       <ion-card-header>
-          <ion-card-title class="card-title">{{questionsSugar[2]}}</ion-card-title>
-          <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
+        <ion-card-title class="card-title">{{questionsSugar[2]}}</ion-card-title>
+        <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content class="content-layout">
+        @for (opciones of secondCard; track opciones; let i = $index) {
           <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['second'] === i }"
-              (click)="selectOption(i, 'second')" *ngFor="let opciones of secondCard; let i = index">
-              <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['second'] === i"
-                  src="assets/nutrition/check_circle.svg"></ion-icon>
+            (click)="selectOption(i, 'second')">
+            <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
+            @if (selectedIndexes['second'] === i) {
+              <ion-icon
+              src="assets/nutrition/check_circle.svg"></ion-icon>
+            }
           </div>
+        }
       </ion-card-content>
-  </ion-card>
-
-  <ion-card *ngIf="showThirdCard">
-      <ion-card-header>
+    </ion-card>
+    @if (showThirdCard) {
+      <ion-card>
+        <ion-card-header>
           <ion-card-title class="card-title">{{questionsSugar[3]}}</ion-card-title>
           <ion-card-subtitle>SELECCIONA UNA OPCIÓN</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="content-layout">
-          <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['third'] === i }"
-              (click)="selectOption(i, 'third')" *ngFor="let opciones of thirdCard; let i = index">
+        </ion-card-header>
+        <ion-card-content class="content-layout">
+          @for (opciones of thirdCard; track opciones; let i = $index) {
+            <div class="layout" [ngClass]="{ hasSelect: selectedIndexes['third'] === i }"
+              (click)="selectOption(i, 'third')">
               <ion-label class="ion-text-start value">{{ opciones }}</ion-label>
-              <ion-icon *ngIf="selectedIndexes['third'] === i"
-                  src="assets/nutrition/check_circle.svg"></ion-icon>
-          </div>
-      </ion-card-content>
-  </ion-card>
-</div>
+              @if (selectedIndexes['third'] === i) {
+                <ion-icon
+                src="assets/nutrition/check_circle.svg"></ion-icon>
+              }
+            </div>
+          }
+        </ion-card-content>
+      </ion-card>
+    }
+  </div>
+}

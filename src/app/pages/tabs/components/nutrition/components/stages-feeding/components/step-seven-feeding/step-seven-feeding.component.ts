@@ -2,14 +2,14 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, inject, Input, OnInit,
 import { UtilsService } from 'src/app/services/utils.service';
 import { ChickenFrequency, FishFrequency, MeatConsumption, MeatFrequency } from '../../const/feeding-const';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-step-seven-feeding',
   templateUrl: './step-seven-feeding.component.html',
   styleUrls: ['./step-seven-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgFor,NgClass],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepSevenFeedingComponent  implements OnInit {

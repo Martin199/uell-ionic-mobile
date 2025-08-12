@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ARGAddressInfoComponent } from './arg-address-info/arg-address-info.component';
 import { UserAddressInfoComponent } from './user-address-info.component';
-import { AddressInfoComponent } from './address-info/address-info.component';
+// import { AddressInfoComponent } from './address-info/address-info.component';
 import { ECUAddressInfoComponent } from './ecu-address-info/ecu-address-info.component';
 import { PERAddressInfoComponent } from './per-address-info/per-address-info.component';
 import { AddressComponent } from 'src/app/shared/componentes/address/address.component';
@@ -38,7 +38,7 @@ import { IonLabel, IonList, IonItem, IonSelect, IonSelectOption } from "@ionic/a
         IonSelect,
         IonSelectOption
     ],
-    declarations: [UserAddressInfoComponent, ARGAddressInfoComponent, AddressInfoComponent, ECUAddressInfoComponent, PERAddressInfoComponent],
+    declarations: [UserAddressInfoComponent, ARGAddressInfoComponent, ECUAddressInfoComponent, PERAddressInfoComponent],
     exports: [UserAddressInfoComponent]
 })
 export class UserAddressInfoModule { }

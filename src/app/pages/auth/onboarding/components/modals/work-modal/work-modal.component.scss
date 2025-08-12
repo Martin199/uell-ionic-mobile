@@ -1,0 +1,33 @@
+ion-title {
+  color: var(--Neutral-GreyMedium, #505a78);
+
+  /* Title T1/Bold */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px; /* 140% */
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.submit-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subtitle {
+  color: var(--Neutral-GreyMedium, #505A78);
+
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.035px;
+}

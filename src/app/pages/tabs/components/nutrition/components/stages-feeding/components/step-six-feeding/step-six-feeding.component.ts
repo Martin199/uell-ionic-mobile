@@ -3,14 +3,14 @@ import { FormGroup } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SugarQuantity, SugarAddition, SweetFoodConsumption } from '../../const/feeding-const';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-step-six-feeding',
   templateUrl: './step-six-feeding.component.html',
   styleUrls: ['./step-six-feeding.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, NgFor,NgClass],
+  imports: [SharedModule, NgClass],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class StepSixFeedingComponent  implements OnInit {

@@ -1,0 +1,90 @@
+ion-title {
+  color: var(--Neutral-GreyMedium, #505a78);
+
+  /* Title T1/Bold */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px; /* 140% */
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 4rem;
+  padding: 1.5rem;
+}
+
+.profile-pic-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.current-pic {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-image {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background-color: #383e52;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-icon {
+  color: white;
+  font-size: 1rem;
+}
+
+.change-text {
+  position: absolute;
+  bottom: -2rem;
+  font-size: 0.75rem;
+  color: var(--Neutral-GreyMedium, #505a78);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.upload-button {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  --background: var(--Neutral-GreyLight, #dadfe9);
+  --color: var(--Neutral-GreyDark, #383e52);
+  --box-shadow: none;
+}
+
+.upload-hint {
+  color: var(--Neutral-Grey, #8a95ab);
+  font-size: 0.875rem;
+  text-align: center;
+  margin: 0;
+}
+
+.submit-section {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}

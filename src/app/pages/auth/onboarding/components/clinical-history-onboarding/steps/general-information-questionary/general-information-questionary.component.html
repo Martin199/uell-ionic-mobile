@@ -1,0 +1,90 @@
+<ion-content [fullscreen]="true">
+  <div class="content">
+    <div class="card">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        @if (currentStep) {
+        <div class="step-header">
+          <h2 class="step-title">{{ currentStep.title }}</h2>
+          @if (currentStep.subtitle) {
+          <p class="step-subtitle">{{ currentStep.subtitle }}</p>
+          }
+        </div>
+
+        <ion-list lines="none">
+          @for (field of currentStep.fields; track field.id) {
+          <ion-item-group class="field-group">
+            <ion-label class="field-label"> {{$index + 1}}. {{ field.label }}</ion-label>
+
+            @if (field.type === 'radio') {
+            <ion-radio-group [formControlName]="field.id" class="radio-group">
+              @for (option of field.options; track option.value) {
+              <ion-item lines="none" class="radio-item">
+                <ion-radio mode="md" slot="start" [value]="option.value" [class.error-field]="isFieldValid(field.id)">
+                </ion-radio>
+                <span class="radio-label">{{ option.label }}</span>
+              </ion-item>
+              }
+            </ion-radio-group>
+            } @if (field.type === 'checkbox') {
+            <div class="checkbox-group">
+              @for (option of field.options; track option.value) {
+              <div class="checkbox-item">
+                <ion-checkbox
+                  [value]="option.value"
+                  [formControlName]="field.id"
+                  [class.error-field]="isFieldValid(field.id)"
+                >
+                </ion-checkbox>
+                <span class="checkbox-label">{{ option.label }}</span>
+              </div>
+              }
+            </div>
+            } @if (field.type === 'textarea') {
+            <ion-textarea
+              [formControlName]="field.id"
+              placeholder="Escribe aquí..."
+              fill="outline"
+              autoGrow="true"
+              [maxlength]="field.validation?.maxLength || 500"
+              [class.error-field]="isFieldValid(field.id)"
+            >
+            </ion-textarea>
+            } @if (field.type === 'text') {
+            <ion-input
+              [formControlName]="field.id"
+              placeholder="Escribe aquí..."
+              fill="outline"
+              [class.error-field]="isFieldValid(field.id)"
+            >
+            </ion-input>
+            } @if (field.type === 'select') {
+            <ion-select
+              [formControlName]="field.id"
+              interface="action-sheet"
+              fill="outline"
+              placeholder="Selecciona una opción"
+              [class.error-field]="isFieldValid(field.id)"
+            >
+              @for (option of field.options; track option.value) {
+              <ion-select-option [value]="option.value">
+                {{ option.label }}
+              </ion-select-option>
+              }
+            </ion-select>
+            } @if (isFieldValid(field.id)) {
+            <div class="error-message">Este campo es requerido</div>
+            }
+          </ion-item-group>
+          }
+        </ion-list>
+
+        <div class="form-actions">
+          <ion-button expand="block" shape="round" type="submit" size="large" [disabled]="form.invalid">
+            Continuar
+          </ion-button>
+        </div>
+        }
+      </form>
+    </div>
+  </div>
+</ion-content>

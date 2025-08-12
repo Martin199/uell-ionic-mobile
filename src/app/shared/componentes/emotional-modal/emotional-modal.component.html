@@ -11,45 +11,49 @@
 </ion-header>
 <div class="slide-container">
   <div >
-    <swiper-container #swiper
+    @if (emojiList.length > 0) {
+      <swiper-container #swiper
         class="swiper"
         initial-slide = "2"
         slides-per-view ="5"
         centered-slides ="true"
         (swiper.slideChange)="onSlideChange($event)"
         [config]="swiper"
-        *ngIf="emojiList.length > 0"
-    >
-      <swiper-slide swiperSlide *ngFor="let emoji of emojiList; let i = index">
-        <div
-          (click)="onClick(i)"
+        >
+        @for (emoji of emojiList; track emoji; let i = $index) {
+          <swiper-slide swiperSlide>
+            <div
+              (click)="onClick(i)"
           [ngClass]="{
             'disabled-slide': isSlideDisabled(emoji),
             'slide-card': emoji.id === indexSwiper
           }"
-        >
-          <img
-            [ngClass]="{ 'slide-card__gif': emoji.id === indexSwiper }"
-            [src]="emoji.id === indexSwiper ? emoji.urlGif : emoji.urlSvg"
-            alt=""
-          />
-          <p class="slide-card__label" [ngClass]="{ 'slide-card__label--active': emoji.id === indexSwiper }">
-            {{ emoji.label | titlecase }}
-          </p>
-        </div>
-      </swiper-slide>
-  </swiper-container>
-  
-  <div class="pagination">
-    <ion-icon
-      class="pagination__icon ion-no-margin ion-no-padding"
-      [ngClass]="{ 'pagination__icon--selected': paginationBulletValue[indexPagination] === value }"
-      *ngFor="let value of paginationBulletValue"
-      src="assets/Ellipse-alegre.svg"
-      (click)="onClick(value)"
-    ></ion-icon>
-  </div>
-  
+              >
+              <img
+                [ngClass]="{ 'slide-card__gif': emoji.id === indexSwiper }"
+                [src]="emoji.id === indexSwiper ? emoji.urlGif : emoji.urlSvg"
+                alt=""
+                />
+              <p class="slide-card__label" [ngClass]="{ 'slide-card__label--active': emoji.id === indexSwiper }">
+                {{ emoji.label | titlecase }}
+              </p>
+            </div>
+          </swiper-slide>
+        }
+      </swiper-container>
+    }
+
+    <div class="pagination">
+      @for (value of paginationBulletValue; track value) {
+        <ion-icon
+          class="pagination__icon ion-no-margin ion-no-padding"
+          [ngClass]="{ 'pagination__icon--selected': paginationBulletValue[indexPagination] === value }"
+          src="assets/Ellipse-alegre.svg"
+          (click)="onClick(value)"
+        ></ion-icon>
+      }
+    </div>
+
   </div>
 </div>
 <div class="modal-button">

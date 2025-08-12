@@ -1,0 +1,30 @@
+<ion-content>
+  <div class="content">
+    <div class="title">
+      <h1 style="margin: 0">Mi perfil</h1>
+      <p class="subtitle">Verifica o edita tus datos.</p>
+    </div>
+    <div class="cards-container">
+      <app-profile-pic-onboarding></app-profile-pic-onboarding>
+      @for (card of profileCards(); track card.title) {
+        <div>
+          <app-profile-card [card]="card" (editModal)="openEditModal($event)"></app-profile-card>
+          @if (card.type === 'contact' && error()) {
+            <p class="error">{{ error() }}</p>
+          }
+        </div>
+      }
+      <div class="button-container">
+        <ion-button 
+          (click)="next()" 
+          class="next-button" 
+          expand="block" 
+          size="large" 
+          shape="round"
+          [disabled]="isNextButtonDisabled()"
+          >Siguiente
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

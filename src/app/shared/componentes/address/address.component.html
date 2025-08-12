@@ -1,107 +1,141 @@
-  @if (tenantParameters) {
+@if (tenantParameters) {
   <form class="form" [formGroup]="addressForm">
-      <div class="titulo">
-        <p>{{ tenantParameters.tenantParameters.localization.onboarding['adress'] }}</p>
-      </div>
+    <div class="titulo">
+      <p>{{ tenantParameters.tenantParameters.localization.onboarding['adress'] }}</p>
+    </div>
     <div class="form-group">
-        <app-custom-input  [control]="addressForm.controls['street']" [maxLength]="255" [label]="tenantParameters.tenantParameters.localization.onboarding['street']"></app-custom-input>
-        <span *ngIf="addressForm.controls['street'].errors?.['required'] && 
-        (addressForm.controls['street'].touched || addressForm.controls['street'].dirty)"
-        class="form-error-msg">
+      <app-custom-input  [control]="addressForm.controls['street']" [maxLength]="255" [label]="tenantParameters.tenantParameters.localization.onboarding['street']"></app-custom-input>
+      @if (addressForm.controls['street'].errors?.['required'] &&
+        (addressForm.controls['street'].touched || addressForm.controls['street'].dirty)) {
+        <span
+          class="form-error-msg">
           - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
         </span>
-        <span *ngIf="addressForm.controls['street'].hasError('pattern')" class="form-error-msg">
+      }
+      @if (addressForm.controls['street'].hasError('pattern')) {
+        <span class="form-error-msg">
           - Caracteres epseciales no permitidos
         </span>
+      }
     </div>
     <div class="form-group d-flex">
-        <div class="form-group col-md-3 pl-0">
-            <app-custom-input  [control]="addressForm.controls['number']" [maxLength]="50" [label]="tenantParameters.tenantParameters.localization.onboarding['number']"></app-custom-input>
-            <span *ngIf="addressForm.controls['number'].errors?.['required'] && 
-                   (addressForm.controls['number'].touched || addressForm.controls['number'].dirty)"
-                   class="form-error-msg">
-              - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+      <div class="form-group col-md-3 pl-0">
+        <app-custom-input  [control]="addressForm.controls['number']" [maxLength]="50" [label]="tenantParameters.tenantParameters.localization.onboarding['number']"></app-custom-input>
+        @if (addressForm.controls['number'].errors?.['required'] &&
+          (addressForm.controls['number'].touched || addressForm.controls['number'].dirty)) {
+          <span
+            class="form-error-msg">
+            - {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+          </span>
+        }
+        @if (addressForm.controls['number'].errors?.['maxlength']) {
+          <span class="form-error-msg">
+            - {{ tenantParameters.tenantParameters.localization.onboarding['max'] }}
+          </span>
+        }
+        @if (addressForm.controls['number'].hasError('pattern')) {
+          <span class="form-error-msg">
+            - {{ tenantParameters.tenantParameters.localization.onboarding['only-numbers'] }}
+          </span>
+        }
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+          <app-custom-input  [control]="addressForm.controls['floor']" [label]="tenantParameters.tenantParameters.localization.onboarding['floor']"></app-custom-input>
+          @if (addressForm.controls['floor'].hasError('pattern')) {
+            <span class="form-error-msg">
+              - Caracteres epseciales no permitidos
             </span>
-            <span *ngIf="addressForm.controls['number'].errors?.['maxlength']" class="form-error-msg">
+          }
+          @if (addressForm.controls['floor'].errors?.['maxlength']) {
+            <span class="form-error-msg">
               - {{ tenantParameters.tenantParameters.localization.onboarding['max'] }}
             </span>
-            <span *ngIf="addressForm.controls['number'].hasError('pattern')" class="form-error-msg">
-              - {{ tenantParameters.tenantParameters.localization.onboarding['only-numbers'] }}
+          }
+        </div>
+        <div class="form-group col-md-3">
+          <app-custom-input  [control]="addressForm.controls['apartment']" [label]="tenantParameters.tenantParameters.localization.onboarding['dept']"></app-custom-input>
+          @if (addressForm.controls['apartment'].hasError('pattern')) {
+            <span class="form-error-msg">
+              - Caracteres epseciales no permitidos
             </span>
+          }
+          @if (addressForm.controls['apartment'].errors?.['maxlength']) {
+            <span class="form-error-msg">
+              - {{ tenantParameters.tenantParameters.localization.onboarding['max'] }}
+            </span>
+          }
         </div>
-        <div class="row">
-          <div class="form-group col-md-3">
-              <app-custom-input  [control]="addressForm.controls['floor']" [label]="tenantParameters.tenantParameters.localization.onboarding['floor']"></app-custom-input>
-              <span *ngIf="addressForm.controls['floor'].hasError('pattern')" class="form-error-msg">
-                - Caracteres epseciales no permitidos
-              </span>
-              <span *ngIf="addressForm.controls['floor'].errors?.['maxlength']" class="form-error-msg">
-                - {{ tenantParameters.tenantParameters.localization.onboarding['max'] }}
-              </span>
-          </div>
-          <div class="form-group col-md-3">
-              <app-custom-input  [control]="addressForm.controls['apartment']" [label]="tenantParameters.tenantParameters.localization.onboarding['dept']"></app-custom-input>
-              <span *ngIf="addressForm.controls['apartment'].hasError('pattern')" class="form-error-msg">
-                - Caracteres epseciales no permitidos
-              </span>
-              <span *ngIf="addressForm.controls['apartment'].errors?.['maxlength']" class="form-error-msg">
-                - {{ tenantParameters.tenantParameters.localization.onboarding['max'] }}
-              </span>
-          </div>
-          <div class="form-group col-md-3 pr-0">
-              <app-custom-input  [control]="addressForm.controls['postalCode']" [maxLength]="6" [label]="tenantParameters.tenantParameters.localization.onboarding['zip-code']"></app-custom-input>
-                <span *ngIf="addressForm.controls['postalCode'].errors?.['required']"
-                        class="form-error-msg">
-                        {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
-                </span>
-                <span *ngIf="addressForm.controls['postalCode'].errors?.['maxlength'] && !addressForm.controls['postalCode'].hasError('pattern') "
-                        class="form-error-msg">
-                        {{ tenantParameters.tenantParameters.localization.onboarding['max'] }}
-                </span>
-                <span *ngIf="addressForm.controls['postalCode'].errors?.['minlength'] && !addressForm.controls['postalCode'].hasError('pattern') "
-                        class="form-error-msg">
-                        {{ tenantParameters.tenantParameters.localization.onboarding['min'] }}
-                </span>
-                <span *ngIf="addressForm.controls['postalCode'].hasError('pattern')"
-                        class="form-error-msg">
-                        {{ tenantParameters.tenantParameters.localization.onboarding['only-numbers'] }}
-                </span>
-          </div>
+        <div class="form-group col-md-3 pr-0">
+          <app-custom-input  [control]="addressForm.controls['postalCode']" [maxLength]="6" [label]="tenantParameters.tenantParameters.localization.onboarding['zip-code']"></app-custom-input>
+          @if (addressForm.controls['postalCode'].errors?.['required']) {
+            <span
+              class="form-error-msg">
+              {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+            </span>
+          }
+          @if (addressForm.controls['postalCode'].errors?.['maxlength'] && !addressForm.controls['postalCode'].hasError('pattern') ) {
+            <span
+              class="form-error-msg">
+              {{ tenantParameters.tenantParameters.localization.onboarding['max'] }}
+            </span>
+          }
+          @if (addressForm.controls['postalCode'].errors?.['minlength'] && !addressForm.controls['postalCode'].hasError('pattern') ) {
+            <span
+              class="form-error-msg">
+              {{ tenantParameters.tenantParameters.localization.onboarding['min'] }}
+            </span>
+          }
+          @if (addressForm.controls['postalCode'].hasError('pattern')) {
+            <span
+              class="form-error-msg">
+              {{ tenantParameters.tenantParameters.localization.onboarding['only-numbers'] }}
+            </span>
+          }
         </div>
+      </div>
     </div>
     <div class="form-group">
       <ion-label class="label-input">{{ tenantParameters.tenantParameters.localization.onboarding['province'] }}</ion-label>
-            <ion-list>
-              <ion-item>
-                <ion-select aria-label="province" interface="action-sheet" placeholder="Seleccione province" formControlName="province">
-                  <ion-select-option *ngFor="let prov of provincias" [value]="prov">{{prov.name}}</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
-        <span *ngIf="addressForm.controls['province'].errors?.['required'] && 
-                   (addressForm.controls['province'].touched || addressForm.controls['province'].dirty)"
-              class="form-error-msg">
-              {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+      <ion-list>
+        <ion-item>
+          <ion-select aria-label="province" interface="action-sheet" placeholder="Seleccione province" formControlName="province">
+            @for (prov of provincias; track prov) {
+              <ion-select-option [value]="prov">{{prov.name}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      @if (addressForm.controls['province'].errors?.['required'] &&
+        (addressForm.controls['province'].touched || addressForm.controls['province'].dirty)) {
+        <span
+          class="form-error-msg">
+          {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
         </span>
+      }
     </div>
     <div class="form-group">
       <ion-label class="label-input">{{ tenantParameters.tenantParameters.localization.onboarding['locality'] }}</ion-label>
-            <ion-list>
-              <ion-item>
-                <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione locality" formControlName="locality">
-                  <ion-select-option *ngFor="let loc of localidades" [value]="loc">{{loc.name}}</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
-        <span *ngIf="addressForm.controls['locality'].errors?.['required'] && 
-                   (addressForm.controls['locality'].touched || addressForm.controls['locality'].dirty)"
-              class="form-error-msg">
-              {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
+      <ion-list>
+        <ion-item>
+          <ion-select aria-label="localityes" interface="action-sheet" placeholder="Seleccione locality" formControlName="locality">
+            @for (loc of localidades; track loc) {
+              <ion-select-option [value]="loc">{{loc.name}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      @if (addressForm.controls['locality'].errors?.['required'] &&
+        (addressForm.controls['locality'].touched || addressForm.controls['locality'].dirty)) {
+        <span
+          class="form-error-msg">
+          {{ tenantParameters.tenantParameters.localization.onboarding['required-field'] }}
         </span>
+      }
     </div>
     <div class="form-group">
-        <app-custom-input  [control]="addressForm.controls['observation']" [label]="tenantParameters.tenantParameters.localization.onboarding['observations']">
-        </app-custom-input>
+      <app-custom-input  [control]="addressForm.controls['observation']" [label]="tenantParameters.tenantParameters.localization.onboarding['observations']">
+      </app-custom-input>
     </div>
   </form>
 }

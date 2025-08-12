@@ -1,0 +1,122 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Información básica</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()" class="close-button">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="basicForm" (ngSubmit)="onSubmit()">
+    <div class="content">
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Alias"
+          [control]="getControl('alias')"
+          type="text"
+          autocomplete="nickname"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Nombre"
+          [control]="getControl('name')"
+          type="text"
+          autocomplete="given-name"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Apellido"
+          [control]="getControl('surname')"
+          type="text"
+          autocomplete="family-name"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <ion-label position="stacked" class="label">Fecha de nacimiento</ion-label>
+        <ion-input
+          readonly
+          fill="outline"
+          [value]="displayDate"
+          [formControl]="getControl('birthDate')"
+          placeholder="Seleccionar fecha"
+          (click)="openDatePicker()"
+          class="date-input"
+        >
+        </ion-input>
+      </div>
+
+      <ion-modal
+        [isOpen]="isDatePickerOpen"
+        [breakpoints]="[1]"
+        [initialBreakpoint]="1"
+        (didDismiss)="closeDatePicker()"
+        class="custom-modal"
+      >
+        <ng-template>
+          <div class="date-picker-container">
+            <ion-datetime
+              mode="ios"
+              presentation="date"
+              locale="es-ES"
+              cancel-text="Cancelar"
+              done-text="Aceptar"
+              (ionChange)="onDateChange($event)"
+              show-default-buttons
+            >
+            </ion-datetime>
+          </div>
+        </ng-template>
+      </ion-modal>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="Tipo de documento"
+          [control]="getControl('docType')"
+          type="text"
+          autocomplete="off"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="field">
+        <app-custom-input
+          textClass="login-label"
+          label="N° de documento"
+          [control]="getControl('docNumber')"
+          type="text"
+          autocomplete="off"
+        >
+        </app-custom-input>
+      </div>
+
+      <div class="submit-section">
+        <ion-button
+          type="submit"
+          expand="block"
+          size="large"
+          shape="round"
+          [disabled]="!basicForm.valid"
+          style="width: 30%"
+        >
+          Guardar
+        </ion-button>
+      </div>
+    </div>
+  </form>
+</ion-content>

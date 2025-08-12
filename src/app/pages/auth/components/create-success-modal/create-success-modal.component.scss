@@ -1,0 +1,43 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  gap: 2.5rem;
+  padding: 1.5rem 1.5rem 2rem;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.title {
+  color: var(--Neutral-GreyVeryDark, #212532);
+
+  /* Title T1/Semi Bold */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 140% */
+}
+
+.subtitle {
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Label L2/Regular */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.035px;
+}
+
+ion-button {
+  width: 100%;
+}

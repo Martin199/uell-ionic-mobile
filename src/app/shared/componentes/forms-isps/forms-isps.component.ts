@@ -12,6 +12,9 @@ import { Platform } from '@ionic/angular/standalone';
 import { register } from 'swiper/element/bundle';
 import { addIcons } from "ionicons";
 import { close } from "ionicons/icons";
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { UserStateService } from 'src/app/core/state/user-state.service';
 
 register();
 
@@ -67,6 +70,9 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
     storageService = inject(StorageService);
     utilsService = inject(UtilsService)
     platform = inject(Platform);
+    router = inject(Router);
+    private userService = inject(UserService);
+    private userStateService = inject(UserStateService);
 
     @Input() onboarding: boolean = false;
 
@@ -100,6 +106,14 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
     ngAfterViewInit(): void {
         this.swiper = this.swiperContainer.nativeElement.swiper;
         this.swiper.allowTouchMove = false;
+        this.swiperSlideChanged();
+    }
+
+    swiperSlideChanged() {
+        const swiperContainer = document.getElementById('swiperContainer');
+        if (swiperContainer) {
+          swiperContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     closeModal() {
@@ -119,6 +133,17 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
 
     }
 
+    returnHHCCorMyProfile() {
+        // this.stepHHCCorMyProfile = event;
+        const activeModules = this.userStateService.tenantParameters()?.activeModules;
+        if (activeModules?.includes('hc_onboarding')) {
+            this.utilsService.navigateTo('/auth/onboarding/clinical-history');
+          // this.nextSlide();
+        } else {
+            this.utilsService.navigateTo('/auth/onboarding/my-profile');
+        }
+    }
+
     returnFirstStep(event: Event) {
         this.stepOne = event;
     }
@@ -132,6 +157,7 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
     }
 
     nextSlide() {
+        window.scrollTo(0, 0);
         this.validStep = false;
 
         if (this.step === 4) {
@@ -141,10 +167,10 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
             this.updateProgress();
             this.scrollToTop();
 
-
-            if (this.onboarding === true && (this.questionGestor === 'false' || this.questionGestor === 'true')) {
-                this.closeModal();
-            }
+            //TODO: revisar si sacar esta parte
+            // if (this.onboarding === true && (this.questionGestor === 'false' || this.questionGestor === 'true')) {
+            //     this.closeModal();
+            // }
 
             //((onboarding===true && questionGestor === null) || onboarding===false)"
 
@@ -198,9 +224,19 @@ export class FormsIspsComponent implements AfterViewInit, OnInit {
     }
 
     finish(data: any) {
-        this.ispsService.patchIPSContent(this.user.id, data).subscribe(() => {
+        this.ispsService.patchIPSContent( data ).subscribe(() => {
             // this.toastMessage=this.translatesISPS.thanks
-            this.utilsService.modalCtrl.dismiss({ updated: true });
+            // this.utilsService.modalCtrl.dismiss({ updated: true });
+            this.userService.postOnBoarding({ onboarded: true }).subscribe({
+              next: (res: any) => {
+                console.log(res);
+                this.router.navigate(['/tabs/home'])
+              },
+              error: (err) => {
+                console.error(err);
+              },
+              complete: () => {},
+            });
         });
         (err: Error) => {
             console.error(err, 'Error al finalizar el indice de salud psicosocial');

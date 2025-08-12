@@ -1,0 +1,79 @@
+// Remove header shadow
+ion-header {
+  box-shadow: none !important;
+}
+
+ion-toolbar {
+  --box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+}
+
+.title {
+  padding-bottom: 1rem;
+  margin: 0;
+  color: var(--Neutral-GreyVeryDark, #212532);
+
+  /* Heading H3/Semi Bold */
+  font-family: "Inter";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px; /* 133.333% */
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--Neutral-GreyDark, #383e52);
+
+  /* Label L1/Regular */
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.024px;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.next-button {
+  width: 30%;
+  
+  // Estilos para el botón deshabilitado
+  &:disabled {
+    --background: var(--Neutral-GreyLight, #e5e7eb);
+    --color: var(--Neutral-GreyMedium, #9ca3af);
+    --border-color: var(--Neutral-GreyLight, #e5e7eb);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  margin: 0;
+  color: var(--Error-Error, #ff0000);
+
+  /* Label L1/Regular */
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.024px;
+}

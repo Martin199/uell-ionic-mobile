@@ -7,7 +7,7 @@ import { TenantElement } from '../interfaces/user';
 export class UserStateService {
   // private _user = signal<UserResponseDTO | null>(null);
   private storageService = inject(StorageService);
-  private stateNull = {
+  private stateNull: UserState = {
     isAuthenticated: false, //Todavia no se usa
     userData: null,
     tenantConfig: null, //De donde se levanta?
@@ -17,6 +17,7 @@ export class UserStateService {
     error: null, //Todavia no se usa
     token: null,
     fcmToken: null,
+    branding: null,
   };
   private state = signal<UserState>(this.stateNull);
 
@@ -31,6 +32,7 @@ export class UserStateService {
   readonly activeModules = computed(() => this.state().tenantParameters?.activeModules);
   readonly token = computed(() => this.state().token);
   readonly fcmToken = computed(() => this.state().fcmToken);
+  readonly branding = computed(() => this.state().branding);
   // TODO Implementacion de appReady en appComponent para redireccion
   readonly appReady = computed(() => {
     if (this.userData() && this.tenant() && this.tenantParameters() && this.token()) return true;
@@ -51,7 +53,7 @@ export class UserStateService {
 
   //TODO: Manage login information in the state and call the method in the service
   login() {
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       isLoading: true,
       error: null,
@@ -66,14 +68,14 @@ export class UserStateService {
   // Setters
   //Type is reference to the type of the object
   stateLoading(isLoading: UserState['isLoading']) {
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       isLoading,
     }));
   }
 
   setUser(userData: UserState['userData']) {
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       userData,
       isLoading: false,
@@ -82,7 +84,7 @@ export class UserStateService {
   }
 
   setError(message: string, component?: string, method?: string) {
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       error: { message, component, method },
       isLoading: false,
@@ -93,35 +95,42 @@ export class UserStateService {
     const accToken: UserState['token'] = sessionStorage.getItem('accessToken');
     const idToken: UserState['token'] = localStorage.getItem('idToken');
     const token = accToken ?? idToken;
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       token,
     }));
   }
 
   refreshToken(token: string) {
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       token,
     }));
   }
 
   setFcmToken(token: UserState['fcmToken']) {
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       fcmToken: token,
     }));
   }
 
+  setBranding(branding: UserState['branding']) {
+    this.state.update(state => ({
+      ...state,
+      branding,
+    }));
+  }
+
   setTenantConfig(tenantConfig: UserState['tenantConfig']) {
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       tenantConfig,
     }));
   }
 
   setTenantParameters(tenantParameters: UserState['tenantParameters']) {
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       tenantParameters,
     }));
@@ -129,7 +138,7 @@ export class UserStateService {
 
   setTenant(tenant: TenantElement) {
     // TODO: Implementacion correcta de selected tenant
-    this.state.update((state) => ({
+    this.state.update(state => ({
       ...state,
       tenant,
     }));

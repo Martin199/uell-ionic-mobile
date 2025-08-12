@@ -7,52 +7,62 @@
 
     <div class="card" [ngClass]="{'hasSelect': stepFeeding}">
       <div class="layout" (click)="goTo('steps-fedding')">
-          <div>
-              <div class="content-card-icon">
-                  <ion-label class="title-card">Etapa 1 <ion-label *ngIf="stepFeeding">- Completada</ion-label> </ion-label>
-                
-              </div>
-              <div class="content-card-icon">
-                  <ion-label class="sub-text">Alimentación</ion-label>
-              </div>
+        <div>
+          <div class="content-card-icon">
+            <ion-label class="title-card">Etapa 1 @if (stepFeeding) {
+              <ion-label>- Completada</ion-label>
+            } </ion-label>
+            @if (stepFeeding) {
+              <ion-icon
+              src="assets/nutrition/check_circle.svg"></ion-icon>
+            }
           </div>
-          <div>
-            <div class="icons-column">
-              <ion-icon *ngIf="stepFeeding" src="assets/nutrition/check_circle.svg"></ion-icon>
-              <ion-icon src="assets/nutrition/chevron-icon.svg"></ion-icon>
-            </div>
-         </div>
-      </div>
-  </div>
-
-    <div class="card" [ngClass]="{'hasSelect': stepPreference}" [class.disabled]="!stepFeeding">
-        <div class="layout" (click)="goToPreference('steps-preference')">
-            <div>
-                <div class="content-card-icon">
-                    <ion-label class="title-card">Etapa 2 <ion-label *ngIf="stepPreference">- Completada</ion-label> </ion-label>
-                    
-                </div>
-                <div class="content-card-icon">
-                    <ion-label class="sub-text">Preferencias</ion-label>
-                </div>
-            </div>
-            <div>
-                <div class="icons-column">
-                    <ion-icon *ngIf="stepPreference" src="assets/nutrition/check_circle.svg"></ion-icon>
-                    <ion-icon src="assets/nutrition/chevron-icon.svg"></ion-icon>
-                </div>
-            </div>
+          <div class="content-card-icon">
+            <ion-label class="sub-text">Alimentación</ion-label>
+          </div>
         </div>
+        <div>
+          <ion-icon src="assets/nutrition/chevron-icon.svg"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" [ngClass]="{ hasSelect: stepPreference }" [class.disabled]="!stepFeeding">
+      <div class="layout" (click)="goToPreference('steps-preference')">
+        <div>
+          <div class="content-card-icon">
+            <ion-label class="title-card"
+              >Etapa 2 @if (stepPreference) {
+              <ion-label>- Completada</ion-label>
+              }
+            </ion-label>
+          </div>
+          <div class="content-card-icon">
+            <ion-label class="sub-text">Preferencias</ion-label>
+          </div>
+        </div>
+        <div>
+          <div class="icons-column">
+            @if (stepPreference) {
+            <ion-icon src="assets/nutrition/check_circle.svg"></ion-icon>
+            }
+            <ion-icon src="assets/chevron-icon.svg"></ion-icon>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
 </ion-content>
 
-<ion-footer class="ion-no-border" *ngIf="stepPreference && stepFeeding">
-    <ion-toolbar class="ion-padding toolbar-center ion-text-center">
-        <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round">
-            <ion-label [ngClass]="{'invisible-label': isLoading}">Ver mis resultados</ion-label>
-            <ion-spinner name="crescent" *ngIf="isLoading" class="spinner-center"></ion-spinner>
-        </ion-button>
-    </ion-toolbar>
+@if (stepPreference && stepFeeding) {
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-padding toolbar-center ion-text-center">
+    <ion-button (click)="postPlan()" class="save-button submit-btn" fill="solid" shape="round">
+      <ion-label [ngClass]="{ 'invisible-label': isLoading }">Ver mis resultados</ion-label>
+      @if(isLoading){
+      <ion-spinner name="crescent" class="spinner-center"></ion-spinner>
+      }
+    </ion-button>
+  </ion-toolbar>
 </ion-footer>
+}

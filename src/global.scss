@@ -30,6 +30,22 @@
 
 ion-button {
   text-transform: none;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5rem;
+  letter-spacing: 0.016px;
+}
+
+// Remove header and toolbar shadows globally
+ion-header {
+  box-shadow: none !important;
+}
+
+ion-toolbar {
+  --box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .example-content {
@@ -91,11 +107,6 @@ ion-radio[aria-checked="true"]::part(container) {
 ion-checkbox {
   --size: 25px;
   --checkbox-background-checked: #1da4b1;
-}
-
-ion-checkbox::part(container) {
-  border-radius: 6px;
-  border: 2px solid #1da4b1;
 }
 
 .custom-input {
@@ -244,30 +255,29 @@ ion-item.custom-input:focus-within {
 }
 
 .confirm-button-danger {
-  border-radius: 20px!important;
-  padding-top: 10px!important;
-  padding-right: 20px!important;
-  padding-bottom: 10px!important;
-  padding-left: 20px!important;
-  background: #1da4b1!important;
-  color: white!important;
-  text-transform: capitalize!important;
+  border-radius: 20px !important;
+  padding-top: 10px !important;
+  padding-right: 20px !important;
+  padding-bottom: 10px !important;
+  padding-left: 20px !important;
+  background: #1da4b1 !important;
+  color: white !important;
+  text-transform: capitalize !important;
 }
 
 .cancel-button {
-  width: 104!important;
-  height: 40!important;
-  gap: 10px!important;
-  border-radius: 20px!important;
-  border-width: 1px!important;
-  padding-top: 10px!important;
-  padding-right: 20px!important;
-  padding-bottom: 10px!important;
-  padding-left: 20px!important;
-  border: 1px solid #1da4b1!important;
-  color: #1da4b1!important;
-  text-transform: capitalize!important;
-
+  width: 104 !important;
+  height: 40 !important;
+  gap: 10px !important;
+  border-radius: 20px !important;
+  border-width: 1px !important;
+  padding-top: 10px !important;
+  padding-right: 20px !important;
+  padding-bottom: 10px !important;
+  padding-left: 20px !important;
+  border: 1px solid #1da4b1 !important;
+  color: #1da4b1 !important;
+  text-transform: capitalize !important;
 }
 
 ion-toast.custom-toast {
@@ -286,21 +296,34 @@ ion-toast.custom-toast {
   z-index: 9999;
 }
 
+.auto-height-modal {
+  ion-modal {
+    --height: auto;
+    --border-radius: 16px 16px 0 0;
+    --backdrop-opacity: 0.4;
+  }
+}
+
 ion-toast.danger-icon {
   --background: #e3e3e3;
   text-align: center;
-  
+
   font-family: "Red Hat Display", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   color: #454545;
   z-index: 9999;
-  
+
   ion-icon {
     color: #fc3636 !important;
   }
-  
+
   &::part(icon) {
     color: #fc3636 !important;
   }
+}
+
+.custom-modal {
+  --height: auto;
+  --max-height: 90vh;
 }
