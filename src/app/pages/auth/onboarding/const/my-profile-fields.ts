@@ -308,7 +308,7 @@ export const baseNumberCountry: Base = {
             maxLength: 15,
           },
           code: {
-            prefix: 'Otros',
+            prefix: '0',
             maxLength: 1,
             minLength: 1,
           },
