@@ -190,9 +190,7 @@ export class OnboardingPage implements AfterViewInit, OnInit, OnDestroy {
   async usedMail(value: string): Promise<boolean | null> {
     this.destroy$.next();
     try {
-      const res: any = await firstValueFrom(
-        this.userService.getUsedMail(this.userId!, value).pipe(takeUntil(this.destroy$))
-      );
+      const res: any = await firstValueFrom(this.userService.getUsedMail(value).pipe(takeUntil(this.destroy$)));
       if (res === true) {
         await this.emailRegistered(value);
         return true;

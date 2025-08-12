@@ -77,7 +77,7 @@ export class CustomInputComponent implements OnInit {
         case 'required':
           return 'Este campo es requerido';
         case 'minlength':
-          return `Este campo debe tener mas de ${errors[key].requiredLength} caracteres`;
+          return `Este campo debe tener mas de ${errors[key].requiredLength - 1} caracteres`;
         case 'maxlength':
           return `Este campo debe tener menos de ${errors[key].requiredLength + 1} caracteres`;
         case 'min':
@@ -90,6 +90,8 @@ export class CustomInputComponent implements OnInit {
           return 'El código de área no puede comenzar con 9 o 0';
         case 'invalidPhoneNumberStart':
           return 'El número de teléfono no puede comenzar con 15 o 0';
+        case 'emailDuplicate':
+          return 'El correo electrónico ya está en uso';
         case 'pattern':
           if (this.type === 'tel' || this.label === 'Teléfono') {
             return 'Este campo solo permite números, espacios y el símbolo +';

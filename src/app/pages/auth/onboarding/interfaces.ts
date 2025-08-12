@@ -57,7 +57,7 @@ export interface OnBoardingBasicInfoPatch {
 }
 
 export interface OnBoardingContactPatch {
-  email: string | null;
+  email: string;
   cellphoneNumber: TelephoneNumber | null;
   telephoneNumber: TelephoneNumber | null;
 }
@@ -94,7 +94,7 @@ export interface TelephoneNumber {
   countryCode: string | null;
   areaCode: string | null;
   phoneNumber: string | null;
-  id: string | null;
+  id: number;
 }
 
 export interface Localidad {
