@@ -169,7 +169,8 @@ export class UserService {
     return this.http.get(`${environment.apiBaseUrl}${environment.apiVersion}/users/onboarding/${id}`);
   }
 
-  getUsedMail(userId: number, mail: string) {
+  getUsedMail(mail: string) {
+    const userId = this.userState.userData()?.id;
     return this.http.get(
       `${environment.apiBaseUrl}${environment.apiVersion}/users/emailValidate?id=${userId}&email=${mail}`
     );
