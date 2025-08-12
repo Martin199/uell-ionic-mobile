@@ -94,7 +94,7 @@ export class ContactModalComponent implements OnInit {
     this.countryCodes = Object.entries(countryValidations).map(([countryName, validations]) => ({
       value: validations.phoneValidations?.code.prefix || '',
       label: countryName,
-      prefix: validations.phoneValidations?.code.prefix || '',
+      prefix: validations.phoneValidations?.code.prefix === '0' ? 'Otros' : validations.phoneValidations?.code.prefix,
       id: validations.countryCode || 0,
       validations: validations.phoneValidations || {
         code: { prefix: '', minLength: 1, maxLength: 4 },
@@ -104,7 +104,7 @@ export class ContactModalComponent implements OnInit {
   }
 
   private updateValidationsForCountry(countryCode: string) {
-    const selectedCountry = this.countryCodes.find(country => country.prefix === countryCode);
+    const selectedCountry = this.countryCodes.find(country => country.value === countryCode);
     if (!selectedCountry) {
       console.error('No se encontró el país');
       return;
