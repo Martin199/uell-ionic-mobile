@@ -116,6 +116,6 @@ export function notCommonPassword(control: AbstractControl): ValidationErrors | 
   const value = control.value;
   if (!value) return null;
 
-  const isCommon = COMMON_PASSWORDS.includes(value.trim().toLowerCase());
+  const isCommon = COMMON_PASSWORDS.includes(value.trim());
   return isCommon ? { commonPassword: true } : null;
 }

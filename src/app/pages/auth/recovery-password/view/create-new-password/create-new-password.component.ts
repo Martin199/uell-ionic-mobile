@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { interval, take } from 'rxjs';
 import { ICodeDeliveryDetails, IUserCredentials } from 'src/app/core/interfaces/auth.interfaces';
 import { LoginService } from 'src/app/services/login.service';
@@ -8,6 +8,7 @@ import { CognitoService } from 'src/app/core/services/cognito.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { addIcons } from "ionicons";
 import { closeCircleOutline, checkmarkCircleOutline } from "ionicons/icons";
+import { COMMON_PASSWORDS } from '../../../const/common-password.constants';
 
 @Component({
     selector: 'app-create-new-password',
@@ -43,7 +44,7 @@ export class CreateNewPasswordComponent implements OnInit {
                 new FormControl('', [Validators.required, CustomValidators.noSpaces]),
                 new FormControl('', [Validators.required, CustomValidators.noSpaces])
             ]),
-            newPassword: ['', [Validators.required, Validators.minLength(12), CustomValidators.customPasswordValidation]]
+            newPassword: ['', [Validators.required, Validators.minLength(12), CustomValidators.customPasswordValidation, notCommonPassword]]
         });
         addIcons({ closeCircleOutline, checkmarkCircleOutline });
 
@@ -149,4 +150,12 @@ export class CreateNewPasswordComponent implements OnInit {
         });
     }
 
+}
+
+export function notCommonPassword(control: AbstractControl): ValidationErrors | null {
+  const value = control.value;
+  if (!value) return null;
+
+  const isCommon = COMMON_PASSWORDS.includes(value.trim());
+  return isCommon ? { commonPassword: true } : null;
 }

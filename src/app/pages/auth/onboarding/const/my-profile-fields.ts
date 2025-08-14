@@ -85,11 +85,11 @@ export interface PhoneValidations {
     minLength: number;
     maxLength: number;
   };
-  area?: {
+  area: {
     prefix?: string;
     minLength: number;
     maxLength: number;
-    required?: boolean;
+    required: boolean;
   };
   phoneNumber: {
     minLength: number;
@@ -123,7 +123,7 @@ export interface AddressValidations {
 export interface CountryValidations {
   [countryName: string]: {
     countryCode: number;
-    phoneValidations?: PhoneValidations;
+    phoneValidations: PhoneValidations;
     addressValidations: AddressValidations;
   };
 }
@@ -308,7 +308,7 @@ export const baseNumberCountry: Base = {
             maxLength: 15,
           },
           code: {
-            prefix: 'Otros',
+            prefix: '0',
             maxLength: 1,
             minLength: 1,
           },
